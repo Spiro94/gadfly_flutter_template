@@ -1,0 +1,10 @@
+signIn:
+  signInSuccess: 'Sign In (Success)'
+  signInFail: 'Sign In (Fail)'
+  unhandledException: 'Unhandled Exception'
+  snackbar:
+    signInError: 'Could not sign in.'
+
+home:
+  signedInAt: 'Signed in on: $now'
+  signOut: 'Sign Out'

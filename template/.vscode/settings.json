@@ -1,0 +1,18 @@
+{
+    "search.exclude": {
+        "**/.fvm": true
+    },
+    // Remove from file watching
+    "files.watcherExclude": {
+        "**/.fvm": true
+    },
+    "separators.enabledSymbols": [
+        "Classes",
+        "Enums",
+        "Functions",
+        "Interfaces",
+        "Methods",
+        "Namespaces",
+        "Structs"
+    ]
+}
