@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../blocs/auth/bloc.dart';
-import '../../../../../blocs/auth/event.dart';
 import '../../../../../effects/now/effect.dart';
 import '../../../../../effects/now/provider.dart';
 import '../../../../../i18n/translations.g.dart';
