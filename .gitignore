@@ -3,4 +3,4 @@ template/web
 template/ios
 temp/
 projects/
-.fvm/flutter_sdk
+flutter_sdk
