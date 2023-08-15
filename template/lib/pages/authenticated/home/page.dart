@@ -2,8 +2,8 @@ import 'package:app_theme/app_theme.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import 'widgets/connector/sign_in_at_text.dart';
 import 'widgets/connector/sign_out_button.dart';
+import 'widgets/connector/signed_in_at_text.dart';
 
 @RoutePage()
 class Home_Page extends StatelessWidget {

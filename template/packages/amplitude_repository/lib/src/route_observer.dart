@@ -20,9 +20,10 @@ class AmplitudeRouteObserver extends AutoRouteObserver {
     required Route<dynamic>? previousRoute,
     required bool popped,
   }) {
-    // We use widgets ending in _Flow to coordinate pages. Because of this, we
-    // do not report _Flow screens and on report _Page screens.
-    if (route.settings.name != null && !route.settings.name!.contains('Flow')) {
+    // We use widgets ending in _Routes to coordinate pages. Because of this, we
+    // do not report _Routes screens and on report _Page screens.
+    if (route.settings.name != null &&
+        !route.settings.name!.contains('_Routes')) {
       amplitudeRepository.page(
         event: route.settings.name!,
         popped: popped,
