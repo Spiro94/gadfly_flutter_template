@@ -49,3 +49,4 @@ coverage
 failures
 goldens
 custom_lint.log
+.fvm/flutter_sdk
