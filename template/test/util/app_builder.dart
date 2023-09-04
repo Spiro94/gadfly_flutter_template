@@ -8,7 +8,6 @@ import 'util.dart';
 
 FutureOr<Widget> testAppBuilder({
   required Key key,
-  required String? accessToken,
   required MocksContainer mocks,
 }) async {
   return await appBuilder(

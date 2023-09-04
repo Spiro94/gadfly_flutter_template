@@ -29,9 +29,7 @@ void main() {
 
   flowTest(
     'AC1',
-    config: createFlowConfig(
-      hasAccessToken: false,
-    ),
+    config: createFlowConfig(),
     descriptions: [
       ...baseDescriptions,
       FTDescription(
@@ -104,9 +102,7 @@ void main() {
 
   flowTest(
     'AC2',
-    config: createFlowConfig(
-      hasAccessToken: false,
-    ),
+    config: createFlowConfig(),
     descriptions: [
       ...baseDescriptions,
       FTDescription(
@@ -175,9 +171,7 @@ void main() {
 
   flowTest(
     'AC3',
-    config: createFlowConfig(
-      hasAccessToken: false,
-    ),
+    config: createFlowConfig(),
     descriptions: [
       ...baseDescriptions,
       FTDescription(

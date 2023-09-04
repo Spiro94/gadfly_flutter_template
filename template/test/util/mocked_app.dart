@@ -9,15 +9,11 @@ import 'package:mocktail/mocktail.dart';
 
 import 'util.dart';
 
-List<MockedApp> createdMockedApps({
-  required bool hasAccessToken,
-}) =>
-    [
+List<MockedApp> createdMockedApps() => [
       MockedApp(
         key: const Key('app'),
         events: [],
         mocks: MocksContainer(),
-        accessToken: hasAccessToken ? 'fakeAccessToken' : null,
       )
     ];
 
@@ -26,12 +22,10 @@ class MockedApp extends FTMockedApp<MocksContainer> {
     required Key key,
     required super.events,
     required super.mocks,
-    required String? accessToken,
   }) : super(
           appBuilder: () async => await testAppBuilder(
             key: key,
             mocks: mocks,
-            accessToken: accessToken,
           ),
         );
 }

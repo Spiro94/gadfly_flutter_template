@@ -2,11 +2,8 @@ import 'package:flow_test/flow_test.dart';
 
 import 'util.dart';
 
-FTConfig<MocksContainer> createFlowConfig({
-  required bool hasAccessToken,
-}) =>
-    FTConfig<MocksContainer>(
-      mockedApps: createdMockedApps(hasAccessToken: hasAccessToken),
+FTConfig<MocksContainer> createFlowConfig() => FTConfig<MocksContainer>(
+      mockedApps: createdMockedApps(),
       createBlocObserver: createTestBlocObserver,
       onListItemRegexes: [
         FTOnRegexMatch(

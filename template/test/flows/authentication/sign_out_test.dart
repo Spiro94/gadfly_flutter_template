@@ -26,9 +26,7 @@ void main() {
 
   flowTest(
     'AC1',
-    config: createFlowConfig(
-      hasAccessToken: false,
-    ),
+    config: createFlowConfig(),
     descriptions: [
       ...baseDescriptions,
       FTDescription(
