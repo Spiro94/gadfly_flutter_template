@@ -4,6 +4,7 @@
         {
             "name": "development",
             "request": "launch",
+            "cwd": "app",
             "type": "dart",
             "program": "lib/main/development.dart",
             "args": [
@@ -16,6 +17,7 @@
         {
             "name": "development w/ devtools",
             "request": "launch",
+            "cwd": "app",
             "type": "dart",
             "program": "lib/main/development_with_redux_devtools.dart",
             "args": [
@@ -28,6 +30,7 @@
         {
             "name": "development & send event",
             "request": "launch",
+            "cwd": "app",
             "type": "dart",
             "program": "lib/main/development_and_send_events.dart",
             "args": [
@@ -40,6 +43,7 @@
         {
             "name": "production",
             "request": "launch",
+            "cwd": "app",
             "type": "dart",
             "program": "lib/main/production.dart",
             "args": [
