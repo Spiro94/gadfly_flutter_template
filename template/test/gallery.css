@@ -1,0 +1,19 @@
+.md-grid {
+    max-width: 90% !important;
+}
+
+h2 {
+    color: firebrick;
+}
+
+li.track {
+    color: purple;
+}
+
+li.page {
+    color: coral;
+}
+
+li.log {
+    color: grey;
+}

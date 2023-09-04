@@ -48,6 +48,8 @@ app.*.map.json
 coverage
 failures
 goldens
+screenshots
+gallery
 custom_lint.log
 flutter_sdk
 pubspec.lock

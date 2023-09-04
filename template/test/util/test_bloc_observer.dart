@@ -1,45 +1,54 @@
-import 'package:amplitude_repository/amplitude_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flow_test/flow_test.dart';
+import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
 
-/// A bloc observer for tests.
-class TestBlocObserver extends BlocObserver {
+import 'util.dart';
+
+TestBlocObserver createTestBlocObserver(FTMockedApp<MocksContainer> mockedApp) {
+  return TestBlocObserver(
+    mockedApp: mockedApp,
+  );
+}
+
+class TestBlocObserver extends FTBlocObserver<MocksContainer> {
   TestBlocObserver({
-    required this.amplitudeRepository,
+    required super.mockedApp,
   });
 
-  final AmplitudeRepository amplitudeRepository;
-
-  final List<Object> _observedEvents = [];
-
   @override
-  void onEvent(Bloc<dynamic, dynamic> bloc, Object? event) {
-    _observedEvents.add(event.runtimeType);
-    super.onEvent(bloc, event);
-  }
-
-  /// Returns all observed events and clears the list.
-  List<Object> getAndResetObservedEvents() {
-    final eventsToReturn = List<Object>.from(_observedEvents);
-    _observedEvents.clear();
-    return eventsToReturn;
-  }
-
   Future<void> init() async {
+    _mockLogger();
+    await _mockAmplitude();
+    return super.init();
+  }
+
+  void _mockLogger() {
+    Logger.root.level = Level.INFO;
+    Logger.root.onRecord.listen(
+      (record) {
+        mockedApp.events.add(
+          'LOG: [${record.loggerName}] ${record.level.name}: ${record.message}',
+        );
+      },
+    );
+  }
+
+  Future<void> _mockAmplitude() async {
     /// Track
     when(
-      () => amplitudeRepository.track(
+      () => mockedApp.mocks.amplitudeRepository.track(
         event: any(named: 'event'),
         properties: any(named: 'properties'),
       ),
     ).thenAnswer((invocation) async {
       final name = invocation.namedArguments[const Symbol('event')];
-      _observedEvents.add('Track: $name');
+      mockedApp.events.add('Track: $name');
+      return;
     });
 
     /// Page
     when(
-      () => amplitudeRepository.page(
+      () => mockedApp.mocks.amplitudeRepository.page(
         event: any(named: 'event'),
         properties: any(named: 'properties'),
         popped: any(named: 'popped'),
@@ -53,10 +62,11 @@ class TestBlocObserver extends BlocObserver {
 
       final nameSanitized = name.replaceAll('_Route', '');
       if (invocation.namedArguments[const Symbol('popped')] as bool) {
-        _observedEvents.add('Page popped: $nameSanitized');
+        mockedApp.events.add('Page popped: $nameSanitized');
       } else {
-        _observedEvents.add('Page: $nameSanitized');
+        mockedApp.events.add('Page: $nameSanitized');
       }
+      return;
     });
   }
 }

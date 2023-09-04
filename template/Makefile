@@ -38,7 +38,7 @@ slang_watch:
 coverage_check:
 	cd app && \
 	rm -rf coverage && \
-	fvm flutter test --no-pub --test-randomize-ordering-seed random --coverage && \
+	fvm flutter test --no-pub --test-randomize-ordering-seed random --coverage --dart-define silenceLogs=true && \
 	lcov --remove coverage/lcov.info -o coverage/filtered.info \
 		'**/*.g.dart' \
 		'**/*.gr.dart' \
@@ -48,11 +48,17 @@ coverage_check:
 
 screenshots_delete:
 	cd app && \
+	rm -rf test/gallery && \
 	find . -type d -name "failures" -exec rm -rf {} + && \
-	find . -type d -name "goldens" -exec rm -rf {} +
+	find . -type d -name "screenshots" -exec rm -rf {} +
 
 screenshots_update:
 	cd app && \
+	rm -rf test/gallery && \
 	find . -type d -name "failures" -exec rm -rf {} + && \
-	find . -type d -name "goldens" -exec rm -rf {} + && \
-	fvm flutter test --update-goldens --dart-define createScreenshots=true
+	find . -type d -name "screenshots" -exec rm -rf {} + && \
+	fvm flutter test --update-goldens --dart-define createScreenshots=true --dart-define silenceLogs=true
+
+gallery:
+	cd app && \
+	mkdocs serve

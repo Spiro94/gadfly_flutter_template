@@ -1,31 +1,41 @@
 import 'package:amplitude_repository/amplitude_repository.dart';
+import 'package:flow_test/flow_test.dart';
 import 'package:flutter/material.dart';
-import 'package:gadfly_flutter_template/app/builder.dart';
-import 'package:gadfly_flutter_template/app/theme.dart';
 import 'package:gadfly_flutter_template/effects/now/provider.dart';
 import 'package:gadfly_flutter_template/effects/shared_preferences/provider.dart';
 import 'package:gadfly_flutter_template/repositories/auth/repository.dart';
+
 import 'package:mocktail/mocktail.dart';
 
-class MockedApp {
-  const MockedApp(this.mocks);
+import 'util.dart';
 
-  final MocksContainer mocks;
+List<MockedApp> createdMockedApps({
+  required bool hasAccessToken,
+}) =>
+    [
+      MockedApp(
+        key: const Key('app'),
+        events: [],
+        mocks: MocksContainer(),
+        accessToken: hasAccessToken ? 'fakeAccessToken' : null,
+      )
+    ];
 
-  Future<Widget> mockedAppBuilder() async {
-    return appBuilder(
-      themeMode: ThemeMode.light,
-      themeDataLight: appThemeDataLight,
-      themeDataDark: appThemeDataDark,
-      nowEffectProvider: mocks.nowEffectProvider,
-      sharedPreferencesEffectProvider: mocks.sharedPreferencesEffectProvider,
-      authRepository: mocks.authRepository,
-      amplitudeRepository: mocks.amplitudeRepository,
-    );
-  }
+class MockedApp extends FTMockedApp<MocksContainer> {
+  MockedApp({
+    required Key key,
+    required super.events,
+    required super.mocks,
+    required String? accessToken,
+  }) : super(
+          appBuilder: () async => await testAppBuilder(
+            key: key,
+            mocks: mocks,
+            accessToken: accessToken,
+          ),
+        );
 }
 
-/// Container for mocks.
 class MocksContainer {
   final nowEffectProvider = MockNowEffectProvider();
 
