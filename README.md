@@ -4,6 +4,8 @@ This is for personal use, so I don't recommend using it. It is not documented an
 
 ## Setup
 
+### FVM
+
 Install [FVM](https://fvm.app/)
 
 ```sh
@@ -21,6 +23,12 @@ fvm flutter version
 ```
 
 The version should be `3.12.0`
+
+### Supabase
+
+```sh
+brew install supabase/tap/supabase
+```
 
 ## Usage
 

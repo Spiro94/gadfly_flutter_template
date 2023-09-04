@@ -120,13 +120,13 @@ make slang_watch
 ### Update flutter dependences
 
 ```sh
-make get
+make flutter_get
 ```
 
 ### Clean flutter build
 
 ```sh
-make clean
+make flutter_clean
 ```
 
 ## Testing

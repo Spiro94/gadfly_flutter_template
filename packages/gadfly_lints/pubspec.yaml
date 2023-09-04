@@ -2,7 +2,7 @@ name: gadfly_lints
 publish_to: none
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=3.0.1 <4.0.0'
 
 dependencies:
   analyzer: ^5.0.0

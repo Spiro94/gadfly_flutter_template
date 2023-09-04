@@ -1,17 +1,15 @@
-name: amplitude_repository
+name: app_theme
 version: 0.1.0+1
 publish_to: none
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
-  flutter: 3.10.5
+  sdk: '>=3.0.1 <4.0.0'
+  flutter: 3.12.0
 
 dependencies:
-  amplitude_flutter: ^3.16.0
-  auto_route: ^7.2.0
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
-  logging: 1.1.1
 
 dev_dependencies:
   flutter_test:
