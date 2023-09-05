@@ -14,24 +14,25 @@ class PiecesPainter<T> extends CustomPainter {
     required this.debugMode,
     required this.defaultDebugBrush,
     required this.pieces,
-    required this.extras,
+    required this.data,
   });
 
   final PiecesPainterDebugMode debugMode;
   final Paint defaultDebugBrush;
   final List<PieceToPaint<T>> pieces;
-  final T extras;
+  final T data;
 
   bool get shouldDebug => debugMode != PiecesPainterDebugMode.none;
 
   void _paintPieces({
     required List<PieceToPaint<T>> pieces,
     required Canvas canvas,
-    required T extras,
+    required T data,
     required Size size,
     required Paint debugBrush,
     required bool debugPiece,
     required String? debugLabel,
+    required TextStyle? debugLabelStyle,
   }) {
     if (debugPiece) {
       canvas.drawRect(
@@ -46,11 +47,7 @@ class PiecesPainter<T> extends CustomPainter {
         final textPainter = TextPainter(
           text: TextSpan(
             text: debugLabel,
-            style: TextStyle(
-              color: debugBrush.color,
-              height: 1,
-              fontSize: 12,
-            ),
+            style: debugLabelStyle,
           ),
           textDirection: ui.TextDirection.ltr,
         )..layout(
@@ -69,21 +66,20 @@ class PiecesPainter<T> extends CustomPainter {
         case ContainerPieceToPaint():
           if (piece.debug != null && piece.debug!.hide) break;
           canvas.save();
-          piece.createPiece?.call(
-            CreatePieceTool(canvas: canvas, size: size, data: extras),
+          final updatedSize = piece.createPiece?.call(
+            CreatePieceTool(canvas: canvas, size: size, data: data),
           );
-
-          final updatedSize = piece.setSize?.call(size);
 
           if (piece.children != null) {
             _paintPieces(
               pieces: piece.children!,
               canvas: canvas,
-              extras: extras,
+              data: data,
               size: updatedSize ?? size,
               debugBrush: piece.debug?.brush ?? defaultDebugBrush,
-              debugPiece: shouldDebug || (piece.debug?.debug ?? false),
+              debugPiece: piece.debug?.debug ?? shouldDebug,
               debugLabel: piece.debug?.label,
+              debugLabelStyle: piece.debug?.labelStyle,
             );
           }
           canvas.restore();
@@ -96,7 +92,7 @@ class PiecesPainter<T> extends CustomPainter {
           }
 
           piece.createPiece(
-            CreatePieceTool(canvas: canvas, size: size, data: extras),
+            CreatePieceTool(canvas: canvas, size: size, data: data),
           );
       }
     }
@@ -108,10 +104,11 @@ class PiecesPainter<T> extends CustomPainter {
       pieces: pieces,
       canvas: canvas,
       size: size,
-      extras: extras,
+      data: data,
       debugBrush: defaultDebugBrush,
       debugPiece: shouldDebug,
       debugLabel: null,
+      debugLabelStyle: null,
     );
   }
 

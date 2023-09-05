@@ -14,14 +14,16 @@ class CreatePieceTool<T> {
 
 class DebugPiece {
   DebugPiece({
-    this.debug = false,
+    this.debug,
     this.brush,
     this.label,
+    this.labelStyle,
     this.hide = false,
   });
 
-  final bool debug;
+  final bool? debug;
   final String? label;
+  final TextStyle? labelStyle;
   final Paint? brush;
   final bool hide;
 }
@@ -33,11 +35,9 @@ class ContainerPieceToPaint<T> extends PieceToPaint<T> {
     required this.children,
     this.debug,
     this.createPiece,
-    this.setSize,
   });
 
-  final void Function(CreatePieceTool<T> tool)? createPiece;
-  final Size Function(Size size)? setSize;
+  final Size Function(CreatePieceTool<T> tool)? createPiece;
 
   final DebugPiece? debug;
 
