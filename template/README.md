@@ -37,6 +37,20 @@ pyenv shell 2.7.18
 npm install -g remotedev-server
 ```
 
+### Mkdocs
+
+Install mkdocs.
+
+```sh
+brew install mkdocs
+```
+
+Install mkdocs theme.
+
+```sh
+pip install mkdocs-material
+```
+
 ### Web and Amplitude
 
 Add the following script to `web/index.html` file.
