@@ -12,7 +12,9 @@ flutter_clean:
 	fvm flutter clean packages/amplitude_repository
 	fvm flutter clean packages/app_theme
 	fvm flutter clean packages/device_info_provider
+	fvm flutter clean packages/flow_test
 	fvm flutter clean packages/gadfly_lints
+	fvm flutter clean packages/pieces_painter
 	fvm flutter clean packages/sentry_repository	
 	fvm flutter clean app
 
