@@ -13,7 +13,7 @@ brew tap leoafarias/fvm
 
 brew install fvm
 
-fvm install 3.12.0
+fvm install 3.13.3
 ```
 
 Then be sure to close your editor and reopen it. Run the following in a terminal at this projects path.
@@ -22,7 +22,7 @@ Then be sure to close your editor and reopen it. Run the following in a terminal
 fvm flutter version
 ```
 
-The version should be `3.12.0`
+The version should be `3.13.3`
 
 ### Supabase
 

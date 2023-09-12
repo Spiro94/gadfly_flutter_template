@@ -9,14 +9,22 @@ flutter_get:
 	fvm flutter pub get -C app
 
 flutter_clean:
-	fvm flutter clean packages/amplitude_repository
-	fvm flutter clean packages/app_theme
-	fvm flutter clean packages/device_info_provider
-	fvm flutter clean packages/flow_test
-	fvm flutter clean packages/gadfly_lints
-	fvm flutter clean packages/pieces_painter
-	fvm flutter clean packages/sentry_repository	
-	fvm flutter clean app
+	cd packages/amplitude_repository && \
+	fvm flutter clean && \
+	cd ../app_theme && \
+	fvm flutter clean && \
+	cd ../device_info_provider && \
+	fvm flutter clean && \
+	cd ../flow_test && \
+	fvm flutter clean && \
+	cd ../gadfly_lints && \
+	fvm flutter clean && \
+	cd ../pieces_painter && \
+	fvm flutter clean && \
+	cd ../sentry_repository && \
+	fvm flutter clean && \
+	cd ../../app && \
+	fvm flutter clean
 
 redux_devtools_server:
 	remotedev --port 8001
