@@ -8,8 +8,6 @@ class AppBlocObserver extends BlocObserver {
 
   @override
   void onEvent(Bloc<dynamic, dynamic> bloc, Object? event) {
-    log.fine('[${bloc.runtimeType}] ${event.runtimeType}');
-
     super.onEvent(bloc, event);
   }
 

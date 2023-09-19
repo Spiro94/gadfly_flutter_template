@@ -8,38 +8,20 @@ enum AuthStatus {
   authenticated,
 }
 
-enum AuthSignInStatus {
-  idle,
-  error,
-}
-
 @JsonSerializable()
 class AuthState extends Equatable {
   const AuthState({
     required this.status,
-    required this.authToken,
-    required this.signInStatus,
+    required this.accessToken,
   });
 
   final AuthStatus status;
-  final String? authToken;
-  final AuthSignInStatus signInStatus;
-
-  /// Only use [copyWith] if changing the [signInStatus], otherwise recreate the
-  /// [AuthState] from scratch.
-  AuthState copyWith(AuthSignInStatus signInStatus) {
-    return AuthState(
-      status: status,
-      authToken: authToken,
-      signInStatus: signInStatus,
-    );
-  }
+  final String? accessToken;
 
   @override
   List<Object?> get props => [
         status,
-        authToken,
-        signInStatus,
+        accessToken,
       ];
 
   // coverage:ignore-start

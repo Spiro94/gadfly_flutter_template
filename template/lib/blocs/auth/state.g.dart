@@ -8,23 +8,15 @@ part of 'state.dart';
 
 AuthState _$AuthStateFromJson(Map<String, dynamic> json) => AuthState(
       status: $enumDecode(_$AuthStatusEnumMap, json['status']),
-      authToken: json['authToken'] as String?,
-      signInStatus:
-          $enumDecode(_$AuthSignInStatusEnumMap, json['signInStatus']),
+      accessToken: json['accessToken'] as String?,
     );
 
 Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
       'status': _$AuthStatusEnumMap[instance.status]!,
-      'authToken': instance.authToken,
-      'signInStatus': _$AuthSignInStatusEnumMap[instance.signInStatus]!,
+      'accessToken': instance.accessToken,
     };
 
 const _$AuthStatusEnumMap = {
   AuthStatus.unauthentcated: 'unauthentcated',
   AuthStatus.authenticated: 'authenticated',
-};
-
-const _$AuthSignInStatusEnumMap = {
-  AuthSignInStatus.idle: 'idle',
-  AuthSignInStatus.error: 'error',
 };

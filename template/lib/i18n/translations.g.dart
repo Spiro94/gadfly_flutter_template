@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 6
+/// Strings: 28
 ///
-/// Built on 2023-08-15 at 00:06 UTC
+/// Built on 2023-09-19 at 23:14 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -150,7 +150,11 @@ class TranslationsEn implements BaseTranslations<AppLocale, TranslationsEn> {
 
 	// Translations
 	late final TranslationsSignInEn signIn = TranslationsSignInEn._(_root);
+	late final TranslationsSignUpEn signUp = TranslationsSignUpEn._(_root);
+	late final TranslationsForgotPasswordEn forgotPassword = TranslationsForgotPasswordEn._(_root);
+	late final TranslationsForgotPasswordConfirmationEn forgotPasswordConfirmation = TranslationsForgotPasswordConfirmationEn._(_root);
 	late final TranslationsHomeEn home = TranslationsHomeEn._(_root);
+	late final TranslationsResetPasswordEn resetPassword = TranslationsResetPasswordEn._(_root);
 }
 
 // Path: signIn
@@ -160,10 +164,52 @@ class TranslationsSignInEn {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	String get signInSuccess => 'Sign In (Success)';
-	String get signInFail => 'Sign In (Fail)';
-	String get unhandledException => 'Unhandled Exception';
-	late final TranslationsSignInSnackbarEn snackbar = TranslationsSignInSnackbarEn._(_root);
+	String get title => 'Sign In';
+	late final TranslationsSignInFormEn form = TranslationsSignInFormEn._(_root);
+	late final TranslationsSignInCtasEn ctas = TranslationsSignInCtasEn._(_root);
+	TextSpan forgotPassword({required InlineSpanBuilder tapHere}) => TextSpan(children: [
+		tapHere('Forgot Password'),
+	]);
+	TextSpan newUserSignUp({required InlineSpanBuilder tapHere}) => TextSpan(children: [
+		const TextSpan(text: 'New User? '),
+		tapHere('Sign Up'),
+	]);
+}
+
+// Path: signUp
+class TranslationsSignUpEn {
+	TranslationsSignUpEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Sign Up';
+	late final TranslationsSignUpFormEn form = TranslationsSignUpFormEn._(_root);
+	late final TranslationsSignUpCtasEn ctas = TranslationsSignUpCtasEn._(_root);
+}
+
+// Path: forgotPassword
+class TranslationsForgotPasswordEn {
+	TranslationsForgotPasswordEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Forgot Password';
+	late final TranslationsForgotPasswordFormEn form = TranslationsForgotPasswordFormEn._(_root);
+	late final TranslationsForgotPasswordCtasEn ctas = TranslationsForgotPasswordCtasEn._(_root);
+}
+
+// Path: forgotPasswordConfirmation
+class TranslationsForgotPasswordConfirmationEn {
+	TranslationsForgotPasswordConfirmationEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Check your inbox.';
+	String get subtitle => 'If this email is valid, you should receive a log-in link within a few minutes.';
+	late final TranslationsForgotPasswordConfirmationCtasEn ctas = TranslationsForgotPasswordConfirmationCtasEn._(_root);
 }
 
 // Path: home
@@ -173,18 +219,191 @@ class TranslationsHomeEn {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	String signedInAt({required Object now}) => 'Signed in on: ${now}';
-	String get signOut => 'Sign Out';
+	String get title => 'Home';
 }
 
-// Path: signIn.snackbar
-class TranslationsSignInSnackbarEn {
-	TranslationsSignInSnackbarEn._(this._root);
+// Path: resetPassword
+class TranslationsResetPasswordEn {
+	TranslationsResetPasswordEn._(this._root);
 
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	String get signInError => 'Could not sign in.';
+	String get title => 'Reset Password';
+}
+
+// Path: signIn.form
+class TranslationsSignInFormEn {
+	TranslationsSignInFormEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsSignInFormEmailEn email = TranslationsSignInFormEmailEn._(_root);
+	late final TranslationsSignInFormPasswordEn password = TranslationsSignInFormPasswordEn._(_root);
+}
+
+// Path: signIn.ctas
+class TranslationsSignInCtasEn {
+	TranslationsSignInCtasEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get signIn => 'Sign In';
+	String get error => 'Could not sign in.';
+}
+
+// Path: signUp.form
+class TranslationsSignUpFormEn {
+	TranslationsSignUpFormEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsSignUpFormEmailEn email = TranslationsSignUpFormEmailEn._(_root);
+	late final TranslationsSignUpFormPasswordEn password = TranslationsSignUpFormPasswordEn._(_root);
+}
+
+// Path: signUp.ctas
+class TranslationsSignUpCtasEn {
+	TranslationsSignUpCtasEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get signUp => 'Sign Up';
+	String get error => 'Could not sign up.';
+}
+
+// Path: forgotPassword.form
+class TranslationsForgotPasswordFormEn {
+	TranslationsForgotPasswordFormEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsForgotPasswordFormEmailEn email = TranslationsForgotPasswordFormEmailEn._(_root);
+}
+
+// Path: forgotPassword.ctas
+class TranslationsForgotPasswordCtasEn {
+	TranslationsForgotPasswordCtasEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get resetPassword => 'Reset Password';
+	String get error => 'Could not reset password.';
+}
+
+// Path: forgotPasswordConfirmation.ctas
+class TranslationsForgotPasswordConfirmationCtasEn {
+	TranslationsForgotPasswordConfirmationCtasEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get resendEmail => 'Re-send Email';
+	String get emailResent => 'Email resent.';
+	String get error => 'Could not resend email.';
+}
+
+// Path: signIn.form.email
+class TranslationsSignInFormEmailEn {
+	TranslationsSignInFormEmailEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get placeholder => 'Email';
+	late final TranslationsSignInFormEmailErrorEn error = TranslationsSignInFormEmailErrorEn._(_root);
+}
+
+// Path: signIn.form.password
+class TranslationsSignInFormPasswordEn {
+	TranslationsSignInFormPasswordEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get placeholder => 'Password';
+}
+
+// Path: signUp.form.email
+class TranslationsSignUpFormEmailEn {
+	TranslationsSignUpFormEmailEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get placeholder => 'Email';
+	late final TranslationsSignUpFormEmailErrorEn error = TranslationsSignUpFormEmailErrorEn._(_root);
+}
+
+// Path: signUp.form.password
+class TranslationsSignUpFormPasswordEn {
+	TranslationsSignUpFormPasswordEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get placeholder => 'Password';
+	TextSpan helpText({required InlineSpanBuilder tapHere}) => TextSpan(children: [
+		tapHere('See password criteria'),
+	]);
+	late final TranslationsSignUpFormPasswordErrorEn error = TranslationsSignUpFormPasswordErrorEn._(_root);
+}
+
+// Path: forgotPassword.form.email
+class TranslationsForgotPasswordFormEmailEn {
+	TranslationsForgotPasswordFormEmailEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get placeholder => 'Email';
+	late final TranslationsForgotPasswordFormEmailErrorEn error = TranslationsForgotPasswordFormEmailErrorEn._(_root);
+}
+
+// Path: signIn.form.email.error
+class TranslationsSignInFormEmailErrorEn {
+	TranslationsSignInFormEmailErrorEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get invalid => 'Please enter a valid email address.';
+}
+
+// Path: signUp.form.email.error
+class TranslationsSignUpFormEmailErrorEn {
+	TranslationsSignUpFormEmailErrorEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get invalid => 'Please enter a valid email address.';
+}
+
+// Path: signUp.form.password.error
+class TranslationsSignUpFormPasswordErrorEn {
+	TranslationsSignUpFormPasswordErrorEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get invalid => 'Minimum 8 characters, upper and lower case, with at least one special character.';
+}
+
+// Path: forgotPassword.form.email.error
+class TranslationsForgotPasswordFormEmailErrorEn {
+	TranslationsForgotPasswordFormEmailErrorEn._(this._root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	String get invalid => 'Please enter a valid email address.';
 }
 
 /// Flat map(s) containing all translations.
@@ -193,12 +412,41 @@ class TranslationsSignInSnackbarEn {
 extension on TranslationsEn {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'signIn.signInSuccess': return 'Sign In (Success)';
-			case 'signIn.signInFail': return 'Sign In (Fail)';
-			case 'signIn.unhandledException': return 'Unhandled Exception';
-			case 'signIn.snackbar.signInError': return 'Could not sign in.';
-			case 'home.signedInAt': return ({required Object now}) => 'Signed in on: ${now}';
-			case 'home.signOut': return 'Sign Out';
+			case 'signIn.title': return 'Sign In';
+			case 'signIn.form.email.placeholder': return 'Email';
+			case 'signIn.form.email.error.invalid': return 'Please enter a valid email address.';
+			case 'signIn.form.password.placeholder': return 'Password';
+			case 'signIn.ctas.signIn': return 'Sign In';
+			case 'signIn.ctas.error': return 'Could not sign in.';
+			case 'signIn.forgotPassword': return ({required InlineSpanBuilder tapHere}) => TextSpan(children: [
+				tapHere('Forgot Password'),
+			]);
+			case 'signIn.newUserSignUp': return ({required InlineSpanBuilder tapHere}) => TextSpan(children: [
+				const TextSpan(text: 'New User? '),
+				tapHere('Sign Up'),
+			]);
+			case 'signUp.title': return 'Sign Up';
+			case 'signUp.form.email.placeholder': return 'Email';
+			case 'signUp.form.email.error.invalid': return 'Please enter a valid email address.';
+			case 'signUp.form.password.placeholder': return 'Password';
+			case 'signUp.form.password.helpText': return ({required InlineSpanBuilder tapHere}) => TextSpan(children: [
+				tapHere('See password criteria'),
+			]);
+			case 'signUp.form.password.error.invalid': return 'Minimum 8 characters, upper and lower case, with at least one special character.';
+			case 'signUp.ctas.signUp': return 'Sign Up';
+			case 'signUp.ctas.error': return 'Could not sign up.';
+			case 'forgotPassword.title': return 'Forgot Password';
+			case 'forgotPassword.form.email.placeholder': return 'Email';
+			case 'forgotPassword.form.email.error.invalid': return 'Please enter a valid email address.';
+			case 'forgotPassword.ctas.resetPassword': return 'Reset Password';
+			case 'forgotPassword.ctas.error': return 'Could not reset password.';
+			case 'forgotPasswordConfirmation.title': return 'Check your inbox.';
+			case 'forgotPasswordConfirmation.subtitle': return 'If this email is valid, you should receive a log-in link within a few minutes.';
+			case 'forgotPasswordConfirmation.ctas.resendEmail': return 'Re-send Email';
+			case 'forgotPasswordConfirmation.ctas.emailResent': return 'Email resent.';
+			case 'forgotPasswordConfirmation.ctas.error': return 'Could not resend email.';
+			case 'home.title': return 'Home';
+			case 'resetPassword.title': return 'Reset Password';
 			default: return null;
 		}
 	}

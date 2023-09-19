@@ -4,53 +4,46 @@
         {
             "name": "development",
             "request": "launch",
-            "cwd": "app",
             "type": "dart",
+            // "cwd": "app",
             "program": "lib/main/development.dart",
             "args": [
                 "--target",
                 "lib/main/development.dart",
                 "--web-renderer",
-                "html"
+                "canvaskit",
+                "--web-port",
+                "3000"
             ]
         },
         {
             "name": "development w/ devtools",
             "request": "launch",
-            "cwd": "app",
             "type": "dart",
+            "cwd": "app",
             "program": "lib/main/development_with_redux_devtools.dart",
             "args": [
                 "--target",
                 "lib/main/development_with_redux_devtools.dart",
                 "--web-renderer",
-                "html"
-            ]
-        },
-        {
-            "name": "development & send event",
-            "request": "launch",
-            "cwd": "app",
-            "type": "dart",
-            "program": "lib/main/development_and_send_events.dart",
-            "args": [
-                "--target",
-                "lib/main/development_and_send_events.dart",
-                "--web-renderer",
-                "html"
+                "canvaskit",
+                "--web-port",
+                "3000"
             ]
         },
         {
             "name": "production",
             "request": "launch",
-            "cwd": "app",
             "type": "dart",
+            "cwd": "app",
             "program": "lib/main/production.dart",
             "args": [
                 "--target",
                 "lib/main/production.dart",
                 "--web-renderer",
-                "html",
+                "canvaskit",
+                "--web-port",
+                "3000",
                 "--release"
             ]
         },

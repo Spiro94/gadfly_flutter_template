@@ -8,6 +8,9 @@ import 'package:redux_remote_devtools/redux_remote_devtools.dart';
 
 import 'auth/state.dart';
 import 'base_blocs.dart';
+import 'forgot_password/state.dart';
+import 'sign_in/state.dart';
+import 'sign_up/state.dart';
 
 part 'redux_remote_devtools.g.dart';
 
@@ -18,16 +21,33 @@ DevtoolsDb devtoolsDb = const DevtoolsDb();
 class DevtoolsDb {
   const DevtoolsDb({
     this.authState,
+    this.forgotPasswordState,
+    this.signInState,
+    this.signUpState,
   });
 
   final AuthState? authState;
+  final ForgotPasswordState? forgotPasswordState;
+  final SignInState? signInState;
+  final SignUpState? signUpState;
 
   DevtoolsDb copyWith({
     AuthState? authState,
     bool clearAuthState = false,
+    ForgotPasswordState? forgotPasswordState,
+    bool clearForgotPasswordState = false,
+    SignInState? signInState,
+    bool clearSignInState = false,
+    SignUpState? signUpState,
+    bool clearSignUpState = false,
   }) {
     return DevtoolsDb(
       authState: clearAuthState ? null : authState ?? this.authState,
+      forgotPasswordState: clearForgotPasswordState
+          ? null
+          : forgotPasswordState ?? this.forgotPasswordState,
+      signInState: clearSignInState ? null : signInState ?? this.signInState,
+      signUpState: clearSignUpState ? null : signUpState ?? this.signUpState,
     );
   }
 
@@ -46,6 +66,15 @@ void remoteReduxDevtoolsOnCreate({
     switch (bloc) {
       case AuthBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(authState: bloc.state);
+
+      case ForgotPasswordBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(forgotPasswordState: bloc.state);
+
+      case SignInBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(signInState: bloc.state);
+
+      case SignUpBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(signUpState: bloc.state);
     }
 
     remoteReduxDevtoolsStore?.dispatch('CreateBloc_${bloc.runtimeType}');
@@ -61,6 +90,17 @@ void remoteReduxDevtoolsOnTransition({
     switch (bloc) {
       case AuthBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(authState: state as AuthState);
+
+      case ForgotPasswordBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(
+          forgotPasswordState: state as ForgotPasswordState,
+        );
+
+      case SignInBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(signInState: state as SignInState);
+
+      case SignUpBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(signUpState: state as SignUpState);
     }
 
     remoteReduxDevtoolsStore?.dispatch(event.runtimeType.toString());
@@ -74,6 +114,15 @@ void remoteReduxDevtoolsOnClose({
     switch (bloc) {
       case AuthBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(clearAuthState: true);
+
+      case ForgotPasswordBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(clearForgotPasswordState: true);
+
+      case SignInBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(clearSignInState: true);
+
+      case SignUpBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(clearSignUpState: true);
     }
 
     remoteReduxDevtoolsStore?.dispatch('DisposeBloc_${bloc.runtimeType}');

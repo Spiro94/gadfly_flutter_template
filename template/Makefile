@@ -1,17 +1,15 @@
 flutter_get:
 	fvm flutter pub get -C packages/amplitude_repository
-	fvm flutter pub get -C packages/app_theme
 	fvm flutter pub get -C packages/device_info_provider
 	fvm flutter pub get -C packages/flow_test
 	fvm flutter pub get -C packages/gadfly_lints
 	fvm flutter pub get -C packages/pieces_painter
 	fvm flutter pub get -C packages/sentry_repository
+	fvm flutter pub get -C packages/supabase_client_provider
 	fvm flutter pub get -C app
 
 flutter_clean:
 	cd packages/amplitude_repository && \
-	fvm flutter clean && \
-	cd ../app_theme && \
 	fvm flutter clean && \
 	cd ../device_info_provider && \
 	fvm flutter clean && \
@@ -22,6 +20,8 @@ flutter_clean:
 	cd ../pieces_painter && \
 	fvm flutter clean && \
 	cd ../sentry_repository && \
+	fvm flutter clean && \
+	cd ../supabase_client_provider && \
 	fvm flutter clean && \
 	cd ../../app && \
 	fvm flutter clean
@@ -72,3 +72,27 @@ screenshots_update:
 gallery:
 	cd app && \
 	mkdocs serve
+
+supabase_start:
+	supabase start
+
+supabase_stop:
+	supabase stop
+
+supabase_test_db:
+	supabase test db
+
+supabase_test_new:
+	supabase test new $(name)
+
+supabase_reset:
+	supabase db reset
+
+supabase_diff:
+	supabase db diff
+
+supabase_migration_new:
+	supabase migration new  $(name)
+
+supabase_migration_up:
+	supabase migration up

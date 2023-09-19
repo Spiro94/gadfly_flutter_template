@@ -1,9 +1,9 @@
-import 'package:app_theme/app_theme.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../app/theme/theme.dart';
+import 'widgets/connector/app_bar.dart';
 import 'widgets/connector/sign_out_button.dart';
-import 'widgets/connector/signed_in_at_text.dart';
 
 @RoutePage()
 class Home_Page extends StatelessWidget {
@@ -25,16 +25,15 @@ class Home_Scaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const HomeC_SignedInAtText(),
-            SizedBox(
-              height: context.theme.spacings.medium,
-            ),
-            const HomeC_SignOutButton(),
-          ],
+      appBar: const HomeC_AppBar(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(context.spacings.large),
+          child: const Column(
+            children: [
+              HomeC_SignOutButton(),
+            ],
+          ),
         ),
       ),
     );

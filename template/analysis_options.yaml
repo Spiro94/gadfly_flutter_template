@@ -3,6 +3,7 @@ include: package:very_good_analysis/analysis_options.5.0.0.yaml
 linter:
   rules:
     always_use_package_imports: false
+    avoid_redundant_argument_values: false
     cascade_invocations: false
     camel_case_types: false
     no_leading_underscores_for_local_identifiers: false
@@ -12,6 +13,8 @@ linter:
     non_constant_identifier_names: false
 
 analyzer:
+  errors:
+    flutter_style_todos: ignore
   plugins:
     - custom_lint
   exclude:

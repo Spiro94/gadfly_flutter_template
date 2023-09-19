@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferencesEffectProvider {
-  SharedPreferencesEffectProvider({
+class SharedPreferencesProvider {
+  SharedPreferencesProvider({
     required String prefix,
   }) : _prefix = prefix;
 

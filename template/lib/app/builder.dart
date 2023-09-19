@@ -1,51 +1,40 @@
 import 'dart:ui';
-import 'package:amplitude_repository/amplitude_repository.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-// ignore: depend_on_referenced_packages
-import 'package:sentry_flutter/sentry_flutter.dart';
 import '../blocs/auth/bloc.dart';
 import '../blocs/auth/state.dart';
+import '../effects/auth_change/provider.dart';
 import '../effects/now/provider.dart';
-import '../effects/shared_preferences/provider.dart';
 import '../i18n/translations.g.dart';
 import '../repositories/auth/repository.dart';
 import 'router.dart';
+import 'theme/theme.dart';
+import 'widgets/listener/subscribe_to_auth_change.dart';
 
 Future<Widget> appBuilder({
-  required ThemeMode themeMode,
-  required ThemeData themeDataLight,
-  required ThemeData themeDataDark,
+  required String? deepLinkOverride,
+  required String? accessToken,
+  required AuthChangeEffectProvider authChangeEffectProvider,
   required NowEffectProvider nowEffectProvider,
-  required SharedPreferencesEffectProvider sharedPreferencesEffectProvider,
   required AuthRepository authRepository,
-  required AmplitudeRepository amplitudeRepository,
+  Key? key,
 }) async {
   LocaleSettings.setLocale(AppLocale.en);
 
-  final _sharedPreferences = sharedPreferencesEffectProvider.getEffect();
-
-  final authToken =
-      _sharedPreferences.getString(AuthBloc.authTokenSharedPrefsKey);
-
-  final authState = authToken != null && authToken.isNotEmpty
+  final authState = accessToken != null && accessToken.isNotEmpty
       ? AuthState(
           status: AuthStatus.authenticated,
-          authToken: authToken,
-          signInStatus: AuthSignInStatus.idle,
+          accessToken: accessToken,
         )
       : const AuthState(
           status: AuthStatus.unauthentcated,
-          authToken: null,
-          signInStatus: AuthSignInStatus.idle,
+          accessToken: null,
         );
 
   final authBloc = AuthBloc(
-    sharedPreferences: _sharedPreferences,
     authRepository: authRepository,
-    amplitudeRepository: amplitudeRepository,
     initialState: authState,
   );
 
@@ -53,13 +42,12 @@ Future<Widget> appBuilder({
     value: authBloc,
     child: TranslationProvider(
       child: App(
-        themeMode: themeMode,
-        themeDataLight: themeDataLight,
-        themeDataDark: themeDataDark,
+        key: key,
+        deepLinkOverride: deepLinkOverride,
+        authChangeEffectProvider: authChangeEffectProvider,
         nowEffectProvider: nowEffectProvider,
-        sharedPreferencesEffectProvider: sharedPreferencesEffectProvider,
         authBloc: authBloc,
-        amplitudeRepository: amplitudeRepository,
+        authRepository: authRepository,
       ),
     ),
   );
@@ -67,24 +55,18 @@ Future<Widget> appBuilder({
 
 class App extends StatelessWidget {
   App({
-    required this.themeMode,
-    required this.themeDataLight,
-    required this.themeDataDark,
+    required this.deepLinkOverride,
+    required this.authChangeEffectProvider,
     required this.nowEffectProvider,
-    required this.sharedPreferencesEffectProvider,
     required AuthBloc authBloc,
-    required this.amplitudeRepository,
+    required this.authRepository,
     super.key,
   }) : _appRouter = AppRouter(authBloc: authBloc);
 
-  final ThemeMode themeMode;
-  final ThemeData themeDataLight;
-  final ThemeData themeDataDark;
-
+  final String? deepLinkOverride;
+  final AuthChangeEffectProvider authChangeEffectProvider;
   final NowEffectProvider nowEffectProvider;
-  final SharedPreferencesEffectProvider sharedPreferencesEffectProvider;
-
-  final AmplitudeRepository amplitudeRepository;
+  final AuthRepository authRepository;
 
   final AppRouter _appRouter;
 
@@ -92,49 +74,47 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<AuthChangeEffectProvider>.value(
+          value: authChangeEffectProvider,
+        ),
         RepositoryProvider<NowEffectProvider>.value(
           value: nowEffectProvider,
-        ),
-        RepositoryProvider<SharedPreferencesEffectProvider>.value(
-          value: sharedPreferencesEffectProvider,
         ),
       ],
       child: MultiRepositoryProvider(
         providers: [
-          RepositoryProvider<AmplitudeRepository>.value(
-            value: amplitudeRepository,
+          RepositoryProvider<AuthRepository>.value(
+            value: authRepository,
           ),
         ],
-        child: MaterialApp.router(
-          themeMode: themeMode,
-          theme: themeDataLight,
-          darkTheme: themeDataDark,
-          debugShowCheckedModeBanner: false,
-          scrollBehavior: const MaterialScrollBehavior().copyWith(
-            dragDevices: {
-              PointerDeviceKind.touch,
-              PointerDeviceKind.mouse,
-            },
-          ),
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          locale: TranslationProvider.of(context).flutterLocale,
-          supportedLocales: AppLocaleUtils.supportedLocales,
-          routeInformationParser: _appRouter.defaultRouteParser(
-            includePrefixMatches: true,
-          ),
-          routerDelegate: AutoRouterDelegate(
-            _appRouter,
-            initialRoutes: [],
-            navigatorObservers: () => [
-              SentryNavigatorObserver(),
-              AmplitudeRouteObserver(
-                amplitudeRepository: amplitudeRepository,
-              ),
+        child: AppL_SubscribeToAuthChange(
+          child: MaterialApp.router(
+            theme: appTheme,
+            debugShowCheckedModeBanner: false,
+            scrollBehavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              },
+            ),
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
             ],
+            locale: TranslationProvider.of(context).flutterLocale,
+            supportedLocales: AppLocaleUtils.supportedLocales,
+            routeInformationParser: _appRouter.defaultRouteParser(
+              includePrefixMatches: true,
+            ),
+            routerDelegate: AutoRouterDelegate(
+              _appRouter,
+              deepLinkBuilder: (deepLink) => deepLinkBuilder(
+                authBloc: context.read<AuthBloc>(),
+                deepLink: deepLink,
+                deepLinkOverride: deepLinkOverride,
+              ),
+            ),
           ),
         ),
       ),
