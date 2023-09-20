@@ -1,8 +1,11 @@
 import 'dart:ui';
+import 'package:amplitude_repository/amplitude_repository.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+// ignore: depend_on_referenced_packages
+import 'package:sentry_flutter/sentry_flutter.dart';
 import '../blocs/auth/bloc.dart';
 import '../blocs/auth/state.dart';
 import '../effects/auth_change/provider.dart';
@@ -16,6 +19,7 @@ import 'widgets/listener/subscribe_to_auth_change.dart';
 Future<Widget> appBuilder({
   required String? deepLinkOverride,
   required String? accessToken,
+  required AmplitudeRepository amplitudeRepository,
   required AuthChangeEffectProvider authChangeEffectProvider,
   required NowEffectProvider nowEffectProvider,
   required AuthRepository authRepository,
@@ -44,6 +48,7 @@ Future<Widget> appBuilder({
       child: App(
         key: key,
         deepLinkOverride: deepLinkOverride,
+        amplitudeRepository: amplitudeRepository,
         authChangeEffectProvider: authChangeEffectProvider,
         nowEffectProvider: nowEffectProvider,
         authBloc: authBloc,
@@ -56,6 +61,7 @@ Future<Widget> appBuilder({
 class App extends StatelessWidget {
   App({
     required this.deepLinkOverride,
+    required this.amplitudeRepository,
     required this.authChangeEffectProvider,
     required this.nowEffectProvider,
     required AuthBloc authBloc,
@@ -64,6 +70,7 @@ class App extends StatelessWidget {
   }) : _appRouter = AppRouter(authBloc: authBloc);
 
   final String? deepLinkOverride;
+  final AmplitudeRepository amplitudeRepository;
   final AuthChangeEffectProvider authChangeEffectProvider;
   final NowEffectProvider nowEffectProvider;
   final AuthRepository authRepository;
@@ -73,6 +80,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
+      // Effects
       providers: [
         RepositoryProvider<AuthChangeEffectProvider>.value(
           value: authChangeEffectProvider,
@@ -82,7 +90,11 @@ class App extends StatelessWidget {
         ),
       ],
       child: MultiRepositoryProvider(
+        // Repositories
         providers: [
+          RepositoryProvider<AmplitudeRepository>.value(
+            value: amplitudeRepository,
+          ),
           RepositoryProvider<AuthRepository>.value(
             value: authRepository,
           ),
@@ -114,6 +126,12 @@ class App extends StatelessWidget {
                 deepLink: deepLink,
                 deepLinkOverride: deepLinkOverride,
               ),
+              navigatorObservers: () => [
+                SentryNavigatorObserver(),
+                AmplitudeRouteObserver(
+                  amplitudeRepository: amplitudeRepository,
+                ),
+              ],
             ),
           ),
         ),

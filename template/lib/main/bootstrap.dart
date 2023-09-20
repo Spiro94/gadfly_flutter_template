@@ -1,7 +1,9 @@
+import 'package:amplitude_repository/amplitude_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_repository/sentry_repository.dart';
 import 'package:supabase_client_provider/supabase_client_provider.dart';
 import '../app/bloc_observer.dart';
 import '../app/builder.dart';
@@ -32,50 +34,89 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     log.finest('redux remote devtools started');
   }
 
-  WidgetsFlutterBinding.ensureInitialized();
-  log.finest('ensure initialized');
+  Future<void> _appRunner() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    log.finest('ensure initialized');
 
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-  log.finest('preferred orientations set');
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    log.finest('preferred orientations set');
 
-  Bloc.observer = AppBlocObserver();
-  log.finer('bloc observer created');
+    int? sessionId;
 
-  final nowEffectProvider = NowEffectProvider();
-  log.finer('now effect provider created');
+    final amplitudeRepository = AmplitudeRepository(
+      configuration: configuration.amplitudeRepositoryConfiguration,
+    );
+    log.finer('amplitude repository created');
+    await amplitudeRepository.init();
+    log.finest('amplitude repository initialized');
 
-  final supabaseClientProvider = SupabaseClientProvider(
-    config: configuration.supabaseClientProviderConfiguration,
-  );
-  log.finest('supabase client provider created');
+    try {
+      sessionId = await amplitudeRepository.amplitude?.getSessionId();
+      log.info('amplitude repository set sessionId: $sessionId');
+    } catch (_) {
+      log.warning('Failed: amplitude repository set sessionId');
+    }
 
-  await supabaseClientProvider.init();
-  log.finest('supabase client initialzed');
+    if (configuration.sentryRepositoryConfiguration != null) {
+      if (sessionId != null) {
+        SentryRepository.setSessionId(sessionId.toString());
+        log.finest('sentry, session id set');
+      }
+    }
 
-  final authRepository = AuthRepository(
-    authCallbackUrlHostname: configuration
-        .supabaseClientProviderConfiguration.authCallbackUrlHostname,
-    supabaseClient: supabaseClientProvider.client,
-  );
-  log.finer('auth repository created');
+    Bloc.observer = AppBlocObserver();
+    log.finer('bloc observer created');
 
-  final authChangeEffectProvider = AuthChangeEffectProvider(
-    supabaseClient: supabaseClientProvider.client,
-  );
-  log.finer('auth change effect provider created');
+    final nowEffectProvider = NowEffectProvider();
+    log.finer('now effect provider created');
 
-  runApp(
-    await appBuilder(
-      deepLinkOverride: null,
-      accessToken:
-          supabaseClientProvider.client.auth.currentSession?.accessToken,
-      authChangeEffectProvider: authChangeEffectProvider,
-      nowEffectProvider: nowEffectProvider,
-      authRepository: authRepository,
-    ),
-  );
-  log.info('app has started');
+    final supabaseClientProvider = SupabaseClientProvider(
+      config: configuration.supabaseClientProviderConfiguration,
+    );
+    log.finest('supabase client provider created');
+
+    await supabaseClientProvider.init();
+    log.finest('supabase client initialzed');
+
+    final authRepository = AuthRepository(
+      authCallbackUrlHostname: configuration
+          .supabaseClientProviderConfiguration.authCallbackUrlHostname,
+      supabaseClient: supabaseClientProvider.client,
+    );
+    log.finer('auth repository created');
+
+    final authChangeEffectProvider = AuthChangeEffectProvider(
+      supabaseClient: supabaseClientProvider.client,
+    );
+    log.finer('auth change effect provider created');
+
+    runApp(
+      await appBuilder(
+        deepLinkOverride: null,
+        accessToken:
+            supabaseClientProvider.client.auth.currentSession?.accessToken,
+        amplitudeRepository: amplitudeRepository,
+        authChangeEffectProvider: authChangeEffectProvider,
+        nowEffectProvider: nowEffectProvider,
+        authRepository: authRepository,
+      ),
+    );
+    log.info('app has started');
+  }
+
+  if (configuration.sentryRepositoryConfiguration != null) {
+    final sentryRepository = SentryRepository(
+      configuration: configuration.sentryRepositoryConfiguration!,
+      appRunner: _appRunner,
+    );
+    log.finer('sentryRepository created');
+
+    await sentryRepository.init();
+    log.finest('sentryRepository initialized');
+  } else {
+    await _appRunner();
+  }
 }
