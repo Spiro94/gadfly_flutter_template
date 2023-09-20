@@ -33,6 +33,11 @@ mv .vscode ../
 mv Makefile ../
 mv README.md ../
 
-cd ../../..
+cd ..
+
+supabase init --with-vscode-workspace
+rm $3.code-workspace
+
+cd ../..
 
 rm -rf temp

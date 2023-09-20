@@ -51,6 +51,27 @@ Install mkdocs theme.
 pip install mkdocs-material
 ```
 
+### Get Supabase
+
+```sh
+brew install supabase/tap/supabase
+```
+
+### Get PostgresQL
+
+Get `psql`
+
+```sh
+brew install postgresql@15
+```
+
+Then add the following to your `~/.zshrc` file:
+
+```sh
+# postgres
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+```
+
 ### Web and Amplitude
 
 Add the following script to `web/index.html` file.
@@ -174,17 +195,50 @@ Add the following script to `web/index.html` file.
 
 ## Development
 
-### Run
+### Supabase
+
+#### Start Supabase
+
+```sh
+make supabase_start
+```
+
+Then open the supabase studio at `localhost:54323`
+
+#### Reset Supabase DB
+
+```sh
+make supabase_reset
+```
+
+#### Echo diff from local and remote DB
+
+```sh
+make supabase_diff
+```
+
+#### Create Supabase DB Migration
+
+```sh
+make supabase_migration_new name=<migration_name>
+
+# Example
+make supabse_migration_new name='added_on_user_insert_function'
+```
+
+#### Apply Supabase DB Migration locally
+
+```sh
+make supabase_migration_up
+```
+
+### App
+
+#### Run App (Option 1)
 
 Open the `Run and Debug` tab in VSCode and run the `development` option.
 
-### Run and Send Events
-
-This will send events to Amplitude and Sentry.
-
-Open the `Run and Debug` tab in VSCode and run the `development & send events` option.
-
-### Run with redux devtools
+#### Run App with redux devtools (Option 2)
 
 1. Start the redux remote devtools server
 
@@ -196,7 +250,7 @@ make redux_devtools_server
 
 3. Open the `Run and Debug` tab in VSCode and run the `development w/ devtools` option.
 
-### Update build_runner files
+#### Update build_runner files
 
 ```sh
 make runner_build
@@ -208,7 +262,7 @@ or
 make runner_watch
 ```
 
-### Update localization files
+#### Update localization files
 
 ```sh
 make slang_build
@@ -220,27 +274,46 @@ or
 make slang_watch
 ```
 
-### Update flutter dependences
+#### Update flutter dependences
 
 ```sh
-make flutter_get
+make get
 ```
 
-### Clean flutter build
+#### Clean flutter build
 
 ```sh
-make flutter_clean
+make clean
 ```
 
 ## Testing
 
-### Check coverage
+### Supabase
+
+#### Create Supabase DB Test
+
+```sh
+make supabase_test_new name=<test_name>
+
+# Example
+make supabse_test_new name='new_user_added'
+```
+
+#### Run Supabase DB Tests
+
+```sh
+make supabase_test_db
+```
+
+### App
+
+#### Check coverage
 
 ```sh
 make coverage_check
 ```
 
-### Screenshots
+#### Screenshots
 
 ```sh
 make screenshots_delete
@@ -249,3 +322,11 @@ make screenshots_delete
 ```sh
 make screenshots_update
 ```
+
+#### Test Gallery
+
+```sh
+make gallery
+```
+
+Then go to `localhost:8000` to view the test gallery.
