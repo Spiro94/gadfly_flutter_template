@@ -51,13 +51,27 @@ Install mkdocs theme.
 pip install mkdocs-material
 ```
 
-### Get Supabase
+### Supabase
+
+Get Supabase:
 
 ```sh
 brew install supabase/tap/supabase
 ```
 
-### Get PostgresQL
+Sign in to Supabase:
+
+```sh
+supabase login
+```
+
+Create a project in Supabase then link it:
+
+```sh
+supabase link --project-ref XXX
+```
+
+### PostgresQL
 
 Get `psql`
 
