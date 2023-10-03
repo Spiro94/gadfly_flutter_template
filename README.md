@@ -22,7 +22,7 @@ Then be sure to close your editor and reopen it. Run the following in a terminal
 fvm flutter version
 ```
 
-The version should be `3.13.3`
+The version should be `3.13.3`.
 
 ### Supabase
 
@@ -33,10 +33,12 @@ brew install supabase/tap/supabase
 ## Usage
 
 ```sh
-./create_app.sh <entire flutter command>
+./create_app.sh <entire fvm flutter command>
 
 # example:
-# ./create_app.sh flutter create my_app
+# ./create_app.sh fvm flutter create my_app
 ```
+
+_Note: make sure to use `fvm flutter create my_app` and not simply `flutter create my_app`!_
 
 Then cd into the `projects/my_app` directory and open the `README.md`.

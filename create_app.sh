@@ -9,26 +9,27 @@ cd temp
 $*
 
 cd ..
-mkdir -p projects/$3/app
+mkdir -p projects/$4/app
 
-cp -R template/. projects/$3/app
-cp -R packages projects/$3
+cp -R template/. projects/$4/app
+cp -R packages projects/$4
 
-[ -d "temp/$3/android" ] && cp -R temp/$3/android projects/$3/app
-[ -d "temp/$3/ios" ] && cp -R temp/$3/ios projects/$3/app
-[ -d "temp/$3/web" ] && cp -R temp/$3/web projects/$3/app
+[ -d "temp/$4/android" ] && cp -R temp/$4/android projects/$4/app
+[ -d "temp/$4/ios" ] && cp -R temp/$4/ios projects/$4/app
+[ -d "temp/$4/web" ] && cp -R temp/$4/web projects/$4/app
 
-find projects/$3/app -name '*.dart' -exec sed -i '' -e "s/gadfly_flutter_template/$3/g" {} \;
-find projects/$3/app -name '*.yaml' -exec sed -i '' -e "s/gadfly_flutter_template/$3/g" {} \;
-find projects/$3/app -name '*.md' -exec sed -i '' -e "s/gadfly_flutter_template/$3/g" {} \;
+find projects/$4/app -name '*.dart' -exec sed -i '' -e "s/gadfly_flutter_template/$4/g" {} \;
+find projects/$4/app -name '*.yaml' -exec sed -i '' -e "s/gadfly_flutter_template/$4/g" {} \;
+find projects/$4/app -name '*.md' -exec sed -i '' -e "s/gadfly_flutter_template/$4/g" {} \;
 
-cd projects/$3/app
+cd projects/$4/app
 
 flutter clean
 flutter pub get
 dart fix --apply
 
 mv .fvm ../
+mv docs ../
 mv .vscode ../
 mv Makefile ../
 mv README.md ../
@@ -36,7 +37,7 @@ mv README.md ../
 cd ..
 
 supabase init --with-vscode-workspace
-rm $3.code-workspace
+rm $4.code-workspace
 
 cd ../..
 

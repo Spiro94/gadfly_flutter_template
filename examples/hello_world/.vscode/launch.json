@@ -1,0 +1,82 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "development",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "app",
+            "program": "lib/main/development.dart",
+            "args": [
+                "--target",
+                "lib/main/development.dart",
+                "--web-renderer",
+                "canvaskit",
+                "--web-port",
+                "3000"
+            ]
+        },
+        {
+            "name": "development w/ devtools",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "app",
+            "program": "lib/main/development_with_redux_devtools.dart",
+            "args": [
+                "--target",
+                "lib/main/development_with_redux_devtools.dart",
+                "--web-renderer",
+                "canvaskit",
+                "--web-port",
+                "3000"
+            ]
+        },
+        {
+            "name": "development send events",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "app",
+            "program": "lib/main/development_and_send_events.dart",
+            "args": [
+                "--target",
+                "lib/main/development_and_send_events.dart",
+                "--web-renderer",
+                "canvaskit",
+                "--web-port",
+                "3000"
+            ]
+        },
+        {
+            "name": "production",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "app",
+            "program": "lib/main/production.dart",
+            "args": [
+                "--target",
+                "lib/main/production.dart",
+                "--web-renderer",
+                "canvaskit",
+                "--web-port",
+                "3000",
+                "--release"
+            ]
+        },
+        {
+            "name": "Screenshots",
+            "request": "launch",
+            "type": "dart",
+            "codeLens": {
+                "for": [
+                    "run-test",
+                    "run-test-file"
+                ]
+            },
+            "args": [
+                "--update-goldens",
+                "--dart-define",
+                "createScreenshots=true"
+            ]
+        }
+    ]
+}
