@@ -18,20 +18,76 @@ code changes, but we will walk through the structure of the application.
 2. Go to `lib/main/configurations.dart` and replace all the `CHANGE ME` texts
    with your credentials.
 
-   ![Supabase credentials](supabase_credentials.png?raw=true)
-   ![Amplitude credentials](amplitude_credentials.png?raw=true)
-   ![Sentry DSN](sentry_dsn.png?raw=true)
-   ![Sentry environment](sentry_environment.png?raw=true)
+   For the **development** builds use these:
+   - Supabase: run `supabase start` in a terminal, then find the `API URL` and
+     the `anon key` in the printout.
+   - Amplitude: N/A
+   - Sentry: N/A
+
+   For the **production** build use these:
+   - ![Supabase credentials](readme_images/supabase_credentials.png?raw=true)
+   - ![Amplitude credentials](readme_images/amplitude_credentials.png?raw=true)
+   - ![Sentry DSN](readme_images/sentry_dsn.png?raw=true)
+     ![Sentry environment](readme_images/sentry_environment.png?raw=true)
 
 3. In your Supabase project, make sure to turn off email confirmations.
 
-   ![turn off emails](update_email_auth_provider.png?raw=true)
+   ![turn off emails](readme_images/update_email_auth_provider.png?raw=true)
 
-4. Run `make flutter_clean` followed by `make flutter_get`
+4. Run the following commands in order:
+   - `make flutter_clean`
+   - `make flutter_get`
+   - `make slang_build`
+   - `make runner_build`
+   - `supabase start` (if this doesn't work, make sure Docker is running and
+     that you have linked your project)
 
-5. In VSCode, open the _Run and Debug_ tab and select `Development`. (If you
-   don't see this option, open up VSCode from this directory instead of from
-   gadfly_flutter_template's root directory)
+5. Run `make redux_devtools_server`, then go to a browser an go to
+   [localhost:8001](http://localhost:8001). (When you start the application and
+   you only see a blank screen, it is likely because you never did this step).
+
+   ![Redux remote devtools](readme_images/redux_remote_devtools_start.png?raw=true)
+
+6. In VSCode, open the _Run and Debug_ tab and select `development w/ devtools`.
+   (If you don't see this option, open up VSCode from this directory instead of
+   from gadfly_flutter_template's root directory)
+
+## User Flows
+
+If you successfully started the application, you should be able to go through
+three user flows:
+
+1. sign up flow
+2. sign in flow
+3. forgot password flow
+
+### Sign Up Flow
+
+![signup1](readme_images/signup1.png?raw=true)
+
+![signup2](readme_images/signup2.png?raw=true)
+
+### Sign In Flow
+
+![signin1](readme_images/signin1.png?raw=true)
+
+![signin2](readme_images/signin2.png?raw=true)
+
+### Forgot Password Flow
+
+![forgot_password1](readme_images/forgot_password1.png?raw=true)
+
+![forgot_password2](readme_images/forgot_password2.png?raw=true)
+
+![forgot_password3](readme_images/forgot_password3.png?raw=true)
+
+![forgot_password4](readme_images/forgot_password4.png?raw=true)
+
+![forgot_password5](readme_images/forgot_password5.png?raw=true)
+
+![forgot_password6](readme_images/forgot_password6.png?raw=true)
+
+![forgot_password7](readme_images/forgot_password7.png?raw=true)
 
 ## High-level Overview of Directory structure
 
