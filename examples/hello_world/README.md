@@ -12,10 +12,21 @@ code changes, but we will walk through the structure of the application.
 
 ## Running this example
 
-1. Follow all the instructions in `docs/development_setup.md`. (If you are using web, be sure to copy the snippet into your index.html file to use Amplitude)
-2. Go to `lib/main/configurations.dart` and replace all the `CHANGE ME` texts with your credentials.
-3. Run `make flutter_clean` followed by `make flutter_get`
-4. In VSCode, open the *Run and Debug* tab and select `Development`. (If you don't see this option, open up VSCode from this directory instead of from gadfly_flutter_template's root directory)
+1. Follow all the instructions in `docs/development_setup.md`. (If you are using
+   web, be sure to copy the snippet into your index.html file to use Amplitude)
+
+2. Go to `lib/main/configurations.dart` and replace all the `CHANGE ME` texts
+   with your credentials.
+
+3. In your Supabase project, make sure to turn off email confirmations.
+
+   ![turn off emails](update_email_auth_provider.png?raw=true)
+
+4. Run `make flutter_clean` followed by `make flutter_get`
+
+5. In VSCode, open the _Run and Debug_ tab and select `Development`. (If you
+   don't see this option, open up VSCode from this directory instead of from
+   gadfly_flutter_template's root directory)
 
 ## High-level Overview of Directory structure
 
