@@ -1,109 +1,24 @@
 # hello_world
 
-See the `docs/` directory for:
-
-- development setup
-- development
-- testing
-
-This example is to showcase what the template provides out of the box after
-running the `create_app.sh` script. For that reason, we will not be making any
-code changes, but we will walk through the structure of the application.
+This example is to showcase what the template provides out of the box after code
+changes, but we will walk through the structure of the application.
 
 <!-- TOC -->
 
 - [hello_world](#hello_world)
+  - [High-level Overview of Directory Structure](#high-level-overview-of-directory-structure)
+    - [Uncommented](#uncommented)
+    - [Commented](#commented)
   - [Running this example](#running-this-example)
   - [User Flows](#user-flows)
     - [Sign Up Flow](#sign-up-flow)
     - [Sign In Flow](#sign-in-flow)
     - [Forgot Password Flow](#forgot-password-flow)
-  - [High-level Overview of Directory structure](#high-level-overview-of-directory-structure)
-    - [Uncommented](#uncommented)
-    - [Commented](#commented)
+  - [Test Gallery](#test-gallery)
 
 <!-- /TOC -->
 
-## Running this example
-
-1. Follow all the instructions in `docs/development_setup.md`. If you are using
-   web, be sure to copy the snippet into your index.html file to use Amplitude!
-
-2. Go to `lib/main/configurations.dart` and replace all the `CHANGE ME` texts
-   with your credentials.
-
-   For the **development** builds use these:
-   - Supabase: run `supabase start` in a terminal, then find the `API URL` and
-     the `anon key` in the printout.
-   - Amplitude: N/A
-   - Sentry: N/A
-
-   For the **production** build use these:
-   - ![Supabase credentials](readme_images/supabase_credentials.png?raw=true)
-   - ![Amplitude credentials](readme_images/amplitude_credentials.png?raw=true)
-   - ![Sentry DSN](readme_images/sentry_dsn.png?raw=true)
-     ![Sentry environment](readme_images/sentry_environment.png?raw=true)
-
-3. In your Supabase project, make sure to turn off email confirmations.
-
-   ![turn off emails](readme_images/update_email_auth_provider.png?raw=true)
-
-4. Run the following commands in order:
-   - `make flutter_clean`
-   - `make flutter_get`
-   - `make slang_build`
-   - `make runner_build`
-   - `supabase start` (if this doesn't work, make sure Docker is running and
-     that you have linked your project)
-
-5. Run `make redux_devtools_server`, then go to a browser an go to
-   [localhost:8001](http://localhost:8001). (When you start the application and
-   you only see a blank screen, it is likely because you never did this step).
-
-   ![Redux remote devtools](readme_images/redux_remote_devtools_start.png?raw=true)
-
-6. In VSCode, open the _Run and Debug_ tab and select `development w/ devtools`.
-   (If you don't see this option, open up VSCode from this directory instead of
-   from gadfly_flutter_template's root directory)
-
-## User Flows
-
-If you successfully started the application, you should be able to go through
-three user flows:
-
-1. sign up flow
-2. sign in flow
-3. forgot password flow
-
-### Sign Up Flow
-
-![signup1](readme_images/signup1.png?raw=true)
-
-![signup2](readme_images/signup2.png?raw=true)
-
-### Sign In Flow
-
-![signin1](readme_images/signin1.png?raw=true)
-
-![signin2](readme_images/signin2.png?raw=true)
-
-### Forgot Password Flow
-
-![forgot_password1](readme_images/forgot_password1.png?raw=true)
-
-![forgot_password2](readme_images/forgot_password2.png?raw=true)
-
-![forgot_password3](readme_images/forgot_password3.png?raw=true)
-
-![forgot_password4](readme_images/forgot_password4.png?raw=true)
-
-![forgot_password5](readme_images/forgot_password5.png?raw=true)
-
-![forgot_password6](readme_images/forgot_password6.png?raw=true)
-
-![forgot_password7](readme_images/forgot_password7.png?raw=true)
-
-## High-level Overview of Directory structure
+## High-level Overview of Directory Structure
 
 ### Uncommented
 
@@ -196,7 +111,7 @@ three user flows:
 # We are using flutter_bloc (https://pub.dev/packages/flutter_bloc) for state management.
 # Flutter bloc, at its core, makes use of events which can then update state. The bloc observer
 # can listen for events and changes in state and then run callbacks. In this bloc observer we
-# have set up three things:
+# have set up the following:
 # - logging to the console
 # - wiring up remote redux devtools (https://pub.dev/packages/redux_remote_devtools). The other
 #   parts required to wire this up can be found in `blocs/redux_remote_devtools.dart` and `main/configuration.dart`
@@ -558,3 +473,106 @@ three user flows:
 # When you run Supabase locally, you can seed the database with the contents of this file.
     └── seed.sql
 ```
+
+## Running this example
+
+1. Follow all the instructions in `docs/development_setup.md`. If you are using
+   web, be sure to copy the snippet into your index.html file to use Amplitude!
+
+2. Go to `lib/main/configurations.dart` and replace all the `CHANGE ME` texts
+   with your credentials.
+
+   For the **development** builds use these:
+   - Supabase: run `supabase start` in a terminal, then find the `API URL` and
+     the `anon key` in the printout.
+   - Amplitude: N/A
+   - Sentry: N/A
+
+   For the **production** build use these:
+   - ![Supabase credentials](readme_images/supabase_credentials.png?raw=true)
+   - ![Amplitude credentials](readme_images/amplitude_credentials.png?raw=true)
+   - ![Sentry DSN](readme_images/sentry_dsn.png?raw=true)
+     ![Sentry environment](readme_images/sentry_environment.png?raw=true)
+
+3. In your Supabase project, make sure to turn off email confirmations.
+
+   ![turn off emails](readme_images/update_email_auth_provider.png?raw=true)
+
+4. Run the following commands in order:
+   - `make flutter_clean`
+   - `make flutter_get`
+   - `make slang_build`
+   - `make runner_build`
+   - `supabase start` (if this doesn't work, make sure Docker is running and
+     that you have linked your project)
+
+5. Run `make redux_devtools_server`, then go to a browser an go to
+   [localhost:8001](http://localhost:8001). (When you start the application and
+   you only see a blank screen, it is likely because you never did this step).
+
+   ![Redux remote devtools](readme_images/redux_remote_devtools_start.png?raw=true)
+
+6. In VSCode, open the _Run and Debug_ tab and select `development w/ devtools`.
+   (If you don't see this option, open up VSCode from this directory instead of
+   from gadfly_flutter_template's root directory)
+
+## User Flows
+
+If you successfully started the application, you should be able to go through
+three user flows:
+
+1. sign up flow
+2. sign in flow
+3. forgot password flow
+
+### Sign Up Flow
+
+![signup1](readme_images/signup1.png?raw=true)
+
+![signup2](readme_images/signup2.png?raw=true)
+
+### Sign In Flow
+
+![signin1](readme_images/signin1.png?raw=true)
+
+![signin2](readme_images/signin2.png?raw=true)
+
+### Forgot Password Flow
+
+![forgot_password1](readme_images/forgot_password1.png?raw=true)
+
+![forgot_password2](readme_images/forgot_password2.png?raw=true)
+
+![forgot_password3](readme_images/forgot_password3.png?raw=true)
+
+![forgot_password4](readme_images/forgot_password4.png?raw=true)
+
+![forgot_password5](readme_images/forgot_password5.png?raw=true)
+
+![forgot_password6](readme_images/forgot_password6.png?raw=true)
+
+![forgot_password7](readme_images/forgot_password7.png?raw=true)
+
+## Test Gallery
+
+The screenshots in the user flows above were taken manually, which is quite
+cumbersome. However, since we are writing flow-based tests, we can take
+advantage of the golden_toolkit to take screenshots for us and display them in a
+gallery.
+
+First, update the screenshots that are created by our tests:
+
+```sh
+make screenshots_update
+```
+
+Then serve up the gallery of screenshots:
+
+```sh
+make gallery
+```
+
+Then navigate to [localhost:8000](http://localhost:8000). You should see
+something like the following:
+
+![test gallery](readme_images/test_gallery.png?raw=true)
