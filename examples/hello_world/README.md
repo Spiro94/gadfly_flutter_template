@@ -12,11 +12,16 @@ code changes, but we will walk through the structure of the application.
 
 ## Running this example
 
-1. Follow all the instructions in `docs/development_setup.md`. (If you are using
-   web, be sure to copy the snippet into your index.html file to use Amplitude)
+1. Follow all the instructions in `docs/development_setup.md`. If you are using
+   web, be sure to copy the snippet into your index.html file to use Amplitude!
 
 2. Go to `lib/main/configurations.dart` and replace all the `CHANGE ME` texts
    with your credentials.
+
+   ![Supabase credentials](supabase_credentials.png?raw=true)
+   ![Amplitude credentials](amplitude_credentials.png?raw=true)
+   ![Sentry DSN](sentry_dsn.png?raw=true)
+   ![Sentry environment](sentry_environment.png?raw=true)
 
 3. In your Supabase project, make sure to turn off email confirmations.
 
