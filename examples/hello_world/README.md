@@ -23,7 +23,17 @@ changes, but we will walk through the structure of the application.
 ### Uncommented
 
 ```sh
-.
+├── .fvm
+│   └── fvm_config.json
+├── .github
+│   └── workflows
+│       ├── app_tests.yaml
+│       └── supabase_tests.yaml
+├── .vscode
+│   ├── extensions.json
+│   ├── launch.json
+│   ├── settings.json
+│   └── spellright.dict
 ├── Makefile
 ├── README.md
 ├── app
@@ -65,6 +75,29 @@ changes, but we will walk through the structure of the application.
 ### Commented
 
 ```sh
+# This is where we define the flutter version of this project using FVM (https://fvm.app/)
+├── .fvm
+# This is the FVM configuration file
+│   └── fvm_config.json
+# Our github workflows are defined in here
+├── .github
+│   └── workflows
+# We have a workflow to run our app tests
+│       ├── app_tests.yaml
+# We have a workflow to run our database (i.e. supabase) tests
+│       └── supabase_tests.yaml
+# We use the VSCode editor and we can keep some settings and configurations in here.
+├── .vscode
+# This is where you can recommend extensions to be used when developing your application.
+│   ├── extensions.json
+# This is where you can define the different launch points of your application. 
+# All of our entry points are files in `lib/main`.
+│   ├── launch.json
+# This is where you can set user settings. We need to set a few things here to ensure that FVM works properly.
+# Any other settings is just personal preference.
+│   ├── settings.json
+#  A whitelist of words that would otherwise be considered incorrect.
+│   └── spellright.dict
 # The `Makefile` is a convenience file to make running CLI commands more convenient.
 # See `docs/development.md` and `docs/testing.md` for further details
 ├── Makefile

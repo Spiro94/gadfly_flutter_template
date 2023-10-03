@@ -30,6 +30,7 @@ dart fix --apply
 
 mv .fvm ../
 mv docs ../
+mv .github ../
 mv .vscode ../
 mv Makefile ../
 mv README.md ../
