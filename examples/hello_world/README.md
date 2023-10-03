@@ -10,6 +10,20 @@ This example is to showcase what the template provides out of the box after
 running the `create_app.sh` script. For that reason, we will not be making any
 code changes, but we will walk through the structure of the application.
 
+<!-- TOC -->
+
+- [hello_world](#hello_world)
+  - [Running this example](#running-this-example)
+  - [User Flows](#user-flows)
+    - [Sign Up Flow](#sign-up-flow)
+    - [Sign In Flow](#sign-in-flow)
+    - [Forgot Password Flow](#forgot-password-flow)
+  - [High-level Overview of Directory structure](#high-level-overview-of-directory-structure)
+    - [Uncommented](#uncommented)
+    - [Commented](#commented)
+
+<!-- /TOC -->
+
 ## Running this example
 
 1. Follow all the instructions in `docs/development_setup.md`. If you are using
