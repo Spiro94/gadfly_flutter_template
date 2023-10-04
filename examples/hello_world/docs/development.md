@@ -57,9 +57,11 @@ Open the `Run and Debug` tab in VSCode and run the `development` option.
 make redux_devtools_server
 ```
 
-2. Then go to a browser and open `localhost:8001`. Note: it is important that this is open before you tun the application.
+2. Then go to a browser and open `localhost:8001`. Note: it is important that
+   this is open before you tun the application.
 
-3. Open the `Run and Debug` tab in VSCode and run the `development w/ devtools` option.
+3. Open the `Run and Debug` tab in VSCode and run the `development w/ devtools`
+   option.
 
 ### Update build_runner files
 

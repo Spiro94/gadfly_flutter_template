@@ -4,3 +4,4 @@ template/ios
 temp/
 projects/
 flutter_sdk
+.DS_Store

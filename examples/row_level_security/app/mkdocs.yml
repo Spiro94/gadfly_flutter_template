@@ -1,0 +1,13 @@
+site_name: Test Gallery
+
+theme:
+  name: material
+  palette:
+    primary: green
+
+docs_dir: test
+
+extra_css:
+  - gallery.css
+
+use_directory_urls: false

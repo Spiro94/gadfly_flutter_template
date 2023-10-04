@@ -2,6 +2,7 @@
 
 See the `docs/` directory for:
 
-- development setup
-- development
-- testing
+1. development setup
+2. checklist before first run
+3. development
+4. testing
