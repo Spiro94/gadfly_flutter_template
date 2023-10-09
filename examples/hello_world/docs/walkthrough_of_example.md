@@ -1,7 +1,6 @@
 # Walkthrough of Example
 
 <!-- TOC -->
-<!-- TOC -->
 
 - [Walkthrough of Example](#walkthrough-of-example)
   - [High-level Overview of Directory Structure](#high-level-overview-of-directory-structure)
@@ -95,7 +94,7 @@
 │   ├── settings.json
 #  A whitelist of words that would otherwise be considered incorrect.
 │   └── spellright.dict
-# The `Makefile` is a convenience file to make running CLI commands more convenient.
+# The file is to make running CLI commands more convenient.
 # See `docs/development.md` and `docs/testing.md` for further details
 ├── Makefile
 # This file simply points to the `docs/` directory.

@@ -154,13 +154,6 @@ supabase link --project-ref XXX
 
 Go to `app/lib/main/configurations.dart` and replace all the `CHANGE ME` texts with your credentials.
 
-For the **development** builds use these:
-
-- Supabase: run `supabase start` in a terminal, then find the `API URL` and
-     the `anon key` in the printout.
-- Amplitude: N/A
-- Sentry: N/A
-
 For the **production** build use these:
 
 - ![Supabase credentials](images/checklist_before_first_run/supabase_credentials.png?raw=true)
