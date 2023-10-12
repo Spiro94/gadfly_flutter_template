@@ -1,0 +1,57 @@
+name: app_tests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/**'
+      - '.github/workflows/app_tests.yaml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'app/**'
+      - '.github/workflows/app_tests.yaml'
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: 'app'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v3
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.13.3
+          channel: stable
+          cache: true
+          cache-key: flutter-:os:-:channel:-:version:-:arch:-:hash:-${{ hashFiles('**/pubspec.lock') }}
+
+      - name: 📦 Install Dependencies
+        run: |
+          flutter pub global activate very_good_cli
+          very_good packages get --recursive 
+      - name: 🕵️ Analyze
+        run: flutter analyze lib test 
+
+      - name: 🧪 Run Tests
+        run: very_good test -j 4 --recursive --no-optimization --coverage --test-randomize-ordering-seed random
+
+      - name: 📊 Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2
+        with:
+          # https://github.com/VeryGoodOpenSource/very_good_coverage
+          # The input path must be absolute. The specified working directory is
+          # ignored by the input path. This is because it is not possible to
+          # access the working directory from an action. In other words, Very
+          # Good Coverage always runs from the root of your repository.
+          path: 'app/coverage/lcov.info'
+          exclude: '**/*.g.dart **/*.gr.dart **/redux_remote_devtools.dart'
+          min_coverage: 75
