@@ -13,11 +13,6 @@ Future<void> arrangeBeforeWarpToHome(
     (invocation) => fakeAuthChangeEffect,
   );
   arrange.extras['fakeAuthChangeEffect'] = fakeAuthChangeEffect;
-
-  // ATTENTION 1
-  when(() => arrange.mocks.countRepository.getCount())
-      .thenAnswer((invocation) async => 0);
-  // ---
 }
 
 // Note: Set `hasAccessToken` to true

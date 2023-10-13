@@ -18,9 +18,11 @@ import '../repositories/count/repository.dart';
 import 'router.dart';
 import 'theme/theme.dart';
 import 'widgets/listener/subscribe_to_auth_change.dart';
+import 'widgets/listener/subscribe_to_deep_links.dart';
 
 Future<Widget> appBuilder({
   required String? deepLinkOverride,
+  required Stream<Uri> deepLinkStream,
   required String? accessToken,
   required AmplitudeRepository amplitudeRepository,
   required AuthChangeEffectProvider authChangeEffectProvider,
@@ -54,6 +56,7 @@ Future<Widget> appBuilder({
       child: App(
         key: key,
         deepLinkOverride: deepLinkOverride,
+        deepLinkStream: deepLinkStream,
         amplitudeRepository: amplitudeRepository,
         authChangeEffectProvider: authChangeEffectProvider,
         nowEffectProvider: nowEffectProvider,
@@ -70,6 +73,7 @@ Future<Widget> appBuilder({
 class App extends StatelessWidget {
   App({
     required this.deepLinkOverride,
+    required this.deepLinkStream,
     required this.amplitudeRepository,
     required this.authChangeEffectProvider,
     required this.nowEffectProvider,
@@ -82,6 +86,7 @@ class App extends StatelessWidget {
   }) : _appRouter = AppRouter(authBloc: authBloc);
 
   final String? deepLinkOverride;
+  final Stream<Uri> deepLinkStream;
   final AmplitudeRepository amplitudeRepository;
   final AuthChangeEffectProvider authChangeEffectProvider;
   final NowEffectProvider nowEffectProvider;
@@ -119,39 +124,43 @@ class App extends StatelessWidget {
           ),
           // ---
         ],
-        child: AppL_SubscribeToAuthChange(
-          child: MaterialApp.router(
-            theme: appTheme,
-            debugShowCheckedModeBanner: false,
-            scrollBehavior: const MaterialScrollBehavior().copyWith(
-              dragDevices: {
-                PointerDeviceKind.touch,
-                PointerDeviceKind.mouse,
-              },
-            ),
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            locale: TranslationProvider.of(context).flutterLocale,
-            supportedLocales: AppLocaleUtils.supportedLocales,
-            routeInformationParser: _appRouter.defaultRouteParser(
-              includePrefixMatches: true,
-            ),
-            routerDelegate: AutoRouterDelegate(
-              _appRouter,
-              deepLinkBuilder: (deepLink) => deepLinkBuilder(
-                authBloc: context.read<AuthBloc>(),
-                deepLink: deepLink,
-                deepLinkOverride: deepLinkOverride,
+        child: AppL_SubscribeToDeepLinks(
+          appRouter: _appRouter,
+          deepLinksStream: deepLinkStream,
+          child: AppL_SubscribeToAuthChange(
+            child: MaterialApp.router(
+              theme: appTheme,
+              debugShowCheckedModeBanner: false,
+              scrollBehavior: const MaterialScrollBehavior().copyWith(
+                dragDevices: {
+                  PointerDeviceKind.touch,
+                  PointerDeviceKind.mouse,
+                },
               ),
-              navigatorObservers: () => [
-                SentryNavigatorObserver(),
-                AmplitudeRouteObserver(
-                  amplitudeRepository: amplitudeRepository,
-                ),
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
               ],
+              locale: TranslationProvider.of(context).flutterLocale,
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              routeInformationParser: _appRouter.defaultRouteParser(
+                includePrefixMatches: true,
+              ),
+              routerDelegate: AutoRouterDelegate(
+                _appRouter,
+                deepLinkBuilder: (deepLink) => deepLinkBuilder(
+                  authBloc: context.read<AuthBloc>(),
+                  deepLink: deepLink,
+                  deepLinkOverride: deepLinkOverride,
+                ),
+                navigatorObservers: () => [
+                  SentryNavigatorObserver(),
+                  AmplitudeRouteObserver(
+                    amplitudeRepository: amplitudeRepository,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

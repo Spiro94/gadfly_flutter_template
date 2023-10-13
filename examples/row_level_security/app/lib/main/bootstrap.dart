@@ -85,8 +85,8 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     log.finest('supabase client initialzed');
 
     final authRepository = AuthRepository(
-      authCallbackUrlHostname: configuration
-          .supabaseClientProviderConfiguration.authCallbackUrlHostname,
+      deepLinkHostname:
+          configuration.supabaseClientProviderConfiguration.deepLinkHostname,
       supabaseClient: supabaseClientProvider.client,
     );
     log.finer('auth repository created');
@@ -106,6 +106,8 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     runApp(
       await appBuilder(
         deepLinkOverride: null,
+        deepLinkStream:
+            supabaseClientProvider.deepLinksStream ?? const Stream.empty(),
         accessToken:
             supabaseClientProvider.client.auth.currentSession?.accessToken,
         amplitudeRepository: amplitudeRepository,

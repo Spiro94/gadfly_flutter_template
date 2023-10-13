@@ -3,12 +3,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthRepository {
   AuthRepository({
-    required String authCallbackUrlHostname,
+    required String deepLinkHostname,
     required SupabaseClient supabaseClient,
-  })  : _authCallbackUrlHostname = authCallbackUrlHostname,
+  })  : _deepLinkHostname = deepLinkHostname,
         _supabaseClient = supabaseClient;
 
-  final String _authCallbackUrlHostname;
+  final String _deepLinkHostname;
   final SupabaseClient _supabaseClient;
 
   final _log = Logger('auth_repository');
@@ -31,7 +31,7 @@ class AuthRepository {
 
     await _supabaseClient.auth.signInWithOAuth(
       Provider.google,
-      redirectTo: '$_authCallbackUrlHostname/#/deep/googleAuth',
+      redirectTo: '$_deepLinkHostname/#/deep/googleAuth',
     );
   }
   // ---
@@ -61,7 +61,7 @@ class AuthRepository {
 
     await _supabaseClient.auth.resetPasswordForEmail(
       email,
-      redirectTo: '$_authCallbackUrlHostname/#/deep/resetPassword',
+      redirectTo: '$_deepLinkHostname/#/deep/resetPassword',
     );
   }
 

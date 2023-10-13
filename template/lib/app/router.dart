@@ -94,33 +94,44 @@ Future<DeepLink> deepLinkBuilder({
       (deepLinkOverride?.startsWith('/deep') ?? false)) {
     final path = deepLinkOverride ?? deepLink.path;
 
-    switch (path) {
-      case '/deep/resetPassword':
-        try {
-          final completer = Completer<void>();
-
-          authBloc.add(
-            AuthEvent_SetSessionFromDeepLink(
-              completer: completer,
-              uri: deepLink.uri,
-            ),
-          );
-
-          await completer.future;
-
-          // While the path is more susceptible to break when refectoring, we
-          // were only able to get path to create the stack correctly.
-          return const DeepLink.path(
-            '/resetPassword',
-            includePrefixMatches: true,
-          );
-        } catch (_) {}
-      default:
-        break;
+    final handledDeepLink = await handleDeepLink(
+      uri: deepLink.uri,
+      path: path,
+      authBloc: authBloc,
+    );
+    if (handledDeepLink != null) {
+      return DeepLink.path(handledDeepLink, includePrefixMatches: true);
     }
   }
 
   return deepLink;
+}
+
+Future<String?> handleDeepLink({
+  required Uri uri,
+  required String path,
+  required AuthBloc authBloc,
+}) async {
+  switch (path) {
+    case '/deep/resetPassword':
+      try {
+        final completer = Completer<void>();
+
+        authBloc.add(
+          AuthEvent_SetSessionFromDeepLink(
+            completer: completer,
+            uri: uri,
+          ),
+        );
+
+        await completer.future;
+
+        return '/resetPassword';
+      } catch (_) {}
+    default:
+      break;
+  }
+  return null;
 }
 
 class AuthGuard extends AutoRouteGuard {

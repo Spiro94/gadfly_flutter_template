@@ -16,7 +16,6 @@ signIn:
   signInWithGoogle: Sign In with Google
 # ---
 
-
 signUp:
   title: 'Sign Up'
   form:

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app/theme/theme.dart';
+// ATTENTION 1/4
 import '../../../blocs/count/bloc.dart';
 import '../../../blocs/count/event.dart';
+// ---
 import '../../../repositories/count/repository.dart';
 import 'widgets/connector/app_bar.dart';
-// ATTENTION 1/3
+// ATTENTION 2/4
 import 'widgets/connector/counter_text.dart';
 import 'widgets/connector/decrement_button.dart';
 import 'widgets/connector/increment_button.dart';
@@ -22,7 +24,7 @@ class Home_Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ATTENTION 2/3
+    // ATTENTION 3/4
     return BlocProvider(
       create: (context) {
         return CountBloc(countRepository: context.read<CountRepository>())
@@ -48,7 +50,7 @@ class Home_Scaffold extends StatelessWidget {
           padding: EdgeInsets.all(context.spacings.large),
           child: Column(
             children: [
-              // ATTENTION 3/3
+              // ATTENTION 4/4
               Row(
                 children: [
                   const HomeC_DecrementButton(),

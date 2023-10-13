@@ -48,6 +48,7 @@ class MocksContainer {
 
   final amplitudeRepository = MockAmplitudeRepository();
   final authRepository = MockAuthRepository();
+
   // ATTENTION 2/3
   final paymentsRepository = MockPaymentsRepository();
   // --

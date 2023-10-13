@@ -37,4 +37,4 @@ class SignUpBaseBloc extends AppBaseBloc<SignUpEvent, SignUpState> {
 class CountBaseBloc extends AppBaseBloc<CountEvent, CountState> {
   CountBaseBloc(super.initialState);
 }
-// --
+// ---

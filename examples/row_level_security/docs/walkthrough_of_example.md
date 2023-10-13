@@ -328,9 +328,11 @@ import '../repositories/count/repository.dart';
 import 'router.dart';
 import 'theme/theme.dart';
 import 'widgets/listener/subscribe_to_auth_change.dart';
+import 'widgets/listener/subscribe_to_deep_links.dart';
 
 Future<Widget> appBuilder({
   required String? deepLinkOverride,
+  required Stream<Uri> deepLinkStream,
   required String? accessToken,
   required AmplitudeRepository amplitudeRepository,
   required AuthChangeEffectProvider authChangeEffectProvider,
@@ -364,6 +366,7 @@ Future<Widget> appBuilder({
       child: App(
         key: key,
         deepLinkOverride: deepLinkOverride,
+        deepLinkStream: deepLinkStream,
         amplitudeRepository: amplitudeRepository,
         authChangeEffectProvider: authChangeEffectProvider,
         nowEffectProvider: nowEffectProvider,
@@ -380,6 +383,7 @@ Future<Widget> appBuilder({
 class App extends StatelessWidget {
   App({
     required this.deepLinkOverride,
+    required this.deepLinkStream,
     required this.amplitudeRepository,
     required this.authChangeEffectProvider,
     required this.nowEffectProvider,
@@ -392,6 +396,7 @@ class App extends StatelessWidget {
   }) : _appRouter = AppRouter(authBloc: authBloc);
 
   final String? deepLinkOverride;
+  final Stream<Uri> deepLinkStream;
   final AmplitudeRepository amplitudeRepository;
   final AuthChangeEffectProvider authChangeEffectProvider;
   final NowEffectProvider nowEffectProvider;
@@ -429,39 +434,43 @@ class App extends StatelessWidget {
           ),
           // ---
         ],
-        child: AppL_SubscribeToAuthChange(
-          child: MaterialApp.router(
-            theme: appTheme,
-            debugShowCheckedModeBanner: false,
-            scrollBehavior: const MaterialScrollBehavior().copyWith(
-              dragDevices: {
-                PointerDeviceKind.touch,
-                PointerDeviceKind.mouse,
-              },
-            ),
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            locale: TranslationProvider.of(context).flutterLocale,
-            supportedLocales: AppLocaleUtils.supportedLocales,
-            routeInformationParser: _appRouter.defaultRouteParser(
-              includePrefixMatches: true,
-            ),
-            routerDelegate: AutoRouterDelegate(
-              _appRouter,
-              deepLinkBuilder: (deepLink) => deepLinkBuilder(
-                authBloc: context.read<AuthBloc>(),
-                deepLink: deepLink,
-                deepLinkOverride: deepLinkOverride,
+        child: AppL_SubscribeToDeepLinks(
+          appRouter: _appRouter,
+          deepLinksStream: deepLinkStream,
+          child: AppL_SubscribeToAuthChange(
+            child: MaterialApp.router(
+              theme: appTheme,
+              debugShowCheckedModeBanner: false,
+              scrollBehavior: const MaterialScrollBehavior().copyWith(
+                dragDevices: {
+                  PointerDeviceKind.touch,
+                  PointerDeviceKind.mouse,
+                },
               ),
-              navigatorObservers: () => [
-                SentryNavigatorObserver(),
-                AmplitudeRouteObserver(
-                  amplitudeRepository: amplitudeRepository,
-                ),
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
               ],
+              locale: TranslationProvider.of(context).flutterLocale,
+              supportedLocales: AppLocaleUtils.supportedLocales,
+              routeInformationParser: _appRouter.defaultRouteParser(
+                includePrefixMatches: true,
+              ),
+              routerDelegate: AutoRouterDelegate(
+                _appRouter,
+                deepLinkBuilder: (deepLink) => deepLinkBuilder(
+                  authBloc: context.read<AuthBloc>(),
+                  deepLink: deepLink,
+                  deepLinkOverride: deepLinkOverride,
+                ),
+                navigatorObservers: () => [
+                  SentryNavigatorObserver(),
+                  AmplitudeRouteObserver(
+                    amplitudeRepository: amplitudeRepository,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -469,6 +478,7 @@ class App extends StatelessWidget {
     );
   }
 }
+
 ```
 
 Then go to `app/lib/main/bootstrap.dart` and replace the entire contents of the
@@ -562,8 +572,8 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     log.finest('supabase client initialzed');
 
     final authRepository = AuthRepository(
-      authCallbackUrlHostname: configuration
-          .supabaseClientProviderConfiguration.authCallbackUrlHostname,
+      deepLinkHostname:
+          configuration.supabaseClientProviderConfiguration.deepLinkHostname,
       supabaseClient: supabaseClientProvider.client,
     );
     log.finer('auth repository created');
@@ -583,6 +593,8 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     runApp(
       await appBuilder(
         deepLinkOverride: null,
+        deepLinkStream:
+            supabaseClientProvider.deepLinksStream ?? const Stream.empty(),
         accessToken:
             supabaseClientProvider.client.auth.currentSession?.accessToken,
         amplitudeRepository: amplitudeRepository,
@@ -610,6 +622,7 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     await _appRunner();
   }
 }
+
 ```
 
 Then go to `test/util/mocked_app` and replace the entire contents of the file
@@ -683,6 +696,7 @@ class MockAuthRepository extends Mock implements AuthRepository {}
 // ATTENTION 3/3
 class MockCountRepository extends Mock implements CountRepository {}
 // ---
+
 ```
 
 Then go to `test/util/app_builder_app` and replace the entire contents of the
@@ -705,6 +719,7 @@ FutureOr<Widget> testAppBuilder({
   return await appBuilder(
     key: key,
     deepLinkOverride: deepLinkOverride,
+    deepLinkStream: const Stream.empty(),
     accessToken: accessToken,
     amplitudeRepository: mocks.amplitudeRepository,
     authChangeEffectProvider: mocks.authChangeEffectProvider,
@@ -715,6 +730,7 @@ FutureOr<Widget> testAppBuilder({
     // ---
   );
 }
+
 ```
 
 ## Step 7: Create a Count Bloc
@@ -1175,7 +1191,6 @@ signIn:
   forgotPassword(rich): '${tapHere(Forgot Password)}'
   newUserSignUp(rich): 'New User? ${tapHere(Sign Up)}'
 
-
 signUp:
   title: 'Sign Up'
   form:
@@ -1186,24 +1201,22 @@ signUp:
     password:
       placeholder: 'Password'
       helpText(rich): '${tapHere(See password criteria)}'
-      error: 
+      error:
         invalid: 'Minimum 8 characters, upper and lower case, with at least one special character.'
   ctas:
     signUp: 'Sign Up'
     error: 'Could not sign up.'
-
 
 forgotPassword:
   title: 'Forgot Password'
   form:
     email:
       placeholder: 'Email'
-      error: 
+      error:
         invalid: 'Please enter a valid email address.'
   ctas:
     resetPassword: 'Reset Password'
     error: 'Could not reset password.'
-
 
 forgotPasswordConfirmation:
   title: 'Check your inbox.'
@@ -1213,17 +1226,16 @@ forgotPasswordConfirmation:
     emailResent: 'Email resent.'
     error: 'Could not resend email.'
 
-
 home:
   title: 'Home'
-# ATTENTION 1/1
+  # ATTENTION 1/1
   increment: 'Increment'
   decrement: 'Decrement'
 # ---
 
-
 resetPassword:
   title: 'Reset Password'
+
 ```
 
 Then, to recreate our internationalization file, let's run:
@@ -1327,10 +1339,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app/theme/theme.dart';
+// ATTENTION 1/4
 import '../../../blocs/count/bloc.dart';
+import '../../../blocs/count/event.dart';
+// ---
 import '../../../repositories/count/repository.dart';
 import 'widgets/connector/app_bar.dart';
-// ATTENTION 1/3
+// ATTENTION 2/4
 import 'widgets/connector/counter_text.dart';
 import 'widgets/connector/decrement_button.dart';
 import 'widgets/connector/increment_button.dart';
@@ -1345,7 +1360,7 @@ class Home_Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ATTENTION 2/3
+    // ATTENTION 3/4
     return BlocProvider(
       create: (context) {
         return CountBloc(countRepository: context.read<CountRepository>())
@@ -1371,7 +1386,7 @@ class Home_Scaffold extends StatelessWidget {
           padding: EdgeInsets.all(context.spacings.large),
           child: Column(
             children: [
-              // ATTENTION 3/3
+              // ATTENTION 4/4
               Row(
                 children: [
                   const HomeC_DecrementButton(),
@@ -1397,6 +1412,7 @@ class Home_Scaffold extends StatelessWidget {
     );
   }
 }
+
 ```
 
 ## Step 9: Add flow-based tests for this flow

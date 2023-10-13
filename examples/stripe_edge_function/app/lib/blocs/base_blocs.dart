@@ -31,6 +31,8 @@ class SignUpBaseBloc extends AppBaseBloc<SignUpEvent, SignUpState> {
   SignUpBaseBloc(super.initialState);
 }
 
+// ATTENTION
 class PaymentsBaseBloc extends AppBaseBloc<PaymentsEvent, PaymentsState> {
   PaymentsBaseBloc(super.initialState);
 }
+// ---

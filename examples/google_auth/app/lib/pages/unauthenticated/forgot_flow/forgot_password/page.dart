@@ -29,9 +29,7 @@ class ForgotPassword_Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForgotPasswordL_OnForgotPasswordStatusChange(
       child: Scaffold(
-        appBar: AppBar(
-          title: const ForgotPasswordC_AppBar(),
-        ),
+        appBar: const ForgotPasswordC_AppBar(),
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(context.spacings.large),

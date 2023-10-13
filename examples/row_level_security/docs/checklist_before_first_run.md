@@ -154,9 +154,83 @@ supabase link --project-ref XXX
 
 Go to `app/lib/main/configurations.dart` and replace all the `CHANGE ME` texts with your credentials.
 
+For the **development** builds:
+
+- They should be good to go for web and iOS
+- For android, replace instances of localhost with your machine's ip address.
+
 For the **production** build use these:
 
 - ![Supabase credentials](images/checklist_before_first_run/supabase_credentials.png?raw=true)
 - ![Amplitude credentials](images/checklist_before_first_run/amplitude_credentials.png?raw=true)
 - ![Sentry DSN](images/checklist_before_first_run/sentry_dsn.png?raw=true)
 - ![Sentry environment](images/checklist_before_first_run/sentry_environment.png?raw=true)
+
+## Step 6: Set up Deep Links
+
+Update the redirect links in `supabase/config.toml` under the `[auth]` section:
+
+```toml
+additional_redirect_urls = [
+  # For Web (catch all)
+  "https://localhost:3000", 
+  # For Mobile (needs to be individually specified)
+  "com.example.myapp.deep://deeplink-callback/#/deep/resetPassword"
+]
+```
+
+Update `app/ios/Runner/Info.plist` to include the following:
+
+```xml
+<!-- ... other tags -->
+<plist>
+<dict>
+  <!-- ... other tags -->
+
+  <!-- Add this array for Deep Links -->
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleTypeRole</key>
+      <string>Editor</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+      <!-- CHANGE ME before going to production -->
+        <string>com.example.myapp.deep</string>
+      </array>
+    </dict>
+  </array>
+  <!-- ... other tags -->
+</dict>
+</plist>
+```
+
+Update `app/android/app/src/main/AndroidManifest.xml` to include the following:
+
+```xml
+<manifest ...>
+  <!-- ... other tags -->
+  <application ...>
+    <activity ...>
+      <!-- ... other tags -->
+
+      <!-- Add this intent-filter for Deep Links -->
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
+        <!-- CHANGE ME: change scheme before going to production -->
+        <data
+          android:scheme="com.example.myapp.deep"
+          android:host="deeplink-callback" />
+      </intent-filter>
+
+    </activity>
+  </application>
+</manifest>
+```
+
+Finally, do a search and replace for `com.example.myapp.deep` and replace it with the name of your project. For example `com.example.hello-world.deep` (in kebab-case).
+
+![deep_link1](images/checklist_before_first_run/deep_link1.png?raw=true)

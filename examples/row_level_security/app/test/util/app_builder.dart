@@ -14,6 +14,7 @@ FutureOr<Widget> testAppBuilder({
   return await appBuilder(
     key: key,
     deepLinkOverride: deepLinkOverride,
+    deepLinkStream: const Stream.empty(),
     accessToken: accessToken,
     amplitudeRepository: mocks.amplitudeRepository,
     authChangeEffectProvider: mocks.authChangeEffectProvider,

@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../app/theme/theme.dart';
-// ATTENTION 1/3
+// ATTENTION 1/4
 import '../../../blocs/payments/bloc.dart';
 import '../../../blocs/payments/event.dart';
 // ---
 import '../../../repositories/payments/repository.dart';
 import 'widgets/connector/app_bar.dart';
+// ATTENTION 2/4
 import 'widgets/connector/create_stripe_account_button.dart';
+// ---
 import 'widgets/connector/sign_out_button.dart';
 
 @RoutePage()
@@ -20,7 +22,7 @@ class Home_Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ATTENTION 2/3
+    // ATTENTION 2/4
     return BlocProvider(
       create: (context) {
         return PaymentsBloc(
@@ -47,7 +49,7 @@ class Home_Scaffold extends StatelessWidget {
           padding: EdgeInsets.all(context.spacings.large),
           child: Column(
             children: [
-              // ATTENTION 3/3
+              // ATTENTION 4/4
               const HomeC_CreateStripeAccountButton(),
               SizedBox(
                 height: context.spacings.medium,

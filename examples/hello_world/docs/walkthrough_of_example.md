@@ -14,6 +14,7 @@
   - [Test Gallery](#test-gallery)
 
 <!-- /TOC -->
+
 ## High-level Overview of Directory Structure
 
 ### Uncommented
@@ -177,20 +178,7 @@
 # By adding this extension, we can access our spacings using context
 # (e.g. `context.spacings.medium`).
 │   │   │   │   ├── spacings.dart
-# This is where we aggregate all of the neighboring files and define our <!-- TOC -->
-
-- [Walkthrough of Example](#walkthrough-of-example)
-  - [High-level Overview of Directory Structure](#high-level-overview-of-directory-structure)
-    - [Uncommented](#uncommented)
-    - [Commented](#commented)
-  - [Run this application](#run-this-application)
-  - [User Flows](#user-flows)
-    - [Sign Up Flow](#sign-up-flow)
-    - [Sign In Flow](#sign-in-flow)
-    - [Forgot Password Flow](#forgot-password-flow)
-  - [Test Gallery](#test-gallery)
-
-<!-- /TOC -->Theme. 
+# This is where we aggregate all of the neighboring files and define our
 # This theme is used by `app/builder.dart`
 │   │   │   │   ├── theme.dart
 # You can define different styles for different typographies. This file simply takes advantage of the default
@@ -201,11 +189,12 @@
 # across the application, do NOT put them here. Instead, favor `shared/widgets` directory instead.
 │   │   │   └── widgets
 │   │   │       └── listener
-# The only reason this directory exists is to have a home for this one widget. This widget is used
-# to listen to Supabase and run a callback when the authentication status of the user has changed.
-# This listener is at the top-level of our application because we want to switch the user to 
-#  and from the authenticated and unauthenticated routing branches.
+# This widget is used to listen to Supabase and run a callback when the authentication status 
+# of the user has changed. This listener is at the top-level of our application because we want 
+# to switch the user to and from the authenticated and unauthenticated routing branches.
 │   │   │           └── subscribe_to_auth_change.dart
+# This widget is used to handle deep links into our app.
+│   │   │           └── subscribe_to_deep_links.dart
 # We use flutter_bloc (https://pub.dev/packages/flutter_bloc) and nearly all of our 
 # business logic is defined here. Each bloc will get its own directory and will always have the 
 # same files inside of it: bloc.dart, event.dart, state.dart.
@@ -524,17 +513,17 @@ Run the following commands in order:
 - `make flutter_get`
 - `make slang_build`
 - `make runner_build`
-- `supabase start` (if this doesn't work, make sure Docker is running and
-     that you have linked your project)
+- `supabase start` (if this doesn't work, make sure Docker is running and that
+  you have linked your project)
 - Run `make redux_devtools_server`, then go to a browser an go to
-   [localhost:8001](http://localhost:8001). (When you start the application and
-   you only see a blank screen, it is likely because you never did this step).
+  [localhost:8001](http://localhost:8001). (When you start the application and
+  you only see a blank screen, it is likely because you never did this step).
 
-   ![Redux remote devtools](images/walkthrough_of_example/redux_remote_devtools_start.png?raw=true)
+  ![Redux remote devtools](images/walkthrough_of_example/redux_remote_devtools_start.png?raw=true)
 
 - In VSCode, open the _Run and Debug_ tab and select `development w/ devtools`.
-   (If you don't see this option, open up VSCode from this directory instead of
-   from gadfly_flutter_template's root directory)
+  (If you don't see this option, open up VSCode from this directory instead of
+  from gadfly_flutter_template's root directory)
 
 ## User Flows
 

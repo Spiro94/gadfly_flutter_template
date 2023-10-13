@@ -1,7 +1,4 @@
 devtools
 remotedev
 pyenv
-Supabase
-Deno
-webhook
-dbdev
+supabase
