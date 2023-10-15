@@ -11,11 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   logging: 1.1.1
-  supabase_flutter:
-    git:
-      url: https://github.com/gadfly361/supabase-flutter.git
-      ref: 7e965c0c61f8a08ed8eb5817bf7360b206d0fa5d
-      path: packages/supabase_flutter
+  supabase_flutter: ^1.10.22
 
 dev_dependencies:
   flutter_test:

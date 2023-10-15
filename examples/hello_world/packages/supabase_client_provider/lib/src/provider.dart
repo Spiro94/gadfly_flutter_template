@@ -19,21 +19,14 @@ class SupabaseClientProvider {
     await Supabase.initialize(
       url: config.url,
       anonKey: config.anonKey,
-      // We are preenting supabase from handling deep links, so we can handle
-      // them ourseles.
-      ignoreDeepLinks: true,
+      // We are preventing supabase from handling deep links. Supabase checks
+      // the deeplink hostname against this value. If they don't match, supabase
+      // will ignore the deeplink, which is what we want.
+      authCallbackUrlHostname: 'unreachablehostname',
     );
 
+    // This sets up a stream of deep links, so we can handle them ourselves
     if (!kIsWeb) {
-      // This will handle app links while the app is already started - be it in
-      // the foreground or in the background.
-      //
-      // Note: supabase_flutter is also using [AppLinks], but we want to usurp
-      // control of app links from supabase_flutter. It is a design flaw of
-      // theirs to control deep links entirely. To take control, we are taking
-      // advantage of an implementation detail of AppLinks where only the latest
-      // listener will receive events. Since this list was created later, it
-      // will win and receive events.
       deepLinksStream = _appLinks.uriLinkStream.map((uriRaw) {
         // To be able to use Supabase's tooling to check for a session in the
         // URI, we need to rebuild the URI be pretending the first fragment
