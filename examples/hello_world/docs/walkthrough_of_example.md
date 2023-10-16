@@ -507,6 +507,8 @@
 
 ## Run this application
 
+*Note: Make sure to do everything in `docs/checklist_before_first_run.md`.*
+
 Run the following commands in order:
 
 - `make flutter_clean`
@@ -521,7 +523,7 @@ Run the following commands in order:
 
   ![Redux remote devtools](images/walkthrough_of_example/redux_remote_devtools_start.png?raw=true)
 
-- In VSCode, open the _Run and Debug_ tab and select `development w/ devtools`.
+- In VSCode, open the *Run and Debug* tab and select `development w/ devtools`.
   (If you don't see this option, open up VSCode from this directory instead of
   from gadfly_flutter_template's root directory)
 

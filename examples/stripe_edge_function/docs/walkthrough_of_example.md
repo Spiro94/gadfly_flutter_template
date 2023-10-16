@@ -53,6 +53,8 @@ service_role key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZ
 Follow the `Studio URL` link. This is a local instance of the Supabase Studio.
 You can make edits to your database using this tool.
 
+*Note: Make sure to do everything in `docs/checklist_before_first_run.md`.*
+
 ## Step 1: Create a profiles table with row-level security
 
 Open the local SQL editor:
@@ -155,13 +157,6 @@ const stripe = Stripe(Deno.env.get("STRIPE_KEY")!, {
   httpClient: Stripe.createFetchHttpClient(),
 });
 
-// The Supabase environment variables are defined for us, so we do not need to
-// set them in a .env file.
-const supabase = createClient(
-  Deno.env.get("SUPABASE_URL")!,
-  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-);
-
 export const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -195,9 +190,6 @@ serve(async (req) => {
     const {
       data: { user },
     } = await supabaseClient.auth.getUser();
-
-    console.log({ req });
-    console.log({ user });
 
     if (!user) {
       throw Error("Invalid JWT");

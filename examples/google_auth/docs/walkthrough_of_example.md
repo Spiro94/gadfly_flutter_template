@@ -51,6 +51,8 @@ service_role key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZ
 Follow the `Studio URL` link. This is a local instance of the Supabase Studio.
 You can make edits to your database using this tool.
 
+*Note: Make sure to do everything in `docs/checklist_before_first_run.md`.*
+
 ## Step 1: Enable google auth in `config.toml`
 
 Replace the contents of your `supabase/config.toml` with the following:

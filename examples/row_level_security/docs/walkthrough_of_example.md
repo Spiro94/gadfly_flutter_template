@@ -57,6 +57,8 @@ service_role key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZ
 Follow the `Studio URL` link. This is a local instance of the Supabase Studio.
 You can make edits to your database using this tool.
 
+*Note: Make sure to do everything in `docs/checklist_before_first_run.md`.*
+
 ## Step 1: Add a `counts` table to Supabase
 
 We need a place to store each user's current count. Follow these steps to create
@@ -155,8 +157,8 @@ with check ((user_id = auth.uid()));
 
 Copy the diff into the migration file.
 
-_Note: If we wanted to do this in a single step, we could have run this instead:
-`supabase db diff | supabase migration new create_counts_table_with_policies`._
+*Note: If we wanted to do this in a single step, we could have run this instead:
+`supabase db diff | supabase migration new create_counts_table_with_policies`.*
 
 ## Step 4: Add a trigger to insert a new row into the counts table when a user signs up
 
