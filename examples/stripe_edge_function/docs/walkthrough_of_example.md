@@ -250,6 +250,8 @@ And then paste your Stripe secret key into your `.env` file:
 STRIPE_KEY=XXX
 ```
 
+You don't want to check-in your .env file, so add `.env` to your `supabase/.gitignore` file.
+
 To run your edge functions locally, run the following in a terminal:
 
 ```sh

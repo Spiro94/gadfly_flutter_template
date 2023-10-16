@@ -221,6 +221,8 @@ under Settings/Access Token. Paste your access token into your `.env` file:
 HUGGINGFACE_ACCESS_TOKEN=XXX
 ```
 
+You don't want to check-in your .env file, so add `.env` to your `supabase/.gitignore` file.
+
 To run your edge functions locally, run the following in a terminal:
 
 ```sh
