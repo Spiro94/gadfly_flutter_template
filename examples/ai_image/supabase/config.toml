@@ -61,7 +61,7 @@ additional_redirect_urls = [
   # For Web (catch all)
   "https://localhost:3000",
   # For Mobile (needs to be individually specified)
-  "com.example.myapp.deep://deeplink-callback/#/deep/resetPassword",
+  "com.example.ai-image.deep://deeplink-callback/#/deep/resetPassword",
 ]
 
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).

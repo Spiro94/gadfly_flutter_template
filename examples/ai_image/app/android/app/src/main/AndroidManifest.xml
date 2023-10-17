@@ -32,7 +32,7 @@
               <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
               <!-- CHANGE ME: change scheme before going to production -->
               <data
-                android:scheme="com.example.myapp.deep"
+                android:scheme="com.example.ai-image.deep"
                 android:host="deeplink-callback" />
             </intent-filter>
 

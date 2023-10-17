@@ -53,7 +53,7 @@
       <key>CFBundleURLSchemes</key>
       <array>
       <!-- CHANGE ME before going to production -->
-        <string>com.example.myapp.deep</string>
+        <string>com.example.ai-image.deep</string>
       </array>
     </dict>
   </array>
