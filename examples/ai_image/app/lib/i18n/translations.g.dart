@@ -6,7 +6,7 @@
 /// Locales: 1
 /// Strings: 30
 ///
-/// Built on 2023-10-16 at 19:36 UTC
+/// Built on 2023-10-16 at 23:41 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -221,7 +221,7 @@ class TranslationsHomeEn {
 	// Translations
 	String get title => 'Home';
 	String get describeYourAvatarInWords => 'Describe your avatar in words';
-	String get submit => 'submit';
+	String get submit => 'Submit';
 }
 
 // Path: resetPassword
@@ -449,7 +449,7 @@ extension on TranslationsEn {
 			case 'forgotPasswordConfirmation.ctas.error': return 'Could not resend email.';
 			case 'home.title': return 'Home';
 			case 'home.describeYourAvatarInWords': return 'Describe your avatar in words';
-			case 'home.submit': return 'submit';
+			case 'home.submit': return 'Submit';
 			case 'resetPassword.title': return 'Reset Password';
 			default: return null;
 		}

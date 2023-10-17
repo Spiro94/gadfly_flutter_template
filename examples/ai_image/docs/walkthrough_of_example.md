@@ -221,7 +221,8 @@ under Settings/Access Token. Paste your access token into your `.env` file:
 HUGGINGFACE_ACCESS_TOKEN=XXX
 ```
 
-You don't want to check-in your .env file, so add `.env` to your `supabase/.gitignore` file.
+You don't want to check-in your .env file, so add `.env` to your
+`supabase/.gitignore` file.
 
 To run your edge functions locally, run the following in a terminal:
 
@@ -256,4 +257,120 @@ Then run the following:
 ```sh
 make slang_build
 make runner_build
+```
+
+## Step 4: Add flow-based test
+
+The following files were either created or edited (roughly in this order):
+
+- created `app/test/flows/authenticated/generate_avatart_test.dart`
+
+``
+
+## Step 5: Add database tests
+
+For our database tests, we want to make use of
+[supabase_test_helpers](https://database.dev/basejump/supabase_test_helpers). To
+be able to install that, we first need to install
+[dbdev](https://database.dev/).
+
+We need to make a new migration file:
+
+```sh
+supabase migration new install_dbdev_and_test_helpers
+```
+
+And copy the following into it:
+
+```sql
+/*---------------------
+---- install dbdev ----
+----------------------
+Requires:
+  - pg_tle: https://github.com/aws/pg_tle
+  - pgsql-http: https://github.com/pramsey/pgsql-http
+*/
+create extension if not exists http with schema extensions;
+create extension if not exists pg_tle;
+select pgtle.uninstall_extension_if_exists('supabase-dbdev');
+drop extension if exists "supabase-dbdev";
+select
+    pgtle.install_extension(
+        'supabase-dbdev',
+        resp.contents ->> 'version',
+        'PostgreSQL package manager',
+        resp.contents ->> 'sql'
+    )
+from http(
+    (
+        'GET',
+        'https://api.database.dev/rest/v1/'
+        || 'package_versions?select=sql,version'
+        || '&package_name=eq.supabase-dbdev'
+        || '&order=version.desc'
+        || '&limit=1',
+        array[
+            (
+                'apiKey',
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJp'
+                || 'c3MiOiJzdXBhYmFzZSIsInJlZiI6InhtdXB0cHBsZnZpaWZyY'
+                || 'ndtbXR2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODAxMDczNzI'
+                || 'sImV4cCI6MTk5NTY4MzM3Mn0.z2CN0mvO2No8wSi46Gw59DFGCTJ'
+                || 'rzM0AQKsu_5k134s'
+            )::http_header
+        ],
+        null,
+        null
+    )
+) x,
+lateral (
+    select
+        ((row_to_json(x) -> 'content') #>> '{}')::json -> 0
+) resp(contents);
+create extension "supabase-dbdev";
+select dbdev.install('supabase-dbdev');
+drop extension if exists "supabase-dbdev";
+create extension "supabase-dbdev";
+
+-- Install supabase_test_helpers
+select dbdev.install('basejump-supabase_test_helpers');
+```
+
+Then let's run the following to apply the change:
+
+```sh
+supabase migration up
+```
+
+Now we can write our database test. Let's start by creating a test file.
+
+```sh
+supabase test new insert_avatar_in_images_table
+```
+
+Then copy the following into `supabase/tests/insert_avatar_in_images_table.sql`:
+
+```sql
+BEGIN;
+
+SELECT plan(2);
+
+
+SELECT has_table('storage', 'buckets', 'Should have storage.buckets table');
+SELECT policies_are('storage', 'objects', ARRAY[
+  'User can create their images',
+  'User can delete their images',
+  'User can read their images',
+  'User can update their images'
+]);
+
+
+SELECT * FROM finish();
+ROLLBACK;
+```
+
+You can run your database tests by running:
+
+```sh
+supabse db test
 ```
