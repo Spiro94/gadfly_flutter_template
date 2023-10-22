@@ -59,7 +59,7 @@ You can make edits to your database using this tool.
 
 Open the local SQL editor:
 
-![profiles_table1](images/walkthrough_of_example/profile_table1.png?raw=true)
+![profiles_table1](images/walkthrough_of_example/profiles_table1.png?raw=true)
 
 Then run the following snippet:
 
