@@ -98,9 +98,7 @@ Because we added a new schema, `docs`, we need to add this to our
 like this:
 
 ```toml
-# ATTENTION
 schemas = ["public", "storage", "graphql_public", "docs"]
-# ---
 ```
 
 ## Step 3: add a match_page_selections function
@@ -442,7 +440,7 @@ newly created `supabase/functions/import_map.json` file.
 ```
 
 To be able to serve this edge function locally, we need to create a
-`supabase/functions/.env` file to store the `OPENAI_KEY`.
+`supabase/.env` file to store the `OPENAI_KEY`.
 
 ```sh
 touch supabase/.env

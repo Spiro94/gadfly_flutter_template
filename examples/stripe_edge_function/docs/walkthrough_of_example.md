@@ -232,10 +232,10 @@ serve(async (req) => {
 ```
 
 To be able to serve this edge function locally, we need to create a
-`supabase/functions/.env` file to store the `STRIPE_KEY`.
+`supabase/.env` file to store the `STRIPE_KEY`.
 
 ```sh
-touch supabase/functions/.env
+touch supabase/.env
 ```
 
 Get your Stripe key by doing the following:
@@ -255,7 +255,7 @@ You don't want to check-in your .env file, so add `.env` to your `supabase/.giti
 To run your edge functions locally, run the following in a terminal:
 
 ```sh
-supabase functions serve --env-file supabase/functions/.env
+supabase functions serve --env-file supabase/.env
 ```
 
 ## Step 4: Call the edge function from the UI

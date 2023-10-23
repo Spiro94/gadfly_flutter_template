@@ -208,10 +208,10 @@ serve(async (req) => {
 ```
 
 To be able to serve this edge function locally, we need to create a
-`supabase/functions/.env` file to store the `HUGGINGFACE_ACCESS_TOKEN`.
+`supabase/.env` file to store the `HUGGINGFACE_ACCESS_TOKEN`.
 
 ```sh
-touch supabase/functions/.env
+touch supabase/.env
 ```
 
 Sign up on Hugging Face if you haven't done it yet. Generate a new Access Token
@@ -227,7 +227,7 @@ You don't want to check-in your .env file, so add `.env` to your
 To run your edge functions locally, run the following in a terminal:
 
 ```sh
-supabase functions serve --env-file supabase/functions/.env
+supabase functions serve --env-file supabase/.env
 ```
 
 ## Step 3: Call the edge function from the UI
