@@ -1,0 +1,62 @@
+signIn:
+  title: 'Sign In'
+  form:
+    email:
+      placeholder: 'Email'
+      error:
+        invalid: 'Please enter a valid email address.'
+    password:
+      placeholder: 'Password'
+  ctas:
+    signIn: 'Sign In'
+    error: 'Could not sign in.'
+  forgotPassword(rich): '${tapHere(Forgot Password)}'
+  newUserSignUp(rich): 'New User? ${tapHere(Sign Up)}'
+
+
+signUp:
+  title: 'Sign Up'
+  form:
+    email:
+      placeholder: 'Email'
+      error:
+        invalid: 'Please enter a valid email address.'
+    password:
+      placeholder: 'Password'
+      helpText(rich): '${tapHere(See password criteria)}'
+      error: 
+        invalid: 'Minimum 8 characters, upper and lower case, with at least one special character.'
+  ctas:
+    signUp: 'Sign Up'
+    error: 'Could not sign up.'
+
+
+forgotPassword:
+  title: 'Forgot Password'
+  form:
+    email:
+      placeholder: 'Email'
+      error: 
+        invalid: 'Please enter a valid email address.'
+  ctas:
+    resetPassword: 'Reset Password'
+    error: 'Could not reset password.'
+
+
+forgotPasswordConfirmation:
+  title: 'Check your inbox.'
+  subtitle: 'If this email is valid, you should receive a log-in link within a few minutes.'
+  ctas:
+    resendEmail: 'Re-send Email'
+    emailResent: 'Email resent.'
+    error: 'Could not resend email.'
+
+
+home:
+  title: 'Home'
+# ATTENTION 1/1
+  send: 'Send'
+# ---
+
+resetPassword:
+  title: 'Reset Password'

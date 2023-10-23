@@ -1,21 +1,17 @@
-# ai_vector_search
+# realtime_chat
 
 **What is this example?**
 
-An authenticated user can ask questions against the
-[Deno documentation](https://github.com/denoland/deno-docs/tree/main/deploy)
-using an AI vector search.
+This example demonstrates realtime updates with Supabase through a simple chat
+application.
 
 **Purpose**:
 
 This example will demonstrate:
 
 - how to create a table in Supabase
-- how to create a schema in Supabase
-- how to create an edge function
-- how to invoke the edge function
-- how to use pgvector
-- how to use seed.sql
+- how to use row-level security
+- how to use realtime updates in Supabase
 - how to create a repository
 - how to create a bloc
 
