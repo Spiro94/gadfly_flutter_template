@@ -1,0 +1,27 @@
+{
+    "search.exclude": {
+        "**/.fvm": true
+    },
+    // Remove from file watching
+    "files.watcherExclude": {
+        "**/.fvm": true
+    },
+    "separators.enabledSymbols": [
+        "Classes",
+        "Enums",
+        "Functions",
+        "Interfaces",
+        "Methods",
+        "Namespaces",
+        "Structs"
+    ],
+    "deno.enable": true,
+    "deno.lint": true,
+    "editor.defaultFormatter": "denoland.vscode-deno",
+    // ATTENTION
+    "deno.enablePaths": [
+        "./supabase/functions"
+    ],
+    "deno.importMap": "./supabase/functions/import_map.json"
+    // ---
+}
