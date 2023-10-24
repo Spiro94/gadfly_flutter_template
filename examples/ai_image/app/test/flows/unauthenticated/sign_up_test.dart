@@ -142,11 +142,6 @@ void main() {
 
         await tester.screenshot(
           description: 'tap submit button (pump rest)',
-          arrangeBeforeActions: (arrange) {
-            when(() => arrange.mocks.nowEffectProvider.getEffect()).thenAnswer(
-              (Invocation invocation) => FakeNowEffect(),
-            );
-          },
           actions: (actions) async {
             await actions.testerAction.pumpAndSettle();
           },
@@ -273,11 +268,6 @@ void main() {
 
         await tester.screenshot(
           description: 'press enter (pump rest)',
-          arrangeBeforeActions: (arrange) {
-            when(() => arrange.mocks.nowEffectProvider.getEffect()).thenAnswer(
-              (Invocation invocation) => FakeNowEffect(),
-            );
-          },
           actions: (actions) async {
             await actions.testerAction.pumpAndSettle();
           },

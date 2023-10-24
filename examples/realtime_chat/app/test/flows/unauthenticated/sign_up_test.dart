@@ -146,10 +146,6 @@ void main() {
         await tester.screenshot(
           description: 'tap submit button (pump rest)',
           arrangeBeforeActions: (arrange) {
-            when(() => arrange.mocks.nowEffectProvider.getEffect()).thenAnswer(
-              (Invocation invocation) => FakeNowEffect(),
-            );
-
             // ATTENTION 2/5
             when(() => arrange.mocks.chatRepository.getMessagesStream())
                 .thenAnswer(
@@ -295,11 +291,6 @@ void main() {
 
         await tester.screenshot(
           description: 'press enter (pump rest)',
-          arrangeBeforeActions: (arrange) {
-            when(() => arrange.mocks.nowEffectProvider.getEffect()).thenAnswer(
-              (Invocation invocation) => FakeNowEffect(),
-            );
-          },
           actions: (actions) async {
             await actions.testerAction.pumpAndSettle();
           },
