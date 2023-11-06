@@ -402,6 +402,8 @@
 │   │   │               │   ├── email_text_field.dart
 │   │   │               │   ├── password_text_field.dart
 │   │   │               │   └── sign_up_button.dart
+│   │   │               ├── listener
+│   │   │               │   └── on_sign_up_status_change.dart
 │   │   │               └── molecule
 │   │   │                   └── sign_up_form.dart
 # When using flutter_bloc, we have a separation between Blocs, Repositories, and Data Providers. This directory 

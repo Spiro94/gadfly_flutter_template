@@ -5,6 +5,7 @@ import '../../../app/theme/theme.dart';
 import '../../../blocs/sign_up/bloc.dart';
 import '../../../repositories/auth/repository.dart';
 import 'widgets/connector/app_bar.dart';
+import 'widgets/listener/on_sign_up_status_change.dart';
 import 'widgets/molecule/sign_up_form.dart';
 
 @RoutePage()
@@ -31,17 +32,19 @@ class SignUp_Scaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const SignInC_AppBar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(context.spacings.large),
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SignUpM_SignUnForm(),
-            ],
+    return SignUpL_OnSignUpStatusChange(
+      child: Scaffold(
+        appBar: const SignInC_AppBar(),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(context.spacings.large),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SignUpM_SignUnForm(),
+              ],
+            ),
           ),
         ),
       ),
