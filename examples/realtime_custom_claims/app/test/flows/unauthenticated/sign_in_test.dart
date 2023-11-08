@@ -2,22 +2,22 @@ import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:realtime_chat/blocs/auth/event.dart';
-// ATTENTION 1/5
-import 'package:realtime_chat/blocs/chat/event.dart';
+// ATTENTION 1/7
+import 'package:realtime_custom_claims/blocs/auth/event.dart';
+import 'package:realtime_custom_claims/blocs/custom_claims/event.dart';
 // ---
-import 'package:realtime_chat/blocs/sign_up/event.dart';
-import 'package:realtime_chat/pages/authenticated/home/page.dart';
-import 'package:realtime_chat/pages/unauthenticated/sign_up/page.dart';
-import 'package:realtime_chat/pages/unauthenticated/sign_up/widgets/connector/email_text_field.dart';
-import 'package:realtime_chat/pages/unauthenticated/sign_up/widgets/connector/password_text_field.dart';
-import 'package:realtime_chat/pages/unauthenticated/sign_up/widgets/connector/sign_up_button.dart';
+import 'package:realtime_custom_claims/blocs/sign_in/event.dart';
+import 'package:realtime_custom_claims/pages/authenticated/home/page.dart';
+import 'package:realtime_custom_claims/pages/unauthenticated/sign_in/page.dart';
+import 'package:realtime_custom_claims/pages/unauthenticated/sign_in/widgets/connector/email_text_field.dart';
+import 'package:realtime_custom_claims/pages/unauthenticated/sign_in/widgets/connector/password_text_field.dart';
+import 'package:realtime_custom_claims/pages/unauthenticated/sign_in/widgets/connector/sign_in_button.dart';
+import 'package:realtime_custom_claims/shared/widgets/dumb/button.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 import '../../util/fake/auth_change_effect.dart';
 import '../../util/fake/supabase_user.dart';
 import '../../util/util.dart';
-import '../../util/warp/to_sign_up.dart';
 
 void main() {
   final baseDescriptions = [
@@ -29,9 +29,9 @@ void main() {
     ),
     FTDescription(
       descriptionType: 'STORY',
-      shortDescription: 'sign_up',
+      shortDescription: 'sign_in',
       description:
-          '''As a user, I should be able to sign up for the application, so that I can use it.''',
+          '''As a user, I should be able to sign in to the application, so that I can use it.''',
       atScreenshotsLevel: true,
     ),
   ];
@@ -40,7 +40,7 @@ void main() {
     final happyPathDescription = FTDescription(
       descriptionType: 'PATH',
       shortDescription: 'happy_path',
-      description: '''Happy Path: Signing up is successful''',
+      description: '''Happy Path: Signing in is successful''',
     );
 
     flowTest(
@@ -60,26 +60,36 @@ void main() {
       ],
       test: (tester) async {
         await tester.setUp(
-          warp: warpToSignUp,
-          arrangeBeforePumpApp: arrangeBeforeWarpToSignUp,
+          arrangeBeforePumpApp: (arrange) async {
+            final fakeAuthChangeEffect = FakeAuthChangeEffect();
+            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
+                .thenAnswer(
+              (invocation) => fakeAuthChangeEffect,
+            );
+
+            arrange.extras['fakeAuthChangeEffect'] = fakeAuthChangeEffect;
+          },
         );
 
         await tester.screenshot(
           description: 'initial state',
           expectations: (expectations) {
             expectations.expect(
-              find.byType(SignUp_Page),
+              find.byType(SignIn_Page),
               findsOneWidget,
-              reason: 'Should be on the SignUp page',
+              reason: 'Should be on the SignIn page',
             );
           },
+          expectedEvents: [
+            'Page: SignIn',
+          ],
         );
 
         await tester.screenshot(
           description: 'enter email',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignUpC_EmailTextField),
+              find.byType(SignInC_EmailTextField),
               'foo@example.com',
             );
             await actions.testerAction.pumpAndSettle();
@@ -90,7 +100,7 @@ void main() {
           description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignUpC_PasswordTextField),
+              find.byType(SignInC_PasswordTextField),
               'Pass123!',
             );
             await actions.testerAction.pumpAndSettle();
@@ -101,7 +111,7 @@ void main() {
           description: 'tap submit button (pump half)',
           arrangeBeforeActions: (arrange) {
             when(
-              () => arrange.mocks.authRepository.signUp(
+              () => arrange.mocks.authRepository.signIn(
                 email: any(named: 'email'),
                 password: any(named: 'password'),
               ),
@@ -119,11 +129,21 @@ void main() {
                   ),
                 ),
               );
+
+              // ATTENTION 2/7
+              when(
+                () => arrange.mocks.customClaimsRepository
+                    .getCustomClaimUpdatesStream(),
+              ).thenAnswer(
+                (invocation) async => arrange.mocks.customClaimsRepository
+                    .customClaimUpdatesStreamController.stream,
+              );
+              // ---
               return;
             });
           },
           actions: (actions) async {
-            await actions.userAction.tap(find.byType(SignUpC_SignUpButton));
+            await actions.userAction.tap(find.byType(SignInC_SignInButton));
             await actions.testerAction.pump(const Duration(milliseconds: 250));
           },
           expectations: (expectations) {
@@ -139,21 +159,12 @@ void main() {
             );
           },
           expectedEvents: [
-            SignUpEvent_SignUp,
+            SignInEvent_SignIn,
           ],
         );
 
         await tester.screenshot(
           description: 'tap submit button (pump rest)',
-          // ATTENTION 2/5
-          arrangeBeforeActions: (arrange) {
-            when(() => arrange.mocks.chatRepository.getMessagesStream())
-                .thenAnswer(
-              (invocation) async =>
-                  arrange.mocks.chatRepository.messagesStreamController.stream,
-            );
-          },
-          // ---
           actions: (actions) async {
             await actions.testerAction.pumpAndSettle();
           },
@@ -168,8 +179,8 @@ void main() {
             'INFO: [auth_change_subscription] signedIn',
             AuthEvent_AccessTokenAdded,
             'Page: Home',
-            // ATTENTION 3/5
-            ChatEvent_Initialize,
+            // ATTENTION 3/7
+            CustomClaimsEvent_Initialize,
             // ---
           ],
         );
@@ -178,9 +189,7 @@ void main() {
 
     flowTest(
       'HP2',
-      config: createFlowConfig(
-        hasAccessToken: false,
-      ),
+      config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
         happyPathDescription,
@@ -193,26 +202,35 @@ void main() {
       ],
       test: (tester) async {
         await tester.setUp(
-          warp: warpToSignUp,
-          arrangeBeforePumpApp: arrangeBeforeWarpToSignUp,
+          arrangeBeforePumpApp: (arrange) async {
+            final fakeAuthChangeEffect = FakeAuthChangeEffect();
+            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
+                .thenAnswer(
+              (invocation) => fakeAuthChangeEffect,
+            );
+            arrange.extras['fakeAuthChangeEffect'] = fakeAuthChangeEffect;
+          },
         );
 
         await tester.screenshot(
           description: 'initial state',
           expectations: (expectations) {
             expectations.expect(
-              find.byType(SignUp_Page),
+              find.byType(SignIn_Page),
               findsOneWidget,
-              reason: 'Should be on the SignUp page',
+              reason: 'Should be on the SignIn page',
             );
           },
+          expectedEvents: [
+            'Page: SignIn',
+          ],
         );
 
         await tester.screenshot(
           description: 'enter email',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignUpC_EmailTextField),
+              find.byType(SignInC_EmailTextField),
               'foo@example.com',
             );
             await actions.testerAction.pumpAndSettle();
@@ -230,7 +248,7 @@ void main() {
         await tester.screenshot(
           description: 'enter password',
           actions: (actions) async {
-            await actions.userAction.testTextInputEnterText('Pass123!');
+            await actions.userAction.testTextInputEnterText('password');
             await actions.testerAction.pumpAndSettle();
           },
         );
@@ -239,7 +257,7 @@ void main() {
           description: 'press enter (pump half)',
           arrangeBeforeActions: (arrange) {
             when(
-              () => arrange.mocks.authRepository.signUp(
+              () => arrange.mocks.authRepository.signIn(
                 email: any(named: 'email'),
                 password: any(named: 'password'),
               ),
@@ -258,13 +276,16 @@ void main() {
                 ),
               );
 
-              // ATTENTION 4/5
-              when(() => arrange.mocks.chatRepository.getMessagesStream())
-                  .thenAnswer(
-                (invocation) async => arrange
-                    .mocks.chatRepository.messagesStreamController.stream,
+              // ATTENTION 4/7
+              when(
+                () => arrange.mocks.customClaimsRepository
+                    .getCustomClaimUpdatesStream(),
+              ).thenAnswer(
+                (invocation) async => arrange.mocks.customClaimsRepository
+                    .customClaimUpdatesStreamController.stream,
               );
               // ---
+
               return;
             });
           },
@@ -285,7 +306,7 @@ void main() {
             );
           },
           expectedEvents: [
-            SignUpEvent_SignUp,
+            SignInEvent_SignIn,
           ],
         );
 
@@ -305,8 +326,65 @@ void main() {
             'INFO: [auth_change_subscription] signedIn',
             AuthEvent_AccessTokenAdded,
             'Page: Home',
-            // ATTENTION 5/5
-            ChatEvent_Initialize,
+            // ATTENTION 5/7
+            CustomClaimsEvent_Initialize,
+            // ---
+          ],
+        );
+      },
+    );
+
+    flowTest(
+      'HP3',
+      config: createFlowConfig(hasAccessToken: true),
+      descriptions: [
+        ...baseDescriptions,
+        happyPathDescription,
+        FTDescription(
+          descriptionType: 'AC',
+          shortDescription: 'already_have_token',
+          description:
+              '''As a user, if I already have an auth token, I should not see the SignIn page and should go straight to the Home page.''',
+        ),
+      ],
+      test: (tester) async {
+        await tester.setUp(
+          arrangeBeforePumpApp: (arrange) async {
+            final fakeAuthChangeEffect = FakeAuthChangeEffect();
+            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
+                .thenAnswer(
+              (invocation) => fakeAuthChangeEffect,
+            );
+
+            // ATTENTION 6/7
+            when(
+              () => arrange.mocks.customClaimsRepository
+                  .getCustomClaimUpdatesStream(),
+            ).thenAnswer(
+              (invocation) async => arrange.mocks.customClaimsRepository
+                  .customClaimUpdatesStreamController.stream,
+            );
+            // ---
+          },
+        );
+
+        await tester.screenshot(
+          description: 'initial state',
+          actions: (actions) async {
+            await actions.testerAction.pump();
+          },
+          expectations: (expectations) {
+            expectations.expect(
+              find.byType(Home_Page),
+              findsOneWidget,
+              reason:
+                  '''Should be on the Home page because we have an accessToken in local storage''',
+            );
+          },
+          expectedEvents: [
+            'Page: Home',
+            // ATTENTION 7/7
+            CustomClaimsEvent_Initialize,
             // ---
           ],
         );
@@ -318,45 +396,118 @@ void main() {
     final sadPathDescription = FTDescription(
       descriptionType: 'PATH',
       shortDescription: 'sad_path',
-      description: '''Sad Path: Signing up is not successful''',
+      description: '''Sad Path: Signing in is not successful''',
     );
 
     flowTest(
       'SP1',
-      config: createFlowConfig(
-        hasAccessToken: false,
-      ),
+      config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
         sadPathDescription,
         FTDescription(
           descriptionType: 'AC',
-          shortDescription: 'invalid_email',
-          description: '''Should see error if invalid email address''',
+          shortDescription: 'empty_inputs',
+          description:
+              '''If either of the inputs are empty, should not be able to tap the sign in button''',
         ),
       ],
       test: (tester) async {
         await tester.setUp(
-          warp: warpToSignUp,
-          arrangeBeforePumpApp: arrangeBeforeWarpToSignUp,
+          arrangeBeforePumpApp: (arrange) async {
+            final fakeAuthChangeEffect = FakeAuthChangeEffect();
+            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
+                .thenAnswer(
+              (invocation) => fakeAuthChangeEffect,
+            );
+          },
         );
 
         await tester.screenshot(
           description: 'initial state',
           expectations: (expectations) {
             expectations.expect(
-              find.byType(SignUp_Page),
+              find.byType(SignIn_Page),
               findsOneWidget,
-              reason: 'Should be on the SignUp page',
+              reason: 'Should be on the SignIn page',
+            );
+          },
+          expectedEvents: [
+            'Page: SignIn',
+          ],
+        );
+
+        await tester.screenshot(
+          description: 'tap submit button',
+          actions: (actions) async {
+            await actions.userAction.tap(
+              find.descendant(
+                of: find.byType(SignInC_SignInButton),
+                matching: find.byWidgetPredicate((widget) {
+                  if (widget is SharedD_Button) {
+                    return widget.status == SharedD_Button_Status.disabled;
+                  }
+                  return false;
+                }),
+              ),
+            );
+            await actions.testerAction.pumpAndSettle();
+          },
+          expectations: (expectations) {
+            expectations.expect(
+              find.byType(SignIn_Page),
+              findsOneWidget,
+              reason: 'Should still be on SignIn page',
+            );
+          },
+          expectedEvents: [],
+        );
+      },
+    );
+
+    flowTest(
+      'SP2',
+      config: createFlowConfig(hasAccessToken: false),
+      descriptions: [
+        ...baseDescriptions,
+        sadPathDescription,
+        FTDescription(
+          descriptionType: 'AC',
+          shortDescription: 'invalid_email',
+          description:
+              '''If you attempt to sign in, but the email is invalid, should see invalid error''',
+        ),
+      ],
+      test: (tester) async {
+        await tester.setUp(
+          arrangeBeforePumpApp: (arrange) async {
+            final fakeAuthChangeEffect = FakeAuthChangeEffect();
+            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
+                .thenAnswer(
+              (invocation) => fakeAuthChangeEffect,
             );
           },
         );
 
         await tester.screenshot(
-          description: 'enter email',
+          description: 'initial state',
+          expectations: (expectations) {
+            expectations.expect(
+              find.byType(SignIn_Page),
+              findsOneWidget,
+              reason: 'Should be on the SignIn page',
+            );
+          },
+          expectedEvents: [
+            'Page: SignIn',
+          ],
+        );
+
+        await tester.screenshot(
+          description: 'enter invalid emaill address',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignUpC_EmailTextField),
+              find.byType(SignInC_EmailTextField),
               'bad email',
             );
             await actions.testerAction.pumpAndSettle();
@@ -367,8 +518,8 @@ void main() {
           description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignUpC_PasswordTextField),
-              'Pass123!',
+              find.byType(SignInC_PasswordTextField),
+              'password',
             );
             await actions.testerAction.pumpAndSettle();
           },
@@ -377,63 +528,79 @@ void main() {
         await tester.screenshot(
           description: 'tap submit button',
           actions: (actions) async {
-            await actions.userAction.tap(find.byType(SignUpC_SignUpButton));
+            await actions.userAction.tap(
+              find.descendant(
+                of: find.byType(SignInC_SignInButton),
+                matching: find.byWidgetPredicate((widget) {
+                  if (widget is SharedD_Button) {
+                    return widget.status == SharedD_Button_Status.enabled;
+                  }
+                  return false;
+                }),
+              ),
+            );
             await actions.testerAction.pumpAndSettle();
           },
           expectations: (expectations) {
             expectations.expect(
-              find.byType(Home_Page),
-              findsNothing,
-              reason: 'Should not be on the Home page yet',
+              find.byType(SignIn_Page),
+              findsOneWidget,
+              reason: 'Should still be on SignIn page',
             );
             expectations.expect(
               find.text('Please enter a valid email address.'),
               findsOneWidget,
-              reason: 'Should see invalid email error',
+              reason: 'Should see email invalid error',
             );
           },
-          expectedEvents: [],
         );
       },
     );
 
     flowTest(
-      'SP2',
-      config: createFlowConfig(
-        hasAccessToken: false,
-      ),
+      'SP3',
+      config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
         sadPathDescription,
         FTDescription(
           descriptionType: 'AC',
-          shortDescription: 'invalid_password',
-          description: '''Should see error if invalid password''',
+          shortDescription: 'http_error',
+          description:
+              '''As a user, even if I fill out the form correctly, I can still hit an http error. If this happens, I should be made aware that something went wrong.''',
         ),
       ],
       test: (tester) async {
         await tester.setUp(
-          warp: warpToSignUp,
-          arrangeBeforePumpApp: arrangeBeforeWarpToSignUp,
+          arrangeBeforePumpApp: (arrange) async {
+            final fakeAuthChangeEffect = FakeAuthChangeEffect();
+            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
+                .thenAnswer(
+              (invocation) => fakeAuthChangeEffect,
+            );
+          },
         );
 
         await tester.screenshot(
           description: 'initial state',
           expectations: (expectations) {
             expectations.expect(
-              find.byType(SignUp_Page),
+              find.byType(SignIn_Page),
               findsOneWidget,
-              reason: 'Should be on the SignUp page',
+              reason: 'Should be on the SignIn page',
             );
           },
+          expectedEvents: [
+            'Page: SignIn',
+          ],
         );
 
         await tester.screenshot(
           description: 'enter email',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignUpC_EmailTextField),
-              'john@example.com',
+              find.byType(SignInC_EmailTextField),
+              'foo@example.com',
             );
             await actions.testerAction.pumpAndSettle();
           },
@@ -443,8 +610,8 @@ void main() {
           description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignUpC_PasswordTextField),
-              'bad password',
+              find.byType(SignInC_PasswordTextField),
+              'password',
             );
             await actions.testerAction.pumpAndSettle();
           },
@@ -452,25 +619,42 @@ void main() {
 
         await tester.screenshot(
           description: 'tap submit button',
+          arrangeBeforeActions: (arrange) {
+            when(
+              () => arrange.mocks.authRepository.signIn(
+                email: any(named: 'email'),
+                password: any(named: 'password'),
+              ),
+            ).thenThrow(
+              (invocation) async => Exception('BOOM'),
+            );
+          },
           actions: (actions) async {
-            await actions.userAction.tap(find.byType(SignUpC_SignUpButton));
+            await actions.userAction.tap(find.byType(SignInC_SignInButton));
             await actions.testerAction.pumpAndSettle();
           },
           expectations: (expectations) {
             expectations.expect(
               find.byType(Home_Page),
               findsNothing,
-              reason: 'Should not be on the Home page yet',
+              reason:
+                  'Should not be on the Home page because signing in failed',
             );
             expectations.expect(
-              find.text(
-                '''Minimum 8 characters, upper and lower case, with at least one special character.''',
-              ),
+              find.byType(SignIn_Page),
               findsOneWidget,
-              reason: 'Should see invalid password error',
+              reason: 'Should still be on SignIn page',
+            );
+            expectations.expect(
+              find.text('Could not sign in.'),
+              findsOneWidget,
+              reason:
+                  '''Should see error message letting user know something went wrong.''',
             );
           },
-          expectedEvents: [],
+          expectedEvents: [
+            SignInEvent_SignIn,
+          ],
         );
       },
     );

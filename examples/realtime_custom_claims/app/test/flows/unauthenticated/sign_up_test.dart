@@ -2,16 +2,16 @@ import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:realtime_chat/blocs/auth/event.dart';
+import 'package:realtime_custom_claims/blocs/auth/event.dart';
 // ATTENTION 1/5
-import 'package:realtime_chat/blocs/chat/event.dart';
+import 'package:realtime_custom_claims/blocs/custom_claims/event.dart';
 // ---
-import 'package:realtime_chat/blocs/sign_up/event.dart';
-import 'package:realtime_chat/pages/authenticated/home/page.dart';
-import 'package:realtime_chat/pages/unauthenticated/sign_up/page.dart';
-import 'package:realtime_chat/pages/unauthenticated/sign_up/widgets/connector/email_text_field.dart';
-import 'package:realtime_chat/pages/unauthenticated/sign_up/widgets/connector/password_text_field.dart';
-import 'package:realtime_chat/pages/unauthenticated/sign_up/widgets/connector/sign_up_button.dart';
+import 'package:realtime_custom_claims/blocs/sign_up/event.dart';
+import 'package:realtime_custom_claims/pages/authenticated/home/page.dart';
+import 'package:realtime_custom_claims/pages/unauthenticated/sign_up/page.dart';
+import 'package:realtime_custom_claims/pages/unauthenticated/sign_up/widgets/connector/email_text_field.dart';
+import 'package:realtime_custom_claims/pages/unauthenticated/sign_up/widgets/connector/password_text_field.dart';
+import 'package:realtime_custom_claims/pages/unauthenticated/sign_up/widgets/connector/sign_up_button.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
 import '../../util/fake/auth_change_effect.dart';
@@ -147,10 +147,12 @@ void main() {
           description: 'tap submit button (pump rest)',
           // ATTENTION 2/5
           arrangeBeforeActions: (arrange) {
-            when(() => arrange.mocks.chatRepository.getMessagesStream())
-                .thenAnswer(
-              (invocation) async =>
-                  arrange.mocks.chatRepository.messagesStreamController.stream,
+            when(
+              () => arrange.mocks.customClaimsRepository
+                  .getCustomClaimUpdatesStream(),
+            ).thenAnswer(
+              (invocation) async => arrange.mocks.customClaimsRepository
+                  .customClaimUpdatesStreamController.stream,
             );
           },
           // ---
@@ -169,7 +171,7 @@ void main() {
             AuthEvent_AccessTokenAdded,
             'Page: Home',
             // ATTENTION 3/5
-            ChatEvent_Initialize,
+            CustomClaimsEvent_Initialize,
             // ---
           ],
         );
@@ -259,10 +261,12 @@ void main() {
               );
 
               // ATTENTION 4/5
-              when(() => arrange.mocks.chatRepository.getMessagesStream())
-                  .thenAnswer(
-                (invocation) async => arrange
-                    .mocks.chatRepository.messagesStreamController.stream,
+              when(
+                () => arrange.mocks.customClaimsRepository
+                    .getCustomClaimUpdatesStream(),
+              ).thenAnswer(
+                (invocation) async => arrange.mocks.customClaimsRepository
+                    .customClaimUpdatesStreamController.stream,
               );
               // ---
               return;
@@ -306,7 +310,7 @@ void main() {
             AuthEvent_AccessTokenAdded,
             'Page: Home',
             // ATTENTION 5/5
-            ChatEvent_Initialize,
+            CustomClaimsEvent_Initialize,
             // ---
           ],
         );
