@@ -24,9 +24,9 @@ find projects/$4/app -name '*.md' -exec sed -i '' -e "s/gadfly_flutter_template/
 
 cd projects/$4/app
 
-flutter clean
-flutter pub get
-dart fix --apply
+fvm flutter clean
+fvm flutter pub get
+fvm dart fix --apply
 
 mv .fvm ../
 mv docs ../
