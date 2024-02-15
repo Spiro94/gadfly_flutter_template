@@ -1,7 +1,8 @@
 import 'dart:async';
 
+import 'package:app_links/app_links.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 import '../blocs/auth/bloc.dart';
 import '../blocs/auth/event.dart';
@@ -85,6 +86,23 @@ class AppRouter extends _$AppRouter {
   ];
 }
 
+Stream<Uri> deepLinksStreamInit() {
+  if (kIsWeb) {
+    return const Stream<Uri>.empty();
+  }
+
+  return AppLinks().uriLinkStream.map((uriRaw) {
+    // To be able to use Supabase's tooling to check for a session in the URI,
+    // we need to rebuild the URI with the fragment as the path, and then
+    // re-adding the query params.
+    final fragment = uriRaw.fragment;
+
+    final rawQueryParams = uriRaw.queryParameters;
+    final uri2 = Uri(path: fragment, queryParameters: rawQueryParams);
+    return uri2;
+  });
+}
+
 Future<DeepLink> deepLinkBuilder({
   required AuthBloc authBloc,
   required PlatformDeepLink deepLink,
@@ -116,18 +134,15 @@ Future<String?> handleDeepLink({
     case '/deep/resetPassword':
       try {
         final completer = Completer<void>();
-
         authBloc.add(
           AuthEvent_SetSessionFromDeepLink(
             completer: completer,
             uri: uri,
           ),
         );
-
         await completer.future;
-
-        return '/resetPassword';
       } catch (_) {}
+      return '/resetPassword';
     default:
       break;
   }

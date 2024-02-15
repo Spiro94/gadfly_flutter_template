@@ -1,0 +1,60 @@
+name: gadfly_flutter_template
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.1 <4.0.0'
+  flutter: 3.13.3
+
+dependencies:
+  amplitude_repository:
+    path: ../packages/amplitude_repository
+  auto_route: ^7.4.0
+  bloc_concurrency: ^0.2.2
+  device_info_plus: ^9.0.1
+  device_info_provider:
+    path: ../packages/device_info_provider
+  dynamic_color: ^1.6.7
+  email_validator: ^2.1.17
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.2
+  flutter_localizations:
+    sdk: flutter
+  google_fonts: ^4.0.4
+  intl: ^0.18.1
+  json_annotation: ^4.8.1
+  loading_indicator: ^3.1.1
+  logging: 1.1.1
+  recase: ^4.1.0
+  redux_remote_devtools: ^3.0.0
+  sentry_repository:
+    path: ../packages/sentry_repository
+  shared_preferences: ^2.2.0
+  slang_flutter: ^3.19.0
+  supabase_client_provider:
+    path: ../packages/supabase_client_provider
+  supabase_flutter: ^ 1.10.22
+
+dev_dependencies:
+  auto_route_generator: ^7.1.1
+  build_runner: ^2.4.5
+  flow_test:
+    path: ../packages/flow_test
+  flutter_test:
+    sdk: flutter
+  gadfly_lints:
+    path: ../packages/gadfly_lints
+  golden_toolkit: ^0.15.0
+  json_serializable: ^6.7.0
+  mocktail: ^0.3.0
+  mocktail_image_network: ^0.3.1
+  slang: ^3.19.0
+  very_good_analysis: ^5.0.0+1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/google_fonts/

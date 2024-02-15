@@ -10,42 +10,45 @@ class MainConfigurations {
   static MainConfiguration development = MainConfiguration(
     logLevel: Level.ALL,
     useReduxDevtools: false,
+    deepLinkHostname: kIsWeb
+        ? 'http://127.0.0.1:3000'
+        : 'com.example.myapp.deep://deeplink-callback',
     amplitudeRepositoryConfiguration: AmplitudeRepositoryConfiguration(
       apiKey: 'CHANGE_ME',
       sendEvents: false,
     ),
     sentryRepositoryConfiguration: null,
     supabaseClientProviderConfiguration: SupabaseClientProviderConfiguration(
-      url: 'http://localhost:54321',
+      url: 'http://127.0.0.1:54321',
       anonKey:
           '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0''',
-      deepLinkHostname: kIsWeb
-          ? 'http://localhost:3000'
-          : 'com.example.myapp.deep://deeplink-callback',
     ),
   );
 
   static MainConfiguration developmentWithReduxDevtools = MainConfiguration(
     logLevel: Level.ALL,
     useReduxDevtools: true,
+    deepLinkHostname: kIsWeb
+        ? 'http://127.0.0.1:3000'
+        : 'com.example.myapp.deep://deeplink-callback',
     amplitudeRepositoryConfiguration: AmplitudeRepositoryConfiguration(
       apiKey: 'CHANGE_ME',
       sendEvents: false,
     ),
     sentryRepositoryConfiguration: null,
     supabaseClientProviderConfiguration: SupabaseClientProviderConfiguration(
-      url: 'http://localhost:54321',
+      url: 'http://127.0.0.1:54321',
       anonKey:
           '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0''',
-      deepLinkHostname: kIsWeb
-          ? 'http://localhost:3000'
-          : 'com.example.myapp.deep://deeplink-callback',
     ),
   );
 
   static MainConfiguration developmentAndSendEvents = MainConfiguration(
     logLevel: Level.ALL,
     useReduxDevtools: true,
+    deepLinkHostname: kIsWeb
+        ? 'http://127.0.0.1:3000'
+        : 'com.example.myapp.deep://deeplink-callback',
     amplitudeRepositoryConfiguration: AmplitudeRepositoryConfiguration(
       apiKey: 'CHANGE_ME',
       sendEvents: true,
@@ -55,18 +58,16 @@ class MainConfigurations {
       sentryEnvironment: 'CHANG ME',
     ),
     supabaseClientProviderConfiguration: SupabaseClientProviderConfiguration(
-      url: 'http://localhost:54321',
+      url: 'http://127.0.0.1:54321',
       anonKey:
           '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0''',
-      deepLinkHostname: kIsWeb
-          ? 'http://localhost:3000'
-          : 'com.example.myapp.deep://deeplink-callback',
     ),
   );
 
   static MainConfiguration production = MainConfiguration(
     logLevel: Level.INFO,
     useReduxDevtools: false,
+    deepLinkHostname: 'CHANGE ME',
     amplitudeRepositoryConfiguration: AmplitudeRepositoryConfiguration(
       apiKey: 'CHANGE_ME',
       sendEvents: true,
@@ -78,7 +79,6 @@ class MainConfigurations {
     supabaseClientProviderConfiguration: SupabaseClientProviderConfiguration(
       url: 'CHANGE ME',
       anonKey: 'CHANGE ME',
-      deepLinkHostname: 'CHANGE ME',
     ),
   );
 }
@@ -87,6 +87,7 @@ class MainConfiguration {
   MainConfiguration({
     required this.logLevel,
     required this.useReduxDevtools,
+    required this.deepLinkHostname,
     required this.amplitudeRepositoryConfiguration,
     required this.sentryRepositoryConfiguration,
     required this.supabaseClientProviderConfiguration,
@@ -94,6 +95,7 @@ class MainConfiguration {
 
   final Level logLevel;
   final bool useReduxDevtools;
+  final String deepLinkHostname;
   final AmplitudeRepositoryConfiguration amplitudeRepositoryConfiguration;
   final SentryRepositoryConfiguration? sentryRepositoryConfiguration;
   final SupabaseClientProviderConfiguration supabaseClientProviderConfiguration;

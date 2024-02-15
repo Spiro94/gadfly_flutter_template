@@ -12,7 +12,7 @@ brew tap leoafarias/fvm
 
 brew install fvm
 
-fvm install 3.13.3
+fvm install 3.19.0
 ```
 
 ## Redux remote devtools

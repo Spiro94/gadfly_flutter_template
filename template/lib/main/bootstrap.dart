@@ -7,6 +7,7 @@ import 'package:sentry_repository/sentry_repository.dart';
 import 'package:supabase_client_provider/supabase_client_provider.dart';
 import '../app/bloc_observer.dart';
 import '../app/builder.dart';
+import '../app/router.dart';
 import '../blocs/redux_remote_devtools.dart';
 import '../effects/auth_change/provider.dart';
 import '../effects/now/provider.dart';
@@ -82,8 +83,7 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     log.finest('supabase client initialzed');
 
     final authRepository = AuthRepository(
-      deepLinkHostname:
-          configuration.supabaseClientProviderConfiguration.deepLinkHostname,
+      deepLinkHostname: configuration.deepLinkHostname,
       supabaseClient: supabaseClientProvider.client,
     );
     log.finer('auth repository created');
@@ -93,11 +93,13 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     );
     log.finer('auth change effect provider created');
 
+    final deepLinkStream = deepLinksStreamInit();
+    log.finer('deep link stream created');
+
     runApp(
       await appBuilder(
         deepLinkOverride: null,
-        deepLinkStream:
-            supabaseClientProvider.deepLinksStream ?? const Stream.empty(),
+        deepLinkStream: deepLinkStream,
         accessToken:
             supabaseClientProvider.client.auth.currentSession?.accessToken,
         amplitudeRepository: amplitudeRepository,

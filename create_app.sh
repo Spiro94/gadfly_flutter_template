@@ -37,8 +37,7 @@ mv README.md ../
 
 cd ..
 
-supabase init --with-vscode-workspace
-rm $4.code-workspace
+supabase init 
 
 cd ../..
 

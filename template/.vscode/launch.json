@@ -13,7 +13,8 @@
                 "--web-renderer",
                 "canvaskit",
                 "--web-port",
-                "3000"
+                "3000",
+                "--web-hostname=127.0.0.1",
             ]
         },
         {
@@ -28,7 +29,8 @@
                 "--web-renderer",
                 "canvaskit",
                 "--web-port",
-                "3000"
+                "3000",
+                "--web-hostname=127.0.0.1",
             ]
         },
         {
@@ -43,7 +45,8 @@
                 "--web-renderer",
                 "canvaskit",
                 "--web-port",
-                "3000"
+                "3000",
+                "--web-hostname=127.0.0.1",
             ]
         },
         {
@@ -57,8 +60,6 @@
                 "lib/main/production.dart",
                 "--web-renderer",
                 "canvaskit",
-                "--web-port",
-                "3000",
                 "--release"
             ]
         },

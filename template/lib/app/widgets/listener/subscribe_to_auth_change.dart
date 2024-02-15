@@ -37,6 +37,7 @@ class _AppL_SubscribeToAuthChangeState
       final authBloc = context.read<AuthBloc>();
 
       switch (authState.event) {
+        case AuthChangeEvent.initialSession:
         case AuthChangeEvent.passwordRecovery:
         case AuthChangeEvent.tokenRefreshed:
         case AuthChangeEvent.userUpdated:

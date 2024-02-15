@@ -5,11 +5,12 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=3.0.1 <4.0.0'
-  flutter: 3.13.3
+  flutter: 3.19.0
 
 dependencies:
   amplitude_repository:
     path: ../packages/amplitude_repository
+  app_links: ^3.5.0
   auto_route: ^7.4.0
   bloc_concurrency: ^0.2.2
   device_info_plus: ^9.0.1
@@ -36,7 +37,7 @@ dependencies:
   slang_flutter: ^3.19.0
   supabase_client_provider:
     path: ../packages/supabase_client_provider
-  supabase_flutter: ^ 1.10.22
+  supabase_flutter: ^2.3.3
 
 dev_dependencies:
   auto_route_generator: ^7.1.1

@@ -4,7 +4,7 @@ publish_to: none
 
 environment:
   sdk: '>=3.0.1 <4.0.0'
-  flutter: 3.13.3
+  flutter: 3.19.0
 
 dependencies:
   amplitude_flutter: ^3.16.0

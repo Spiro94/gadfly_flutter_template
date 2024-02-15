@@ -29,7 +29,7 @@ class FTUserAction {
     _userActionRecords.add(
       FTUserActionRecord(
         description:
-            '''Dragged: ${finder.description} by (x: ${offset.dx}, y: ${offset.dy})''',
+            '''Dragged: ${finder.describeMatch(ft.Plurality.one)} by (x: ${offset.dx}, y: ${offset.dy})''',
       ),
     );
     await _widgetTester.drag(
@@ -80,7 +80,7 @@ class FTUserAction {
     _userActionRecords.add(
       FTUserActionRecord(
         description:
-            '''Dragged until visible: ${finder.description} -> ${view.description}''',
+            '''Dragged until visible: ${finder.describeMatch(ft.Plurality.one)} -> ${view.describeMatch(ft.Plurality.one)}''',
       ),
     );
     await _widgetTester.dragUntilVisible(
@@ -121,7 +121,7 @@ class FTUserAction {
     _userActionRecords.add(
       FTUserActionRecord(
         description:
-            '''Flinged: ${finder.description} by (x: ${offset.dx}, y: ${offset.dy})''',
+            '''Flinged: ${finder.describeMatch(ft.Plurality.one)} by (x: ${offset.dx}, y: ${offset.dy})''',
       ),
     );
     await _widgetTester.fling(
@@ -174,7 +174,8 @@ class FTUserAction {
   }) async {
     _userActionRecords.add(
       FTUserActionRecord(
-        description: '''Long pressed: ${finder.description}''',
+        description:
+            '''Long pressed: ${finder.describeMatch(ft.Plurality.one)}''',
       ),
     );
     await _widgetTester.longPress(
@@ -226,7 +227,7 @@ class FTUserAction {
   }) async {
     _userActionRecords.add(
       FTUserActionRecord(
-        description: '''Pressed: ${finder.description}''',
+        description: '''Pressed: ${finder.describeMatch(ft.Plurality.one)}''',
       ),
     );
     await _widgetTester.press(
@@ -246,7 +247,8 @@ class FTUserAction {
   }) async {
     _userActionRecords.add(
       FTUserActionRecord(
-        description: '''Scrolled until visible: ${finder.description}''',
+        description:
+            '''Scrolled until visible: ${finder.describeMatch(ft.Plurality.one)}''',
       ),
     );
     await _widgetTester.scrollUntilVisible(
@@ -362,7 +364,7 @@ class FTUserAction {
   }) async {
     _userActionRecords.add(
       FTUserActionRecord(
-        description: 'Tapped: ${finder.description}',
+        description: 'Tapped: ${finder.describeMatch(ft.Plurality.one)}',
       ),
     );
     await _widgetTester.tap(
@@ -430,7 +432,7 @@ class FTUserAction {
     _userActionRecords.add(
       FTUserActionRecord(
         description:
-            '''Timed drag: ${finder.description} by (x: ${offset.dx}, y: ${offset.dy})''',
+            '''Timed drag: ${finder.describeMatch(ft.Plurality.one)} by (x: ${offset.dx}, y: ${offset.dy})''',
       ),
     );
     await _widgetTester.timedDrag(

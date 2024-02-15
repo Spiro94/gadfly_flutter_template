@@ -173,8 +173,9 @@ Update the redirect links in `supabase/config.toml` under the `[auth]` section:
 ```toml
 additional_redirect_urls = [
   # For Web (catch all)
-  "https://localhost:3000", 
+  "https://127.0.0.1:3000", 
   # For Mobile (needs to be individually specified)
+  "com.example.myapp.deep://deeplink-callback",
   "com.example.myapp.deep://deeplink-callback/#/deep/resetPassword"
 ]
 ```
