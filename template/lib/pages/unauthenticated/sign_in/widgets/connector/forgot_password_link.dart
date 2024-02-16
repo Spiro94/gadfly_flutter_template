@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../../../../app/router.dart';
 import '../../../../../i18n/translations.g.dart';
+import '../../../../../theme/theme.dart';
 
 class SignInC_ForgotPasswordLink extends StatelessWidget {
   const SignInC_ForgotPasswordLink({super.key});
@@ -15,7 +16,7 @@ class SignInC_ForgotPasswordLink extends StatelessWidget {
           return TextSpan(
             text: link,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: context.tokens.color.primary.color,
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {

@@ -33,14 +33,15 @@ class ResetPasswordL_OnStatusChange extends StatelessWidget {
             sm.hideCurrentSnackBar();
             sm.showSnackBar(
               SnackBar(
-                backgroundColor: context.tokens.color.error.midLow,
+                backgroundColor: context.tokens.color.error.container,
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       context.t.resetPassword.ctas.resetPassword.error,
-                      style:
-                          TextStyle(color: context.tokens.color.error.midHigh),
+                      style: TextStyle(
+                        color: context.tokens.color.error.onContainer,
+                      ),
                     ),
                   ],
                 ),
@@ -51,14 +52,14 @@ class ResetPasswordL_OnStatusChange extends StatelessWidget {
             sm.hideCurrentSnackBar();
             sm.showSnackBar(
               SnackBar(
-                backgroundColor: context.tokens.color.success.midLow,
+                backgroundColor: context.tokens.color.success.container,
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       context.t.resetPassword.ctas.resetPassword.success,
                       style: TextStyle(
-                        color: context.tokens.color.success.midHigh,
+                        color: context.tokens.color.success.onContainer,
                       ),
                     ),
                   ],

@@ -4,6 +4,7 @@ part of '../theme.dart';
 
 final _tokenExtensions = ThemeTokenExtensions(
   color: _colorTokens,
+  colorRaw: _colorRawTokens,
   iconSize: _iconSizeTokens,
   radius: _radiusTokens,
   spacing: _spacingTokens,
@@ -18,12 +19,14 @@ class ThemeTokenExtensions extends ThemeExtension<ThemeTokenExtensions>
     with EquatableMixin {
   const ThemeTokenExtensions({
     required this.color,
+    required this.colorRaw,
     required this.iconSize,
     required this.radius,
     required this.spacing,
   });
 
   final ThemeColorTokens color;
+  final ThemeColorRawTokens colorRaw;
   final ThemeIconSizeTokens iconSize;
   final ThemeRadiusTokens radius;
   final ThemeSpacingTokens spacing;
@@ -31,12 +34,14 @@ class ThemeTokenExtensions extends ThemeExtension<ThemeTokenExtensions>
   @override
   ThemeExtension<ThemeTokenExtensions> copyWith({
     ThemeColorTokens? color,
+    ThemeColorRawTokens? colorRaw,
     ThemeIconSizeTokens? iconSize,
     ThemeRadiusTokens? radius,
     ThemeSpacingTokens? spacing,
   }) {
     return ThemeTokenExtensions(
       color: color ?? this.color,
+      colorRaw: colorRaw ?? this.colorRaw,
       iconSize: iconSize ?? this.iconSize,
       radius: radius ?? this.radius,
       spacing: spacing ?? this.spacing,
@@ -51,6 +56,7 @@ class ThemeTokenExtensions extends ThemeExtension<ThemeTokenExtensions>
     if (other is! ThemeTokenExtensions) return this;
     return ThemeTokenExtensions(
       color: color.lerp(other.color, t),
+      colorRaw: colorRaw.lerp(other.colorRaw, t),
       iconSize: iconSize.lerp(other.iconSize, t),
       radius: radius.lerp(other.radius, t),
       spacing: spacing.lerp(other.spacing, t),
@@ -60,6 +66,7 @@ class ThemeTokenExtensions extends ThemeExtension<ThemeTokenExtensions>
   @override
   List<Object?> get props => [
         color,
+        colorRaw,
         iconSize,
         radius,
         spacing,

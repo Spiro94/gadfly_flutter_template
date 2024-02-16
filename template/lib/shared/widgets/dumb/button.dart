@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
+import '../../../theme/theme.dart';
+
 enum SharedD_Button_Status {
   enabled,
   loading,
@@ -48,15 +50,13 @@ class SharedD_Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     switch (buttonType) {
       case SharedD_Button_Type.filled:
         return FilledButton(
           onPressed: onPressedResolved,
           child: isLoading
               ? loadingChild(
-                  color: theme.colorScheme.onPrimary,
+                  color: context.tokens.color.primary.onColor,
                 )
               : Text(label),
         );
@@ -66,9 +66,14 @@ class SharedD_Button extends StatelessWidget {
           onPressed: onPressedResolved,
           child: isLoading
               ? loadingChild(
-                  color: theme.colorScheme.primary,
+                  color: context.tokens.color.primary.color,
                 )
-              : Text(label),
+              : Text(
+                  label,
+                  style: TextStyle(
+                    color: context.tokens.color.primary.color,
+                  ),
+                ),
         );
     }
   }

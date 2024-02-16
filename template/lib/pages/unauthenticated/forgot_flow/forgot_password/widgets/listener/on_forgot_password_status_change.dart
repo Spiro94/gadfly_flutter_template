@@ -6,6 +6,7 @@ import '../../../../../../app/router.dart';
 import '../../../../../../blocs/forgot_password/bloc.dart';
 import '../../../../../../blocs/forgot_password/state.dart';
 import '../../../../../../i18n/translations.g.dart';
+import '../../../../../../theme/theme.dart';
 
 class ForgotPasswordL_OnForgotPasswordStatusChange extends StatelessWidget {
   const ForgotPasswordL_OnForgotPasswordStatusChange({
@@ -20,21 +21,21 @@ class ForgotPasswordL_OnForgotPasswordStatusChange extends StatelessWidget {
     return BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
-        final colorScheme = Theme.of(context).colorScheme;
-
         switch (state.status) {
           case ForgotPasswordStatus.sendLinkError:
             final sm = ScaffoldMessenger.of(context);
             sm.hideCurrentSnackBar();
             sm.showSnackBar(
               SnackBar(
-                backgroundColor: colorScheme.errorContainer,
+                backgroundColor: context.tokens.color.error.container,
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       context.t.forgotPassword.ctas.resetPassword.error,
-                      style: TextStyle(color: colorScheme.onErrorContainer),
+                      style: TextStyle(
+                        color: context.tokens.color.error.onContainer,
+                      ),
                     ),
                   ],
                 ),

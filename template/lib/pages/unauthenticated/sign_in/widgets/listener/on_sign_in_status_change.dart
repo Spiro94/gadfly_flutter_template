@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../blocs/sign_in/bloc.dart';
 import '../../../../../blocs/sign_in/state.dart';
 import '../../../../../i18n/translations.g.dart';
+import '../../../../../theme/theme.dart';
 
 class SignInL_OnSignInStatusChange extends StatelessWidget {
   const SignInL_OnSignInStatusChange({
@@ -18,21 +19,21 @@ class SignInL_OnSignInStatusChange extends StatelessWidget {
     return BlocListener<SignInBloc, SignInState>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
-        final colorScheme = Theme.of(context).colorScheme;
-
         switch (state.status) {
           case SignInStatus.error:
             final sm = ScaffoldMessenger.of(context);
             sm.hideCurrentSnackBar();
             sm.showSnackBar(
               SnackBar(
-                backgroundColor: colorScheme.errorContainer,
+                backgroundColor: context.tokens.color.error.container,
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       context.t.signIn.ctas.signIn.error,
-                      style: TextStyle(color: colorScheme.onErrorContainer),
+                      style: TextStyle(
+                        color: context.tokens.color.error.onContainer,
+                      ),
                     ),
                   ],
                 ),
