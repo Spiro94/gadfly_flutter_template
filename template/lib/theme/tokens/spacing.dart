@@ -1,9 +1,10 @@
 // coverage:ignore-file
 
-part of 'theme.dart';
+part of '../theme.dart';
 
-const _spacings = AppSpacings(
-  none: 0,
+const _spacingTokens = ThemeSpacingTokens(
+  zero: 0,
+  xxxxSmall: 1,
   xxxSmall: 2,
   xxSmall: 4,
   xSmall: 8,
@@ -16,9 +17,11 @@ const _spacings = AppSpacings(
   xxxxLarge: 64,
 );
 
-class AppSpacings extends ThemeExtension<AppSpacings> with EquatableMixin {
-  const AppSpacings({
-    required this.none,
+class ThemeSpacingTokens extends ThemeExtension<ThemeSpacingTokens>
+    with EquatableMixin {
+  const ThemeSpacingTokens({
+    required this.zero,
+    required this.xxxxSmall,
     required this.xxxSmall,
     required this.xxSmall,
     required this.xSmall,
@@ -31,37 +34,11 @@ class AppSpacings extends ThemeExtension<AppSpacings> with EquatableMixin {
     required this.xxxxLarge,
   });
 
-  @override
-  ThemeExtension<AppSpacings> copyWith({
-    double? none,
-    double? xxxSmall,
-    double? xxSmall,
-    double? xSmall,
-    double? small,
-    double? medium,
-    double? large,
-    double? xLarge,
-    double? xxLarge,
-    double? xxxLarge,
-    double? xxxxLarge,
-  }) {
-    return AppSpacings(
-      none: none ?? this.none,
-      xxxSmall: xxxSmall ?? this.xxxSmall,
-      xxSmall: xxSmall ?? this.xxSmall,
-      xSmall: xSmall ?? this.xSmall,
-      small: small ?? this.small,
-      medium: medium ?? this.medium,
-      large: large ?? this.large,
-      xLarge: xLarge ?? this.xLarge,
-      xxLarge: xxLarge ?? this.xxLarge,
-      xxxLarge: xxxLarge ?? this.xxxLarge,
-      xxxxLarge: xxxxLarge ?? this.xxxxLarge,
-    );
-  }
-
   /// No spacing
-  final double none;
+  final double zero;
+
+  /// Default: 1
+  final double xxxxSmall;
 
   /// Default: 2
   final double xxxSmall;
@@ -93,12 +70,44 @@ class AppSpacings extends ThemeExtension<AppSpacings> with EquatableMixin {
   /// Default: 64
   final double xxxxLarge;
 
-  /// Linear interpolation of [AppSpacings]
   @override
-  AppSpacings lerp(AppSpacings? other, double t) {
-    if (other is! AppSpacings) return this;
-    return AppSpacings(
-      none: lerpDouble(none, other.none, t)!,
+  ThemeExtension<ThemeSpacingTokens> copyWith({
+    double? zero,
+    double? xxxxSmall,
+    double? xxxSmall,
+    double? xxSmall,
+    double? xSmall,
+    double? small,
+    double? medium,
+    double? large,
+    double? xLarge,
+    double? xxLarge,
+    double? xxxLarge,
+    double? xxxxLarge,
+  }) {
+    return ThemeSpacingTokens(
+      zero: zero ?? this.zero,
+      xxxxSmall: xxxxSmall ?? this.xxxxSmall,
+      xxxSmall: xxxSmall ?? this.xxxSmall,
+      xxSmall: xxSmall ?? this.xxSmall,
+      xSmall: xSmall ?? this.xSmall,
+      small: small ?? this.small,
+      medium: medium ?? this.medium,
+      large: large ?? this.large,
+      xLarge: xLarge ?? this.xLarge,
+      xxLarge: xxLarge ?? this.xxLarge,
+      xxxLarge: xxxLarge ?? this.xxxLarge,
+      xxxxLarge: xxxxLarge ?? this.xxxxLarge,
+    );
+  }
+
+  /// Linear interpolation of [ThemeSpacingTokens]
+  @override
+  ThemeSpacingTokens lerp(ThemeSpacingTokens? other, double t) {
+    if (other is! ThemeSpacingTokens) return this;
+    return ThemeSpacingTokens(
+      zero: lerpDouble(zero, other.zero, t)!,
+      xxxxSmall: lerpDouble(xxxxSmall, other.xxxxSmall, t)!,
       xxxSmall: lerpDouble(xxxSmall, other.xxxSmall, t)!,
       xxSmall: lerpDouble(xxSmall, other.xxSmall, t)!,
       xSmall: lerpDouble(xSmall, other.xSmall, t)!,
@@ -114,7 +123,8 @@ class AppSpacings extends ThemeExtension<AppSpacings> with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        none,
+        zero,
+        xxxxSmall,
         xxxSmall,
         xxSmall,
         xSmall,

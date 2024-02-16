@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../app/theme/theme.dart';
+import '../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
 
 @RoutePage()
@@ -27,7 +27,7 @@ class ResetPassword_Scaffold extends StatelessWidget {
       appBar: const ResetPasswordC_AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(context.spacings.large),
+          padding: EdgeInsets.all(context.tokens.spacing.large),
           child: const Column(
             children: [],
           ),

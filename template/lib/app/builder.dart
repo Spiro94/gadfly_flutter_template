@@ -12,8 +12,8 @@ import '../effects/auth_change/provider.dart';
 import '../effects/now/provider.dart';
 import '../i18n/translations.g.dart';
 import '../repositories/auth/repository.dart';
+import '../theme/theme.dart';
 import 'router.dart';
-import 'theme/theme.dart';
 import 'widgets/listener/subscribe_to_auth_change.dart';
 import 'widgets/listener/subscribe_to_deep_links.dart';
 

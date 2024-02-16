@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 part of 'theme.dart';
 
 final _typography = Typography.material2021(

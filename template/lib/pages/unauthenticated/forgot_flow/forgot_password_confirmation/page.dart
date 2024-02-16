@@ -3,7 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../app/theme/theme.dart';
+import '../../../../theme/theme.dart';
 import '../forgot_password/widgets/connector/app_bar.dart';
 import 'widgets/connector/resend_email_button.dart';
 import 'widgets/connector/subtitle_text.dart';
@@ -41,14 +41,14 @@ class ForgotPasswordConfirmation_Body extends StatelessWidget {
         appBar: const ForgotPasswordC_AppBar(),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(context.spacings.large),
+            padding: EdgeInsets.all(context.tokens.spacing.large),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
                 const ForgotPasswordConfirmationC_SubtitleText(),
                 SizedBox(
-                  height: context.spacings.large,
+                  height: context.tokens.spacing.large,
                 ),
                 Row(
                   children: [

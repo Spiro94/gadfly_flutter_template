@@ -4,9 +4,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../app/theme/theme.dart';
 import '../../../blocs/sign_in/bloc.dart';
 import '../../../repositories/auth/repository.dart';
+import '../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
 import 'widgets/connector/redirect_to_sign_up_link.dart';
 import 'widgets/listener/on_sign_in_status_change.dart';
@@ -40,13 +40,13 @@ class SignIn_Scaffold extends StatelessWidget {
         appBar: const SignUpC_AppBar(),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(context.spacings.large),
+            padding: EdgeInsets.all(context.tokens.spacing.large),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
                 const SignInM_SignInForm(),
-                SizedBox(height: context.spacings.xxxxLarge),
+                SizedBox(height: context.tokens.spacing.xxxxLarge),
                 const SignInC_RedirectToSignUpLink(),
               ],
             ),

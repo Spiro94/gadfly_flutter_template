@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../app/theme/theme.dart';
 import '../../../../../../blocs/forgot_password/bloc.dart';
 import '../../../../../../blocs/forgot_password/event.dart';
+import '../../../../../../theme/theme.dart';
 import '../connector/email_text_field.dart';
 import '../connector/reset_password_button.dart';
 
@@ -86,7 +86,7 @@ class _ForgotPasswordM_ResetPasswordFormState
             onSubmitted: (value) => _onSubmitted(),
           ),
           SizedBox(
-            height: context.spacings.large,
+            height: context.tokens.spacing.large,
           ),
           Row(
             children: [

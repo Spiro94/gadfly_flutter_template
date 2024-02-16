@@ -3,7 +3,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../app/theme/theme.dart';
+import '../../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
 import 'widgets/listener/on_forgot_password_status_change.dart';
 import 'widgets/molecule/reset_password_form.dart';
@@ -32,7 +32,7 @@ class ForgotPassword_Body extends StatelessWidget {
         appBar: const ForgotPasswordC_AppBar(),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(context.spacings.large),
+            padding: EdgeInsets.all(context.tokens.spacing.large),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,

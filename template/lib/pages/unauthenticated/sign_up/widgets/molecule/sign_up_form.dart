@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../app/theme/theme.dart';
 import '../../../../../blocs/sign_up/bloc.dart';
 import '../../../../../blocs/sign_up/event.dart';
+import '../../../../../theme/theme.dart';
 import '../connector/email_text_field.dart';
 import '../connector/password_text_field.dart';
 import '../connector/sign_up_button.dart';
@@ -96,7 +96,7 @@ class _SignUpM_SignUnFormState extends State<SignUpM_SignUnForm> {
             nextFocusNode: passwordFocusNode,
           ),
           SizedBox(
-            height: context.spacings.large,
+            height: context.tokens.spacing.large,
           ),
           SignUpC_PasswordTextField(
             controller: passwordController,
@@ -104,7 +104,7 @@ class _SignUpM_SignUnFormState extends State<SignUpM_SignUnForm> {
             onSubmitted: (value) => _onSubmitted(),
           ),
           SizedBox(
-            height: context.spacings.large,
+            height: context.tokens.spacing.large,
           ),
           Row(
             children: [

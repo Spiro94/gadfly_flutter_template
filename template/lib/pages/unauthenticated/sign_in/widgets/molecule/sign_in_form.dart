@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../app/theme/theme.dart';
 import '../../../../../blocs/sign_in/bloc.dart';
 import '../../../../../blocs/sign_in/event.dart';
+import '../../../../../theme/theme.dart';
 import '../connector/email_text_field.dart';
 import '../connector/forgot_password_link.dart';
 import '../connector/password_text_field.dart';
@@ -97,7 +97,7 @@ class _SignInM_SignInFormState extends State<SignInM_SignInForm> {
             nextFocusNode: passwordFocusNode,
           ),
           SizedBox(
-            height: context.spacings.large,
+            height: context.tokens.spacing.large,
           ),
           SignInC_PasswordTextField(
             controller: passwordController,
@@ -105,7 +105,7 @@ class _SignInM_SignInFormState extends State<SignInM_SignInForm> {
             onSubmitted: (value) => _onSubmitted(),
           ),
           SizedBox(
-            height: context.spacings.large,
+            height: context.tokens.spacing.large,
           ),
           Row(
             children: [
@@ -114,7 +114,7 @@ class _SignInM_SignInFormState extends State<SignInM_SignInForm> {
                 onPressed: _onSubmitted,
               ),
               SizedBox(
-                width: context.spacings.medium,
+                width: context.tokens.spacing.medium,
               ),
               const Expanded(
                 child: SignInC_ForgotPasswordLink(),
