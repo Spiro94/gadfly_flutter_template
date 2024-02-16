@@ -3,6 +3,8 @@ import 'auth/event.dart';
 import 'auth/state.dart';
 import 'forgot_password/event.dart';
 import 'forgot_password/state.dart';
+import 'reset_password/event.dart';
+import 'reset_password/state.dart';
 import 'sign_in/event.dart';
 import 'sign_in/state.dart';
 import 'sign_up/event.dart';
@@ -19,6 +21,11 @@ class AuthBaseBloc extends AppBaseBloc<AuthEvent, AuthState> {
 class ForgotPasswordBaseBloc
     extends AppBaseBloc<ForgotPasswordEvent, ForgotPasswordState> {
   ForgotPasswordBaseBloc(super.initialState);
+}
+
+class ResetPasswordBaseBloc
+    extends AppBaseBloc<ResetPasswordEvent, ResetPasswordState> {
+  ResetPasswordBaseBloc(super.initialState);
 }
 
 class SignInBaseBloc extends AppBaseBloc<SignInEvent, SignInState> {

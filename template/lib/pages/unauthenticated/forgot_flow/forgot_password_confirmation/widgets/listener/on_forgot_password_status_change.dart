@@ -32,7 +32,8 @@ class ForgotPasswordConfirmationL_OnForgotPasswordStatusChange
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      context.t.forgotPasswordConfirmation.ctas.error,
+                      context
+                          .t.forgotPasswordConfirmation.ctas.resendEmail.error,
                       style: TextStyle(color: colorScheme.onErrorContainer),
                     ),
                   ],
@@ -50,7 +51,8 @@ class ForgotPasswordConfirmationL_OnForgotPasswordStatusChange
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      context.t.forgotPasswordConfirmation.ctas.emailResent,
+                      context.t.forgotPasswordConfirmation.ctas.resendEmail
+                          .success,
                       style: TextStyle(color: colorScheme.onPrimaryContainer),
                     ),
                   ],

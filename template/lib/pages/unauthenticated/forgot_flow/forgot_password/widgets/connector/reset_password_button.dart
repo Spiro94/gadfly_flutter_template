@@ -42,7 +42,7 @@ class ForgotPasswordC_ResetPasswordButton extends StatelessWidget {
 
     return SharedD_Button(
       status: buttonStatus,
-      label: context.t.forgotPassword.ctas.resetPassword,
+      label: context.t.forgotPassword.ctas.resetPassword.label,
       onPressed: onPressed,
     );
   }

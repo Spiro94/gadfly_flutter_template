@@ -37,7 +37,7 @@ class ForgotPasswordConfirmationC_ResendEmailButton extends StatelessWidget {
     final buttonStatus = getButtonStatus(status);
 
     return SharedD_Button(
-      label: context.t.forgotPasswordConfirmation.ctas.resendEmail,
+      label: context.t.forgotPasswordConfirmation.ctas.resendEmail.label,
       onPressed: () {
         context.read<ForgotPasswordBloc>().add(
               ForgotPasswordEvent_ResendForgotPassword(email: email),

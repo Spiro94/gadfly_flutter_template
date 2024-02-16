@@ -14,6 +14,10 @@ DevtoolsDb _$DevtoolsDbFromJson(Map<String, dynamic> json) => DevtoolsDb(
           ? null
           : ForgotPasswordState.fromJson(
               json['forgotPasswordState'] as Map<String, dynamic>),
+      resetPasswordState: json['resetPasswordState'] == null
+          ? null
+          : ResetPasswordState.fromJson(
+              json['resetPasswordState'] as Map<String, dynamic>),
       signInState: json['signInState'] == null
           ? null
           : SignInState.fromJson(json['signInState'] as Map<String, dynamic>),
@@ -26,6 +30,7 @@ Map<String, dynamic> _$DevtoolsDbToJson(DevtoolsDb instance) =>
     <String, dynamic>{
       'authState': instance.authState,
       'forgotPasswordState': instance.forgotPasswordState,
+      'resetPasswordState': instance.resetPasswordState,
       'signInState': instance.signInState,
       'signUpState': instance.signUpState,
     };

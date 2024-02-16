@@ -39,7 +39,7 @@ class SignUpC_SignUpButton extends StatelessWidget {
 
     return SharedD_Button(
       status: buttonStatus,
-      label: context.t.signUp.ctas.signUp,
+      label: context.t.signUp.ctas.signUp.label,
       onPressed: onPressed,
     );
   }

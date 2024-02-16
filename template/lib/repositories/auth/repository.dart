@@ -54,6 +54,18 @@ class AuthRepository {
     );
   }
 
+  Future<void> resetPassword({
+    required String password,
+  }) async {
+    _log.info('resetPassword');
+
+    await _supabaseClient.auth.updateUser(
+      UserAttributes(
+        password: password,
+      ),
+    );
+  }
+
   Future<String> setSessionFromUri({
     required Uri uri,
   }) async {

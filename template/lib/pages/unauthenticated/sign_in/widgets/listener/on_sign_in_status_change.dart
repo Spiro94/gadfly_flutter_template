@@ -31,7 +31,7 @@ class SignInL_OnSignInStatusChange extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      context.t.signIn.ctas.error,
+                      context.t.signIn.ctas.signIn.error,
                       style: TextStyle(color: colorScheme.onErrorContainer),
                     ),
                   ],

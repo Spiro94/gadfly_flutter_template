@@ -33,7 +33,7 @@ class ForgotPasswordL_OnForgotPasswordStatusChange extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      context.t.forgotPassword.ctas.error,
+                      context.t.forgotPassword.ctas.resetPassword.error,
                       style: TextStyle(color: colorScheme.onErrorContainer),
                     ),
                   ],

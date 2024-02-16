@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 28
+/// Strings: 32
 ///
-/// Built on 2023-09-19 at 23:14 UTC
+/// Built on 2024-02-16 at 21:15 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -24,18 +24,18 @@ const AppLocale _baseLocale = AppLocale.en;
 /// - LocaleSettings.setLocale(AppLocale.en) // set locale
 /// - Locale locale = AppLocale.en.flutterLocale // get flutter locale from enum
 /// - if (LocaleSettings.currentLocale == AppLocale.en) // locale check
-enum AppLocale with BaseAppLocale<AppLocale, TranslationsEn> {
-	en(languageCode: 'en', build: TranslationsEn.build);
+enum AppLocale with BaseAppLocale<AppLocale, Translations> {
+	en(languageCode: 'en', build: Translations.build);
 
 	const AppLocale({required this.languageCode, this.scriptCode, this.countryCode, required this.build}); // ignore: unused_element
 
 	@override final String languageCode;
 	@override final String? scriptCode;
 	@override final String? countryCode;
-	@override final TranslationBuilder<AppLocale, TranslationsEn> build;
+	@override final TranslationBuilder<AppLocale, Translations> build;
 
 	/// Gets current instance managed by [LocaleSettings].
-	TranslationsEn get translations => LocaleSettings.instance.translationMap[this]!;
+	Translations get translations => LocaleSettings.instance.translationMap[this]!;
 }
 
 /// Method A: Simple
@@ -47,7 +47,7 @@ enum AppLocale with BaseAppLocale<AppLocale, TranslationsEn> {
 /// Usage:
 /// String a = t.someKey.anotherKey;
 /// String b = t['someKey.anotherKey']; // Only for edge cases!
-TranslationsEn get t => LocaleSettings.instance.currentTranslations;
+Translations get t => LocaleSettings.instance.currentTranslations;
 
 /// Method B: Advanced
 ///
@@ -64,17 +64,10 @@ TranslationsEn get t => LocaleSettings.instance.currentTranslations;
 /// final t = Translations.of(context); // Get t variable.
 /// String a = t.someKey.anotherKey; // Use t variable.
 /// String b = t['someKey.anotherKey']; // Only for edge cases!
-class Translations {
-	Translations._(); // no constructor
-
-	static TranslationsEn of(BuildContext context) => InheritedLocaleData.of<AppLocale, TranslationsEn>(context).translations;
-}
-
-/// The provider for method B
-class TranslationProvider extends BaseTranslationProvider<AppLocale, TranslationsEn> {
+class TranslationProvider extends BaseTranslationProvider<AppLocale, Translations> {
 	TranslationProvider({required super.child}) : super(settings: LocaleSettings.instance);
 
-	static InheritedLocaleData<AppLocale, TranslationsEn> of(BuildContext context) => InheritedLocaleData.of<AppLocale, TranslationsEn>(context);
+	static InheritedLocaleData<AppLocale, Translations> of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context);
 }
 
 /// Method B shorthand via [BuildContext] extension method.
@@ -83,11 +76,11 @@ class TranslationProvider extends BaseTranslationProvider<AppLocale, Translation
 /// Usage (e.g. in a widget's build method):
 /// context.t.someKey.anotherKey
 extension BuildContextTranslationsExtension on BuildContext {
-	TranslationsEn get t => TranslationProvider.of(this).translations;
+	Translations get t => TranslationProvider.of(this).translations;
 }
 
 /// Manages all translation instances and the current locale
-class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, TranslationsEn> {
+class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, Translations> {
 	LocaleSettings._() : super(utils: AppLocaleUtils.instance);
 
 	static final instance = LocaleSettings._();
@@ -109,7 +102,7 @@ class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, TranslationsEn
 }
 
 /// Provides utility functions without any side effects.
-class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, TranslationsEn> {
+class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, Translations> {
 	AppLocaleUtils._() : super(baseLocale: _baseLocale, locales: AppLocale.values);
 
 	static final instance = AppLocaleUtils._();
@@ -125,11 +118,17 @@ class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, TranslationsEn> {
 // translations
 
 // Path: <root>
-class TranslationsEn implements BaseTranslations<AppLocale, TranslationsEn> {
+typedef TranslationsEn = Translations; // ignore: unused_element
+class Translations implements BaseTranslations<AppLocale, Translations> {
+	/// Returns the current translations of the given [context].
+	///
+	/// Usage:
+	/// final t = Translations.of(context);
+	static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
 
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	TranslationsEn.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	Translations.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
 		  $meta = TranslationMetadata(
 		    locale: AppLocale.en,
@@ -141,12 +140,12 @@ class TranslationsEn implements BaseTranslations<AppLocale, TranslationsEn> {
 	}
 
 	/// Metadata for the translations of <en>.
-	@override final TranslationMetadata<AppLocale, TranslationsEn> $meta;
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
 
 	/// Access flat map
 	dynamic operator[](String key) => $meta.getTranslation(key);
 
-	late final TranslationsEn _root = this; // ignore: unused_field
+	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
 	late final TranslationsSignInEn signIn = TranslationsSignInEn._(_root);
@@ -161,7 +160,7 @@ class TranslationsEn implements BaseTranslations<AppLocale, TranslationsEn> {
 class TranslationsSignInEn {
 	TranslationsSignInEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Sign In';
@@ -180,7 +179,7 @@ class TranslationsSignInEn {
 class TranslationsSignUpEn {
 	TranslationsSignUpEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Sign Up';
@@ -192,7 +191,7 @@ class TranslationsSignUpEn {
 class TranslationsForgotPasswordEn {
 	TranslationsForgotPasswordEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Forgot Password';
@@ -204,7 +203,7 @@ class TranslationsForgotPasswordEn {
 class TranslationsForgotPasswordConfirmationEn {
 	TranslationsForgotPasswordConfirmationEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Check your inbox.';
@@ -216,7 +215,7 @@ class TranslationsForgotPasswordConfirmationEn {
 class TranslationsHomeEn {
 	TranslationsHomeEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Home';
@@ -226,17 +225,19 @@ class TranslationsHomeEn {
 class TranslationsResetPasswordEn {
 	TranslationsResetPasswordEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get title => 'Reset Password';
+	late final TranslationsResetPasswordFormEn form = TranslationsResetPasswordFormEn._(_root);
+	late final TranslationsResetPasswordCtasEn ctas = TranslationsResetPasswordCtasEn._(_root);
 }
 
 // Path: signIn.form
 class TranslationsSignInFormEn {
 	TranslationsSignInFormEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsSignInFormEmailEn email = TranslationsSignInFormEmailEn._(_root);
@@ -247,18 +248,17 @@ class TranslationsSignInFormEn {
 class TranslationsSignInCtasEn {
 	TranslationsSignInCtasEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get signIn => 'Sign In';
-	String get error => 'Could not sign in.';
+	late final TranslationsSignInCtasSignInEn signIn = TranslationsSignInCtasSignInEn._(_root);
 }
 
 // Path: signUp.form
 class TranslationsSignUpFormEn {
 	TranslationsSignUpFormEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsSignUpFormEmailEn email = TranslationsSignUpFormEmailEn._(_root);
@@ -269,18 +269,17 @@ class TranslationsSignUpFormEn {
 class TranslationsSignUpCtasEn {
 	TranslationsSignUpCtasEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get signUp => 'Sign Up';
-	String get error => 'Could not sign up.';
+	late final TranslationsSignUpCtasSignUpEn signUp = TranslationsSignUpCtasSignUpEn._(_root);
 }
 
 // Path: forgotPassword.form
 class TranslationsForgotPasswordFormEn {
 	TranslationsForgotPasswordFormEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	late final TranslationsForgotPasswordFormEmailEn email = TranslationsForgotPasswordFormEmailEn._(_root);
@@ -290,30 +289,47 @@ class TranslationsForgotPasswordFormEn {
 class TranslationsForgotPasswordCtasEn {
 	TranslationsForgotPasswordCtasEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get resetPassword => 'Reset Password';
-	String get error => 'Could not reset password.';
+	late final TranslationsForgotPasswordCtasResetPasswordEn resetPassword = TranslationsForgotPasswordCtasResetPasswordEn._(_root);
 }
 
 // Path: forgotPasswordConfirmation.ctas
 class TranslationsForgotPasswordConfirmationCtasEn {
 	TranslationsForgotPasswordConfirmationCtasEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get resendEmail => 'Re-send Email';
-	String get emailResent => 'Email resent.';
-	String get error => 'Could not resend email.';
+	late final TranslationsForgotPasswordConfirmationCtasResendEmailEn resendEmail = TranslationsForgotPasswordConfirmationCtasResendEmailEn._(_root);
+}
+
+// Path: resetPassword.form
+class TranslationsResetPasswordFormEn {
+	TranslationsResetPasswordFormEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsResetPasswordFormNewPasswordEn newPassword = TranslationsResetPasswordFormNewPasswordEn._(_root);
+}
+
+// Path: resetPassword.ctas
+class TranslationsResetPasswordCtasEn {
+	TranslationsResetPasswordCtasEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsResetPasswordCtasResetPasswordEn resetPassword = TranslationsResetPasswordCtasResetPasswordEn._(_root);
 }
 
 // Path: signIn.form.email
 class TranslationsSignInFormEmailEn {
 	TranslationsSignInFormEmailEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get placeholder => 'Email';
@@ -324,17 +340,28 @@ class TranslationsSignInFormEmailEn {
 class TranslationsSignInFormPasswordEn {
 	TranslationsSignInFormPasswordEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get placeholder => 'Password';
+}
+
+// Path: signIn.ctas.signIn
+class TranslationsSignInCtasSignInEn {
+	TranslationsSignInCtasSignInEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Sign In';
+	String get error => 'Could not sign in.';
 }
 
 // Path: signUp.form.email
 class TranslationsSignUpFormEmailEn {
 	TranslationsSignUpFormEmailEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get placeholder => 'Email';
@@ -345,7 +372,7 @@ class TranslationsSignUpFormEmailEn {
 class TranslationsSignUpFormPasswordEn {
 	TranslationsSignUpFormPasswordEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get placeholder => 'Password';
@@ -355,22 +382,78 @@ class TranslationsSignUpFormPasswordEn {
 	late final TranslationsSignUpFormPasswordErrorEn error = TranslationsSignUpFormPasswordErrorEn._(_root);
 }
 
+// Path: signUp.ctas.signUp
+class TranslationsSignUpCtasSignUpEn {
+	TranslationsSignUpCtasSignUpEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Sign Up';
+	String get error => 'Could not sign up.';
+}
+
 // Path: forgotPassword.form.email
 class TranslationsForgotPasswordFormEmailEn {
 	TranslationsForgotPasswordFormEmailEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get placeholder => 'Email';
 	late final TranslationsForgotPasswordFormEmailErrorEn error = TranslationsForgotPasswordFormEmailErrorEn._(_root);
 }
 
+// Path: forgotPassword.ctas.resetPassword
+class TranslationsForgotPasswordCtasResetPasswordEn {
+	TranslationsForgotPasswordCtasResetPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Reset Password';
+	String get error => 'Could not reset password.';
+}
+
+// Path: forgotPasswordConfirmation.ctas.resendEmail
+class TranslationsForgotPasswordConfirmationCtasResendEmailEn {
+	TranslationsForgotPasswordConfirmationCtasResendEmailEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Re-send Email';
+	String get success => 'Email resent.';
+	String get error => 'Could not resend email.';
+}
+
+// Path: resetPassword.form.newPassword
+class TranslationsResetPasswordFormNewPasswordEn {
+	TranslationsResetPasswordFormNewPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get placeholder => 'New Password';
+}
+
+// Path: resetPassword.ctas.resetPassword
+class TranslationsResetPasswordCtasResetPasswordEn {
+	TranslationsResetPasswordCtasResetPasswordEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get label => 'Reset password';
+	String get success => 'Your password was reset.';
+	String get error => 'Your password was not reset.';
+}
+
 // Path: signIn.form.email.error
 class TranslationsSignInFormEmailErrorEn {
 	TranslationsSignInFormEmailErrorEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get invalid => 'Please enter a valid email address.';
@@ -380,7 +463,7 @@ class TranslationsSignInFormEmailErrorEn {
 class TranslationsSignUpFormEmailErrorEn {
 	TranslationsSignUpFormEmailErrorEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get invalid => 'Please enter a valid email address.';
@@ -390,7 +473,7 @@ class TranslationsSignUpFormEmailErrorEn {
 class TranslationsSignUpFormPasswordErrorEn {
 	TranslationsSignUpFormPasswordErrorEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get invalid => 'Minimum 8 characters, upper and lower case, with at least one special character.';
@@ -400,7 +483,7 @@ class TranslationsSignUpFormPasswordErrorEn {
 class TranslationsForgotPasswordFormEmailErrorEn {
 	TranslationsForgotPasswordFormEmailErrorEn._(this._root);
 
-	final TranslationsEn _root; // ignore: unused_field
+	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get invalid => 'Please enter a valid email address.';
@@ -409,15 +492,15 @@ class TranslationsForgotPasswordFormEmailErrorEn {
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
-extension on TranslationsEn {
+extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'signIn.title': return 'Sign In';
 			case 'signIn.form.email.placeholder': return 'Email';
 			case 'signIn.form.email.error.invalid': return 'Please enter a valid email address.';
 			case 'signIn.form.password.placeholder': return 'Password';
-			case 'signIn.ctas.signIn': return 'Sign In';
-			case 'signIn.ctas.error': return 'Could not sign in.';
+			case 'signIn.ctas.signIn.label': return 'Sign In';
+			case 'signIn.ctas.signIn.error': return 'Could not sign in.';
 			case 'signIn.forgotPassword': return ({required InlineSpanBuilder tapHere}) => TextSpan(children: [
 				tapHere('Forgot Password'),
 			]);
@@ -433,20 +516,24 @@ extension on TranslationsEn {
 				tapHere('See password criteria'),
 			]);
 			case 'signUp.form.password.error.invalid': return 'Minimum 8 characters, upper and lower case, with at least one special character.';
-			case 'signUp.ctas.signUp': return 'Sign Up';
-			case 'signUp.ctas.error': return 'Could not sign up.';
+			case 'signUp.ctas.signUp.label': return 'Sign Up';
+			case 'signUp.ctas.signUp.error': return 'Could not sign up.';
 			case 'forgotPassword.title': return 'Forgot Password';
 			case 'forgotPassword.form.email.placeholder': return 'Email';
 			case 'forgotPassword.form.email.error.invalid': return 'Please enter a valid email address.';
-			case 'forgotPassword.ctas.resetPassword': return 'Reset Password';
-			case 'forgotPassword.ctas.error': return 'Could not reset password.';
+			case 'forgotPassword.ctas.resetPassword.label': return 'Reset Password';
+			case 'forgotPassword.ctas.resetPassword.error': return 'Could not reset password.';
 			case 'forgotPasswordConfirmation.title': return 'Check your inbox.';
 			case 'forgotPasswordConfirmation.subtitle': return 'If this email is valid, you should receive a log-in link within a few minutes.';
-			case 'forgotPasswordConfirmation.ctas.resendEmail': return 'Re-send Email';
-			case 'forgotPasswordConfirmation.ctas.emailResent': return 'Email resent.';
-			case 'forgotPasswordConfirmation.ctas.error': return 'Could not resend email.';
+			case 'forgotPasswordConfirmation.ctas.resendEmail.label': return 'Re-send Email';
+			case 'forgotPasswordConfirmation.ctas.resendEmail.success': return 'Email resent.';
+			case 'forgotPasswordConfirmation.ctas.resendEmail.error': return 'Could not resend email.';
 			case 'home.title': return 'Home';
 			case 'resetPassword.title': return 'Reset Password';
+			case 'resetPassword.form.newPassword.placeholder': return 'New Password';
+			case 'resetPassword.ctas.resetPassword.label': return 'Reset password';
+			case 'resetPassword.ctas.resetPassword.success': return 'Your password was reset.';
+			case 'resetPassword.ctas.resetPassword.error': return 'Your password was not reset.';
 			default: return null;
 		}
 	}
