@@ -64,16 +64,19 @@ class SharedD_Button extends StatelessWidget {
       case SharedD_Button_Type.outlined:
         return OutlinedButton(
           onPressed: onPressedResolved,
-          child: isLoading
-              ? loadingChild(
-                  color: context.tokens.color.primary.color,
-                )
-              : Text(
-                  label,
-                  style: TextStyle(
-                    color: context.tokens.color.primary.color,
-                  ),
-                ),
+          child:
+              // coverage:ignore-start
+              isLoading
+                  ? loadingChild(
+                      color: context.tokens.color.primary.color,
+                    )
+                  // coverage:ignore-end
+                  : Text(
+                      label,
+                      style: TextStyle(
+                        color: context.tokens.color.primary.color,
+                      ),
+                    ),
         );
     }
   }

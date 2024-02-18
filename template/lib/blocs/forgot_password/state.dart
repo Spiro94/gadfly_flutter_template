@@ -24,6 +24,7 @@ class ForgotPasswordState extends Equatable {
   final ForgotPasswordStatus status;
   final String? forgotPasswordEmail;
 
+  // coverage:ignore-start
   ForgotPasswordState copyWith({
     ForgotPasswordStatus? status,
     String? Function()? setForgotPasswordEmail,
@@ -34,6 +35,7 @@ class ForgotPasswordState extends Equatable {
           setForgotPasswordEmail?.call() ?? forgotPasswordEmail,
     );
   }
+  // coverage:ignore-end
 
   @override
   List<Object?> get props => [

@@ -1,4 +1,5 @@
 import 'package:flow_test/flow_test.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:gadfly_flutter_template/blocs/auth/event.dart';
 import 'package:gadfly_flutter_template/blocs/sign_up/event.dart';
@@ -446,6 +447,100 @@ void main() {
             );
           },
           expectedEvents: [],
+        );
+      },
+    );
+
+    flowTest(
+      'SP3',
+      config: createFlowConfig(
+        hasAccessToken: false,
+      ),
+      descriptions: [
+        ...baseDescriptions,
+        sadPathDescription,
+        FTDescription(
+          descriptionType: 'AC',
+          shortDescription: 'http_error',
+          description: '''Should see error snackbar if http error.''',
+        ),
+      ],
+      test: (tester) async {
+        await tester.setUp(
+          warp: warpToSignUp,
+          arrangeBeforePumpApp: arrangeBeforeWarpToSignUp,
+        );
+
+        await tester.screenshot(
+          description: 'initial state',
+          expectations: (expectations) {
+            expectations.expect(
+              find.byType(SignUp_Page),
+              findsOneWidget,
+              reason: 'Should be on the SignUp page',
+            );
+          },
+        );
+
+        await tester.screenshot(
+          description: 'enter email',
+          actions: (actions) async {
+            await actions.userAction.enterText(
+              find.byType(SignUpC_EmailTextField),
+              'foo@example.com',
+            );
+            await actions.testerAction.pumpAndSettle();
+          },
+        );
+
+        await tester.screenshot(
+          description: 'press enter',
+          actions: (actions) async {
+            await actions.userAction.testTextInputReceiveNext();
+            await actions.testerAction.pumpAndSettle();
+          },
+        );
+
+        await tester.screenshot(
+          description: 'enter password',
+          actions: (actions) async {
+            await actions.userAction.testTextInputEnterText('Pass123!');
+            await actions.testerAction.pumpAndSettle();
+          },
+        );
+
+        await tester.screenshot(
+          description: 'press enter',
+          arrangeBeforeActions: (arrange) {
+            when(
+              () => arrange.mocks.authRepository.signUp(
+                email: any(named: 'email'),
+                password: any(named: 'password'),
+              ),
+            ).thenThrow(Exception('BOOM'));
+          },
+          actions: (actions) async {
+            await actions.userAction.testTextInputReceiveDone();
+            await actions.testerAction.pumpAndSettle();
+          },
+          expectations: (expectations) {
+            expectations.expect(
+              find.byType(Home_Page),
+              findsNothing,
+              reason: 'Should not be on the Home page yet',
+            );
+            expectations.expect(
+              find.descendant(
+                of: find.byType(SnackBar),
+                matching: find.text('Could not sign up.'),
+              ),
+              findsOneWidget,
+              reason: 'Should see error snackbar',
+            );
+          },
+          expectedEvents: [
+            SignUpEvent_SignUp,
+          ],
         );
       },
     );

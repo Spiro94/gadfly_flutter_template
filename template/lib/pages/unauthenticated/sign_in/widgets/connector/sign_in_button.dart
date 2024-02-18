@@ -26,8 +26,8 @@ class SignInC_SignInButton extends StatelessWidget {
       case SignInStatus.loading:
         return SharedD_Button_Status.loading;
 
-      case SignInStatus.idle:
       case SignInStatus.error:
+      case SignInStatus.idle:
         return SharedD_Button_Status.enabled;
     }
   }

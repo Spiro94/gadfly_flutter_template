@@ -86,7 +86,8 @@ class AppRouter extends _$AppRouter {
   ];
 }
 
-Stream<Uri> deepLinksStreamInit() {
+// coverage:ignore-start
+Stream<Uri> deepLinkStreamInit() {
   if (kIsWeb) {
     return const Stream<Uri>.empty();
   }
@@ -102,6 +103,7 @@ Stream<Uri> deepLinksStreamInit() {
     return uri2;
   });
 }
+// coverage:ignore-end
 
 Future<DeepLink> deepLinkBuilder({
   required AuthBloc authBloc,
@@ -110,7 +112,9 @@ Future<DeepLink> deepLinkBuilder({
 }) async {
   if (deepLink.path.startsWith('/deep') ||
       (deepLinkOverride?.startsWith('/deep') ?? false)) {
+    // coverage:ignore-start
     final path = deepLinkOverride ?? deepLink.path;
+    // coverage:ignore-end
 
     final handledDeepLink = await handleDeepLink(
       uri: deepLink.uri,

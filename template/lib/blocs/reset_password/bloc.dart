@@ -35,7 +35,7 @@ class ResetPasswordBloc extends ResetPasswordBaseBloc {
       await _authRepository.resetPassword(password: newPassword);
 
       emit(const ResetPasswordState(status: ResetPasswordStatus.success));
-    } catch (_) {
+    } catch (e) {
       emit(const ResetPasswordState(status: ResetPasswordStatus.error));
     } finally {
       emit(const ResetPasswordState(status: ResetPasswordStatus.idle));

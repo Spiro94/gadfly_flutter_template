@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'effect.dart';

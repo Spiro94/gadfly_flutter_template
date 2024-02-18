@@ -26,8 +26,8 @@ class SignUpC_SignUpButton extends StatelessWidget {
       case SignUpStatus.loading:
         return SharedD_Button_Status.loading;
 
-      case SignUpStatus.idle:
       case SignUpStatus.error:
+      case SignUpStatus.idle:
         return SharedD_Button_Status.enabled;
     }
   }

@@ -37,28 +37,13 @@ class AuthBloc extends AuthBaseBloc {
     AuthEvent_AccessTokenAdded event,
     Emitter<AuthState> emit,
   ) async {
-    await _tokenAdded(emit: emit, accessToken: event.accessToken);
-  }
-
-  Future<void> _tokenAdded({
-    required Emitter<AuthState> emit,
-    required String accessToken,
-  }) async {
-    try {
-      emit(
-        AuthState(
-          status: AuthStatus.authenticated,
-          accessToken: accessToken,
-        ),
-      );
-    } catch (e) {
-      emit(
-        const AuthState(
-          status: AuthStatus.unauthentcated,
-          accessToken: null,
-        ),
-      );
-    }
+    // TODO: validate token
+    emit(
+      AuthState(
+        status: AuthStatus.authenticated,
+        accessToken: event.accessToken,
+      ),
+    );
   }
 
   Future<void> _onSignOut(

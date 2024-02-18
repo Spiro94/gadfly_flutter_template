@@ -93,7 +93,7 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     );
     log.finer('auth change effect provider created');
 
-    final deepLinkStream = deepLinksStreamInit();
+    final deepLinkStream = deepLinkStreamInit();
     log.finer('deep link stream created');
 
     runApp(
