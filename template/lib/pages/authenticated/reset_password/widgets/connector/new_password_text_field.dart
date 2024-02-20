@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../i18n/translations.g.dart';
+import '../../../../../shared/validators.dart';
 
 class ResetPasswordC_NewPasswordTextField extends StatelessWidget {
   const ResetPasswordC_NewPasswordTextField({
@@ -25,6 +26,13 @@ class ResetPasswordC_NewPasswordTextField extends StatelessWidget {
       decoration: InputDecoration(
         label: Text(context.t.resetPassword.form.newPassword.placeholder),
       ),
+      validator: (value) {
+        if (!isPasswordValid(value!)) {
+          return context.t.resetPassword.form.newPassword.error.invalid;
+        }
+
+        return null;
+      },
     );
   }
 }

@@ -33,23 +33,66 @@ void main() {
     ),
   ];
 
-  group('Happy Path', () {
-    final happyPathDescription = FTDescription(
-      descriptionType: 'PATH',
-      shortDescription: 'happy_path',
-      description: '''Happy Path: Signing in is successful''',
+  flowTest(
+    'already have token',
+    config: createFlowConfig(hasAccessToken: true),
+    descriptions: [
+      ...baseDescriptions,
+      FTDescription(
+        descriptionType: 'AC',
+        shortDescription: 'already_have_token',
+        description:
+            '''As a user, if I already have an auth token, I should not see the SignIn page and should go straight to the Home page.''',
+      ),
+    ],
+    test: (tester) async {
+      await tester.setUp(
+        arrangeBeforePumpApp: (arrange) async {
+          final fakeAuthChangeEffect = FakeAuthChangeEffect();
+          when(() => arrange.mocks.authChangeEffectProvider.getEffect())
+              .thenAnswer(
+            (invocation) => fakeAuthChangeEffect,
+          );
+        },
+      );
+
+      await tester.screenshot(
+        description: 'initial state',
+        actions: (actions) async {
+          await actions.testerAction.pump();
+        },
+        expectations: (expectations) {
+          expectations.expect(
+            find.byType(Home_Page),
+            findsOneWidget,
+            reason:
+                '''Should be on the Home page because we have an accessToken in local storage''',
+          );
+        },
+        expectedEvents: [
+          'Page: Home',
+        ],
+      );
+    },
+  );
+
+  group('success', () {
+    final successDescription = FTDescription(
+      descriptionType: 'AC',
+      shortDescription: 'success',
+      description: '''Signing in is successful''',
     );
 
     flowTest(
-      'HP1',
+      'tapping inputs',
       config: createFlowConfig(
         hasAccessToken: false,
       ),
       descriptions: [
         ...baseDescriptions,
-        happyPathDescription,
+        successDescription,
         FTDescription(
-          descriptionType: 'AC',
+          descriptionType: 'SUBMIT',
           shortDescription: 'tapping_inputs',
           description:
               '''There are two ways to fill out the form. This covers manually tapping into each input.''',
@@ -172,13 +215,13 @@ void main() {
     );
 
     flowTest(
-      'HP2',
+      'pressing enter',
       config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
-        happyPathDescription,
+        successDescription,
         FTDescription(
-          descriptionType: 'AC',
+          descriptionType: 'SUBMIT',
           shortDescription: 'pressing_enter',
           description:
               '''There are two ways to fill out the form. This covers pressing enter to jump to the next input.''',
@@ -304,67 +347,23 @@ void main() {
         );
       },
     );
-
-    flowTest(
-      'HP3',
-      config: createFlowConfig(hasAccessToken: true),
-      descriptions: [
-        ...baseDescriptions,
-        happyPathDescription,
-        FTDescription(
-          descriptionType: 'AC',
-          shortDescription: 'already_have_token',
-          description:
-              '''As a user, if I already have an auth token, I should not see the SignIn page and should go straight to the Home page.''',
-        ),
-      ],
-      test: (tester) async {
-        await tester.setUp(
-          arrangeBeforePumpApp: (arrange) async {
-            final fakeAuthChangeEffect = FakeAuthChangeEffect();
-            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
-                .thenAnswer(
-              (invocation) => fakeAuthChangeEffect,
-            );
-          },
-        );
-
-        await tester.screenshot(
-          description: 'initial state',
-          actions: (actions) async {
-            await actions.testerAction.pump();
-          },
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(Home_Page),
-              findsOneWidget,
-              reason:
-                  '''Should be on the Home page because we have an accessToken in local storage''',
-            );
-          },
-          expectedEvents: [
-            'Page: Home',
-          ],
-        );
-      },
-    );
   });
 
-  group('Sad Path', () {
-    final sadPathDescription = FTDescription(
-      descriptionType: 'PATH',
-      shortDescription: 'sad_path',
-      description: '''Sad Path: Signing in is not successful''',
+  group('error', () {
+    final errorDescription = FTDescription(
+      descriptionType: 'AC',
+      shortDescription: 'error',
+      description: '''Signing in is not successful''',
     );
 
     flowTest(
-      'SP1',
+      'empty inputs',
       config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
-        sadPathDescription,
+        errorDescription,
         FTDescription(
-          descriptionType: 'AC',
+          descriptionType: 'STATUS',
           shortDescription: 'empty_inputs',
           description:
               '''If either of the inputs are empty, should not be able to tap the sign in button''',
@@ -424,13 +423,13 @@ void main() {
     );
 
     flowTest(
-      'SP2',
+      'invalid email',
       config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
-        sadPathDescription,
+        errorDescription,
         FTDescription(
-          descriptionType: 'AC',
+          descriptionType: 'STATUS',
           shortDescription: 'invalid_email',
           description:
               '''If you attempt to sign in, but the email is invalid, should see invalid error''',
@@ -516,14 +515,14 @@ void main() {
     );
 
     flowTest(
-      'SP3',
+      'http error',
       config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
-        sadPathDescription,
+        errorDescription,
         FTDescription(
-          descriptionType: 'AC',
-          shortDescription: 'http_error',
+          descriptionType: 'STATUS',
+          shortDescription: 'http',
           description:
               '''As a user, even if I fill out the form correctly, I can still hit an http error. If this happens, I should be made aware that something went wrong.''',
         ),

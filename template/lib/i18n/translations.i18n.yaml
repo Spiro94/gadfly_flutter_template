@@ -60,6 +60,8 @@ resetPassword:
   form:
     newPassword:
       placeholder: 'New Password'
+      error:
+        invalid: 'Minimum 8 characters, upper and lower case, with at least one special character.'
   ctas:
     resetPassword:
       label: 'Reset password'

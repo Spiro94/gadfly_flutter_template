@@ -83,7 +83,7 @@ class _ResetPasswordM_ResetPasswordFormState
           ResetPasswordC_NewPasswordTextField(
             controller: newPasswordController,
             focusNode: newPasswordFocusNode,
-            onSubmitted: (_) => _onSubmitted,
+            onSubmitted: (_) => _onSubmitted(),
           ),
           SizedBox(height: context.tokens.spacing.large),
           Row(

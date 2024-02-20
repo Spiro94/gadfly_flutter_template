@@ -37,398 +37,35 @@ void main() {
     ),
   ];
 
-  group('Happy Path', () {
-    final happyPathDescription = FTDescription(
+  group('path_a', () {
+    final pathADescription = FTDescription(
       descriptionType: 'PATH',
-      shortDescription: 'happy_path',
-      description: '''Happy Path: Forgot password flow is successful''',
+      shortDescription: 'path_a',
+      description:
+          '''The forgot password flow is in two parts, this is the first part, part A''',
     );
-
-    flowTest(
-      'HP1.A1',
-      config: createFlowConfig(
-        hasAccessToken: false,
-      ),
-      descriptions: [
-        ...baseDescriptions,
-        happyPathDescription,
-        FTDescription(
-          descriptionType: 'PATH',
-          shortDescription: 'path_a_tap_submit',
-          description:
-              '''The forgot password flow is in two parts, this is the first part, part A (tap submit)''',
-        ),
-      ],
-      test: (tester) async {
-        await tester.setUp(
-          arrangeBeforePumpApp: arrangeBeforeWarpToForgotPassword,
-          warp: warpToForgotPassword,
-        );
-
-        await tester.screenshot(
-          description: 'initial state',
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(ForgotPassword_Page),
-              findsOneWidget,
-              reason: 'Should be on the ForgotPassword page',
-            );
-          },
-        );
-
-        await tester.screenshot(
-          description: 'enter email address',
-          actions: (actions) async {
-            await actions.userAction.enterText(
-              find.byType(ForgotPasswordC_EmailTextField),
-              'john@example.com',
-            );
-            await actions.testerAction.pumpAndSettle();
-          },
-        );
-
-        await tester.screenshot(
-          description: 'tap submit button (pump half)',
-          arrangeBeforeActions: (arrange) {
-            when(
-              () => arrange.mocks.authRepository.forgotPassword(
-                email: any(named: 'email'),
-              ),
-            ).thenAnswer((invocation) async {
-              await Future<void>.delayed(const Duration(seconds: 500));
-              return;
-            });
-          },
-          actions: (actions) async {
-            await actions.userAction
-                .tap(find.byType(ForgotPasswordC_ResetPasswordButton));
-            await actions.testerAction.pump(const Duration(milliseconds: 250));
-          },
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(LoadingIndicator),
-              findsOneWidget,
-              reason: 'Should see a loading indicator',
-            );
-            expectations.expect(
-              find.byType(ForgotPasswordConfirmation_Page),
-              findsNothing,
-              reason:
-                  'Should not be on the ForgotPasswordConfirmation page yet',
-            );
-          },
-          expectedEvents: [
-            ForgotPasswordEvent_ForgotPassword,
-          ],
-        );
-
-        await tester.screenshot(
-          description: 'tap submit button (pump rest)',
-          actions: (actions) async {
-            await actions.testerAction.pumpAndSettle();
-          },
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(ForgotPasswordConfirmation_Page),
-              findsOneWidget,
-              reason: 'Should be on the ForgotPasswordConfirmation page',
-            );
-          },
-          expectedEvents: [
-            'Page: ForgotPasswordConfirmation',
-          ],
-        );
-      },
-    );
-
-    flowTest(
-      'HP1.A2',
-      config: createFlowConfig(
-        hasAccessToken: false,
-      ),
-      descriptions: [
-        ...baseDescriptions,
-        happyPathDescription,
-        FTDescription(
-          descriptionType: 'PATH',
-          shortDescription: 'path_a_press_enter',
-          description:
-              '''The forgot password flow is in two parts, this is the first part, part A (press enter)''',
-        ),
-      ],
-      test: (tester) async {
-        await tester.setUp(
-          arrangeBeforePumpApp: arrangeBeforeWarpToForgotPassword,
-          warp: warpToForgotPassword,
-        );
-
-        await tester.screenshot(
-          description: 'initial state',
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(ForgotPassword_Page),
-              findsOneWidget,
-              reason: 'Should be on the ForgotPassword page',
-            );
-          },
-        );
-
-        await tester.screenshot(
-          description: 'enter email address',
-          actions: (actions) async {
-            await actions.userAction.enterText(
-              find.byType(ForgotPasswordC_EmailTextField),
-              'john@example.com',
-            );
-            await actions.testerAction.pumpAndSettle();
-          },
-        );
-
-        await tester.screenshot(
-          description: 'press enter (pump half)',
-          arrangeBeforeActions: (arrange) {
-            when(
-              () => arrange.mocks.authRepository.forgotPassword(
-                email: any(named: 'email'),
-              ),
-            ).thenAnswer((invocation) async {
-              await Future<void>.delayed(const Duration(seconds: 500));
-              return;
-            });
-          },
-          actions: (actions) async {
-            await actions.userAction.testTextInputReceiveNext();
-            await actions.testerAction.pump(const Duration(milliseconds: 250));
-          },
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(LoadingIndicator),
-              findsOneWidget,
-              reason: 'Should see a loading indicator',
-            );
-            expectations.expect(
-              find.byType(ForgotPasswordConfirmation_Page),
-              findsNothing,
-              reason:
-                  'Should not be on the ForgotPasswordConfirmation page yet',
-            );
-          },
-          expectedEvents: [
-            ForgotPasswordEvent_ForgotPassword,
-          ],
-        );
-
-        await tester.screenshot(
-          description: 'tap submit button (pump rest)',
-          actions: (actions) async {
-            await actions.testerAction.pumpAndSettle();
-          },
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(ForgotPasswordConfirmation_Page),
-              findsOneWidget,
-              reason: 'Should be on the ForgotPasswordConfirmation page',
-            );
-          },
-          expectedEvents: [
-            'Page: ForgotPasswordConfirmation',
-          ],
-        );
-      },
-    );
-
-    flowTest(
-      'HP1.B',
-      config: createFlowConfig(
-        hasAccessToken: false,
-        deepLinkOverride: '/deep/resetPassword',
-      ),
-      descriptions: [
-        ...baseDescriptions,
-        happyPathDescription,
-        FTDescription(
-          descriptionType: 'PATH',
-          shortDescription: 'path_b',
-          description:
-              '''The forgot password flow is in two parts, this is the second part, part B''',
-        ),
-      ],
-      test: (tester) async {
-        await tester.setUp(
-          arrangeBeforePumpApp: (arrange) async {
-            await arrangeBeforeWarpToHome(arrange);
-
-            registerFallbackValue(Uri());
-
-            when(
-              () => arrange.mocks.authRepository.setSessionFromUri(
-                uri: any(named: 'uri'),
-              ),
-            ).thenAnswer((invocation) async => 'fakeAccessToken');
-          },
-        );
-
-        await tester.screenshot(
-          description: 'initial state',
-          actions: (actions) async {
-            await actions.testerAction.pumpAndSettle();
-          },
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(ResetPassword_Page),
-              findsOneWidget,
-              reason: 'Should be on ResetPage page',
-            );
-          },
-          expectedEvents: [
-            AuthEvent_SetSessionFromDeepLink,
-            'Page: Home',
-            'Page: ResetPassword',
-          ],
-        );
-      },
-    );
-
-    flowTest(
-      'HP2',
-      config: createFlowConfig(
-        hasAccessToken: false,
-      ),
-      descriptions: [
-        ...baseDescriptions,
-        happyPathDescription,
+    group('success', () {
+      final successDescriptions = [
+        pathADescription,
         FTDescription(
           descriptionType: 'AC',
-          shortDescription: 'resend_email',
-          description:
-              '''If you don't receive the password reset email, you should be able to request the email again.''',
+          shortDescription: 'success',
+          description: '''Forgot password flow is successful''',
         ),
-      ],
-      test: (tester) async {
-        await tester.setUp(
-          arrangeBeforePumpApp: arrangeBeforeWarpToForgotPasswordConfirmation,
-          warp: warpToForgotPasswordConfirmation,
-        );
-
-        await tester.screenshot(
-          description: 'initial state',
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(ForgotPasswordConfirmation_Page),
-              findsOneWidget,
-              reason: 'Should be on the ForgotPasswordConfirmation page',
-            );
-          },
-        );
-
-        await tester.screenshot(
-          description: 'tap resend email',
-          actions: (actions) async {
-            await actions.userAction.tap(
-              find.byType(ForgotPasswordConfirmationC_ResendEmailButton),
-            );
-            await actions.testerAction.pumpAndSettle();
-          },
-          expectations: (expectations) {
-            expectations.expect(
-              find.text('Email resent.'),
-              findsOneWidget,
-              reason:
-                  '''Should see snackbar letting user know that email was resent.''',
-            );
-          },
-          expectedEvents: [
-            ForgotPasswordEvent_ResendForgotPassword,
-          ],
-        );
-      },
-    );
-  });
-
-  group(
-    'Sad Path',
-    () {
-      final sadPathDescription = FTDescription(
-        descriptionType: 'PATH',
-        shortDescription: 'sad_path',
-        description: '''Sad Path: Forgot password flow is not successful''',
-      );
+      ];
 
       flowTest(
-        'SP1.A1',
+        'tap submit',
         config: createFlowConfig(
           hasAccessToken: false,
         ),
         descriptions: [
           ...baseDescriptions,
-          sadPathDescription,
+          ...successDescriptions,
           FTDescription(
-            descriptionType: 'AC',
-            shortDescription: 'path_a_email_invalid',
-            description:
-                '''If you attempt to reset password, but the email is invalid, should see invalid error''',
-          ),
-        ],
-        test: (tester) async {
-          await tester.setUp(
-            arrangeBeforePumpApp: arrangeBeforeWarpToForgotPassword,
-            warp: warpToForgotPassword,
-          );
-
-          await tester.screenshot(
-            description: 'initial state',
-            expectations: (expectations) {
-              expectations.expect(
-                find.byType(ForgotPassword_Page),
-                findsOneWidget,
-                reason: 'Should be on the ForgotPassword page',
-              );
-            },
-          );
-
-          await tester.screenshot(
-            description: 'enter email address',
-            actions: (actions) async {
-              await actions.userAction.enterText(
-                find.byType(ForgotPasswordC_EmailTextField),
-                'bad email',
-              );
-              await actions.testerAction.pumpAndSettle();
-            },
-          );
-
-          await tester.screenshot(
-            description: 'tap submit button',
-            actions: (actions) async {
-              await actions.userAction
-                  .tap(find.byType(ForgotPasswordC_ResetPasswordButton));
-              await actions.testerAction.pumpAndSettle();
-            },
-            expectations: (expectations) {
-              expectations.expect(
-                find.text('Please enter a valid email address.'),
-                findsOneWidget,
-                reason: 'Should see email invalid error',
-              );
-            },
-            expectedEvents: [],
-          );
-        },
-      );
-
-      flowTest(
-        'SP1.A2',
-        config: createFlowConfig(
-          hasAccessToken: false,
-        ),
-        descriptions: [
-          ...baseDescriptions,
-          sadPathDescription,
-          FTDescription(
-            descriptionType: 'AC',
-            shortDescription: 'path_a_http_error',
-            description:
-                '''If you attempt to reset password, but there is an http error, should see error snackbar.''',
+            descriptionType: 'SUBMIT',
+            shortDescription: 'by_tap',
+            description: '''tap submit''',
           ),
         ],
         test: (tester) async {
@@ -460,53 +97,393 @@ void main() {
           );
 
           await tester.screenshot(
-            description: 'tap submit button',
+            description: 'tap submit button (pump half)',
             arrangeBeforeActions: (arrange) {
               when(
                 () => arrange.mocks.authRepository.forgotPassword(
                   email: any(named: 'email'),
                 ),
-              ).thenThrow(Exception('BOOM'));
+              ).thenAnswer((invocation) async {
+                await Future<void>.delayed(const Duration(seconds: 500));
+                return;
+              });
             },
             actions: (actions) async {
               await actions.userAction
                   .tap(find.byType(ForgotPasswordC_ResetPasswordButton));
-              await actions.testerAction.pumpAndSettle();
+              await actions.testerAction
+                  .pump(const Duration(milliseconds: 250));
             },
             expectations: (expectations) {
               expectations.expect(
-                find.byType(ForgotPassword_Page),
+                find.byType(LoadingIndicator),
                 findsOneWidget,
-                reason: 'Should still be on forgot password page',
+                reason: 'Should see a loading indicator',
               );
               expectations.expect(
-                find.descendant(
-                  of: find.byType(SnackBar),
-                  matching: find.text('Could not reset password.'),
-                ),
-                findsOneWidget,
-                reason: 'Should still be on forgot password page',
+                find.byType(ForgotPasswordConfirmation_Page),
+                findsNothing,
+                reason:
+                    'Should not be on the ForgotPasswordConfirmation page yet',
               );
             },
             expectedEvents: [
               ForgotPasswordEvent_ForgotPassword,
             ],
           );
+
+          await tester.screenshot(
+            description: 'tap submit button (pump rest)',
+            actions: (actions) async {
+              await actions.testerAction.pumpAndSettle();
+            },
+            expectations: (expectations) {
+              expectations.expect(
+                find.byType(ForgotPasswordConfirmation_Page),
+                findsOneWidget,
+                reason: 'Should be on the ForgotPasswordConfirmation page',
+              );
+            },
+            expectedEvents: [
+              'Page: ForgotPasswordConfirmation',
+            ],
+          );
         },
       );
 
       flowTest(
-        'SP1.B',
+        'press enter',
+        config: createFlowConfig(
+          hasAccessToken: false,
+        ),
+        descriptions: [
+          ...baseDescriptions,
+          ...successDescriptions,
+          FTDescription(
+            descriptionType: 'SUBMIT',
+            shortDescription: 'press_enter',
+            description: 'press enter',
+          ),
+        ],
+        test: (tester) async {
+          await tester.setUp(
+            arrangeBeforePumpApp: arrangeBeforeWarpToForgotPassword,
+            warp: warpToForgotPassword,
+          );
+
+          await tester.screenshot(
+            description: 'initial state',
+            expectations: (expectations) {
+              expectations.expect(
+                find.byType(ForgotPassword_Page),
+                findsOneWidget,
+                reason: 'Should be on the ForgotPassword page',
+              );
+            },
+          );
+
+          await tester.screenshot(
+            description: 'enter email address',
+            actions: (actions) async {
+              await actions.userAction.enterText(
+                find.byType(ForgotPasswordC_EmailTextField),
+                'john@example.com',
+              );
+              await actions.testerAction.pumpAndSettle();
+            },
+          );
+
+          await tester.screenshot(
+            description: 'press enter (pump half)',
+            arrangeBeforeActions: (arrange) {
+              when(
+                () => arrange.mocks.authRepository.forgotPassword(
+                  email: any(named: 'email'),
+                ),
+              ).thenAnswer((invocation) async {
+                await Future<void>.delayed(const Duration(seconds: 500));
+                return;
+              });
+            },
+            actions: (actions) async {
+              await actions.userAction.testTextInputReceiveNext();
+              await actions.testerAction
+                  .pump(const Duration(milliseconds: 250));
+            },
+            expectations: (expectations) {
+              expectations.expect(
+                find.byType(LoadingIndicator),
+                findsOneWidget,
+                reason: 'Should see a loading indicator',
+              );
+              expectations.expect(
+                find.byType(ForgotPasswordConfirmation_Page),
+                findsNothing,
+                reason:
+                    'Should not be on the ForgotPasswordConfirmation page yet',
+              );
+            },
+            expectedEvents: [
+              ForgotPasswordEvent_ForgotPassword,
+            ],
+          );
+
+          await tester.screenshot(
+            description: 'tap submit button (pump rest)',
+            actions: (actions) async {
+              await actions.testerAction.pumpAndSettle();
+            },
+            expectations: (expectations) {
+              expectations.expect(
+                find.byType(ForgotPasswordConfirmation_Page),
+                findsOneWidget,
+                reason: 'Should be on the ForgotPasswordConfirmation page',
+              );
+            },
+            expectedEvents: [
+              'Page: ForgotPasswordConfirmation',
+            ],
+          );
+        },
+      );
+    });
+
+    group(
+      'error',
+      () {
+        final errorDescriptions = [
+          pathADescription,
+          FTDescription(
+            descriptionType: 'AC',
+            shortDescription: 'error',
+            description: '''Forgot password flow is not successful''',
+          ),
+        ];
+
+        flowTest(
+          'email_invalid',
+          config: createFlowConfig(
+            hasAccessToken: false,
+          ),
+          descriptions: [
+            ...baseDescriptions,
+            ...errorDescriptions,
+            FTDescription(
+              descriptionType: 'STATUS',
+              shortDescription: 'email_invalid',
+              description:
+                  '''If you attempt to reset password, but the email is invalid, should see invalid error''',
+            ),
+          ],
+          test: (tester) async {
+            await tester.setUp(
+              arrangeBeforePumpApp: arrangeBeforeWarpToForgotPassword,
+              warp: warpToForgotPassword,
+            );
+
+            await tester.screenshot(
+              description: 'initial state',
+              expectations: (expectations) {
+                expectations.expect(
+                  find.byType(ForgotPassword_Page),
+                  findsOneWidget,
+                  reason: 'Should be on the ForgotPassword page',
+                );
+              },
+            );
+
+            await tester.screenshot(
+              description: 'enter email address',
+              actions: (actions) async {
+                await actions.userAction.enterText(
+                  find.byType(ForgotPasswordC_EmailTextField),
+                  'bad email',
+                );
+                await actions.testerAction.pumpAndSettle();
+              },
+            );
+
+            await tester.screenshot(
+              description: 'tap submit button',
+              actions: (actions) async {
+                await actions.userAction
+                    .tap(find.byType(ForgotPasswordC_ResetPasswordButton));
+                await actions.testerAction.pumpAndSettle();
+              },
+              expectations: (expectations) {
+                expectations.expect(
+                  find.text('Please enter a valid email address.'),
+                  findsOneWidget,
+                  reason: 'Should see email invalid error',
+                );
+              },
+              expectedEvents: [],
+            );
+          },
+        );
+
+        flowTest(
+          'http_error',
+          config: createFlowConfig(
+            hasAccessToken: false,
+          ),
+          descriptions: [
+            ...baseDescriptions,
+            ...errorDescriptions,
+            FTDescription(
+              descriptionType: 'STATUS',
+              shortDescription: 'http_error',
+              description:
+                  '''If you attempt to reset password, but there is an http error, should see error snackbar.''',
+            ),
+          ],
+          test: (tester) async {
+            await tester.setUp(
+              arrangeBeforePumpApp: arrangeBeforeWarpToForgotPassword,
+              warp: warpToForgotPassword,
+            );
+
+            await tester.screenshot(
+              description: 'initial state',
+              expectations: (expectations) {
+                expectations.expect(
+                  find.byType(ForgotPassword_Page),
+                  findsOneWidget,
+                  reason: 'Should be on the ForgotPassword page',
+                );
+              },
+            );
+
+            await tester.screenshot(
+              description: 'enter email address',
+              actions: (actions) async {
+                await actions.userAction.enterText(
+                  find.byType(ForgotPasswordC_EmailTextField),
+                  'john@example.com',
+                );
+                await actions.testerAction.pumpAndSettle();
+              },
+            );
+
+            await tester.screenshot(
+              description: 'tap submit button',
+              arrangeBeforeActions: (arrange) {
+                when(
+                  () => arrange.mocks.authRepository.forgotPassword(
+                    email: any(named: 'email'),
+                  ),
+                ).thenThrow(Exception('BOOM'));
+              },
+              actions: (actions) async {
+                await actions.userAction
+                    .tap(find.byType(ForgotPasswordC_ResetPasswordButton));
+                await actions.testerAction.pumpAndSettle();
+              },
+              expectations: (expectations) {
+                expectations.expect(
+                  find.byType(ForgotPassword_Page),
+                  findsOneWidget,
+                  reason: 'Should still be on forgot password page',
+                );
+                expectations.expect(
+                  find.descendant(
+                    of: find.byType(SnackBar),
+                    matching: find.text('Could not reset password.'),
+                  ),
+                  findsOneWidget,
+                  reason: 'Should still be on forgot password page',
+                );
+              },
+              expectedEvents: [
+                ForgotPasswordEvent_ForgotPassword,
+              ],
+            );
+          },
+        );
+      },
+    );
+  });
+  group('path_b', () {
+    final pathBDescription = FTDescription(
+      descriptionType: 'PATH',
+      shortDescription: 'path_b',
+      description:
+          '''The forgot password flow is in two parts, this is the second part, part B''',
+    );
+
+    group('deep link', () {
+      final deepLinkDescriptions = [
+        pathBDescription,
+        FTDescription(
+          descriptionType: 'AC',
+          shortDescription: 'deep_link',
+          description: '''The app opens to a deep link.''',
+        ),
+      ];
+
+      flowTest(
+        'success',
         config: createFlowConfig(
           hasAccessToken: false,
           deepLinkOverride: '/deep/resetPassword',
         ),
         descriptions: [
           ...baseDescriptions,
-          sadPathDescription,
+          ...deepLinkDescriptions,
           FTDescription(
-            descriptionType: 'PATH',
-            shortDescription: 'path_b_error',
+            descriptionType: 'STATUS',
+            shortDescription: 'success',
+            description: '''Forgot password flow is successful''',
+          ),
+        ],
+        test: (tester) async {
+          await tester.setUp(
+            arrangeBeforePumpApp: (arrange) async {
+              await arrangeBeforeWarpToHome(arrange);
+
+              registerFallbackValue(Uri());
+
+              when(
+                () => arrange.mocks.authRepository.setSessionFromUri(
+                  uri: any(named: 'uri'),
+                ),
+              ).thenAnswer((invocation) async => 'fakeAccessToken');
+            },
+          );
+
+          await tester.screenshot(
+            description: 'initial state',
+            actions: (actions) async {
+              await actions.testerAction.pumpAndSettle();
+            },
+            expectations: (expectations) {
+              expectations.expect(
+                find.byType(ResetPassword_Page),
+                findsOneWidget,
+                reason: 'Should be on ResetPage page',
+              );
+            },
+            expectedEvents: [
+              AuthEvent_SetSessionFromDeepLink,
+              'Page: Home',
+              'Page: ResetPassword',
+            ],
+          );
+        },
+      );
+
+      flowTest(
+        'error',
+        config: createFlowConfig(
+          hasAccessToken: false,
+          deepLinkOverride: '/deep/resetPassword',
+        ),
+        descriptions: [
+          ...baseDescriptions,
+          ...deepLinkDescriptions,
+          FTDescription(
+            descriptionType: 'STATUS',
+            shortDescription: 'error',
             description:
                 '''The forgot password flow is in two parts, this is the second part, part B, and the deep link can fail''',
           ),
@@ -545,20 +522,85 @@ void main() {
           );
         },
       );
+    });
+
+    group('resend email', () {
+      final resendEmailDescriptions = [
+        pathBDescription,
+        FTDescription(
+          descriptionType: 'AC',
+          shortDescription: 'resend_email',
+          description:
+              '''If you don't receive the password reset email, you should be able to request the email again.''',
+        ),
+      ];
 
       flowTest(
-        'SP2',
+        'success',
         config: createFlowConfig(
           hasAccessToken: false,
         ),
         descriptions: [
           ...baseDescriptions,
-          sadPathDescription,
+          ...resendEmailDescriptions,
           FTDescription(
-            descriptionType: 'AC',
-            shortDescription: 'resend_email_error',
-            description:
-                '''If you don't receive the password reset email, you should be able to request the email again, but the request can fail.''',
+            descriptionType: 'STATUS',
+            shortDescription: 'success',
+            description: 'Is success',
+          ),
+        ],
+        test: (tester) async {
+          await tester.setUp(
+            arrangeBeforePumpApp: arrangeBeforeWarpToForgotPasswordConfirmation,
+            warp: warpToForgotPasswordConfirmation,
+          );
+
+          await tester.screenshot(
+            description: 'initial state',
+            expectations: (expectations) {
+              expectations.expect(
+                find.byType(ForgotPasswordConfirmation_Page),
+                findsOneWidget,
+                reason: 'Should be on the ForgotPasswordConfirmation page',
+              );
+            },
+          );
+
+          await tester.screenshot(
+            description: 'tap resend email',
+            actions: (actions) async {
+              await actions.userAction.tap(
+                find.byType(ForgotPasswordConfirmationC_ResendEmailButton),
+              );
+              await actions.testerAction.pumpAndSettle();
+            },
+            expectations: (expectations) {
+              expectations.expect(
+                find.text('Email resent.'),
+                findsOneWidget,
+                reason:
+                    '''Should see snackbar letting user know that email was resent.''',
+              );
+            },
+            expectedEvents: [
+              ForgotPasswordEvent_ResendForgotPassword,
+            ],
+          );
+        },
+      );
+
+      flowTest(
+        'error',
+        config: createFlowConfig(
+          hasAccessToken: false,
+        ),
+        descriptions: [
+          ...baseDescriptions,
+          ...resendEmailDescriptions,
+          FTDescription(
+            descriptionType: 'STATUS',
+            shortDescription: 'http_error',
+            description: '''The http request can fail.''',
           ),
         ],
         test: (tester) async {
@@ -607,8 +649,8 @@ void main() {
           );
         },
       );
-    },
-  );
+    });
+  });
 
   group('navigation', () {
     final happyPathDescription = FTDescription(
@@ -618,7 +660,7 @@ void main() {
     );
 
     flowTest(
-      'AC1',
+      'navigate back',
       config: createFlowConfig(
         hasAccessToken: false,
       ),

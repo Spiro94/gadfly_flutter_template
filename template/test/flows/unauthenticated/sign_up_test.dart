@@ -35,23 +35,23 @@ void main() {
     ),
   ];
 
-  group('Happy Path', () {
-    final happyPathDescription = FTDescription(
-      descriptionType: 'PATH',
-      shortDescription: 'happy_path',
-      description: '''Happy Path: Signing up is successful''',
+  group('success', () {
+    final successDescription = FTDescription(
+      descriptionType: 'AC',
+      shortDescription: 'success',
+      description: '''Signing up is successful''',
     );
 
     flowTest(
-      'HP1',
+      'tapping inputs',
       config: createFlowConfig(
         hasAccessToken: false,
       ),
       descriptions: [
         ...baseDescriptions,
-        happyPathDescription,
+        successDescription,
         FTDescription(
-          descriptionType: 'AC',
+          descriptionType: 'SUBMIT',
           shortDescription: 'tapping_inputs',
           description:
               '''There are two ways to fill out the form. This covers manually tapping into each input.''',
@@ -164,15 +164,15 @@ void main() {
     );
 
     flowTest(
-      'HP2',
+      'pressing enter',
       config: createFlowConfig(
         hasAccessToken: false,
       ),
       descriptions: [
         ...baseDescriptions,
-        happyPathDescription,
+        successDescription,
         FTDescription(
-          descriptionType: 'AC',
+          descriptionType: 'SUBMIT',
           shortDescription: 'pressing_enter',
           description:
               '''There are two ways to fill out the form. This covers pressing enter to jump to the next input.''',
@@ -290,23 +290,23 @@ void main() {
     );
   });
 
-  group('Sad Path', () {
-    final sadPathDescription = FTDescription(
-      descriptionType: 'PATH',
-      shortDescription: 'sad_path',
-      description: '''Sad Path: Signing up is not successful''',
+  group('error', () {
+    final errorDescription = FTDescription(
+      descriptionType: 'AC',
+      shortDescription: 'error',
+      description: '''Signing up is not successful''',
     );
 
     flowTest(
-      'SP1',
+      'invalid email',
       config: createFlowConfig(
         hasAccessToken: false,
       ),
       descriptions: [
         ...baseDescriptions,
-        sadPathDescription,
+        errorDescription,
         FTDescription(
-          descriptionType: 'AC',
+          descriptionType: 'STATUS',
           shortDescription: 'invalid_email',
           description: '''Should see error if invalid email address''',
         ),
@@ -374,15 +374,15 @@ void main() {
     );
 
     flowTest(
-      'SP2',
+      'invalid password',
       config: createFlowConfig(
         hasAccessToken: false,
       ),
       descriptions: [
         ...baseDescriptions,
-        sadPathDescription,
+        errorDescription,
         FTDescription(
-          descriptionType: 'AC',
+          descriptionType: 'STATUS',
           shortDescription: 'invalid_password',
           description: '''Should see error if invalid password''',
         ),
@@ -452,16 +452,16 @@ void main() {
     );
 
     flowTest(
-      'SP3',
+      'http',
       config: createFlowConfig(
         hasAccessToken: false,
       ),
       descriptions: [
         ...baseDescriptions,
-        sadPathDescription,
+        errorDescription,
         FTDescription(
-          descriptionType: 'AC',
-          shortDescription: 'http_error',
+          descriptionType: 'STATUS',
+          shortDescription: 'http',
           description: '''Should see error snackbar if http error.''',
         ),
       ],
