@@ -1,6 +1,0 @@
-include: package:very_good_analysis/analysis_options.5.0.0.yaml
-linter:
-  rules:
-    cascade_invocations: false
-    no_leading_underscores_for_local_identifiers: false
-    always_put_required_named_parameters_first: false

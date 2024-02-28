@@ -2,6 +2,10 @@
 
 This is for personal use, so I don't recommend using it. It is not documented and it is subject to change.
 
+## Previous versions
+
+- [v0.1.0](https://github.com/gadfly361/gadfly_flutter_template/tree/v0.1.0), which includes [examples](https://github.com/gadfly361/gadfly_flutter_template/tree/v0.1.0/examples)
+
 ## Setup
 
 ### FVM

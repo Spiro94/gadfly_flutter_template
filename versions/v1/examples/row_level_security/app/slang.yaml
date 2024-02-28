@@ -1,6 +1,0 @@
-input_directory: lib/i18n
-input_file_pattern: .i18n.yaml
-translation_class_visibility: public
-output_directory: lib/i18n
-output_file_name: translations.g.dart
-output_format: single_file
