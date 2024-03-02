@@ -4,19 +4,12 @@ import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/widgets/connector/reset_password_button.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../fake/auth_change_effect.dart';
-import '../util.dart';
+import '../mocked_app.dart';
 import 'to_forgot_password.dart';
 
 Future<void> arrangeBeforeWarpToForgotPasswordConfirmation(
   FTArrange<MocksContainer> arrange,
-) async {
-  final fakeAuthChangeEffect = FakeAuthChangeEffect();
-  when(() => arrange.mocks.authChangeEffectProvider.getEffect()).thenAnswer(
-    (invocation) => fakeAuthChangeEffect,
-  );
-  arrange.extras['fakeAuthChangeEffect'] = fakeAuthChangeEffect;
-}
+) async {}
 
 Future<void> warpToForgotPasswordConfirmation(
   FTWarp<MocksContainer> warp,

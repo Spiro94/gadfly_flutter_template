@@ -6,7 +6,7 @@ import '../../../blocs/reset_password/bloc.dart';
 import '../../../repositories/auth/repository.dart';
 import '../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
-import 'widgets/listener/on_status_change.dart';
+import 'widgets/connector/status_change_listener.dart';
 import 'widgets/molecule/reset_password_form.dart';
 
 @RoutePage()
@@ -35,7 +35,7 @@ class ResetPassword_Scaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResetPasswordL_OnStatusChange(
+    return ResetPasswordC_StatusChangeListener(
       child: Scaffold(
         appBar: const ResetPasswordC_AppBar(),
         body: SingleChildScrollView(

@@ -1,13 +1,15 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:gadfly_flutter_template/blocs/auth/event.dart';
+import 'package:gadfly_flutter_template/blocs/recordings/event.dart';
 import 'package:gadfly_flutter_template/blocs/reset_password/event.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/home/page.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/reset_password/page.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/reset_password/widgets/connector/new_password_text_field.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/reset_password/widgets/connector/reset_password_button.dart';
 import 'package:mocktail/mocktail.dart';
-import '../../util/util.dart';
+
+import '../../util/flow_config.dart';
 import '../../util/warp/to_home.dart';
 
 void main() {
@@ -76,9 +78,11 @@ void main() {
               );
             },
             expectedEvents: [
+              'INFO: [router] deeplink: /',
               AuthEvent_SetSessionFromDeepLink,
               'Page: Home',
               'Page: ResetPassword',
+              RecordingsEvent_GetMyRecordings,
             ],
           );
 
@@ -180,9 +184,11 @@ void main() {
               );
             },
             expectedEvents: [
+              'INFO: [router] deeplink: /',
               AuthEvent_SetSessionFromDeepLink,
               'Page: Home',
               'Page: ResetPassword',
+              RecordingsEvent_GetMyRecordings,
             ],
           );
 
@@ -289,9 +295,11 @@ void main() {
               );
             },
             expectedEvents: [
+              'INFO: [router] deeplink: /',
               AuthEvent_SetSessionFromDeepLink,
               'Page: Home',
               'Page: ResetPassword',
+              RecordingsEvent_GetMyRecordings,
             ],
           );
 
@@ -384,9 +392,11 @@ void main() {
               );
             },
             expectedEvents: [
+              'INFO: [router] deeplink: /',
               AuthEvent_SetSessionFromDeepLink,
               'Page: Home',
               'Page: ResetPassword',
+              RecordingsEvent_GetMyRecordings,
             ],
           );
 

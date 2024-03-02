@@ -64,7 +64,7 @@
             ]
         },
         {
-            "name": "Screenshots",
+            "name": "screenshots",
             "request": "launch",
             "type": "dart",
             "codeLens": {
@@ -78,6 +78,12 @@
                 "--dart-define",
                 "createScreenshots=true"
             ]
+        },
+        {
+            "name": "tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "app/test/",
         }
     ]
 }

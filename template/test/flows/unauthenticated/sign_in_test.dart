@@ -1,6 +1,7 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:gadfly_flutter_template/blocs/auth/event.dart';
+import 'package:gadfly_flutter_template/blocs/recordings/event.dart';
 import 'package:gadfly_flutter_template/blocs/sign_in/event.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/home/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/page.dart';
@@ -12,9 +13,9 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
-import '../../util/fake/auth_change_effect.dart';
-import '../../util/fake/supabase_user.dart';
-import '../../util/util.dart';
+import '../../util/effects/supabase_user.dart';
+import '../../util/flow_config.dart';
+import '../../util/warp/to_home.dart';
 
 void main() {
   final baseDescriptions = [
@@ -47,13 +48,7 @@ void main() {
     ],
     test: (tester) async {
       await tester.setUp(
-        arrangeBeforePumpApp: (arrange) async {
-          final fakeAuthChangeEffect = FakeAuthChangeEffect();
-          when(() => arrange.mocks.authChangeEffectProvider.getEffect())
-              .thenAnswer(
-            (invocation) => fakeAuthChangeEffect,
-          );
-        },
+        arrangeBeforePumpApp: arrangeBeforeWarpToHome,
       );
 
       await tester.screenshot(
@@ -70,7 +65,9 @@ void main() {
           );
         },
         expectedEvents: [
+          'INFO: [router] deeplink: /',
           'Page: Home',
+          RecordingsEvent_GetMyRecordings,
         ],
       );
     },
@@ -99,17 +96,7 @@ void main() {
         ),
       ],
       test: (tester) async {
-        await tester.setUp(
-          arrangeBeforePumpApp: (arrange) async {
-            final fakeAuthChangeEffect = FakeAuthChangeEffect();
-            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
-                .thenAnswer(
-              (invocation) => fakeAuthChangeEffect,
-            );
-
-            arrange.extras['fakeAuthChangeEffect'] = fakeAuthChangeEffect;
-          },
-        );
+        await tester.setUp();
 
         await tester.screenshot(
           description: 'initial state',
@@ -121,6 +108,8 @@ void main() {
             );
           },
           expectedEvents: [
+            'INFO: [router] deeplink: /',
+            'INFO: [router] not authenticated',
             'Page: SignIn',
           ],
         );
@@ -157,9 +146,8 @@ void main() {
               ),
             ).thenAnswer((invocation) async {
               await Future<void>.delayed(const Duration(seconds: 500));
-              final fakeAuthChangeEffect = arrange
-                  .extras['fakeAuthChangeEffect'] as FakeAuthChangeEffect;
-              fakeAuthChangeEffect.streamController?.add(
+
+              arrange.mocks.authChangeEffect.streamController?.add(
                 supabase.AuthState(
                   supabase.AuthChangeEvent.signedIn,
                   supabase.Session(
@@ -169,6 +157,8 @@ void main() {
                   ),
                 ),
               );
+
+              await arrangeBeforeWarpToHome(arrange);
               return;
             });
           },
@@ -209,6 +199,7 @@ void main() {
             'INFO: [auth_change_subscription] signedIn',
             AuthEvent_AccessTokenAdded,
             'Page: Home',
+            RecordingsEvent_GetMyRecordings,
           ],
         );
       },
@@ -228,16 +219,7 @@ void main() {
         ),
       ],
       test: (tester) async {
-        await tester.setUp(
-          arrangeBeforePumpApp: (arrange) async {
-            final fakeAuthChangeEffect = FakeAuthChangeEffect();
-            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
-                .thenAnswer(
-              (invocation) => fakeAuthChangeEffect,
-            );
-            arrange.extras['fakeAuthChangeEffect'] = fakeAuthChangeEffect;
-          },
-        );
+        await tester.setUp();
 
         await tester.screenshot(
           description: 'initial state',
@@ -249,6 +231,8 @@ void main() {
             );
           },
           expectedEvents: [
+            'INFO: [router] deeplink: /',
+            'INFO: [router] not authenticated',
             'Page: SignIn',
           ],
         );
@@ -290,9 +274,8 @@ void main() {
               ),
             ).thenAnswer((invocation) async {
               await Future<void>.delayed(const Duration(seconds: 500));
-              final fakeAuthChangeEffect = arrange
-                  .extras['fakeAuthChangeEffect'] as FakeAuthChangeEffect;
-              fakeAuthChangeEffect.streamController?.add(
+
+              arrange.mocks.authChangeEffect.streamController?.add(
                 supabase.AuthState(
                   supabase.AuthChangeEvent.signedIn,
                   supabase.Session(
@@ -303,6 +286,7 @@ void main() {
                 ),
               );
 
+              await arrangeBeforeWarpToHome(arrange);
               return;
             });
           },
@@ -343,6 +327,7 @@ void main() {
             'INFO: [auth_change_subscription] signedIn',
             AuthEvent_AccessTokenAdded,
             'Page: Home',
+            RecordingsEvent_GetMyRecordings,
           ],
         );
       },
@@ -370,16 +355,7 @@ void main() {
         ),
       ],
       test: (tester) async {
-        await tester.setUp(
-          arrangeBeforePumpApp: (arrange) async {
-            final fakeAuthChangeEffect = FakeAuthChangeEffect();
-            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
-                .thenAnswer(
-              (invocation) => fakeAuthChangeEffect,
-            );
-          },
-        );
-
+        await tester.setUp();
         await tester.screenshot(
           description: 'initial state',
           expectations: (expectations) {
@@ -390,6 +366,8 @@ void main() {
             );
           },
           expectedEvents: [
+            'INFO: [router] deeplink: /',
+            'INFO: [router] not authenticated',
             'Page: SignIn',
           ],
         );
@@ -436,16 +414,7 @@ void main() {
         ),
       ],
       test: (tester) async {
-        await tester.setUp(
-          arrangeBeforePumpApp: (arrange) async {
-            final fakeAuthChangeEffect = FakeAuthChangeEffect();
-            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
-                .thenAnswer(
-              (invocation) => fakeAuthChangeEffect,
-            );
-          },
-        );
-
+        await tester.setUp();
         await tester.screenshot(
           description: 'initial state',
           expectations: (expectations) {
@@ -456,6 +425,8 @@ void main() {
             );
           },
           expectedEvents: [
+            'INFO: [router] deeplink: /',
+            'INFO: [router] not authenticated',
             'Page: SignIn',
           ],
         );
@@ -528,16 +499,7 @@ void main() {
         ),
       ],
       test: (tester) async {
-        await tester.setUp(
-          arrangeBeforePumpApp: (arrange) async {
-            final fakeAuthChangeEffect = FakeAuthChangeEffect();
-            when(() => arrange.mocks.authChangeEffectProvider.getEffect())
-                .thenAnswer(
-              (invocation) => fakeAuthChangeEffect,
-            );
-          },
-        );
-
+        await tester.setUp();
         await tester.screenshot(
           description: 'initial state',
           expectations: (expectations) {
@@ -548,6 +510,8 @@ void main() {
             );
           },
           expectedEvents: [
+            'INFO: [router] deeplink: /',
+            'INFO: [router] not authenticated',
             'Page: SignIn',
           ],
         );

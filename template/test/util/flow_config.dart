@@ -1,4 +1,5 @@
 import 'package:flow_test/flow_test.dart';
+import 'package:golden_toolkit/golden_toolkit.dart';
 
 import 'mocked_app.dart';
 import 'test_bloc_observer.dart';
@@ -8,6 +9,7 @@ FTConfig<MocksContainer> createFlowConfig({
   String? deepLinkOverride,
 }) =>
     FTConfig<MocksContainer>(
+      device: Device.iphone11,
       mockedApps: createdMockedApps(
         hasAccessToken: hasAccessToken,
         deepLinkOverride: deepLinkOverride,

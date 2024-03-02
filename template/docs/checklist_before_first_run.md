@@ -152,7 +152,8 @@ supabase link --project-ref XXX
 
 ## Step 5: Update your app's configuration file
 
-Go to `app/lib/main/configurations.dart` and replace all the `CHANGE ME` texts with your credentials.
+Go to `app/lib/main/configurations.dart` and replace all the `CHANGE ME` texts
+with your credentials.
 
 For the **development** builds:
 
@@ -166,7 +167,43 @@ For the **production** build use these:
 - ![Sentry DSN](images/checklist_before_first_run/sentry_dsn.png?raw=true)
 - ![Sentry environment](images/checklist_before_first_run/sentry_environment.png?raw=true)
 
-## Step 6: Set up Deep Links
+## Step 6: Support recording audio
+
+We make use of [record](https://github.com/llfbandit/record/tree/master/record),
+and we need to update android and iOS accordingly.
+
+**Android**
+
+In the following files:
+
+- `app/android/app/src/debug/AndroidManifest.xml`
+- `app/android/app/src/profile/AndroidManifest.xml`
+
+Add this snippet:
+
+```xml
+<!-- Record Audio -->
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+```
+
+**iOS**
+
+```xml
+<!-- ... other tags -->
+<plist>
+<dict>
+  <!-- ... other tags -->
+
+  <!-- Record audio -->
+  <key>NSMicrophoneUsageDescription</key>
+  <!-- CHANGE ME -->
+  <string>Some message to describe why you need this permission</string>
+
+</dict>
+</plist>
+```
+
+## Step 7: Set up Deep Links
 
 Update the redirect links in `supabase/config.toml` under the `[auth]` section:
 
@@ -232,6 +269,71 @@ Update `app/android/app/src/main/AndroidManifest.xml` to include the following:
 </manifest>
 ```
 
-Finally, do a search and replace for `com.example.myapp.deep` and replace it with the name of your project. For example `com.example.hello-world.deep` (in kebab-case).
+Finally, do a search and replace for `com.example.myapp.deep` and replace it
+with the name of your project. For example `com.example.hello-world.deep` (in
+kebab-case).
 
 ![deep_link1](images/checklist_before_first_run/deep_link1.png?raw=true)
+
+## Step 8: Add storage to Supabase
+
+Run this command:
+
+```sh
+supabase migration new storage_recordings_policy
+```
+
+and paste in the following:
+
+```sql
+create policy "Users own their folder c5wwbm_0"
+on "storage"."objects"
+as permissive
+for select
+to authenticated
+using (((bucket_id = 'recordings'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text)));
+
+
+create policy "Users own their folder c5wwbm_1"
+on "storage"."objects"
+as permissive
+for insert
+to authenticated
+with check (((bucket_id = 'recordings'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text)));
+
+
+create policy "Users own their folder c5wwbm_2"
+on "storage"."objects"
+as permissive
+for update
+to authenticated
+using (((bucket_id = 'recordings'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text)));
+
+
+create policy "Users own their folder c5wwbm_3"
+on "storage"."objects"
+as permissive
+for delete
+to authenticated
+using (((bucket_id = 'recordings'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text)));
+```
+
+Run this command:
+
+```sh
+supabase migration new storage_realtime
+```
+
+and paste in the following:
+
+```sql
+alter publication supabase_realtime add table storage.objects;
+```
+
+Update the `supabase/seed.sql` file to contain the following:
+
+```sql
+INSERT INTO storage.buckets(id, name)
+VALUES 
+    ('recordings', 'recordings')
+```

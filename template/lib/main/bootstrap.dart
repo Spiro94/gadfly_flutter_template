@@ -11,6 +11,10 @@ import '../app/router.dart';
 import '../blocs/redux_remote_devtools.dart';
 import '../effects/auth_change/provider.dart';
 import '../effects/now/provider.dart';
+import '../effects/play_audio/provider.dart';
+import '../effects/record_audio/provider.dart';
+import '../effects/uuid/provider.dart';
+import '../repositories/audio/repository.dart';
 import '../repositories/auth/repository.dart';
 import 'configuration.dart';
 
@@ -96,6 +100,20 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     final deepLinkStream = deepLinkStreamInit();
     log.finer('deep link stream created');
 
+    final playAudioEffectProvider = PlayAudioEffectProvider();
+    log.finer('play audio effect provider created');
+
+    final recordAudioEffectProvider = RecordAudioEffectProvider();
+    log.finer('record audio effect provider created');
+
+    final audioRepository = AudioRepository(
+      supabaseClient: supabaseClientProvider.client,
+    );
+    log.finer('audio repository created');
+
+    final uuidEffectProvider = UuidEffectProvider();
+    log.finer('uuid effect provider created');
+
     runApp(
       await appBuilder(
         deepLinkOverride: null,
@@ -103,9 +121,13 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
         accessToken:
             supabaseClientProvider.client.auth.currentSession?.accessToken,
         amplitudeRepository: amplitudeRepository,
+        audioRepository: audioRepository,
+        authRepository: authRepository,
         authChangeEffectProvider: authChangeEffectProvider,
         nowEffectProvider: nowEffectProvider,
-        authRepository: authRepository,
+        playAudioEffectProvider: playAudioEffectProvider,
+        recordAudioEffectProvider: recordAudioEffectProvider,
+        uuidEffectProvider: uuidEffectProvider,
       ),
     );
     log.info('app has started');

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../theme/theme.dart';
 import '../forgot_password/widgets/connector/app_bar.dart';
+import 'widgets/connector/forgot_password_status_change_listener.dart';
 import 'widgets/connector/resend_email_button.dart';
 import 'widgets/connector/subtitle_text.dart';
-import 'widgets/listener/on_forgot_password_status_change.dart';
 
 @RoutePage()
 class ForgotPasswordConfirmation_Page extends StatelessWidget {
@@ -36,7 +36,7 @@ class ForgotPasswordConfirmation_Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ForgotPasswordConfirmationL_OnForgotPasswordStatusChange(
+    return ForgotPasswordConfirmationC_ForgotPasswordStatusChangeListener(
       child: Scaffold(
         appBar: const ForgotPasswordC_AppBar(),
         body: SingleChildScrollView(

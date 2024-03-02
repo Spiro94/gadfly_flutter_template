@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'package:logging/logging.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -10,6 +12,8 @@ class AuthRepository {
 
   final String _deepLinkHostname;
   final SupabaseClient _supabaseClient;
+
+  SupabaseClient get client => _supabaseClient;
 
   final _log = Logger('auth_repository');
 
@@ -74,5 +78,17 @@ class AuthRepository {
     final session = await _supabaseClient.auth.getSessionFromUrl(uri);
 
     return session.session.accessToken;
+  }
+
+  Future<String> getUserId() async {
+    final userId = _supabaseClient.auth.currentSession!.user.id;
+    _log.info('getUserId:\n$userId');
+    return userId;
+  }
+
+  Future<String> getAccessToken() async {
+    final accessToken = _supabaseClient.auth.currentSession!.accessToken;
+    _log.info('getAccessToken:\n$accessToken');
+    return accessToken;
   }
 }

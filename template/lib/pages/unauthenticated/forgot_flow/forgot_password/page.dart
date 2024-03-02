@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
-import 'widgets/listener/on_forgot_password_status_change.dart';
+import 'widgets/connector/forgot_password_status_change_listener.dart';
 import 'widgets/molecule/reset_password_form.dart';
 
 @RoutePage()
@@ -27,7 +27,7 @@ class ForgotPassword_Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ForgotPasswordL_OnForgotPasswordStatusChange(
+    return ForgotPasswordC_ForgotPasswordStatusChangeListener(
       child: Scaffold(
         appBar: const ForgotPasswordC_AppBar(),
         body: SingleChildScrollView(

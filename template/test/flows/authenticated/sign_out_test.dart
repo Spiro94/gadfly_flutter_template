@@ -1,12 +1,12 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:gadfly_flutter_template/blocs/auth/event.dart';
+import 'package:gadfly_flutter_template/blocs/recordings/event.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/home/widgets/connector/sign_out_button.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
-import '../../util/fake/auth_change_effect.dart';
-import '../../util/util.dart';
+import '../../util/flow_config.dart';
 import '../../util/warp/to_home.dart';
 
 void main() {
@@ -53,7 +53,9 @@ void main() {
         },
         expectations: (expectations) {},
         expectedEvents: [
+          'INFO: [router] deeplink: /',
           'Page: Home',
+          RecordingsEvent_GetMyRecordings,
         ],
       );
 
@@ -63,9 +65,7 @@ void main() {
           when(
             () => arrange.mocks.authRepository.signOut(),
           ).thenAnswer((invocation) async {
-            final fakeAuthChangeEffect =
-                arrange.extras['fakeAuthChangeEffect'] as FakeAuthChangeEffect;
-            fakeAuthChangeEffect.streamController?.add(
+            arrange.mocks.authChangeEffect.streamController?.add(
               supabase.AuthState(
                 supabase.AuthChangeEvent.signedOut,
                 null,

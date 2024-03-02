@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:app_links/app_links.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
+import 'package:logging/logging.dart';
 
 import '../blocs/auth/bloc.dart';
 import '../blocs/auth/event.dart';
@@ -19,6 +20,8 @@ import '../pages/unauthenticated/sign_up/page.dart';
 import '../shared/validators.dart';
 
 part 'router.gr.dart';
+
+final _log = Logger('router');
 
 @AutoRouterConfig()
 class AppRouter extends _$AppRouter {
@@ -99,8 +102,8 @@ Stream<Uri> deepLinkStreamInit() {
     final fragment = uriRaw.fragment;
 
     final rawQueryParams = uriRaw.queryParameters;
-    final uri2 = Uri(path: fragment, queryParameters: rawQueryParams);
-    return uri2;
+    final uri = Uri(path: fragment, queryParameters: rawQueryParams);
+    return uri;
   });
 }
 // coverage:ignore-end
@@ -110,6 +113,8 @@ Future<DeepLink> deepLinkBuilder({
   required PlatformDeepLink deepLink,
   required String? deepLinkOverride,
 }) async {
+  _log.info('deeplink: ${deepLink.uri}');
+
   if (deepLink.path.startsWith('/deep') ||
       (deepLinkOverride?.startsWith('/deep') ?? false)) {
     // coverage:ignore-start
@@ -163,6 +168,7 @@ class AuthGuard extends AutoRouteGuard {
     if (authBloc.state.status == AuthStatus.authenticated) {
       resolver.next();
     } else {
+      _log.info('not authenticated');
       router.root.replaceAll(const [SignIn_Route()]);
     }
   }
@@ -179,6 +185,7 @@ class UnauthGuard extends AutoRouteGuard {
       resolver.next();
     } else {
       // coverage:ignore-start
+      _log.info('already authenticated');
       router.root.replaceAll(const [Home_Route()]);
       // coverage:ignore-end
     }
@@ -196,6 +203,7 @@ class ForgotPasswordConfirgmationGuard extends AutoRouteGuard {
       resolver.next();
     } else {
       // coverage:ignore-start
+      _log.info('no email query parameter');
       router.root.replaceAll(const [SignIn_Route()]);
       // coverage:ignore-end
     }

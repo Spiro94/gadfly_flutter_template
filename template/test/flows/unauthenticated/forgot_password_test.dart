@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:gadfly_flutter_template/blocs/auth/event.dart';
 import 'package:gadfly_flutter_template/blocs/forgot_password/event.dart';
+import 'package:gadfly_flutter_template/blocs/recordings/event.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/reset_password/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/widgets/connector/app_bar.dart';
@@ -11,11 +12,10 @@ import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password_confirmation/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password_confirmation/widgets/connector/resend_email_button.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/page.dart';
-
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../util/util.dart';
+import '../../util/flow_config.dart';
 import '../../util/warp/to_forgot_password.dart';
 import '../../util/warp/to_forgot_password_confirmation.dart';
 import '../../util/warp/to_home.dart';
@@ -464,9 +464,11 @@ void main() {
               );
             },
             expectedEvents: [
+              'INFO: [router] deeplink: /',
               AuthEvent_SetSessionFromDeepLink,
               'Page: Home',
               'Page: ResetPassword',
+              RecordingsEvent_GetMyRecordings,
             ],
           );
         },
@@ -516,7 +518,9 @@ void main() {
               );
             },
             expectedEvents: [
+              'INFO: [router] deeplink: /',
               AuthEvent_SetSessionFromDeepLink,
+              'INFO: [router] not authenticated',
               'Page: SignIn',
             ],
           );

@@ -15,8 +15,6 @@ linter:
 analyzer:
   errors:
     flutter_style_todos: ignore
-  plugins:
-    - custom_lint
   exclude:
     - '**/*.g.dart'
     - '**/*.gr.dart'

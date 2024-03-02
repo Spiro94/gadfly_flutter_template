@@ -86,8 +86,14 @@ class FTDescriptionsRecord<M> extends FTRecord {
     final _buffer = StringBuffer();
 
     for (final description in descriptions) {
+      _buffer.writeln(
+        '''<div data-description="container" data-description-level="${descriptions.indexOf(description)}">''',
+      );
+      _buffer.writeln(
+        '''<div data-description="title">''',
+      );
       if (description.descriptionType != null) {
-        _buffer.writeln('**${description.descriptionType}**');
+        _buffer.writeln('<strong>${description.descriptionType}</strong>:');
       }
 
       _buffer.writeln(
@@ -96,11 +102,18 @@ class FTDescriptionsRecord<M> extends FTRecord {
           shortDescription: description.shortDescription,
         ),
       );
+      _buffer.write(
+        '</div>',
+      );
 
       if (description.description != null) {
-        _buffer.writeln();
+        _buffer.write(
+          '''<div data-description="description">''',
+        );
         _buffer.writeln(description.description);
+        _buffer.write('</div>');
       }
+      _buffer.writeln('</div>');
       _buffer.writeln();
     }
 

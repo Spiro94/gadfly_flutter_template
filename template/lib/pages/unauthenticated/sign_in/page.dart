@@ -9,7 +9,7 @@ import '../../../repositories/auth/repository.dart';
 import '../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
 import 'widgets/connector/redirect_to_sign_up_link.dart';
-import 'widgets/listener/on_sign_in_status_change.dart';
+import 'widgets/connector/sign_in_status_change_listener.dart';
 import 'widgets/molecule/sign_in_form.dart';
 
 @RoutePage()
@@ -35,7 +35,7 @@ class SignIn_Scaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SignInL_OnSignInStatusChange(
+    return SignInC_SignInStatusChangeListener(
       child: Scaffold(
         appBar: const SignUpC_AppBar(),
         body: SingleChildScrollView(

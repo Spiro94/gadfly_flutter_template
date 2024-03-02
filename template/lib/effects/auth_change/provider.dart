@@ -5,12 +5,12 @@ import 'effect.dart';
 
 class AuthChangeEffectProvider {
   AuthChangeEffectProvider({
-    required this.supabaseClient,
-  });
+    required SupabaseClient supabaseClient,
+  }) : _supabaseClient = supabaseClient;
 
-  final SupabaseClient supabaseClient;
+  final SupabaseClient _supabaseClient;
 
   AuthChangeEffect getEffect() {
-    return AuthChangeEffect(supabaseClient: supabaseClient);
+    return AuthChangeEffect(supabaseClient: _supabaseClient);
   }
 }

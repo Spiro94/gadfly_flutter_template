@@ -13,6 +13,7 @@ dependencies:
   app_links: ^3.5.0
   auto_route: ^7.4.0
   bloc_concurrency: ^0.2.2
+  collection: ^1.18.0
   device_info_plus: ^9.0.1
   device_info_provider:
     path: ../packages/device_info_provider
@@ -24,12 +25,17 @@ dependencies:
   flutter_bloc: ^8.1.2
   flutter_localizations:
     sdk: flutter
+  flutter_spinkit: ^5.2.0
   google_fonts: ^4.0.4
+  http: ^1.2.1
   intl: ^0.18.1
   json_annotation: ^4.8.1
+  just_audio: ^0.9.36
   loading_indicator: ^3.1.1
   logging: 1.1.1
+  path_provider: ^2.1.2
   recase: ^4.1.0
+  record: ^5.0.4
   redux_remote_devtools: ^3.0.0
   sentry_repository:
     path: ../packages/sentry_repository
@@ -38,6 +44,7 @@ dependencies:
   supabase_client_provider:
     path: ../packages/supabase_client_provider
   supabase_flutter: ^2.3.3
+  uuid: ^4.3.3
 
 dev_dependencies:
   auto_route_generator: ^7.1.1
@@ -46,8 +53,6 @@ dev_dependencies:
     path: ../packages/flow_test
   flutter_test:
     sdk: flutter
-  gadfly_lints:
-    path: ../packages/gadfly_lints
   golden_toolkit: ^0.15.0
   json_serializable: ^6.7.0
   mocktail: ^0.3.0

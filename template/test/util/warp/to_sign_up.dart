@@ -2,20 +2,12 @@ import 'package:flow_test/flow_test.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
-import '../fake/auth_change_effect.dart';
-import '../util.dart';
+import '../mocked_app.dart';
 
 Future<void> arrangeBeforeWarpToSignUp(
   FTArrange<MocksContainer> arrange,
-) async {
-  final fakeAuthChangeEffect = FakeAuthChangeEffect();
-  when(() => arrange.mocks.authChangeEffectProvider.getEffect()).thenAnswer(
-    (invocation) => fakeAuthChangeEffect,
-  );
-  arrange.extras['fakeAuthChangeEffect'] = fakeAuthChangeEffect;
-}
+) async {}
 
 Future<void> warpToSignUp(
   FTWarp<MocksContainer> warp,

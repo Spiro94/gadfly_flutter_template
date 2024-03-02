@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../i18n/translations.g.dart';
+import '../../../../../theme/theme.dart';
+import 'sign_out_button.dart';
 
 class HomeC_AppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeC_AppBar({super.key});
@@ -14,6 +16,12 @@ class HomeC_AppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(context.t.home.title),
       centerTitle: true,
       automaticallyImplyLeading: false,
+      actions: [
+        const HomeC_SignOutButton(),
+        SizedBox(
+          width: context.tokens.spacing.medium,
+        ),
+      ],
     );
   }
 }

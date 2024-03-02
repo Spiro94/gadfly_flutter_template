@@ -9,6 +9,8 @@ import 'package:redux_remote_devtools/redux_remote_devtools.dart';
 import 'auth/state.dart';
 import 'base_blocs.dart';
 import 'forgot_password/state.dart';
+import 'record_audio/state.dart';
+import 'recordings/state.dart';
 import 'reset_password/state.dart';
 import 'sign_in/state.dart';
 import 'sign_up/state.dart';
@@ -23,6 +25,8 @@ class DevtoolsDb {
   const DevtoolsDb({
     this.authState,
     this.forgotPasswordState,
+    this.recordingsState,
+    this.recordAudioState,
     this.resetPasswordState,
     this.signInState,
     this.signUpState,
@@ -30,6 +34,8 @@ class DevtoolsDb {
 
   final AuthState? authState;
   final ForgotPasswordState? forgotPasswordState;
+  final RecordingsState? recordingsState;
+  final RecordAudioState? recordAudioState;
   final ResetPasswordState? resetPasswordState;
   final SignInState? signInState;
   final SignUpState? signUpState;
@@ -39,6 +45,10 @@ class DevtoolsDb {
     bool clearAuthState = false,
     ForgotPasswordState? forgotPasswordState,
     bool clearForgotPasswordState = false,
+    RecordingsState? recordingsState,
+    bool clearRecordingsState = false,
+    RecordAudioState? recordAudioState,
+    bool clearRecordAudioState = false,
     ResetPasswordState? resetPasswordState,
     bool clearResetPasswordState = false,
     SignInState? signInState,
@@ -51,6 +61,11 @@ class DevtoolsDb {
       forgotPasswordState: clearForgotPasswordState
           ? null
           : forgotPasswordState ?? this.forgotPasswordState,
+      recordingsState:
+          clearRecordingsState ? null : recordingsState ?? this.recordingsState,
+      recordAudioState: clearRecordAudioState
+          ? null
+          : recordAudioState ?? this.recordAudioState,
       resetPasswordState: clearResetPasswordState
           ? null
           : resetPasswordState ?? this.resetPasswordState,
@@ -77,6 +92,12 @@ void remoteReduxDevtoolsOnCreate({
 
       case ForgotPasswordBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(forgotPasswordState: bloc.state);
+
+      case RecordingsBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(recordingsState: bloc.state);
+
+      case RecordAudioBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(recordAudioState: bloc.state);
 
       case ResetPasswordBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(resetPasswordState: bloc.state);
@@ -107,6 +128,16 @@ void remoteReduxDevtoolsOnTransition({
           forgotPasswordState: state as ForgotPasswordState,
         );
 
+      case RecordingsBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(
+          recordingsState: state as RecordingsState,
+        );
+
+      case RecordAudioBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(
+          recordAudioState: state as RecordAudioState,
+        );
+
       case ResetPasswordBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(
           resetPasswordState: state as ResetPasswordState,
@@ -133,6 +164,12 @@ void remoteReduxDevtoolsOnClose({
 
       case ForgotPasswordBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(clearForgotPasswordState: true);
+
+      case RecordingsBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(clearRecordingsState: true);
+
+      case RecordAudioBaseBloc():
+        devtoolsDb = devtoolsDb.copyWith(clearRecordAudioState: true);
 
       case ResetPasswordBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(clearResetPasswordState: true);

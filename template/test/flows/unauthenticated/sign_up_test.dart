@@ -2,20 +2,20 @@ import 'package:flow_test/flow_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:gadfly_flutter_template/blocs/auth/event.dart';
+import 'package:gadfly_flutter_template/blocs/recordings/event.dart';
 import 'package:gadfly_flutter_template/blocs/sign_up/event.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/home/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_up/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_up/widgets/connector/email_text_field.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_up/widgets/connector/password_text_field.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_up/widgets/connector/sign_up_button.dart';
-
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
-import '../../util/fake/auth_change_effect.dart';
-import '../../util/fake/supabase_user.dart';
-import '../../util/util.dart';
+import '../../util/effects/supabase_user.dart';
+import '../../util/flow_config.dart';
+import '../../util/warp/to_home.dart';
 import '../../util/warp/to_sign_up.dart';
 
 void main() {
@@ -106,9 +106,8 @@ void main() {
               ),
             ).thenAnswer((invocation) async {
               await Future<void>.delayed(const Duration(seconds: 500));
-              final fakeAuthChangeEffect = arrange
-                  .extras['fakeAuthChangeEffect'] as FakeAuthChangeEffect;
-              fakeAuthChangeEffect.streamController?.add(
+
+              arrange.mocks.authChangeEffect.streamController?.add(
                 supabase.AuthState(
                   supabase.AuthChangeEvent.signedIn,
                   supabase.Session(
@@ -118,6 +117,8 @@ void main() {
                   ),
                 ),
               );
+
+              await arrangeBeforeWarpToHome(arrange);
               return;
             });
           },
@@ -158,6 +159,7 @@ void main() {
             'INFO: [auth_change_subscription] signedIn',
             AuthEvent_AccessTokenAdded,
             'Page: Home',
+            RecordingsEvent_GetMyRecordings,
           ],
         );
       },
@@ -232,9 +234,8 @@ void main() {
               ),
             ).thenAnswer((invocation) async {
               await Future<void>.delayed(const Duration(seconds: 500));
-              final fakeAuthChangeEffect = arrange
-                  .extras['fakeAuthChangeEffect'] as FakeAuthChangeEffect;
-              fakeAuthChangeEffect.streamController?.add(
+
+              arrange.mocks.authChangeEffect.streamController?.add(
                 supabase.AuthState(
                   supabase.AuthChangeEvent.signedIn,
                   supabase.Session(
@@ -244,6 +245,8 @@ void main() {
                   ),
                 ),
               );
+
+              await arrangeBeforeWarpToHome(arrange);
               return;
             });
           },
@@ -284,6 +287,7 @@ void main() {
             'INFO: [auth_change_subscription] signedIn',
             AuthEvent_AccessTokenAdded,
             'Page: Home',
+            RecordingsEvent_GetMyRecordings,
           ],
         );
       },
