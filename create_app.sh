@@ -34,6 +34,8 @@ mv .github ../
 mv .vscode ../
 mv Makefile ../
 mv README.md ../
+mkdir -p ../supabase/functions
+mv import_map.json ../supabase/functions
 
 cd ..
 

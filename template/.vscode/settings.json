@@ -6,17 +6,19 @@
     "files.watcherExclude": {
         "**/.fvm": true
     },
-    "separators.enabledSymbols": [
-        "Classes",
-        "Enums",
-        "Functions",
-        "Interfaces",
-        "Methods",
-        "Namespaces",
-        "Structs"
+    "dart.flutterSdkPath": "~/fvm/default",
+    // Note: make sure deno.path is set in your user settings json file
+    "deno.importMap": "supabase/functions/import_map.json",
+    "deno.enablePaths": [
+        "supabase/functions"
     ],
-    "deno.enable": true,
-    "deno.lint": true,
-    "editor.defaultFormatter": "denoland.vscode-deno",
-    "dart.flutterSdkPath": "~/fvm/versions/default",
+    "deno.unstable": true,
+    "deno.cacheOnSave": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "denoland.vscode-deno"
+    },
+    "deno.codeLens.implementations": true,
+    "deno.codeLens.references": true,
+    "deno.codeLens.referencesAllFunctions": true,
+    "deno.codeLens.test": true,
 }
