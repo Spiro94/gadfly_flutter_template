@@ -60,7 +60,23 @@ Get Supabase:
 
 ```sh
 brew install supabase/tap/supabase
+
+# supabase version 
+# 1.145.4
 ```
+
+## Deno
+
+Get Deno:
+
+```sh
+brew install deno
+
+# deno --version
+# 1.41.1
+```
+
+Note: be sure to add your deno path to your VSCode user settings json file. E.g. `"deno.path": "/opt/homebrew/bin/deno"`
 
 ## PostgresQL
 
