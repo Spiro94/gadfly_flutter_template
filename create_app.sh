@@ -34,6 +34,7 @@ mv .github ../
 mv .vscode ../
 mv Makefile ../
 mv README.md ../
+mv .gitignore_top_level ../.gitignore
 mkdir -p ../supabase/functions
 mv import_map.json ../supabase/functions
 

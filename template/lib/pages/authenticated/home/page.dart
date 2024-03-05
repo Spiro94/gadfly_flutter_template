@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/recordings/bloc.dart';
 import '../../../blocs/recordings/event.dart';
-import '../../../shared/widgets/connector/record_audio_listener.dart';
 import '../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
 import 'widgets/connector/play_audio_buttons.dart';
 import 'widgets/connector/play_audio_status_listener.dart';
 import 'widgets/connector/record_audio_button.dart';
+import 'widgets/connector/record_audio_listener.dart';
 
 @RoutePage()
 class Home_Page extends StatefulWidget {
@@ -50,7 +50,7 @@ class Home_Scaffold extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SharedC_RecordAudioListener(
+                HomeC_RecordAudioListener(
                   builder: ({
                     required context,
                     required stream,

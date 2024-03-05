@@ -2,6 +2,8 @@
 
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
+import 'platform_methods/mobile.dart'
+    if (dart.library.html) 'platform_methods/web.dart' as platform_methods;
 
 class PlayAudioEffect {
   PlayAudioEffect() : _player = AudioPlayer();
@@ -16,7 +18,11 @@ class PlayAudioEffect {
     required String url,
   }) async {
     log.fine('setUrl: $url');
-    await _player.setUrl(url);
+
+    await platform_methods.playAudioEffect_setUrl(
+      player: _player,
+      url: url,
+    );
     playerUrl = url;
   }
 
@@ -27,7 +33,7 @@ class PlayAudioEffect {
 
   Future<void> replay() async {
     log.fine('replay');
-    await _player.setUrl(playerUrl!);
+    await setUrl(url: playerUrl!);
     await _player.play();
   }
 

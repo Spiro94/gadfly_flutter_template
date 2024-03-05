@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "[android] development",
+            "name": "[my ip address] development",
             "request": "launch",
             "type": "dart",
             "cwd": "app",
@@ -10,12 +10,17 @@
             "args": [
                 "--target",
                 "lib/main/development.dart",
+                "--web-renderer",
+                "canvaskit",
+                "--web-port",
+                "3000",
+                "--web-hostname=${env:APP_LOCALHOST}",
                 "--dart-define",
-                "APP_LOCALHOST=${env:ANDROID_LOCALHOST}"
+                "APP_LOCALHOST=${env:APP_LOCALHOST}"
             ]
         },
         {
-            "name": "[android] development w/ devtools",
+            "name": "[my ip address] development w/ devtools",
             "request": "launch",
             "type": "dart",
             "cwd": "app",
@@ -23,12 +28,17 @@
             "args": [
                 "--target",
                 "lib/main/development_with_redux_devtools.dart",
+                "--web-renderer",
+                "canvaskit",
+                "--web-port",
+                "3000",
+                "--web-hostname=${env:APP_LOCALHOST}",
                 "--dart-define",
-                "APP_LOCALHOST=${env:ANDROID_LOCALHOST}"
+                "APP_LOCALHOST=${env:APP_LOCALHOST}"
             ]
         },
         {
-            "name": "[android] development send events",
+            "name": "[my ip address] development send events",
             "request": "launch",
             "type": "dart",
             "cwd": "app",
@@ -36,51 +46,17 @@
             "args": [
                 "--target",
                 "lib/main/development_and_send_events.dart",
+                "--web-renderer",
+                "canvaskit",
+                "--web-port",
+                "3000",
+                "--web-hostname=${env:APP_LOCALHOST}",
                 "--dart-define",
-                "APP_LOCALHOST=${env:ANDROID_LOCALHOST}"
+                "APP_LOCALHOST=${env:APP_LOCALHOST}"
             ]
         },
         {
-            "name": "[iOS] development",
-            "request": "launch",
-            "type": "dart",
-            "cwd": "app",
-            "program": "lib/main/development.dart",
-            "args": [
-                "--target",
-                "lib/main/development.dart",
-                "--dart-define",
-                "APP_LOCALHOST=127.0.0.1"
-            ]
-        },
-        {
-            "name": "[iOS] development w/ devtools",
-            "request": "launch",
-            "type": "dart",
-            "cwd": "app",
-            "program": "lib/main/development_with_redux_devtools.dart",
-            "args": [
-                "--target",
-                "lib/main/development_with_redux_devtools.dart",
-                "--dart-define",
-                "APP_LOCALHOST=127.0.0.1"
-            ]
-        },
-        {
-            "name": "[iOS] development send events",
-            "request": "launch",
-            "type": "dart",
-            "cwd": "app",
-            "program": "lib/main/development_and_send_events.dart",
-            "args": [
-                "--target",
-                "lib/main/development_and_send_events.dart",
-                "--dart-define",
-                "APP_LOCALHOST=127.0.0.1"
-            ]
-        },
-        {
-            "name": "[web] development",
+            "name": "[127.0.0.1] development",
             "request": "launch",
             "type": "dart",
             "cwd": "app",
@@ -98,7 +74,7 @@
             ]
         },
         {
-            "name": "[web] development w/ devtools",
+            "name": "[127.0.0.1] development w/ devtools",
             "request": "launch",
             "type": "dart",
             "cwd": "app",
@@ -116,7 +92,7 @@
             ]
         },
         {
-            "name": "[web] development send events",
+            "name": "[127.0.0.1] development send events",
             "request": "launch",
             "type": "dart",
             "cwd": "app",

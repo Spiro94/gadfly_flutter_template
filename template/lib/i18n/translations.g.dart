@@ -6,7 +6,7 @@
 /// Locales: 1
 /// Strings: 37
 ///
-/// Built on 2024-03-02 at 18:25 UTC
+/// Built on 2024-03-05 at 21:49 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -148,23 +148,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
-	late final TranslationsSharedEn shared = TranslationsSharedEn._(_root);
 	late final TranslationsSignInEn signIn = TranslationsSignInEn._(_root);
 	late final TranslationsSignUpEn signUp = TranslationsSignUpEn._(_root);
 	late final TranslationsForgotPasswordEn forgotPassword = TranslationsForgotPasswordEn._(_root);
 	late final TranslationsForgotPasswordConfirmationEn forgotPasswordConfirmation = TranslationsForgotPasswordConfirmationEn._(_root);
 	late final TranslationsHomeEn home = TranslationsHomeEn._(_root);
 	late final TranslationsResetPasswordEn resetPassword = TranslationsResetPasswordEn._(_root);
-}
-
-// Path: shared
-class TranslationsSharedEn {
-	TranslationsSharedEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	late final TranslationsSharedRecordAudioEn recordAudio = TranslationsSharedRecordAudioEn._(_root);
 }
 
 // Path: signIn
@@ -233,6 +222,7 @@ class TranslationsHomeEn {
 	String get signOut => 'Sign Out';
 	late final TranslationsHomeGetMyRecordingsEn getMyRecordings = TranslationsHomeGetMyRecordingsEn._(_root);
 	late final TranslationsHomePlayRecordingEn playRecording = TranslationsHomePlayRecordingEn._(_root);
+	late final TranslationsHomeRecordAudioEn recordAudio = TranslationsHomeRecordAudioEn._(_root);
 }
 
 // Path: resetPassword
@@ -245,16 +235,6 @@ class TranslationsResetPasswordEn {
 	String get title => 'Reset Password';
 	late final TranslationsResetPasswordFormEn form = TranslationsResetPasswordFormEn._(_root);
 	late final TranslationsResetPasswordCtasEn ctas = TranslationsResetPasswordCtasEn._(_root);
-}
-
-// Path: shared.recordAudio
-class TranslationsSharedRecordAudioEn {
-	TranslationsSharedRecordAudioEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get error => 'Uh oh, something went wrong.';
 }
 
 // Path: signIn.form
@@ -347,6 +327,16 @@ class TranslationsHomePlayRecordingEn {
 
 	// Translations
 	String get error => 'Uh oh, there was a problem with your recording.';
+}
+
+// Path: home.recordAudio
+class TranslationsHomeRecordAudioEn {
+	TranslationsHomeRecordAudioEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get error => 'Uh oh, something went wrong.';
 }
 
 // Path: resetPassword.form
@@ -550,7 +540,6 @@ class TranslationsResetPasswordFormNewPasswordErrorEn {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'shared.recordAudio.error': return 'Uh oh, something went wrong.';
 			case 'signIn.title': return 'Sign In';
 			case 'signIn.form.email.placeholder': return 'Email';
 			case 'signIn.form.email.error.invalid': return 'Please enter a valid email address.';
@@ -588,6 +577,7 @@ extension on Translations {
 			case 'home.signOut': return 'Sign Out';
 			case 'home.getMyRecordings.error': return 'Uh oh, your recordings were not fetched.';
 			case 'home.playRecording.error': return 'Uh oh, there was a problem with your recording.';
+			case 'home.recordAudio.error': return 'Uh oh, something went wrong.';
 			case 'resetPassword.title': return 'Reset Password';
 			case 'resetPassword.form.newPassword.placeholder': return 'New Password';
 			case 'resetPassword.form.newPassword.error.invalid': return 'Minimum 8 characters, upper and lower case, with at least one special character.';

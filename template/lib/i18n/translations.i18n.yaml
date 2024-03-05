@@ -1,7 +1,3 @@
-shared:
-  recordAudio:
-    error: 'Uh oh, something went wrong.'
-
 signIn:
   title: 'Sign In'
   form:
@@ -63,6 +59,8 @@ home:
     error: 'Uh oh, your recordings were not fetched.'
   playRecording:
     error: 'Uh oh, there was a problem with your recording.'
+  recordAudio:
+    error: 'Uh oh, something went wrong.'
 
 resetPassword:
   title: 'Reset Password'

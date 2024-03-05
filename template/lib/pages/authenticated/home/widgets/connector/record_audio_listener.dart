@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:record/record.dart';
 
-import '../../../blocs/record_audio/bloc.dart';
-import '../../../blocs/record_audio/event.dart';
-import '../../../blocs/record_audio/state.dart';
-import '../../../effects/record_audio/effect.dart';
-import '../../../effects/record_audio/provider.dart';
-import '../../../i18n/translations.g.dart';
-import '../../../theme/theme.dart';
+import '../../../../../blocs/record_audio/bloc.dart';
+import '../../../../../blocs/record_audio/event.dart';
+import '../../../../../blocs/record_audio/state.dart';
+import '../../../../../effects/record_audio/effect.dart';
+import '../../../../../effects/record_audio/provider.dart';
+import '../../../../../i18n/translations.g.dart';
+import '../../../../../theme/theme.dart';
 
-class SharedC_RecordAudioListener extends StatefulWidget {
-  const SharedC_RecordAudioListener({
+class HomeC_RecordAudioListener extends StatefulWidget {
+  const HomeC_RecordAudioListener({
     required this.builder,
     super.key,
   });
@@ -23,12 +23,11 @@ class SharedC_RecordAudioListener extends StatefulWidget {
   }) builder;
 
   @override
-  State<SharedC_RecordAudioListener> createState() =>
-      _SharedC_RecordAudioListenerState();
+  State<HomeC_RecordAudioListener> createState() =>
+      _HomeC_RecordAudioListenerState();
 }
 
-class _SharedC_RecordAudioListenerState
-    extends State<SharedC_RecordAudioListener> {
+class _HomeC_RecordAudioListenerState extends State<HomeC_RecordAudioListener> {
   late RecordAudioEffect _recordAudioEffect;
 
   bool _isStarting = false;
@@ -65,7 +64,7 @@ class _SharedC_RecordAudioListenerState
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      context.t.shared.recordAudio.error,
+                      context.t.home.recordAudio.error,
                       style: TextStyle(
                         color: context.tokens.color.error.onContainer,
                       ),
@@ -80,22 +79,25 @@ class _SharedC_RecordAudioListenerState
                 _isStarting = true;
               });
               await _recordAudioEffect.start();
-            } catch (_) {
+            } catch (e) {
               _recordAudioEffect.log.warning('recording was not started');
+              _recordAudioEffect.log.fine(e);
               recordAudioBloc.add(RecordAudioEvent_Error());
             }
           case RecordAudioStatus.pause:
             try {
               await _recordAudioEffect.pause();
-            } catch (_) {
+            } catch (e) {
               _recordAudioEffect.log.warning('recording was not paused');
+              _recordAudioEffect.log.fine(e);
               recordAudioBloc.add(RecordAudioEvent_Error());
             }
           case RecordAudioStatus.resume:
             try {
               await _recordAudioEffect.resume();
-            } catch (_) {
+            } catch (e) {
               _recordAudioEffect.log.warning('recording was not resumed');
+              _recordAudioEffect.log.fine(e);
               recordAudioBloc.add(RecordAudioEvent_Error());
             }
 
@@ -115,8 +117,9 @@ class _SharedC_RecordAudioListenerState
                   recordingBytes: recordingBytes,
                 ),
               );
-            } catch (_) {
+            } catch (e) {
               _recordAudioEffect.log.warning('recording was not stopped');
+              _recordAudioEffect.log.fine(e);
               recordAudioBloc.add(RecordAudioEvent_Error());
             }
         }

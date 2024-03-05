@@ -45,7 +45,10 @@ npm install -g remotedev-server
 Install mkdocs.
 
 ```sh
-brew install mkdocs
+pyenv install 3.11.2
+pyenv global 3.11.2
+
+pip install mkdocs
 ```
 
 Install mkdocs theme.
@@ -61,7 +64,7 @@ Get Supabase:
 ```sh
 brew install supabase/tap/supabase
 
-# supabase version 
+# supabase --version 
 # 1.145.4
 ```
 
@@ -108,3 +111,9 @@ brew install direnv
 ```
 
 Then download the [VSCode extension](https://marketplace.visualstudio.com/items?itemName=mkhl.direnv).
+
+Create a `.envrc` file and add the following, but replace the ip address with your own:
+
+```env
+export MY_IP_ADDRESS="192.168.0.00"
+```

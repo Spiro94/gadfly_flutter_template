@@ -74,8 +74,9 @@ class _HomeC_PlayAudioButtonState extends State<HomeC_PlayAudioButton> {
                   await playAudioEffect.setUrl(url: widget.recording.signedUrl);
                 }
                 await playAudioEffect.play();
-              } catch (_) {
+              } catch (e) {
                 playAudioEffect.log.warning('could not play');
+                playAudioEffect.log.fine(e);
                 if (!context.mounted) return;
                 context
                     .read<RecordingsBloc>()
@@ -91,8 +92,9 @@ class _HomeC_PlayAudioButtonState extends State<HomeC_PlayAudioButton> {
             onTap: () {
               try {
                 playAudioEffect.pause();
-              } catch (_) {
+              } catch (e) {
                 playAudioEffect.log.warning('could not pause');
+                playAudioEffect.log.fine(e);
                 if (!context.mounted) return;
                 context
                     .read<RecordingsBloc>()
@@ -108,8 +110,9 @@ class _HomeC_PlayAudioButtonState extends State<HomeC_PlayAudioButton> {
             onTap: () {
               try {
                 playAudioEffect.replay();
-              } catch (_) {
+              } catch (e) {
                 playAudioEffect.log.warning('could not replay');
+                playAudioEffect.log.fine(e);
                 if (!context.mounted) return;
                 context
                     .read<RecordingsBloc>()

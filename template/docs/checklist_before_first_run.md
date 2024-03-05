@@ -415,7 +415,7 @@ kebab-case).
 Create a `.envrc` file and add the following, but replace the ip address with your own:
 
 ```env
-export ANDROID_LOCALHOST="192.168.0.00"
+export APP_LOCALHOST="192.168.0.00"
 ```
 
 **Note**: add `.envrc` to the top-level `.gitignore` file so it isn't checked in to version control.
