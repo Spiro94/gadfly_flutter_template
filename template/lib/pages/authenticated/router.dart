@@ -5,35 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocs/record_audio/bloc.dart';
 import '../../blocs/recordings/bloc.dart';
 import '../../effects/now/provider.dart';
-import '../../effects/record_audio/effect.dart';
-import '../../effects/record_audio/provider.dart';
 import '../../effects/uuid/provider.dart';
 import '../../repositories/audio/repository.dart';
 import '../../repositories/auth/repository.dart';
 import '../../shared/widgets/connector/auth_status_change_listener.dart';
 
 @RoutePage(name: 'Authenticated_Routes')
-class Authenticated_Router extends StatefulWidget {
+class Authenticated_Router extends StatelessWidget {
   const Authenticated_Router({super.key});
-
-  @override
-  State<Authenticated_Router> createState() => _Authenticated_RouterState();
-}
-
-class _Authenticated_RouterState extends State<Authenticated_Router> {
-  late final RecordAudioEffect recordAudioEffect;
-
-  @override
-  void initState() {
-    super.initState();
-    recordAudioEffect = context.read<RecordAudioEffectProvider>().getEffect();
-  }
-
-  @override
-  void dispose() {
-    recordAudioEffect.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

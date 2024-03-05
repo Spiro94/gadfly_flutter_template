@@ -7,11 +7,13 @@ import 'package:supabase_client_provider/supabase_client_provider.dart';
 // TODO: Update 'CHANGE ME'
 
 class MainConfigurations {
+  static const appLocalhost = String.fromEnvironment('APP_LOCALHOST');
+
   static MainConfiguration development = MainConfiguration(
     logLevel: Level.ALL,
     useReduxDevtools: false,
     deepLinkHostname: kIsWeb
-        ? 'http://127.0.0.1:3000'
+        ? 'http://$appLocalhost:3000'
         : 'com.example.myapp.deep://deeplink-callback',
     amplitudeRepositoryConfiguration: AmplitudeRepositoryConfiguration(
       apiKey: 'CHANGE_ME',
@@ -19,7 +21,7 @@ class MainConfigurations {
     ),
     sentryRepositoryConfiguration: null,
     supabaseClientProviderConfiguration: SupabaseClientProviderConfiguration(
-      url: 'http://127.0.0.1:54321',
+      url: 'http://$appLocalhost:54321',
       anonKey:
           '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0''',
     ),
@@ -29,7 +31,7 @@ class MainConfigurations {
     logLevel: Level.ALL,
     useReduxDevtools: true,
     deepLinkHostname: kIsWeb
-        ? 'http://127.0.0.1:3000'
+        ? 'http://$appLocalhost:3000'
         : 'com.example.myapp.deep://deeplink-callback',
     amplitudeRepositoryConfiguration: AmplitudeRepositoryConfiguration(
       apiKey: 'CHANGE_ME',
@@ -37,7 +39,7 @@ class MainConfigurations {
     ),
     sentryRepositoryConfiguration: null,
     supabaseClientProviderConfiguration: SupabaseClientProviderConfiguration(
-      url: 'http://127.0.0.1:54321',
+      url: 'http://$appLocalhost:54321',
       anonKey:
           '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0''',
     ),
@@ -47,7 +49,7 @@ class MainConfigurations {
     logLevel: Level.ALL,
     useReduxDevtools: true,
     deepLinkHostname: kIsWeb
-        ? 'http://127.0.0.1:3000'
+        ? 'http://$appLocalhost:3000'
         : 'com.example.myapp.deep://deeplink-callback',
     amplitudeRepositoryConfiguration: AmplitudeRepositoryConfiguration(
       apiKey: 'CHANGE_ME',
@@ -58,7 +60,7 @@ class MainConfigurations {
       sentryEnvironment: 'CHANG ME',
     ),
     supabaseClientProviderConfiguration: SupabaseClientProviderConfiguration(
-      url: 'http://127.0.0.1:54321',
+      url: 'http://$appLocalhost:54321',
       anonKey:
           '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0''',
     ),

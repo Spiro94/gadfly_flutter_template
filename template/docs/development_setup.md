@@ -100,3 +100,11 @@ Get `PgAdmin`
 ```sh
 brew install --cask pgadmin4
 ```
+
+## direnv
+
+```sh
+brew install direnv
+```
+
+Then download the [VSCode extension](https://marketplace.visualstudio.com/items?itemName=mkhl.direnv).

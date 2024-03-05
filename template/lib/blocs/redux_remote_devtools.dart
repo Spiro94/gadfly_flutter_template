@@ -185,8 +185,10 @@ void remoteReduxDevtoolsOnClose({
   }
 }
 
-Future<void> createReduxRemoteDevtoolsStore() async {
-  final _devtools = RemoteDevToolsMiddleware<DevtoolsDb>('localhost:8001');
+Future<void> createReduxRemoteDevtoolsStore({
+  required String appLocalhost,
+}) async {
+  final _devtools = RemoteDevToolsMiddleware<DevtoolsDb>('$appLocalhost:8001');
 
   await runZonedGuarded(
     () async {

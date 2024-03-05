@@ -101,8 +101,9 @@ class RecordingsBloc extends RecordingsBaseBloc {
 
         add(RecordingsEvent_SetMyRecordings(recordings: recordings));
       });
-    } catch (_) {
+    } catch (e) {
       _log.warning('recordings were not fetched');
+      _log.fine(e);
       emit(state.copyWith(status: RecordingsStatus.loadingError));
     } finally {
       emit(state.copyWith(status: RecordingsStatus.idle));

@@ -107,11 +107,11 @@ class _SharedC_RecordAudioListenerState
               final recordingPath = await _recordAudioEffect.stop();
 
               // If there is a recording, then save it
-              final (recordingName, recordingBytes) =
-                  await _recordAudioEffect.getFileNameAndBytes(recordingPath!);
+              final recordingBytes = await _recordAudioEffect.getFileBytes(
+                recordingPath: recordingPath!,
+              );
               recordAudioBloc.add(
                 RecordAudioEvent_Save(
-                  recordingName: recordingName,
                   recordingBytes: recordingBytes,
                 ),
               );

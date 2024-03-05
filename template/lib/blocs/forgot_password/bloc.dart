@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
 import '../../repositories/auth/repository.dart';
 import '../base_blocs.dart';
 import 'event.dart';
@@ -28,6 +29,8 @@ class ForgotPasswordBloc extends ForgotPasswordBaseBloc {
   }
 
   final AuthRepository _authRepository;
+
+  final _log = Logger('forgot_password_bloc');
 
   Future<void> _onForgotPassword(
     ForgotPasswordEvent_ForgotPassword event,
@@ -81,6 +84,7 @@ class ForgotPasswordBloc extends ForgotPasswordBaseBloc {
         ),
       );
     } catch (e) {
+      _log.fine(e);
       emit(
         state.copyWith(
           status: errorStatus,

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
 import '../../repositories/auth/repository.dart';
 import '../base_blocs.dart';
 import 'event.dart';
@@ -33,6 +34,8 @@ class AuthBloc extends AuthBaseBloc {
 
   final AuthRepository _authRepository;
 
+  final _log = Logger('auth_bloc');
+
   Future<void> _onAccessTokenAdded(
     AuthEvent_AccessTokenAdded event,
     Emitter<AuthState> emit,
@@ -54,6 +57,11 @@ class AuthBloc extends AuthBaseBloc {
       await _authRepository.signOut();
     } catch (e) {
       // No-op
+
+      // coverage:ignore-start
+      _log.warning('sign out error');
+      _log.fine(e);
+      // coverage:ignore-end
     } finally {
       await _tokenRemoved(emit);
     }
@@ -91,7 +99,8 @@ class AuthBloc extends AuthBaseBloc {
       );
 
       event.completer.complete();
-    } catch (_) {
+    } catch (e) {
+      _log.fine(e);
       event.completer.completeError(
         Exception('AuthBloc: Could not set session from deep link'),
       );

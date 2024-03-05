@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'package:gadfly_flutter_template/effects/record_audio/effect.dart';
 import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
@@ -8,11 +7,6 @@ import 'package:record/record.dart';
 class MockRecordAudioEffect extends Mock implements RecordAudioEffect {
   @override
   final log = Logger('record_audio_effect');
-
-  @override
-  Future<(String, Uint8List)> getFileNameAndBytes(String recordingPath) async {
-    return (recordingPath, Uint8List(0));
-  }
 
   StreamController<RecordState>? streamController;
   StreamSubscription<RecordState>? _subscription;

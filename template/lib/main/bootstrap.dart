@@ -35,7 +35,9 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
   log.finest('flutter onError callback set up');
 
   if (configuration.useReduxDevtools) {
-    await createReduxRemoteDevtoolsStore();
+    await createReduxRemoteDevtoolsStore(
+      appLocalhost: MainConfigurations.appLocalhost,
+    );
     log.finest('redux remote devtools started');
   }
 

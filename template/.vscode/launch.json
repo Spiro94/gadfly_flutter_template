@@ -2,7 +2,85 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "development",
+            "name": "[android] development",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "app",
+            "program": "lib/main/development.dart",
+            "args": [
+                "--target",
+                "lib/main/development.dart",
+                "--dart-define",
+                "APP_LOCALHOST=${env:ANDROID_LOCALHOST}"
+            ]
+        },
+        {
+            "name": "[android] development w/ devtools",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "app",
+            "program": "lib/main/development_with_redux_devtools.dart",
+            "args": [
+                "--target",
+                "lib/main/development_with_redux_devtools.dart",
+                "--dart-define",
+                "APP_LOCALHOST=${env:ANDROID_LOCALHOST}"
+            ]
+        },
+        {
+            "name": "[android] development send events",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "app",
+            "program": "lib/main/development_and_send_events.dart",
+            "args": [
+                "--target",
+                "lib/main/development_and_send_events.dart",
+                "--dart-define",
+                "APP_LOCALHOST=${env:ANDROID_LOCALHOST}"
+            ]
+        },
+        {
+            "name": "[iOS] development",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "app",
+            "program": "lib/main/development.dart",
+            "args": [
+                "--target",
+                "lib/main/development.dart",
+                "--dart-define",
+                "APP_LOCALHOST=127.0.0.1"
+            ]
+        },
+        {
+            "name": "[iOS] development w/ devtools",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "app",
+            "program": "lib/main/development_with_redux_devtools.dart",
+            "args": [
+                "--target",
+                "lib/main/development_with_redux_devtools.dart",
+                "--dart-define",
+                "APP_LOCALHOST=127.0.0.1"
+            ]
+        },
+        {
+            "name": "[iOS] development send events",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "app",
+            "program": "lib/main/development_and_send_events.dart",
+            "args": [
+                "--target",
+                "lib/main/development_and_send_events.dart",
+                "--dart-define",
+                "APP_LOCALHOST=127.0.0.1"
+            ]
+        },
+        {
+            "name": "[web] development",
             "request": "launch",
             "type": "dart",
             "cwd": "app",
@@ -15,10 +93,12 @@
                 "--web-port",
                 "3000",
                 "--web-hostname=127.0.0.1",
+                "--dart-define",
+                "APP_LOCALHOST=127.0.0.1"
             ]
         },
         {
-            "name": "development w/ devtools",
+            "name": "[web] development w/ devtools",
             "request": "launch",
             "type": "dart",
             "cwd": "app",
@@ -31,10 +111,12 @@
                 "--web-port",
                 "3000",
                 "--web-hostname=127.0.0.1",
+                "--dart-define",
+                "APP_LOCALHOST=127.0.0.1"
             ]
         },
         {
-            "name": "development send events",
+            "name": "[web] development send events",
             "request": "launch",
             "type": "dart",
             "cwd": "app",
@@ -47,6 +129,8 @@
                 "--web-port",
                 "3000",
                 "--web-hostname=127.0.0.1",
+                "--dart-define",
+                "APP_LOCALHOST=127.0.0.1"
             ]
         },
         {

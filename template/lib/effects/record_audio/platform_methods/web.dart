@@ -13,15 +13,11 @@ Future<void> recordAudioEffect_start(r.AudioRecorder recorder) async {
   );
 }
 
-Future<(String, Uint8List)> recordAudioEffect_getFileNameAndBytes(
+Future<Uint8List> recordAudioEffect_getFileBytes(
   String recordingPath,
 ) async {
   final recordingResponse = await http.get(Uri.parse(recordingPath));
   final recordingBytes = recordingResponse.bodyBytes;
-  return (
-    // Note: the recording path is a blob, so we need to add the extension
-    // (unlike for mobile)
-    '${recordingPath.split('/').last}.wav',
-    recordingBytes,
-  );
+
+  return recordingBytes;
 }

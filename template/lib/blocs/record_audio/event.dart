@@ -14,10 +14,8 @@ class RecordAudioEvent_Stop extends RecordAudioEvent {}
 
 class RecordAudioEvent_Save extends RecordAudioEvent {
   RecordAudioEvent_Save({
-    required this.recordingName,
     required this.recordingBytes,
   });
 
-  final String recordingName;
   final Uint8List recordingBytes;
 }

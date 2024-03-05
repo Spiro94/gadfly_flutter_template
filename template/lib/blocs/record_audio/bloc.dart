@@ -43,7 +43,7 @@ class RecordAudioBloc extends RecordAudioBaseBloc {
     );
     on<RecordAudioEvent_Save>(
       _onSave,
-      transformer: sequential(),
+      transformer: concurrent(),
     );
   }
 
@@ -98,6 +98,12 @@ class RecordAudioBloc extends RecordAudioBaseBloc {
     Emitter<RecordAudioState> emit,
   ) async {
     try {
+      final lengthInBytes = event.recordingBytes.lengthInBytes;
+      if (lengthInBytes <= 4096) {
+        _log.fine('length in bytes $lengthInBytes');
+        throw Exception('empty recording');
+      }
+
       final userId = await _authRepository.getUserId();
 
       await _audioRepository.recordingSave(
@@ -106,8 +112,9 @@ class RecordAudioBloc extends RecordAudioBaseBloc {
             ).toIso8601String()}.wav',
         recordingBytes: event.recordingBytes,
       );
-    } catch (_) {
+    } catch (e) {
       _log.warning('recording was not saved');
+      _log.fine(e);
       add(RecordAudioEvent_Error());
     }
   }

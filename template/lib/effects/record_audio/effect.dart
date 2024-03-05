@@ -49,9 +49,10 @@ class RecordAudioEffect {
     return _recorder.stop();
   }
 
-  Future<(String, Uint8List)> getFileNameAndBytes(String recordingPath) async {
-    return platform_methods
-        .recordAudioEffect_getFileNameAndBytes(recordingPath);
+  Future<Uint8List> getFileBytes({
+    required String recordingPath,
+  }) async {
+    return platform_methods.recordAudioEffect_getFileBytes(recordingPath);
   }
 
   Future<void> dispose() async {

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
 import '../../repositories/auth/repository.dart';
 import '../base_blocs.dart';
 import 'event.dart';
@@ -21,6 +22,7 @@ class SignInBloc extends SignInBaseBloc {
   }
 
   final AuthRepository _authRepository;
+  final _log = Logger('sign_in_bloc');
 
   Future<void> _onSignIn(
     SignInEvent_SignIn event,
@@ -39,6 +41,7 @@ class SignInBloc extends SignInBaseBloc {
         password: password,
       );
     } catch (e) {
+      _log.fine(e);
       emit(
         const SignInState(status: SignInStatus.error),
       );

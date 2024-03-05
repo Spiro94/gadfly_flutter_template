@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logging/logging.dart';
 import '../../repositories/auth/repository.dart';
 import '../base_blocs.dart';
 import 'event.dart';
@@ -23,6 +24,7 @@ class ResetPasswordBloc extends ResetPasswordBaseBloc {
   }
 
   final AuthRepository _authRepository;
+  final _log = Logger('reset_password_bloc');
 
   Future<void> _onResetPassword(
     ResetPasswordEvent_ResetPassword event,
@@ -36,6 +38,7 @@ class ResetPasswordBloc extends ResetPasswordBaseBloc {
 
       emit(const ResetPasswordState(status: ResetPasswordStatus.success));
     } catch (e) {
+      _log.fine(e);
       emit(const ResetPasswordState(status: ResetPasswordStatus.error));
     } finally {
       emit(const ResetPasswordState(status: ResetPasswordStatus.idle));

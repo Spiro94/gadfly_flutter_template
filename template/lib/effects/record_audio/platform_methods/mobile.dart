@@ -26,12 +26,10 @@ Future<void> recordAudioEffect_start(r.AudioRecorder recorder) async {
   );
 }
 
-Future<(String, Uint8List)> recordAudioEffect_getFileNameAndBytes(
+Future<Uint8List> recordAudioEffect_getFileBytes(
   String recordingPath,
 ) async {
   final recordingBytes = await File(recordingPath).readAsBytes();
-  return (
-    recordingPath.split('/').last,
-    recordingBytes,
-  );
+
+  return recordingBytes;
 }
