@@ -213,13 +213,13 @@ Update `app/android/app/src/main/AndroidManifest.xml` to include the following:
 ```xml
 <manifest ...>
   <!-- ... other tags -->
-  <application ...>
-    <activity ...
-
+  <application ...
+  
     android:usesCleartextTraffic="true" 
 
-    >
-      <!-- ... other tags -->
+  >
+    <activity ...>
+      <!-- ... -->
     </activity>
   </application>
 </manifest>
