@@ -17,4 +17,3 @@ analyzer:
     flutter_style_todos: ignore
   exclude:
     - '**/*.g.dart'
-    - '**/*.gr.dart'

@@ -34,13 +34,16 @@ mv .github ../
 mv .vscode ../
 mv Makefile ../
 mv README.md ../
+mv .envrc.sample ../
 mv .gitignore_top_level ../.gitignore
-mkdir -p ../supabase/functions
-mv import_map.json ../supabase/functions
+mv supabase ../
 
 cd ..
 
 supabase init 
+
+rm supabase/seed.sql
+mv supabase/seed2.sql supabase/seed.sql
 
 cd ../..
 

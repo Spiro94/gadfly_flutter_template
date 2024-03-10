@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "crypto.ts": "https://deno.land/std@0.166.0/node/crypto.ts",
+    "buffer.mjs": "https://deno.land/std@0.166.0/node/internal/buffer.mjs"
+  }
+}

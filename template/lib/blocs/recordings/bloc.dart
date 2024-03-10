@@ -67,19 +67,38 @@ class RecordingsBloc extends RecordingsBaseBloc {
       _subscription = stream.listen((rows) async {
         final recordings = List<AudioRecording>.from(state.recordings);
 
-        if (_subscription == null || rows.isEmpty) return;
+        // If subscription hasn't been initialized, or if there are no rows,
+        // exit early and emit no recordings.
+        if (_subscription == null || rows.isEmpty) {
+          add(RecordingsEvent_SetMyRecordings(recordings: []));
+          return;
+        }
 
+        // Get the recording paths from the `path_tokens` which is a column in
+        // Supabase's storage.objects table.
         final recordingPaths = rows.map((row) {
           final path_tokens = row['path_tokens'] as List<dynamic>;
           return path_tokens.join('/');
         }).toList();
 
+        final recordingNames =
+            recordingPaths.map((rp) => rp.split('/').last).toList();
+
+        // remove recordings in the Bloc's state that no longer exist in the
+        // current recordingNames.
+        recordings
+            .removeWhere((r) => !recordingNames.contains(r.recordingName));
+
+        // Get signed urls for each recording path
         final signedUrls = await _audioRepository.getSignedRecordingUrls(
           recordingNames: recordingPaths,
         );
 
         for (final rp in recordingPaths) {
           final recordingName = rp.split('/').last;
+
+          // If the recording already exists, then assume it already has a
+          // signed url and id, so we can exit early.
           if (recordings.any(
             (recording) => recording.recordingName == recordingName,
           )) {

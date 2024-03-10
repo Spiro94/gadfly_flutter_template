@@ -53,5 +53,5 @@ jobs:
           # access the working directory from an action. In other words, Very
           # Good Coverage always runs from the root of your repository.
           path: 'app/coverage/lcov.info'
-          exclude: '**/*.g.dart **/*.gr.dart **/redux_remote_devtools.dart'
+          exclude: '**/*.g.dart'
           min_coverage: 75

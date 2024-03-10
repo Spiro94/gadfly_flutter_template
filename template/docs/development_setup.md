@@ -79,9 +79,34 @@ brew install deno
 # 1.41.1
 ```
 
-Note: be sure to add your deno path to your VSCode user settings json file. E.g. `"deno.path": "/opt/homebrew/bin/deno"`
+Note: be sure to add your deno path to your VSCode user settings json file. E.g.
+`"deno.path": "/opt/homebrew/bin/deno"`
 
-## PostgresQL
+## direnv
+
+```sh
+brew install direnv
+```
+
+Then download the
+[VSCode extension](https://marketplace.visualstudio.com/items?itemName=mkhl.direnv).
+
+Create a `.envrc` file and add the following, but replace the ip address with
+your own:
+
+```env
+export MY_IP_ADDRESS="192.168.0.00"
+```
+
+## lcov
+
+```sh
+brew install lcov
+```
+
+## Optional
+
+### PostgresQL
 
 Get `psql`
 
@@ -96,24 +121,10 @@ Then add the following to your `~/.zshrc` file:
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 ```
 
-## PgAdmin
+### PgAdmin
 
 Get `PgAdmin`
 
 ```sh
 brew install --cask pgadmin4
-```
-
-## direnv
-
-```sh
-brew install direnv
-```
-
-Then download the [VSCode extension](https://marketplace.visualstudio.com/items?itemName=mkhl.direnv).
-
-Create a `.envrc` file and add the following, but replace the ip address with your own:
-
-```env
-export MY_IP_ADDRESS="192.168.0.00"
 ```

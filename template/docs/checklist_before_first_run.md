@@ -337,68 +337,9 @@ additional_redirect_urls = [
 ]
 ```
 
-### Add storage for recordings
+### functions/.env file
 
-Run this command:
-
-```sh
-supabase migration new storage_recordings_policy
-```
-
-and paste in the following:
-
-```sql
-create policy "Users own their folder c5wwbm_0"
-on "storage"."objects"
-as permissive
-for select
-to authenticated
-using (((bucket_id = 'recordings'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text)));
-
-
-create policy "Users own their folder c5wwbm_1"
-on "storage"."objects"
-as permissive
-for insert
-to authenticated
-with check (((bucket_id = 'recordings'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text)));
-
-
-create policy "Users own their folder c5wwbm_2"
-on "storage"."objects"
-as permissive
-for update
-to authenticated
-using (((bucket_id = 'recordings'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text)));
-
-
-create policy "Users own their folder c5wwbm_3"
-on "storage"."objects"
-as permissive
-for delete
-to authenticated
-using (((bucket_id = 'recordings'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text)));
-```
-
-Run this command:
-
-```sh
-supabase migration new storage_realtime
-```
-
-and paste in the following:
-
-```sql
-alter publication supabase_realtime add table storage.objects;
-```
-
-Update the `supabase/seed.sql` file to contain the following:
-
-```sql
-INSERT INTO storage.buckets(id, name)
-VALUES 
-    ('recordings', 'recordings')
-```
+Update the `functions/.env` file and make sure the `EDGE_SECRET` is the same as in the `seed.sql`.
 
 ## Step 7: misc cleanup
 

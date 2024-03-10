@@ -43,6 +43,15 @@ supabase migration new <migration_name>
 supabase migration up
 ```
 
+### Run Edge Functions
+
+```sh
+supabase functions serve --env-file supabase/functions/.env
+```
+
+Note: you will need to add a `supabase/functions/.env` file that includes the
+required environment variables.
+
 ## App
 
 ### Run App (Option 1)
