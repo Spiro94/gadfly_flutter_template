@@ -3,6 +3,7 @@
 part of '../theme.dart';
 
 final _tokenExtensions = ThemeTokenExtensions(
+  breakpoint: _breakpointTokens,
   color: _colorTokens,
   colorRaw: _colorRawTokens,
   iconSize: _iconSizeTokens,
@@ -18,6 +19,7 @@ extension ThemeTokensBuildContext on BuildContext {
 class ThemeTokenExtensions extends ThemeExtension<ThemeTokenExtensions>
     with EquatableMixin {
   const ThemeTokenExtensions({
+    required this.breakpoint,
     required this.color,
     required this.colorRaw,
     required this.iconSize,
@@ -25,6 +27,7 @@ class ThemeTokenExtensions extends ThemeExtension<ThemeTokenExtensions>
     required this.spacing,
   });
 
+  final ThemeBreakpointTokens breakpoint;
   final ThemeColorTokens color;
   final ThemeColorRawTokens colorRaw;
   final ThemeIconSizeTokens iconSize;
@@ -33,6 +36,7 @@ class ThemeTokenExtensions extends ThemeExtension<ThemeTokenExtensions>
 
   @override
   ThemeExtension<ThemeTokenExtensions> copyWith({
+    ThemeBreakpointTokens? breakpoint,
     ThemeColorTokens? color,
     ThemeColorRawTokens? colorRaw,
     ThemeIconSizeTokens? iconSize,
@@ -40,6 +44,7 @@ class ThemeTokenExtensions extends ThemeExtension<ThemeTokenExtensions>
     ThemeSpacingTokens? spacing,
   }) {
     return ThemeTokenExtensions(
+      breakpoint: breakpoint ?? this.breakpoint,
       color: color ?? this.color,
       colorRaw: colorRaw ?? this.colorRaw,
       iconSize: iconSize ?? this.iconSize,
@@ -55,6 +60,7 @@ class ThemeTokenExtensions extends ThemeExtension<ThemeTokenExtensions>
   ) {
     if (other is! ThemeTokenExtensions) return this;
     return ThemeTokenExtensions(
+      breakpoint: breakpoint.lerp(other.breakpoint, t),
       color: color.lerp(other.color, t),
       colorRaw: colorRaw.lerp(other.colorRaw, t),
       iconSize: iconSize.lerp(other.iconSize, t),
@@ -65,6 +71,7 @@ class ThemeTokenExtensions extends ThemeExtension<ThemeTokenExtensions>
 
   @override
   List<Object?> get props => [
+        breakpoint,
         color,
         colorRaw,
         iconSize,

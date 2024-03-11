@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 // ignore: depend_on_referenced_packages
 import 'package:material_color_utilities/material_color_utilities.dart';
 
+part 'tokens/breakpoint.dart';
 part 'tokens/color_raw.dart';
 part 'tokens/color.dart';
 part 'tokens/icon_size.dart';
