@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/sign_up/bloc.dart';
 import '../../../repositories/auth/repository.dart';
+import '../../../shared/widgets/dumb/body_container.dart';
 import '../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
 import 'widgets/connector/sign_up_form.dart';
@@ -35,7 +36,7 @@ class SignUp_Scaffold extends StatelessWidget {
     return SignUpC_SignUpStatusChangeListener(
       child: Scaffold(
         appBar: const SignInC_AppBar(),
-        body: SingleChildScrollView(
+        body: SharedD_BodyContainer(
           child: Padding(
             padding: EdgeInsets.all(context.tokens.spacing.large),
             child: const Column(

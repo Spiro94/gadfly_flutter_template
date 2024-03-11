@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/recordings/bloc.dart';
 import '../../../blocs/recordings/event.dart';
+import '../../../shared/widgets/dumb/body_container.dart';
 import '../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
 import 'widgets/connector/play_audio_buttons.dart';
@@ -44,7 +45,7 @@ class Home_Scaffold extends StatelessWidget {
     return Scaffold(
       appBar: const HomeC_AppBar(),
       body: HomeC_PlayAudioStatusListener(
-        child: SingleChildScrollView(
+        child: SharedD_BodyContainer(
           child: Padding(
             padding: EdgeInsets.all(context.tokens.spacing.large),
             child: Column(
