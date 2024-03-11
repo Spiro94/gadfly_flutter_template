@@ -20,11 +20,11 @@ class RecordingsState extends Equatable {
   });
 
   final RecordingsStatus status;
-  final List<AudioRecording> recordings;
+  final List<Model_AudioRecording> recordings;
 
   RecordingsState copyWith({
     RecordingsStatus? status,
-    List<AudioRecording>? recordings,
+    List<Model_AudioRecording>? recordings,
   }) {
     return RecordingsState(
       status: status ?? this.status,

@@ -10,7 +10,7 @@ RecordingsState _$RecordingsStateFromJson(Map<String, dynamic> json) =>
     RecordingsState(
       status: $enumDecode(_$RecordingsStatusEnumMap, json['status']),
       recordings: (json['recordings'] as List<dynamic>)
-          .map((e) => AudioRecording.fromJson(e as Map<String, dynamic>))
+          .map((e) => Model_AudioRecording.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

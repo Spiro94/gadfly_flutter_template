@@ -12,7 +12,7 @@ class HomeC_PlayAudioButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final playAudioBloc = context.watch<RecordingsBloc>();
     final recordings =
-        List<AudioRecording>.from(playAudioBloc.state.recordings);
+        List<Model_AudioRecording>.from(playAudioBloc.state.recordings);
     recordings.sort((a, b) => a.recordingName.compareTo(b.recordingName));
 
     return Column(

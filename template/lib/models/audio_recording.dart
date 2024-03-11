@@ -4,8 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'audio_recording.g.dart';
 
 @JsonSerializable()
-class AudioRecording extends Equatable {
-  const AudioRecording({
+class Model_AudioRecording extends Equatable {
+  const Model_AudioRecording({
     required this.id,
     required this.recordingName,
     required this.signedUrl,
@@ -23,9 +23,9 @@ class AudioRecording extends Equatable {
         signedUrl,
       ];
 
-  factory AudioRecording.fromJson(Map<String, dynamic> json) =>
-      _$AudioRecordingFromJson(json);
+  factory Model_AudioRecording.fromJson(Map<String, dynamic> json) =>
+      _$Model_AudioRecordingFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AudioRecordingToJson(this);
+  Map<String, dynamic> toJson() => _$Model_AudioRecordingToJson(this);
   // coverage:ignore-end
 }

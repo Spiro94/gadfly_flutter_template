@@ -15,7 +15,7 @@ class HomeC_PlayAudioButton extends StatefulWidget {
     super.key,
   });
 
-  final AudioRecording recording;
+  final Model_AudioRecording recording;
 
   @override
   State<HomeC_PlayAudioButton> createState() => _HomeC_PlayAudioButtonState();

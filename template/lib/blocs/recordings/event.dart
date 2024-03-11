@@ -9,7 +9,7 @@ class RecordingsEvent_SetMyRecordings extends RecordingsEvent {
     required this.recordings,
   });
 
-  final List<AudioRecording> recordings;
+  final List<Model_AudioRecording> recordings;
 }
 
 class RecordingsEvent_PlayingError extends RecordingsEvent {}

@@ -65,7 +65,7 @@ class RecordingsBloc extends RecordingsBaseBloc {
           await _audioRepository.getMyRecordingsStream(userId: userId);
 
       _subscription = stream.listen((rows) async {
-        final recordings = List<AudioRecording>.from(state.recordings);
+        final recordings = List<Model_AudioRecording>.from(state.recordings);
 
         // If subscription hasn't been initialized, or if there are no rows,
         // exit early and emit no recordings.
@@ -109,7 +109,7 @@ class RecordingsBloc extends RecordingsBaseBloc {
 
           if (signedUrl != null) {
             recordings.add(
-              AudioRecording(
+              Model_AudioRecording(
                 id: _uuidEffect.generateUuidV4(debugLabel: recordingName),
                 recordingName: recordingName,
                 signedUrl: signedUrl.signedUrl,
