@@ -5,8 +5,8 @@ import '../../../blocs/sign_up/bloc.dart';
 import '../../../repositories/auth/repository.dart';
 import '../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
+import 'widgets/connector/sign_up_form.dart';
 import 'widgets/connector/sign_up_status_change_listener.dart';
-import 'widgets/molecule/sign_up_form.dart';
 
 @RoutePage()
 class SignUp_Page extends StatelessWidget {
@@ -42,7 +42,7 @@ class SignUp_Scaffold extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                SignUpM_SignUnForm(),
+                SignUpC_SignUnForm(),
               ],
             ),
           ),

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
 import 'widgets/connector/forgot_password_status_change_listener.dart';
-import 'widgets/molecule/reset_password_form.dart';
+import 'widgets/connector/reset_password_form.dart';
 
 @RoutePage()
 class ForgotPassword_Page extends StatelessWidget {
@@ -37,7 +37,7 @@ class ForgotPassword_Body extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                ForgotPasswordM_ResetPasswordForm(),
+                ForgotPasswordC_ResetPasswordForm(),
               ],
             ),
           ),

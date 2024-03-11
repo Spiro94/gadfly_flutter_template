@@ -4,19 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../blocs/reset_password/bloc.dart';
 import '../../../../../blocs/reset_password/event.dart';
 import '../../../../../theme/theme.dart';
-import '../connector/new_password_input.dart';
-import '../connector/reset_password_button.dart';
+import 'new_password_input.dart';
+import 'reset_password_button.dart';
 
-class ResetPasswordM_ResetPasswordForm extends StatefulWidget {
-  const ResetPasswordM_ResetPasswordForm({super.key});
+class ResetPasswordC_ResetPasswordForm extends StatefulWidget {
+  const ResetPasswordC_ResetPasswordForm({super.key});
 
   @override
-  State<ResetPasswordM_ResetPasswordForm> createState() =>
-      _ResetPasswordM_ResetPasswordFormState();
+  State<ResetPasswordC_ResetPasswordForm> createState() =>
+      _ResetPasswordC_ResetPasswordFormState();
 }
 
-class _ResetPasswordM_ResetPasswordFormState
-    extends State<ResetPasswordM_ResetPasswordForm> {
+class _ResetPasswordC_ResetPasswordFormState
+    extends State<ResetPasswordC_ResetPasswordForm> {
   final _formKey = GlobalKey<FormState>();
   bool hasSubmitted = false;
 

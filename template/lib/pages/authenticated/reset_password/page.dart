@@ -6,8 +6,8 @@ import '../../../blocs/reset_password/bloc.dart';
 import '../../../repositories/auth/repository.dart';
 import '../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
+import 'widgets/connector/reset_password_form.dart';
 import 'widgets/connector/status_change_listener.dart';
-import 'widgets/molecule/reset_password_form.dart';
 
 @RoutePage()
 class ResetPassword_Page extends StatelessWidget {
@@ -43,7 +43,7 @@ class ResetPassword_Scaffold extends StatelessWidget {
             padding: EdgeInsets.all(context.tokens.spacing.large),
             child: const Column(
               children: [
-                ResetPasswordM_ResetPasswordForm(),
+                ResetPasswordC_ResetPasswordForm(),
               ],
             ),
           ),

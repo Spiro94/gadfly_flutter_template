@@ -4,19 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../blocs/sign_in/bloc.dart';
 import '../../../../../blocs/sign_in/event.dart';
 import '../../../../../theme/theme.dart';
-import '../connector/email_input.dart';
-import '../connector/forgot_password_link.dart';
-import '../connector/password_input.dart';
-import '../connector/sign_in_button.dart';
+import 'email_input.dart';
+import 'forgot_password_link.dart';
+import 'password_input.dart';
+import 'sign_in_button.dart';
 
-class SignInM_SignInForm extends StatefulWidget {
-  const SignInM_SignInForm({super.key});
+class SignInC_SignInForm extends StatefulWidget {
+  const SignInC_SignInForm({super.key});
 
   @override
-  State<SignInM_SignInForm> createState() => _SignInM_SignInFormState();
+  State<SignInC_SignInForm> createState() => _SignInC_SignInFormState();
 }
 
-class _SignInM_SignInFormState extends State<SignInM_SignInForm> {
+class _SignInC_SignInFormState extends State<SignInC_SignInForm> {
   final _formKey = GlobalKey<FormState>();
   bool hasSubmitted = false;
 

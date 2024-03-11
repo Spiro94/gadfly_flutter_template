@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../blocs/sign_up/bloc.dart';
-import '../../../../../blocs/sign_up/event.dart';
-import '../../../../../theme/theme.dart';
-import '../connector/email_input.dart';
-import '../connector/password_input.dart';
-import '../connector/sign_up_button.dart';
+import '../../../../../../blocs/forgot_password/bloc.dart';
+import '../../../../../../blocs/forgot_password/event.dart';
+import '../../../../../../theme/theme.dart';
+import 'email_input.dart';
+import 'reset_password_button.dart';
 
-class SignUpM_SignUnForm extends StatefulWidget {
-  const SignUpM_SignUnForm({super.key});
+class ForgotPasswordC_ResetPasswordForm extends StatefulWidget {
+  const ForgotPasswordC_ResetPasswordForm({super.key});
 
   @override
-  State<SignUpM_SignUnForm> createState() => _SignUpM_SignUnFormState();
+  State<ForgotPasswordC_ResetPasswordForm> createState() =>
+      _ForgotPasswordC_ResetPasswordFormState();
 }
 
-class _SignUpM_SignUnFormState extends State<SignUpM_SignUnForm> {
+class _ForgotPasswordC_ResetPasswordFormState
+    extends State<ForgotPasswordC_ResetPasswordForm> {
   final _formKey = GlobalKey<FormState>();
   bool hasSubmitted = false;
 
   final emailController = TextEditingController();
   final emailFocusNode = FocusNode();
-
-  final passwordController = TextEditingController();
-  final passwordFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -31,9 +29,6 @@ class _SignUpM_SignUnFormState extends State<SignUpM_SignUnForm> {
 
     emailController.addListener(_refresh);
     emailFocusNode.addListener(_refresh);
-
-    passwordController.addListener(_refresh);
-    passwordFocusNode.addListener(_refresh);
   }
 
   void _refresh() {
@@ -45,15 +40,11 @@ class _SignUpM_SignUnFormState extends State<SignUpM_SignUnForm> {
     emailController.dispose();
     emailFocusNode.dispose();
 
-    passwordController.dispose();
-    passwordFocusNode.dispose();
-
     super.dispose();
   }
 
   bool _areFieldsAnswered() {
-    return emailController.text.trim().isNotEmpty &&
-        passwordController.text.trim().isNotEmpty;
+    return emailController.text.trim().isNotEmpty;
   }
 
   void _onSubmitted() {
@@ -71,10 +62,9 @@ class _SignUpM_SignUnFormState extends State<SignUpM_SignUnForm> {
     sm.hideCurrentSnackBar();
 
     if (_formKey.currentState!.validate()) {
-      context.read<SignUpBloc>().add(
-            SignUpEvent_SignUp(
+      context.read<ForgotPasswordBloc>().add(
+            ForgotPasswordEvent_ForgotPassword(
               email: emailController.text,
-              password: passwordController.text,
             ),
           );
     }
@@ -90,17 +80,9 @@ class _SignUpM_SignUnFormState extends State<SignUpM_SignUnForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SignUpC_EmailInput(
+          ForgotPasswordC_EmailInput(
             controller: emailController,
             focusNode: emailFocusNode,
-            nextFocusNode: passwordFocusNode,
-          ),
-          SizedBox(
-            height: context.tokens.spacing.large,
-          ),
-          SignUpC_PasswordInput(
-            controller: passwordController,
-            focusNode: passwordFocusNode,
             onSubmitted: (value) => _onSubmitted(),
           ),
           SizedBox(
@@ -108,7 +90,7 @@ class _SignUpM_SignUnFormState extends State<SignUpM_SignUnForm> {
           ),
           Row(
             children: [
-              SignUpC_SignUpButton(
+              ForgotPasswordC_ResetPasswordButton(
                 areFieldsAnswered: _areFieldsAnswered(),
                 onPressed: _onSubmitted,
               ),

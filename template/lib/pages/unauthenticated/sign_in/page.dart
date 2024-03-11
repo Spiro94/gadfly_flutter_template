@@ -9,8 +9,8 @@ import '../../../repositories/auth/repository.dart';
 import '../../../theme/theme.dart';
 import 'widgets/connector/app_bar.dart';
 import 'widgets/connector/redirect_to_sign_up_link.dart';
+import 'widgets/connector/sign_in_form.dart';
 import 'widgets/connector/sign_in_status_change_listener.dart';
-import 'widgets/molecule/sign_in_form.dart';
 
 @RoutePage()
 class SignIn_Page extends StatelessWidget {
@@ -45,7 +45,7 @@ class SignIn_Scaffold extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SignInM_SignInForm(),
+                const SignInC_SignInForm(),
                 SizedBox(height: context.tokens.spacing.xxxxLarge),
                 const SignInC_RedirectToSignUpLink(),
               ],
