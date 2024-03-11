@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../i18n/translations.g.dart';
 import '../../../../../shared/validators.dart';
+import '../../../../../shared/widgets/dumb/input.dart';
 
 class SignUpC_PasswordInput extends StatelessWidget {
   const SignUpC_PasswordInput({
@@ -17,18 +18,15 @@ class SignUpC_PasswordInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return SharedD_Input(
       controller: controller,
       focusNode: focusNode,
+      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-        label: Text(
-          context.t.signUp.form.password.placeholder,
-        ),
-      ),
+      label: context.t.signUp.form.password.placeholder,
       obscureText: true,
       onFieldSubmitted: onSubmitted,
-      validator: (value) {
+      onValidate: (value) {
         if (!isPasswordValid(value!)) {
           return context.t.signUp.form.password.error.invalid;
         }

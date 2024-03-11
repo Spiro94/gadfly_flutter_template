@@ -94,7 +94,6 @@ class _SignInC_SignInFormState extends State<SignInC_SignInForm> {
           SignInC_EmailInput(
             controller: emailController,
             focusNode: emailFocusNode,
-            nextFocusNode: passwordFocusNode,
           ),
           SizedBox(
             height: context.tokens.spacing.large,

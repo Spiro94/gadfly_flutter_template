@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../i18n/translations.g.dart';
+import '../../../../../shared/widgets/dumb/input.dart';
 
 class SignInC_PasswordInput extends StatelessWidget {
   const SignInC_PasswordInput({
@@ -16,15 +17,12 @@ class SignInC_PasswordInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return SharedD_Input(
       controller: controller,
       focusNode: focusNode,
+      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-        label: Text(
-          context.t.signIn.form.password.placeholder,
-        ),
-      ),
+      label: context.t.signIn.form.password.placeholder,
       obscureText: true,
       onFieldSubmitted: onSubmitted,
     );

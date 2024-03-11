@@ -2,32 +2,27 @@ import 'package:flutter/material.dart';
 
 import '../../../../../i18n/translations.g.dart';
 import '../../../../../shared/validators.dart';
+import '../../../../../shared/widgets/dumb/input.dart';
 
 class SignUpC_EmailInput extends StatelessWidget {
   const SignUpC_EmailInput({
     required this.controller,
     required this.focusNode,
-    required this.nextFocusNode,
     super.key,
   });
 
   final TextEditingController controller;
   final FocusNode focusNode;
-  final FocusNode nextFocusNode;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return SharedD_Input(
       controller: controller,
       focusNode: focusNode,
+      keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        label: Text(context.t.signUp.form.email.placeholder),
-      ),
-      onFieldSubmitted: (_) {
-        FocusScope.of(context).requestFocus(nextFocusNode);
-      },
-      validator: (value) {
+      label: context.t.signUp.form.email.placeholder,
+      onValidate: (value) {
         if (!isEmailValid(value!)) {
           return context.t.signUp.form.email.error.invalid;
         }

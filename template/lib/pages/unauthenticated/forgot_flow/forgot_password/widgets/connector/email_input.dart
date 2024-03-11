@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../i18n/translations.g.dart';
 import '../../../../../../shared/validators.dart';
+import '../../../../../../shared/widgets/dumb/input.dart';
 
 class ForgotPasswordC_EmailInput extends StatelessWidget {
   const ForgotPasswordC_EmailInput({
@@ -17,15 +18,14 @@ class ForgotPasswordC_EmailInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return SharedD_Input(
       controller: controller,
       focusNode: focusNode,
+      keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-        label: Text(context.t.forgotPassword.form.email.placeholder),
-      ),
+      label: context.t.forgotPassword.form.email.placeholder,
       onFieldSubmitted: onSubmitted,
-      validator: (value) {
+      onValidate: (value) {
         if (!isEmailValid(value!)) {
           return context.t.forgotPassword.form.email.error.invalid;
         }

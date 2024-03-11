@@ -93,7 +93,6 @@ class _SignUpC_SignUnFormState extends State<SignUpC_SignUnForm> {
           SignUpC_EmailInput(
             controller: emailController,
             focusNode: emailFocusNode,
-            nextFocusNode: passwordFocusNode,
           ),
           SizedBox(
             height: context.tokens.spacing.large,

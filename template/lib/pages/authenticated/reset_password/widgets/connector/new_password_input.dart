@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../i18n/translations.g.dart';
 import '../../../../../shared/validators.dart';
+import '../../../../../shared/widgets/dumb/input.dart';
 
 class ResetPasswordC_NewPasswordInput extends StatelessWidget {
   const ResetPasswordC_NewPasswordInput({
@@ -17,16 +18,15 @@ class ResetPasswordC_NewPasswordInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return SharedD_Input(
       controller: controller,
       focusNode: focusNode,
+      keyboardType: TextInputType.text,
       onFieldSubmitted: onSubmitted,
       obscureText: true,
       textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-        label: Text(context.t.resetPassword.form.newPassword.placeholder),
-      ),
-      validator: (value) {
+      label: context.t.resetPassword.form.newPassword.placeholder,
+      onValidate: (value) {
         if (!isPasswordValid(value!)) {
           return context.t.resetPassword.form.newPassword.error.invalid;
         }
