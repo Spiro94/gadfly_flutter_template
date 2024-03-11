@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../i18n/translations.g.dart';
+import '../../../../../shared/widgets/dumb/app_bar.dart';
 import '../../../../../theme/theme.dart';
 import 'sign_out_button.dart';
 
@@ -12,7 +13,7 @@ class HomeC_AppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    return SharedD_AppBar(
       title: Text(context.t.home.title),
       centerTitle: true,
       automaticallyImplyLeading: false,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../app/router.dart';
 import '../../../../../../i18n/translations.g.dart';
+import '../../../../../../shared/widgets/dumb/app_bar.dart';
 
 class ForgotPasswordConfirmationC_AppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -13,7 +14,7 @@ class ForgotPasswordConfirmationC_AppBar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    return SharedD_AppBar(
       title: Text(context.t.signUp.title),
       centerTitle: true,
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../i18n/translations.g.dart';
+import '../../../../../shared/widgets/dumb/app_bar.dart';
 
 class SignInC_AppBar extends StatelessWidget implements PreferredSizeWidget {
   const SignInC_AppBar({super.key});
@@ -10,7 +11,7 @@ class SignInC_AppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    return SharedD_AppBar(
       title: Text(context.t.signUp.title),
       centerTitle: true,
       automaticallyImplyLeading: true,

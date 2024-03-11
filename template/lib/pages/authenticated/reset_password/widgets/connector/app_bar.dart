@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../i18n/translations.g.dart';
+import '../../../../../shared/widgets/dumb/app_bar.dart';
 
 class ResetPasswordC_AppBar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -11,7 +12,7 @@ class ResetPasswordC_AppBar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    return SharedD_AppBar(
       title: Text(context.t.resetPassword.title),
       centerTitle: true,
       automaticallyImplyLeading: true,
