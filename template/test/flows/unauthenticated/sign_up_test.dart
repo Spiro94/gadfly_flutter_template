@@ -13,7 +13,7 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
-import '../../util/effects/supabase_user.dart';
+import '../../util/fakes/supabase_user.dart';
 import '../../util/flow_config.dart';
 import '../../util/warp/to_home.dart';
 import '../../util/warp/to_sign_up.dart';
