@@ -41,36 +41,23 @@ class DevtoolsDb {
   final SignUpState? signUpState;
 
   DevtoolsDb copyWith({
-    AuthState? authState,
-    bool clearAuthState = false,
-    ForgotPasswordState? forgotPasswordState,
-    bool clearForgotPasswordState = false,
-    RecordingsState? recordingsState,
-    bool clearRecordingsState = false,
-    RecordAudioState? recordAudioState,
-    bool clearRecordAudioState = false,
-    ResetPasswordState? resetPasswordState,
-    bool clearResetPasswordState = false,
-    SignInState? signInState,
-    bool clearSignInState = false,
-    SignUpState? signUpState,
-    bool clearSignUpState = false,
+    AuthState? Function()? setAuthState,
+    ForgotPasswordState? Function()? setForgotPasswordState,
+    RecordingsState? Function()? setRecordingsState,
+    RecordAudioState? Function()? setRecordAudioState,
+    ResetPasswordState? Function()? setResetPasswordState,
+    SignInState? Function()? setSignInState,
+    SignUpState? Function()? setSignUpState,
   }) {
     return DevtoolsDb(
-      authState: clearAuthState ? null : authState ?? this.authState,
-      forgotPasswordState: clearForgotPasswordState
-          ? null
-          : forgotPasswordState ?? this.forgotPasswordState,
-      recordingsState:
-          clearRecordingsState ? null : recordingsState ?? this.recordingsState,
-      recordAudioState: clearRecordAudioState
-          ? null
-          : recordAudioState ?? this.recordAudioState,
-      resetPasswordState: clearResetPasswordState
-          ? null
-          : resetPasswordState ?? this.resetPasswordState,
-      signInState: clearSignInState ? null : signInState ?? this.signInState,
-      signUpState: clearSignUpState ? null : signUpState ?? this.signUpState,
+      authState: setAuthState?.call() ?? authState,
+      forgotPasswordState:
+          setForgotPasswordState?.call() ?? forgotPasswordState,
+      recordingsState: setRecordingsState?.call() ?? recordingsState,
+      recordAudioState: setRecordAudioState?.call() ?? recordAudioState,
+      resetPasswordState: setResetPasswordState?.call() ?? resetPasswordState,
+      signInState: setSignInState?.call() ?? signInState,
+      signUpState: setSignUpState?.call() ?? signUpState,
     );
   }
 
@@ -88,25 +75,27 @@ void remoteReduxDevtoolsOnCreate({
   if (remoteReduxDevtoolsStore != null) {
     switch (bloc) {
       case AuthBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(authState: bloc.state);
+        devtoolsDb = devtoolsDb.copyWith(setAuthState: () => bloc.state);
 
       case ForgotPasswordBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(forgotPasswordState: bloc.state);
+        devtoolsDb =
+            devtoolsDb.copyWith(setForgotPasswordState: () => bloc.state);
 
       case RecordingsBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(recordingsState: bloc.state);
+        devtoolsDb = devtoolsDb.copyWith(setRecordingsState: () => bloc.state);
 
       case RecordAudioBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(recordAudioState: bloc.state);
+        devtoolsDb = devtoolsDb.copyWith(setRecordAudioState: () => bloc.state);
 
       case ResetPasswordBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(resetPasswordState: bloc.state);
+        devtoolsDb =
+            devtoolsDb.copyWith(setResetPasswordState: () => bloc.state);
 
       case SignInBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(signInState: bloc.state);
+        devtoolsDb = devtoolsDb.copyWith(setSignInState: () => bloc.state);
 
       case SignUpBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(signUpState: bloc.state);
+        devtoolsDb = devtoolsDb.copyWith(setSignUpState: () => bloc.state);
     }
 
     remoteReduxDevtoolsStore?.dispatch('CreateBloc_${bloc.runtimeType}');
@@ -121,33 +110,38 @@ void remoteReduxDevtoolsOnTransition({
   if (remoteReduxDevtoolsStore != null) {
     switch (bloc) {
       case AuthBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(authState: state as AuthState);
+        devtoolsDb =
+            devtoolsDb.copyWith(setAuthState: () => state as AuthState);
 
       case ForgotPasswordBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(
-          forgotPasswordState: state as ForgotPasswordState,
+          setForgotPasswordState: () => state as ForgotPasswordState,
         );
 
       case RecordingsBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(
-          recordingsState: state as RecordingsState,
+          setRecordingsState: () => state as RecordingsState,
         );
 
       case RecordAudioBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(
-          recordAudioState: state as RecordAudioState,
+          setRecordAudioState: () => state as RecordAudioState,
         );
 
       case ResetPasswordBaseBloc():
         devtoolsDb = devtoolsDb.copyWith(
-          resetPasswordState: state as ResetPasswordState,
+          setResetPasswordState: () => state as ResetPasswordState,
         );
 
       case SignInBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(signInState: state as SignInState);
+        devtoolsDb = devtoolsDb.copyWith(
+          setSignInState: () => state as SignInState,
+        );
 
       case SignUpBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(signUpState: state as SignUpState);
+        devtoolsDb = devtoolsDb.copyWith(
+          setSignUpState: () => state as SignUpState,
+        );
     }
 
     remoteReduxDevtoolsStore?.dispatch(event.runtimeType.toString());
@@ -160,25 +154,25 @@ void remoteReduxDevtoolsOnClose({
   if (remoteReduxDevtoolsStore != null) {
     switch (bloc) {
       case AuthBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(clearAuthState: true);
+        devtoolsDb = devtoolsDb.copyWith(setAuthState: () => null);
 
       case ForgotPasswordBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(clearForgotPasswordState: true);
+        devtoolsDb = devtoolsDb.copyWith(setForgotPasswordState: () => null);
 
       case RecordingsBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(clearRecordingsState: true);
+        devtoolsDb = devtoolsDb.copyWith(setRecordingsState: () => null);
 
       case RecordAudioBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(clearRecordAudioState: true);
+        devtoolsDb = devtoolsDb.copyWith(setRecordAudioState: () => null);
 
       case ResetPasswordBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(clearResetPasswordState: true);
+        devtoolsDb = devtoolsDb.copyWith(setResetPasswordState: () => null);
 
       case SignInBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(clearSignInState: true);
+        devtoolsDb = devtoolsDb.copyWith(setSignInState: () => null);
 
       case SignUpBaseBloc():
-        devtoolsDb = devtoolsDb.copyWith(clearSignUpState: true);
+        devtoolsDb = devtoolsDb.copyWith(setSignUpState: () => null);
     }
 
     remoteReduxDevtoolsStore?.dispatch('DisposeBloc_${bloc.runtimeType}');
