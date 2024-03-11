@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../i18n/translations.g.dart';
+import '../../../../../../i18n/translations.g.dart';
+import '../../../../../../shared/validators.dart';
 
-class SignInC_PasswordTextField extends StatelessWidget {
-  const SignInC_PasswordTextField({
+class ForgotPasswordC_EmailInput extends StatelessWidget {
+  const ForgotPasswordC_EmailInput({
     required this.controller,
     required this.focusNode,
     required this.onSubmitted,
@@ -21,12 +22,16 @@ class SignInC_PasswordTextField extends StatelessWidget {
       focusNode: focusNode,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        label: Text(
-          context.t.signIn.form.password.placeholder,
-        ),
+        label: Text(context.t.forgotPassword.form.email.placeholder),
       ),
-      obscureText: true,
       onFieldSubmitted: onSubmitted,
+      validator: (value) {
+        if (!isEmailValid(value!)) {
+          return context.t.forgotPassword.form.email.error.invalid;
+        }
+
+        return null;
+      },
     );
   }
 }

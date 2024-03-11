@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../blocs/sign_up/bloc.dart';
 import '../../../../../blocs/sign_up/event.dart';
 import '../../../../../theme/theme.dart';
-import '../connector/email_text_field.dart';
-import '../connector/password_text_field.dart';
+import '../connector/email_input.dart';
+import '../connector/password_input.dart';
 import '../connector/sign_up_button.dart';
 
 class SignUpM_SignUnForm extends StatefulWidget {
@@ -90,7 +90,7 @@ class _SignUpM_SignUnFormState extends State<SignUpM_SignUnForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SignUpC_EmailTextField(
+          SignUpC_EmailInput(
             controller: emailController,
             focusNode: emailFocusNode,
             nextFocusNode: passwordFocusNode,
@@ -98,7 +98,7 @@ class _SignUpM_SignUnFormState extends State<SignUpM_SignUnForm> {
           SizedBox(
             height: context.tokens.spacing.large,
           ),
-          SignUpC_PasswordTextField(
+          SignUpC_PasswordInput(
             controller: passwordController,
             focusNode: passwordFocusNode,
             onSubmitted: (value) => _onSubmitted(),

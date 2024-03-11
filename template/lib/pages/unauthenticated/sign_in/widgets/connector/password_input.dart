@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../i18n/translations.g.dart';
-import '../../../../../shared/validators.dart';
 
-class ResetPasswordC_NewPasswordTextField extends StatelessWidget {
-  const ResetPasswordC_NewPasswordTextField({
+class SignInC_PasswordInput extends StatelessWidget {
+  const SignInC_PasswordInput({
     required this.controller,
     required this.focusNode,
     required this.onSubmitted,
@@ -20,19 +19,14 @@ class ResetPasswordC_NewPasswordTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       focusNode: focusNode,
-      onFieldSubmitted: onSubmitted,
-      obscureText: true,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        label: Text(context.t.resetPassword.form.newPassword.placeholder),
+        label: Text(
+          context.t.signIn.form.password.placeholder,
+        ),
       ),
-      validator: (value) {
-        if (!isPasswordValid(value!)) {
-          return context.t.resetPassword.form.newPassword.error.invalid;
-        }
-
-        return null;
-      },
+      obscureText: true,
+      onFieldSubmitted: onSubmitted,
     );
   }
 }

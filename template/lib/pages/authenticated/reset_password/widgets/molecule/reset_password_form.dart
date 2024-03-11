@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../blocs/reset_password/bloc.dart';
 import '../../../../../blocs/reset_password/event.dart';
 import '../../../../../theme/theme.dart';
-import '../connector/new_password_text_field.dart';
+import '../connector/new_password_input.dart';
 import '../connector/reset_password_button.dart';
 
 class ResetPasswordM_ResetPasswordForm extends StatefulWidget {
@@ -80,7 +80,7 @@ class _ResetPasswordM_ResetPasswordFormState
           : AutovalidateMode.disabled,
       child: Column(
         children: [
-          ResetPasswordC_NewPasswordTextField(
+          ResetPasswordC_NewPasswordInput(
             controller: newPasswordController,
             focusNode: newPasswordFocusNode,
             onSubmitted: (_) => _onSubmitted(),

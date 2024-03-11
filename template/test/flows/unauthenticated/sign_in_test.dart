@@ -5,8 +5,8 @@ import 'package:gadfly_flutter_template/blocs/recordings/event.dart';
 import 'package:gadfly_flutter_template/blocs/sign_in/event.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/home/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/page.dart';
-import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/connector/email_text_field.dart';
-import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/connector/password_text_field.dart';
+import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/connector/email_input.dart';
+import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/connector/password_input.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/connector/sign_in_button.dart';
 import 'package:gadfly_flutter_template/shared/widgets/dumb/button.dart';
 import 'package:loading_indicator/loading_indicator.dart';
@@ -118,7 +118,7 @@ void main() {
           description: 'enter email',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_EmailTextField),
+              find.byType(SignInC_EmailInput),
               'foo@example.com',
             );
             await actions.testerAction.pumpAndSettle();
@@ -129,7 +129,7 @@ void main() {
           description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_PasswordTextField),
+              find.byType(SignInC_PasswordInput),
               'Pass123!',
             );
             await actions.testerAction.pumpAndSettle();
@@ -241,7 +241,7 @@ void main() {
           description: 'enter email',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_EmailTextField),
+              find.byType(SignInC_EmailInput),
               'foo@example.com',
             );
             await actions.testerAction.pumpAndSettle();
@@ -435,7 +435,7 @@ void main() {
           description: 'enter invalid emaill address',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_EmailTextField),
+              find.byType(SignInC_EmailInput),
               'bad email',
             );
             await actions.testerAction.pumpAndSettle();
@@ -446,7 +446,7 @@ void main() {
           description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_PasswordTextField),
+              find.byType(SignInC_PasswordInput),
               'password',
             );
             await actions.testerAction.pumpAndSettle();
@@ -520,7 +520,7 @@ void main() {
           description: 'enter email',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_EmailTextField),
+              find.byType(SignInC_EmailInput),
               'foo@example.com',
             );
             await actions.testerAction.pumpAndSettle();
@@ -531,7 +531,7 @@ void main() {
           description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_PasswordTextField),
+              find.byType(SignInC_PasswordInput),
               'password',
             );
             await actions.testerAction.pumpAndSettle();

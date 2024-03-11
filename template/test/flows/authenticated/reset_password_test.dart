@@ -5,7 +5,7 @@ import 'package:gadfly_flutter_template/blocs/recordings/event.dart';
 import 'package:gadfly_flutter_template/blocs/reset_password/event.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/home/page.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/reset_password/page.dart';
-import 'package:gadfly_flutter_template/pages/authenticated/reset_password/widgets/connector/new_password_text_field.dart';
+import 'package:gadfly_flutter_template/pages/authenticated/reset_password/widgets/connector/new_password_input.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/reset_password/widgets/connector/reset_password_button.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -90,7 +90,7 @@ void main() {
             description: 'enter password',
             actions: (actions) async {
               await actions.userAction.enterText(
-                find.byType(ResetPasswordC_NewPasswordTextField),
+                find.byType(ResetPasswordC_NewPasswordInput),
                 'Pass123!',
               );
               await actions.testerAction.pumpAndSettle();
@@ -196,7 +196,7 @@ void main() {
             description: 'enter password',
             actions: (actions) async {
               await actions.userAction.enterText(
-                find.byType(ResetPasswordC_NewPasswordTextField),
+                find.byType(ResetPasswordC_NewPasswordInput),
                 'Pass123!',
               );
               await actions.testerAction.pumpAndSettle();
@@ -307,7 +307,7 @@ void main() {
             description: 'enter password',
             actions: (actions) async {
               await actions.userAction.enterText(
-                find.byType(ResetPasswordC_NewPasswordTextField),
+                find.byType(ResetPasswordC_NewPasswordInput),
                 'invalid password',
               );
               await actions.testerAction.pumpAndSettle();
@@ -404,7 +404,7 @@ void main() {
             description: 'enter password',
             actions: (actions) async {
               await actions.userAction.enterText(
-                find.byType(ResetPasswordC_NewPasswordTextField),
+                find.byType(ResetPasswordC_NewPasswordInput),
                 'Pass123!',
               );
               await actions.testerAction.pumpAndSettle();

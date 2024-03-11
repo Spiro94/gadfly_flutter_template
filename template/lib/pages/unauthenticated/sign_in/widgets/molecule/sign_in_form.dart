@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../blocs/sign_in/bloc.dart';
 import '../../../../../blocs/sign_in/event.dart';
 import '../../../../../theme/theme.dart';
-import '../connector/email_text_field.dart';
+import '../connector/email_input.dart';
 import '../connector/forgot_password_link.dart';
-import '../connector/password_text_field.dart';
+import '../connector/password_input.dart';
 import '../connector/sign_in_button.dart';
 
 class SignInM_SignInForm extends StatefulWidget {
@@ -91,7 +91,7 @@ class _SignInM_SignInFormState extends State<SignInM_SignInForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SignInC_EmailTextField(
+          SignInC_EmailInput(
             controller: emailController,
             focusNode: emailFocusNode,
             nextFocusNode: passwordFocusNode,
@@ -99,7 +99,7 @@ class _SignInM_SignInFormState extends State<SignInM_SignInForm> {
           SizedBox(
             height: context.tokens.spacing.large,
           ),
-          SignInC_PasswordTextField(
+          SignInC_PasswordInput(
             controller: passwordController,
             focusNode: passwordFocusNode,
             onSubmitted: (value) => _onSubmitted(),

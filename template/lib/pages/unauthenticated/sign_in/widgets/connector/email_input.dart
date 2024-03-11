@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../../i18n/translations.g.dart';
 import '../../../../../shared/validators.dart';
 
-class SignUpC_EmailTextField extends StatelessWidget {
-  const SignUpC_EmailTextField({
+class SignInC_EmailInput extends StatelessWidget {
+  const SignInC_EmailInput({
     required this.controller,
     required this.focusNode,
     required this.nextFocusNode,
@@ -22,14 +22,14 @@ class SignUpC_EmailTextField extends StatelessWidget {
       focusNode: focusNode,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        label: Text(context.t.signUp.form.email.placeholder),
+        label: Text(context.t.signIn.form.email.placeholder),
       ),
       onFieldSubmitted: (_) {
         FocusScope.of(context).requestFocus(nextFocusNode);
       },
       validator: (value) {
         if (!isEmailValid(value!)) {
-          return context.t.signUp.form.email.error.invalid;
+          return context.t.signIn.form.email.error.invalid;
         }
 
         return null;

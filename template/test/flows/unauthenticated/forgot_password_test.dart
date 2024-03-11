@@ -7,7 +7,7 @@ import 'package:gadfly_flutter_template/blocs/recordings/event.dart';
 import 'package:gadfly_flutter_template/pages/authenticated/reset_password/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/widgets/connector/app_bar.dart';
-import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/widgets/connector/email_text_field.dart';
+import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/widgets/connector/email_input.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/widgets/connector/reset_password_button.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password_confirmation/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password_confirmation/widgets/connector/resend_email_button.dart';
@@ -89,7 +89,7 @@ void main() {
             description: 'enter email address',
             actions: (actions) async {
               await actions.userAction.enterText(
-                find.byType(ForgotPasswordC_EmailTextField),
+                find.byType(ForgotPasswordC_EmailInput),
                 'john@example.com',
               );
               await actions.testerAction.pumpAndSettle();
@@ -186,7 +186,7 @@ void main() {
             description: 'enter email address',
             actions: (actions) async {
               await actions.userAction.enterText(
-                find.byType(ForgotPasswordC_EmailTextField),
+                find.byType(ForgotPasswordC_EmailInput),
                 'john@example.com',
               );
               await actions.testerAction.pumpAndSettle();
@@ -296,7 +296,7 @@ void main() {
               description: 'enter email address',
               actions: (actions) async {
                 await actions.userAction.enterText(
-                  find.byType(ForgotPasswordC_EmailTextField),
+                  find.byType(ForgotPasswordC_EmailInput),
                   'bad email',
                 );
                 await actions.testerAction.pumpAndSettle();
@@ -358,7 +358,7 @@ void main() {
               description: 'enter email address',
               actions: (actions) async {
                 await actions.userAction.enterText(
-                  find.byType(ForgotPasswordC_EmailTextField),
+                  find.byType(ForgotPasswordC_EmailInput),
                   'john@example.com',
                 );
                 await actions.testerAction.pumpAndSettle();

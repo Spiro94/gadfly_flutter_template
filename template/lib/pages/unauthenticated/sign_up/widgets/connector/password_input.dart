@@ -3,33 +3,34 @@ import 'package:flutter/material.dart';
 import '../../../../../i18n/translations.g.dart';
 import '../../../../../shared/validators.dart';
 
-class SignInC_EmailTextField extends StatelessWidget {
-  const SignInC_EmailTextField({
+class SignUpC_PasswordInput extends StatelessWidget {
+  const SignUpC_PasswordInput({
     required this.controller,
     required this.focusNode,
-    required this.nextFocusNode,
+    required this.onSubmitted,
     super.key,
   });
 
   final TextEditingController controller;
   final FocusNode focusNode;
-  final FocusNode nextFocusNode;
+  final void Function(String value) onSubmitted;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       focusNode: focusNode,
-      textInputAction: TextInputAction.next,
+      textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        label: Text(context.t.signIn.form.email.placeholder),
+        label: Text(
+          context.t.signUp.form.password.placeholder,
+        ),
       ),
-      onFieldSubmitted: (_) {
-        FocusScope.of(context).requestFocus(nextFocusNode);
-      },
+      obscureText: true,
+      onFieldSubmitted: onSubmitted,
       validator: (value) {
-        if (!isEmailValid(value!)) {
-          return context.t.signIn.form.email.error.invalid;
+        if (!isPasswordValid(value!)) {
+          return context.t.signUp.form.password.error.invalid;
         }
 
         return null;

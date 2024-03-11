@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../blocs/forgot_password/bloc.dart';
 import '../../../../../../blocs/forgot_password/event.dart';
 import '../../../../../../theme/theme.dart';
-import '../connector/email_text_field.dart';
+import '../connector/email_input.dart';
 import '../connector/reset_password_button.dart';
 
 class ForgotPasswordM_ResetPasswordForm extends StatefulWidget {
@@ -80,7 +80,7 @@ class _ForgotPasswordM_ResetPasswordFormState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ForgotPasswordC_EmailTextField(
+          ForgotPasswordC_EmailInput(
             controller: emailController,
             focusNode: emailFocusNode,
             onSubmitted: (value) => _onSubmitted(),

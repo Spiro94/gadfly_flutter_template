@@ -1,6 +1,6 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/widgets/connector/email_text_field.dart';
+import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/widgets/connector/email_input.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password/widgets/connector/reset_password_button.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -17,7 +17,7 @@ Future<void> warpToForgotPasswordConfirmation(
   await warpToForgotPassword(warp);
 
   await warp.userAction.enterText(
-    find.byType(ForgotPasswordC_EmailTextField),
+    find.byType(ForgotPasswordC_EmailInput),
     'john@example.com',
   );
   await warp.testerAction.pumpAndSettle();
