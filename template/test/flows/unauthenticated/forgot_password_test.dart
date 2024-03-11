@@ -1,5 +1,6 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:gadfly_flutter_template/blocs/auth/event.dart';
 import 'package:gadfly_flutter_template/blocs/forgot_password/event.dart';
@@ -12,7 +13,6 @@ import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password_confirmation/page.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/forgot_flow/forgot_password_confirmation/widgets/connector/resend_email_button.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/page.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../util/flow_config.dart';
@@ -116,7 +116,7 @@ void main() {
             },
             expectations: (expectations) {
               expectations.expect(
-                find.byType(LoadingIndicator),
+                find.byType(SpinKitThreeBounce),
                 findsOneWidget,
                 reason: 'Should see a loading indicator',
               );
@@ -212,7 +212,7 @@ void main() {
             },
             expectations: (expectations) {
               expectations.expect(
-                find.byType(LoadingIndicator),
+                find.byType(SpinKitThreeBounce),
                 findsOneWidget,
                 reason: 'Should see a loading indicator',
               );

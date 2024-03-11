@@ -12,12 +12,12 @@ class HomeC_SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SharedD_Button(
-      label: context.t.home.signOut,
-      status: SharedD_Button_Status.enabled,
-      buttonType: SharedD_Button_Type.outlined,
+      status: SharedD_ButtonStatus.enabled,
+      buttonType: SharedD_ButtonType.outlined,
       onPressed: () {
         context.read<AuthBloc>().add(AuthEvent_SignOut());
       },
+      child: Text(context.t.home.signOut),
     );
   }
 }

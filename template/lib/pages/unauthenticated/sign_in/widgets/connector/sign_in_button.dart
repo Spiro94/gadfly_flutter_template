@@ -15,20 +15,20 @@ class SignInC_SignInButton extends StatelessWidget {
   final bool areFieldsAnswered;
   final VoidCallback onPressed;
 
-  SharedD_Button_Status getButtonStatus(
+  SharedD_ButtonStatus getButtonStatus(
     SignInStatus status,
   ) {
     if (!areFieldsAnswered) {
-      return SharedD_Button_Status.disabled;
+      return SharedD_ButtonStatus.disabled;
     }
 
     switch (status) {
       case SignInStatus.loading:
-        return SharedD_Button_Status.loading;
+        return SharedD_ButtonStatus.loading;
 
       case SignInStatus.error:
       case SignInStatus.idle:
-        return SharedD_Button_Status.enabled;
+        return SharedD_ButtonStatus.enabled;
     }
   }
 
@@ -38,9 +38,10 @@ class SignInC_SignInButton extends StatelessWidget {
     final buttonStatus = getButtonStatus(status);
 
     return SharedD_Button(
+      buttonType: SharedD_ButtonType.primary,
       status: buttonStatus,
-      label: context.t.signIn.ctas.signIn.label,
       onPressed: onPressed,
+      child: Text(context.t.signIn.ctas.signIn.label),
     );
   }
 }

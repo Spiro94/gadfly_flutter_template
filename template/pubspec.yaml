@@ -32,7 +32,6 @@ dependencies:
   intl: ^0.18.1
   json_annotation: ^4.8.1
   just_audio: ^0.9.36
-  loading_indicator: ^3.1.1
   logging: 1.1.1
   path_provider: ^2.1.2
   recase: ^4.1.0
@@ -42,6 +41,7 @@ dependencies:
     path: ../packages/sentry_repository
   shared_preferences: ^2.2.0
   slang_flutter: ^3.19.0
+  sprung: ^3.0.1
   supabase_client_provider:
     path: ../packages/supabase_client_provider
   supabase_flutter: ^2.3.3

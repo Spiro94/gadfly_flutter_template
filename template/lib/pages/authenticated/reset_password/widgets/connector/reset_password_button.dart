@@ -16,17 +16,17 @@ class ResetPasswordC_ResetPasswordButton extends StatelessWidget {
   final VoidCallback onPressed;
   final bool areFieldsAnswered;
 
-  SharedD_Button_Status getButtonStatus(ResetPasswordStatus status) {
+  SharedD_ButtonStatus getButtonStatus(ResetPasswordStatus status) {
     if (!areFieldsAnswered) {
-      return SharedD_Button_Status.disabled;
+      return SharedD_ButtonStatus.disabled;
     }
     switch (status) {
       case ResetPasswordStatus.loading:
       case ResetPasswordStatus.error:
       case ResetPasswordStatus.success:
-        return SharedD_Button_Status.loading;
+        return SharedD_ButtonStatus.loading;
       case ResetPasswordStatus.idle:
-        return SharedD_Button_Status.enabled;
+        return SharedD_ButtonStatus.enabled;
     }
   }
 
@@ -37,8 +37,9 @@ class ResetPasswordC_ResetPasswordButton extends StatelessWidget {
 
     return SharedD_Button(
       onPressed: onPressed,
-      label: context.t.resetPassword.ctas.resetPassword.label,
       status: buttonStatus,
+      buttonType: SharedD_ButtonType.primary,
+      child: Text(context.t.resetPassword.ctas.resetPassword.label),
     );
   }
 }

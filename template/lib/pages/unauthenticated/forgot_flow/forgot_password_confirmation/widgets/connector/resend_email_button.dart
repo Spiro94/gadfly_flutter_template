@@ -15,19 +15,19 @@ class ForgotPasswordConfirmationC_ResendEmailButton extends StatelessWidget {
 
   final String email;
 
-  SharedD_Button_Status getButtonStatus(
+  SharedD_ButtonStatus getButtonStatus(
     ForgotPasswordStatus status,
   ) {
     switch (status) {
       case ForgotPasswordStatus.loading:
-        return SharedD_Button_Status.loading;
+        return SharedD_ButtonStatus.loading;
 
       case ForgotPasswordStatus.sendLinkError:
       case ForgotPasswordStatus.sendLinkSuccess:
       case ForgotPasswordStatus.resendLinkError:
       case ForgotPasswordStatus.resendLinkSuccess:
       case ForgotPasswordStatus.idle:
-        return SharedD_Button_Status.enabled;
+        return SharedD_ButtonStatus.enabled;
     }
   }
 
@@ -37,14 +37,14 @@ class ForgotPasswordConfirmationC_ResendEmailButton extends StatelessWidget {
     final buttonStatus = getButtonStatus(status);
 
     return SharedD_Button(
-      label: context.t.forgotPasswordConfirmation.ctas.resendEmail.label,
       onPressed: () {
         context.read<ForgotPasswordBloc>().add(
               ForgotPasswordEvent_ResendForgotPassword(email: email),
             );
       },
       status: buttonStatus,
-      buttonType: SharedD_Button_Type.outlined,
+      buttonType: SharedD_ButtonType.outlined,
+      child: Text(context.t.forgotPasswordConfirmation.ctas.resendEmail.label),
     );
   }
 }

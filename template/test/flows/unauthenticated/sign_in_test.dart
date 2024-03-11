@@ -1,4 +1,5 @@
 import 'package:flow_test/flow_test.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:gadfly_flutter_template/blocs/auth/event.dart';
 import 'package:gadfly_flutter_template/blocs/recordings/event.dart';
@@ -9,7 +10,6 @@ import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/co
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/connector/password_input.dart';
 import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/connector/sign_in_button.dart';
 import 'package:gadfly_flutter_template/shared/widgets/dumb/button.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
@@ -168,7 +168,7 @@ void main() {
           },
           expectations: (expectations) {
             expectations.expect(
-              find.byType(LoadingIndicator),
+              find.byType(SpinKitThreeBounce),
               findsOneWidget,
               reason: 'Should see a loading indicator',
             );
@@ -296,7 +296,7 @@ void main() {
           },
           expectations: (expectations) {
             expectations.expect(
-              find.byType(LoadingIndicator),
+              find.byType(SpinKitThreeBounce),
               findsOneWidget,
               reason: 'Should see a loading indicator',
             );
@@ -380,7 +380,7 @@ void main() {
                 of: find.byType(SignInC_SignInButton),
                 matching: find.byWidgetPredicate((widget) {
                   if (widget is SharedD_Button) {
-                    return widget.status == SharedD_Button_Status.disabled;
+                    return widget.status == SharedD_ButtonStatus.disabled;
                   }
                   return false;
                 }),
@@ -461,7 +461,7 @@ void main() {
                 of: find.byType(SignInC_SignInButton),
                 matching: find.byWidgetPredicate((widget) {
                   if (widget is SharedD_Button) {
-                    return widget.status == SharedD_Button_Status.enabled;
+                    return widget.status == SharedD_ButtonStatus.enabled;
                   }
                   return false;
                 }),
