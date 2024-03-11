@@ -49,6 +49,7 @@ class _HomeC_RecordAudioListenerState extends State<HomeC_RecordAudioListener> {
     return BlocListener<RecordAudioBloc, RecordAudioState>(
       listener: (context, state) async {
         final recordAudioBloc = context.read<RecordAudioBloc>();
+        final sm = ScaffoldMessenger.of(context);
 
         switch (state.status) {
           case RecordAudioStatus.idle:
@@ -57,7 +58,8 @@ class _HomeC_RecordAudioListenerState extends State<HomeC_RecordAudioListener> {
             setState(() {
               _isStarting = false;
             });
-            ScaffoldMessenger.of(context).showSnackBar(
+            sm.hideCurrentSnackBar();
+            sm.showSnackBar(
               SnackBar(
                 backgroundColor: context.tokens.color.error.container,
                 content: Column(

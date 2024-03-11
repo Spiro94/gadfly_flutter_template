@@ -25,6 +25,7 @@ class HomeC_PlayAudioStatusListener extends StatelessWidget {
           case RecordingsStatus.loading:
             break;
           case RecordingsStatus.loadingError:
+            sm.hideCurrentSnackBar();
             sm.showSnackBar(
               SnackBar(
                 backgroundColor: context.tokens.color.error.container,
@@ -42,6 +43,7 @@ class HomeC_PlayAudioStatusListener extends StatelessWidget {
               ),
             );
           case RecordingsStatus.playingError:
+            sm.hideCurrentSnackBar();
             sm.showSnackBar(
               SnackBar(
                 backgroundColor: context.tokens.color.error.container,
