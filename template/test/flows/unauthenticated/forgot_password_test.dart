@@ -520,7 +520,7 @@ void main() {
             expectedEvents: [
               'INFO: [router] deeplink: /',
               AuthEvent_SetSessionFromDeepLink,
-              'INFO: [router] not authenticated',
+              'INFO: [authenticated_guard] not authenticated',
               'Page: SignIn',
             ],
           );

@@ -7,17 +7,18 @@ import 'package:logging/logging.dart';
 
 import '../blocs/auth/bloc.dart';
 import '../blocs/auth/event.dart';
-import '../blocs/auth/state.dart';
+import '../pages/authenticated/guard.dart';
 import '../pages/authenticated/home/page.dart';
 import '../pages/authenticated/reset_password/page.dart';
 import '../pages/authenticated/router.dart';
 import '../pages/unauthenticated/forgot_flow/forgot_password/page.dart';
+import '../pages/unauthenticated/forgot_flow/forgot_password_confirmation/guard.dart';
 import '../pages/unauthenticated/forgot_flow/forgot_password_confirmation/page.dart';
 import '../pages/unauthenticated/forgot_flow/router.dart';
+import '../pages/unauthenticated/guard.dart';
 import '../pages/unauthenticated/router.dart';
 import '../pages/unauthenticated/sign_in/page.dart';
 import '../pages/unauthenticated/sign_up/page.dart';
-import '../shared/validators.dart';
 
 part 'router.gr.dart';
 
@@ -39,7 +40,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(
       path: '/anon',
       page: Unauthenticated_Routes.page,
-      guards: [UnauthGuard(authBloc: authBloc)],
+      guards: [UnauthenticatedGuard(authBloc: authBloc)],
       children: [
         AutoRoute(
           path: '',
@@ -71,7 +72,7 @@ class AppRouter extends _$AppRouter {
     AutoRoute(
       path: '/',
       page: Authenticated_Routes.page,
-      guards: [AuthGuard(authBloc: authBloc)],
+      guards: [AuthenticatedGuard(authBloc: authBloc)],
       children: [
         AutoRoute(
           initial: true,
@@ -156,56 +157,4 @@ Future<String?> handleDeepLink({
       break;
   }
   return null;
-}
-
-class AuthGuard extends AutoRouteGuard {
-  AuthGuard({required this.authBloc});
-
-  final AuthBloc authBloc;
-
-  @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (authBloc.state.status == AuthStatus.authenticated) {
-      resolver.next();
-    } else {
-      _log.info('not authenticated');
-      router.root.replaceAll(const [SignIn_Route()]);
-    }
-  }
-}
-
-class UnauthGuard extends AutoRouteGuard {
-  UnauthGuard({required this.authBloc});
-
-  final AuthBloc authBloc;
-
-  @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (authBloc.state.status == AuthStatus.unauthentcated) {
-      resolver.next();
-    } else {
-      // coverage:ignore-start
-      _log.info('already authenticated');
-      router.root.replaceAll(const [Home_Route()]);
-      // coverage:ignore-end
-    }
-  }
-}
-
-/// Should only be able to get to this page if there is an email query parameter
-class ForgotPasswordConfirgmationGuard extends AutoRouteGuard {
-  @override
-  void onNavigation(NavigationResolver resolver, StackRouter router) {
-    final email = resolver.route.queryParams.optString('email');
-    if (email != null &&
-        email.isNotEmpty &&
-        isEmailValid(Uri.decodeComponent(email))) {
-      resolver.next();
-    } else {
-      // coverage:ignore-start
-      _log.info('no email query parameter');
-      router.root.replaceAll(const [SignIn_Route()]);
-      // coverage:ignore-end
-    }
-  }
 }
