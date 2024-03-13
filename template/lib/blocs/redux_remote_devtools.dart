@@ -50,14 +50,16 @@ class DevtoolsDb {
     SignUpState? Function()? setSignUpState,
   }) {
     return DevtoolsDb(
-      authState: setAuthState?.call() ?? authState,
+      authState: setAuthState == null ? null : setAuthState(),
       forgotPasswordState:
-          setForgotPasswordState?.call() ?? forgotPasswordState,
-      recordingsState: setRecordingsState?.call() ?? recordingsState,
-      recordAudioState: setRecordAudioState?.call() ?? recordAudioState,
-      resetPasswordState: setResetPasswordState?.call() ?? resetPasswordState,
-      signInState: setSignInState?.call() ?? signInState,
-      signUpState: setSignUpState?.call() ?? signUpState,
+          setForgotPasswordState == null ? null : setForgotPasswordState(),
+      recordingsState: setRecordingsState == null ? null : setRecordingsState(),
+      recordAudioState:
+          setRecordAudioState == null ? null : setRecordAudioState(),
+      resetPasswordState:
+          setResetPasswordState == null ? null : setResetPasswordState(),
+      signInState: setSignInState == null ? null : setSignInState(),
+      signUpState: setSignUpState == null ? null : setSignUpState(),
     );
   }
 
