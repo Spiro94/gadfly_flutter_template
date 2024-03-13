@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../shared/widgets/dumb/body_container.dart';
 import '../../../../theme/theme.dart';
-import '../forgot_password/widgets/connector/app_bar.dart';
+import 'widgets/connector/app_bar.dart';
 import 'widgets/connector/forgot_password_status_change_listener.dart';
 import 'widgets/connector/resend_email_button.dart';
 import 'widgets/connector/subtitle_text.dart';
@@ -39,7 +39,7 @@ class ForgotPasswordConfirmation_Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return ForgotPasswordConfirmationC_ForgotPasswordStatusChangeListener(
       child: Scaffold(
-        appBar: const ForgotPasswordC_AppBar(),
+        appBar: const ForgotPasswordConfirmationC_AppBar(),
         body: SharedD_BodyContainer(
           child: Padding(
             padding: EdgeInsets.all(context.tokens.spacing.large),

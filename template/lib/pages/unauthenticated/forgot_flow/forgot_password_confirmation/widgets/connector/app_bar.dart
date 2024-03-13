@@ -15,7 +15,7 @@ class ForgotPasswordConfirmationC_AppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return SharedD_AppBar(
-      title: Text(context.t.signUp.title),
+      title: Text(context.t.forgotPasswordConfirmation.title),
       centerTitle: true,
 
       // We don't want to allow the user to go back to the previous page, so
