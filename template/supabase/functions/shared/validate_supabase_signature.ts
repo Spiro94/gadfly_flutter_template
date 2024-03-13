@@ -1,7 +1,7 @@
 import { createHmac, timingSafeEqual } from "crypto.ts";
 import { Buffer } from "buffer.mjs";
 
-export function validateSupabaseSignature(headers: Headers, body: ArrayBuffer) {
+export function validateSupabaseSignature(headers: Headers, body: string) {
   const headerName = "x-supabase-signature";
   const signature = headers.get(headerName);
 
