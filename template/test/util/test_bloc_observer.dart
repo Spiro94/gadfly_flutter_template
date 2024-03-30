@@ -62,7 +62,7 @@ class TestBlocObserver extends FTBlocObserver<MocksContainer> {
 
       final nameSanitized = name.replaceAll('_Route', '');
       if (invocation.namedArguments[const Symbol('popped')] as bool) {
-        mockedApp.events.add('Page popped: $nameSanitized');
+        mockedApp.events.add('Page popped to: $nameSanitized');
       } else {
         mockedApp.events.add('Page: $nameSanitized');
       }

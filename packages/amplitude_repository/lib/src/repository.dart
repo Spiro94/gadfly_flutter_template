@@ -90,11 +90,11 @@ class AmplitudeRepository {
       if (popped) {
         try {
           await amplitude?.logEvent(
-            'Page popped: $event',
+            'Page popped to: $event',
             eventProperties: properties,
           );
         } catch (_) {
-          log.warning('Failed: Track event: Page popped $event');
+          log.warning('Failed: Track event: Page popped to $event');
         }
       } else {
         try {

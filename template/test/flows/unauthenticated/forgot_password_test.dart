@@ -712,7 +712,7 @@ void main() {
               reason: 'Should be on the SignIn page',
             );
           },
-          expectedEvents: ['Page popped: SignIn'],
+          expectedEvents: ['Page popped to: SignIn'],
         );
       },
     );

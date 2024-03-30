@@ -116,8 +116,7 @@ Future<DeepLink> deepLinkBuilder({
 }) async {
   _log.info('deeplink: ${deepLink.uri}');
 
-  if (deepLink.path.startsWith('/deep') ||
-      (deepLinkOverride?.startsWith('/deep') ?? false)) {
+  if (deepLink.path.startsWith('/deep') || deepLinkOverride != null) {
     // coverage:ignore-start
     final path = deepLinkOverride ?? deepLink.path;
     // coverage:ignore-end
@@ -154,7 +153,6 @@ Future<String?> handleDeepLink({
       } catch (_) {}
       return '/resetPassword';
     default:
-      break;
+      return path;
   }
-  return null;
 }

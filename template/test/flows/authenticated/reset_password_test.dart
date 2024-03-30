@@ -135,7 +135,7 @@ void main() {
             },
             expectedEvents: [
               ResetPasswordEvent_ResetPassword,
-              'Page popped: Home',
+              'Page popped to: Home',
             ],
           );
         },
@@ -239,7 +239,7 @@ void main() {
             },
             expectedEvents: [
               ResetPasswordEvent_ResetPassword,
-              'Page popped: Home',
+              'Page popped to: Home',
             ],
           );
         },
