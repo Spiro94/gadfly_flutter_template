@@ -4,23 +4,13 @@ import 'package:mocktail/mocktail.dart';
 
 import '../mocked_app.dart';
 
+// Note: Set `hasAccessToken` to true when warping
+
 Future<void> arrangeBeforeWarpToHome(
   FTArrange<MocksContainer> arrange,
 ) async {
-  // -- AuthRepository
+  // From AuthBloc
   when(
-    () => arrange.mocks.authRepository.getUserId(),
-  ).thenAnswer((invocation) async {
-    return 'fakeUserId';
-  });
-
-  // -- AudioRepository
-  when(
-    () => arrange.mocks.audioRepository
-        .getMyRecordingsStream(userId: any(named: 'userId')),
-  ).thenAnswer((invocation) async {
-    return const Stream.empty();
-  });
+    () => arrange.mocks.sharedPreferencesEffect.setString('accessToken', any()),
+  ).thenAnswer((invocation) async => true);
 }
-
-// Note: Set `hasAccessToken` to true

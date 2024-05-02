@@ -4,18 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
 import 'package:sentry_repository/sentry_repository.dart';
-import 'package:supabase_client_provider/supabase_client_provider.dart';
-import '../app/bloc_observer.dart';
-import '../app/builder.dart';
-import '../app/router.dart';
 import '../blocs/redux_remote_devtools.dart';
-import '../effects/auth_change/provider.dart';
 import '../effects/now/provider.dart';
-import '../effects/play_audio/provider.dart';
-import '../effects/record_audio/provider.dart';
+import '../effects/shared_preferences/provider.dart';
 import '../effects/uuid/provider.dart';
-import '../repositories/audio/repository.dart';
 import '../repositories/auth/repository.dart';
+import 'app_bloc_observer.dart';
+import 'app_builder.dart';
 import 'configuration.dart';
 
 Future<void> bootstrap({required MainConfiguration configuration}) async {
@@ -74,44 +69,25 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
       }
     }
 
+    final authRepository = AuthRepository();
+    log.finer('auth repository created');
+
     Bloc.observer = AppBlocObserver();
     log.finer('bloc observer created');
 
     final nowEffectProvider = NowEffectProvider();
     log.finer('now effect provider created');
 
-    final supabaseClientProvider = SupabaseClientProvider(
-      config: configuration.supabaseClientProviderConfiguration,
+    final sharedPreferencesEffectProvider = SharedPreferencesEffectProvider(
+      // TODO: replace with app name
+      prefix: 'app',
     );
-    log.finest('supabase client provider created');
+    log.finer('shared preferences effect provider created');
+    await sharedPreferencesEffectProvider.init();
+    log.finer('shared preferences effect provider initialized');
 
-    await supabaseClientProvider.init();
-    log.finest('supabase client initialzed');
-
-    final authRepository = AuthRepository(
-      deepLinkHostname: configuration.deepLinkHostname,
-      supabaseClient: supabaseClientProvider.client,
-    );
-    log.finer('auth repository created');
-
-    final authChangeEffectProvider = AuthChangeEffectProvider(
-      supabaseClient: supabaseClientProvider.client,
-    );
-    log.finer('auth change effect provider created');
-
-    final deepLinkStream = deepLinkStreamInit();
-    log.finer('deep link stream created');
-
-    final playAudioEffectProvider = PlayAudioEffectProvider();
-    log.finer('play audio effect provider created');
-
-    final recordAudioEffectProvider = RecordAudioEffectProvider();
-    log.finer('record audio effect provider created');
-
-    final audioRepository = AudioRepository(
-      supabaseClient: supabaseClientProvider.client,
-    );
-    log.finer('audio repository created');
+    final accessToken =
+        sharedPreferencesEffectProvider.getEffect().getString('accessToken');
 
     final uuidEffectProvider = UuidEffectProvider();
     log.finer('uuid effect provider created');
@@ -119,16 +95,11 @@ Future<void> bootstrap({required MainConfiguration configuration}) async {
     runApp(
       await appBuilder(
         deepLinkOverride: null,
-        deepLinkStream: deepLinkStream,
-        accessToken:
-            supabaseClientProvider.client.auth.currentSession?.accessToken,
+        accessToken: accessToken,
         amplitudeRepository: amplitudeRepository,
-        audioRepository: audioRepository,
         authRepository: authRepository,
-        authChangeEffectProvider: authChangeEffectProvider,
         nowEffectProvider: nowEffectProvider,
-        playAudioEffectProvider: playAudioEffectProvider,
-        recordAudioEffectProvider: recordAudioEffectProvider,
+        sharedPreferencesEffectProvider: sharedPreferencesEffectProvider,
         uuidEffectProvider: uuidEffectProvider,
       ),
     );

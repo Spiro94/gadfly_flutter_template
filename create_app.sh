@@ -36,15 +36,7 @@ mv Makefile ../
 mv README.md ../
 mv .envrc.sample ../
 mv .gitignore_top_level ../.gitignore
-mv supabase ../
 
-cd ..
-
-supabase init 
-
-rm supabase/seed.sql
-mv supabase/seed2.sql supabase/seed.sql
-
-cd ../..
+cd ../../..
 
 rm -rf temp

@@ -17,7 +17,7 @@ brew tap leoafarias/fvm
 
 brew install fvm
 
-fvm install 3.19.0
+fvm install 3.19.6
 ```
 
 Then be sure to close your editor and reopen it. Run the following in a terminal at this projects path.
@@ -26,7 +26,7 @@ Then be sure to close your editor and reopen it. Run the following in a terminal
 fvm flutter version
 ```
 
-The version should be `3.19.0`.
+The version should be `3.19.6`.
 
 ### Supabase
 
@@ -39,11 +39,22 @@ brew install supabase/tap/supabase
 
 ## Usage
 
+For a flutter-only app:
+
 ```sh
 ./create_app.sh <entire fvm flutter command>
 
 # example:
 # ./create_app.sh fvm flutter create my_app
+```
+
+For a flutter+supabase app:
+
+```sh
+./create_supabase_app.sh <entire fvm flutter command>
+
+# example:
+# ./create_supabase_app.sh fvm flutter create my_app
 ```
 
 _Note: make sure to use `fvm flutter create my_app` and not simply `flutter create my_app`!_

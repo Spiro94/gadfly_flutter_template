@@ -13,8 +13,16 @@ supabase test new new_user_added
 
 ### Run Supabase DB Tests
 
+To set up the test helpers, run:
+
 ```sh
-supabase test db
+make test_db_init
+```
+
+Then to run the tests:
+
+```sh
+make test_db
 ```
 
 ## App

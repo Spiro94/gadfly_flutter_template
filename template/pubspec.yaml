@@ -5,7 +5,7 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=3.0.1 <4.0.0'
-  flutter: 3.19.0
+  flutter: 3.19.6
 
 dependencies:
   amplitude_repository:
@@ -14,9 +14,6 @@ dependencies:
   auto_route: ^7.4.0
   bloc_concurrency: ^0.2.2
   collection: ^1.18.0
-  device_info_plus: ^9.0.1
-  device_info_provider:
-    path: ../packages/device_info_provider
   dio: ^5.4.1
   dynamic_color: ^1.6.7
   email_validator: ^2.1.17
@@ -40,11 +37,8 @@ dependencies:
   sentry_repository:
     path: ../packages/sentry_repository
   shared_preferences: ^2.2.0
-  slang_flutter: ^3.19.0
+  slang_flutter: ^3.19.6
   sprung: ^3.0.1
-  supabase_client_provider:
-    path: ../packages/supabase_client_provider
-  supabase_flutter: ^2.3.3
   uuid: ^4.3.3
 
 dev_dependencies:
@@ -58,7 +52,7 @@ dev_dependencies:
   json_serializable: ^6.7.0
   mocktail: ^0.3.0
   mocktail_image_network: ^0.3.1
-  slang: ^3.19.0
+  slang: ^3.19.6
   very_good_analysis: ^5.0.0+1
 
 flutter:

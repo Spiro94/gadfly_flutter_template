@@ -1,82 +1,35 @@
 import 'package:flow_test/flow_test.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:gadfly_flutter_template/blocs/auth/event.dart';
-import 'package:gadfly_flutter_template/blocs/recordings/event.dart';
 import 'package:gadfly_flutter_template/blocs/sign_in/event.dart';
-import 'package:gadfly_flutter_template/pages/authenticated/home/page.dart';
-import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/page.dart';
-import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/connector/email_input.dart';
-import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/connector/password_input.dart';
-import 'package:gadfly_flutter_template/pages/unauthenticated/sign_in/widgets/connector/sign_in_button.dart';
-import 'package:gadfly_flutter_template/shared/widgets/dumb/button.dart';
+import 'package:gadfly_flutter_template/routes/authenticated/home/page.dart';
+import 'package:gadfly_flutter_template/routes/unauthenticated/sign_in/page.dart';
+import 'package:gadfly_flutter_template/routes/unauthenticated/sign_in/widgets/email_input.dart';
+import 'package:gadfly_flutter_template/routes/unauthenticated/sign_in/widgets/password_input.dart';
+import 'package:gadfly_flutter_template/routes/unauthenticated/sign_in/widgets/sign_in_button.dart';
+import 'package:gadfly_flutter_template/shared/widgets/button.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
-import '../../util/fakes/supabase_user.dart';
 import '../../util/flow_config.dart';
 import '../../util/warp/to_home.dart';
+import 'epic_description.dart';
 
 void main() {
   final baseDescriptions = [
-    FTDescription(
-      descriptionType: 'EPIC',
-      shortDescription: 'unauthenticated',
-      description:
-          '''As a user, I need to be able to interact with the appication when I am unauthenticated.''',
-    ),
+    unauthenticatedEpicDescription,
     FTDescription(
       descriptionType: 'STORY',
-      shortDescription: 'sign_in',
+      directoryName: 'sign_in',
       description:
           '''As a user, I should be able to sign in to the application, so that I can use it.''',
       atScreenshotsLevel: true,
     ),
   ];
 
-  flowTest(
-    'already have token',
-    config: createFlowConfig(hasAccessToken: true),
-    descriptions: [
-      ...baseDescriptions,
-      FTDescription(
-        descriptionType: 'AC',
-        shortDescription: 'already_have_token',
-        description:
-            '''As a user, if I already have an auth token, I should not see the SignIn page and should go straight to the Home page.''',
-      ),
-    ],
-    test: (tester) async {
-      await tester.setUp(
-        arrangeBeforePumpApp: arrangeBeforeWarpToHome,
-      );
-
-      await tester.screenshot(
-        description: 'initial state',
-        actions: (actions) async {
-          await actions.testerAction.pump();
-        },
-        expectations: (expectations) {
-          expectations.expect(
-            find.byType(Home_Page),
-            findsOneWidget,
-            reason:
-                '''Should be on the Home page because we have an accessToken in local storage''',
-          );
-        },
-        expectedEvents: [
-          'INFO: [router] deeplink: /',
-          'Page: Home',
-          RecordingsEvent_GetMyRecordings,
-        ],
-      );
-    },
-  );
-
   group('success', () {
     final successDescription = FTDescription(
       descriptionType: 'AC',
-      shortDescription: 'success',
+      directoryName: 'success',
       description: '''Signing in is successful''',
     );
 
@@ -90,7 +43,7 @@ void main() {
         successDescription,
         FTDescription(
           descriptionType: 'SUBMIT',
-          shortDescription: 'tapping_inputs',
+          directoryName: 'tapping_inputs',
           description:
               '''There are two ways to fill out the form. This covers manually tapping into each input.''',
         ),
@@ -118,7 +71,7 @@ void main() {
           description: 'enter email',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_EmailInput),
+              find.byType(SignIn_EmailInput),
               'foo@example.com',
             );
             await actions.testerAction.pumpAndSettle();
@@ -129,7 +82,7 @@ void main() {
           description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_PasswordInput),
+              find.byType(SignIn_PasswordInput),
               'Pass123!',
             );
             await actions.testerAction.pumpAndSettle();
@@ -137,7 +90,7 @@ void main() {
         );
 
         await tester.screenshot(
-          description: 'tap submit button (pump half)',
+          description: 'tap submit button',
           arrangeBeforeActions: (arrange) {
             when(
               () => arrange.mocks.authRepository.signIn(
@@ -145,47 +98,14 @@ void main() {
                 password: any(named: 'password'),
               ),
             ).thenAnswer((invocation) async {
-              await Future<void>.delayed(const Duration(seconds: 500));
-
-              arrange.mocks.authChangeEffect.streamController?.add(
-                supabase.AuthState(
-                  supabase.AuthChangeEvent.signedIn,
-                  supabase.Session(
-                    accessToken: 'fakeAccessToken',
-                    tokenType: '',
-                    user: FakeSupabaseUser(),
-                  ),
-                ),
-              );
-
               await arrangeBeforeWarpToHome(arrange);
-              return;
+              return 'FAKE_ACCESS_TOKEN';
             });
-          },
-          actions: (actions) async {
-            await actions.userAction.tap(find.byType(SignInC_SignInButton));
-            await actions.testerAction.pump(const Duration(milliseconds: 250));
-          },
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(SpinKitThreeBounce),
-              findsOneWidget,
-              reason: 'Should see a loading indicator',
-            );
-            expectations.expect(
-              find.byType(Home_Page),
-              findsNothing,
-              reason: 'Should not be on the Home page yet',
-            );
-          },
-          expectedEvents: [
-            SignInEvent_SignIn,
-          ],
-        );
 
-        await tester.screenshot(
-          description: 'tap submit button (pump rest)',
+            arrangeBeforeWarpToHome(arrange);
+          },
           actions: (actions) async {
+            await actions.userAction.tap(find.byType(SignIn_SignInButton));
             await actions.testerAction.pumpAndSettle();
           },
           expectations: (expectations) {
@@ -196,10 +116,9 @@ void main() {
             );
           },
           expectedEvents: [
-            'INFO: [auth_change_subscription] signedIn',
+            SignInEvent_SignIn,
             AuthEvent_AccessTokenAdded,
             'Page: Home',
-            RecordingsEvent_GetMyRecordings,
           ],
         );
       },
@@ -213,7 +132,7 @@ void main() {
         successDescription,
         FTDescription(
           descriptionType: 'SUBMIT',
-          shortDescription: 'pressing_enter',
+          directoryName: 'pressing_enter',
           description:
               '''There are two ways to fill out the form. This covers pressing enter to jump to the next input.''',
         ),
@@ -241,7 +160,7 @@ void main() {
           description: 'enter email',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_EmailInput),
+              find.byType(SignIn_EmailInput),
               'foo@example.com',
             );
             await actions.testerAction.pumpAndSettle();
@@ -265,7 +184,7 @@ void main() {
         );
 
         await tester.screenshot(
-          description: 'press enter (pump half)',
+          description: 'press enter',
           arrangeBeforeActions: (arrange) {
             when(
               () => arrange.mocks.authRepository.signIn(
@@ -273,47 +192,13 @@ void main() {
                 password: any(named: 'password'),
               ),
             ).thenAnswer((invocation) async {
-              await Future<void>.delayed(const Duration(seconds: 500));
-
-              arrange.mocks.authChangeEffect.streamController?.add(
-                supabase.AuthState(
-                  supabase.AuthChangeEvent.signedIn,
-                  supabase.Session(
-                    accessToken: 'fakeAccessToken',
-                    tokenType: '',
-                    user: FakeSupabaseUser(),
-                  ),
-                ),
-              );
-
-              await arrangeBeforeWarpToHome(arrange);
-              return;
+              return 'FAKE_ACCESS_TOKEN';
             });
+
+            arrangeBeforeWarpToHome(arrange);
           },
           actions: (actions) async {
             await actions.userAction.testTextInputReceiveDone();
-            await actions.testerAction.pump(const Duration(milliseconds: 250));
-          },
-          expectations: (expectations) {
-            expectations.expect(
-              find.byType(SpinKitThreeBounce),
-              findsOneWidget,
-              reason: 'Should see a loading indicator',
-            );
-            expectations.expect(
-              find.byType(Home_Page),
-              findsNothing,
-              reason: 'Should not be on the Home page yet',
-            );
-          },
-          expectedEvents: [
-            SignInEvent_SignIn,
-          ],
-        );
-
-        await tester.screenshot(
-          description: 'press enter (pump rest)',
-          actions: (actions) async {
             await actions.testerAction.pumpAndSettle();
           },
           expectations: (expectations) {
@@ -324,10 +209,9 @@ void main() {
             );
           },
           expectedEvents: [
-            'INFO: [auth_change_subscription] signedIn',
+            SignInEvent_SignIn,
             AuthEvent_AccessTokenAdded,
             'Page: Home',
-            RecordingsEvent_GetMyRecordings,
           ],
         );
       },
@@ -337,7 +221,7 @@ void main() {
   group('error', () {
     final errorDescription = FTDescription(
       descriptionType: 'AC',
-      shortDescription: 'error',
+      directoryName: 'error',
       description: '''Signing in is not successful''',
     );
 
@@ -349,7 +233,7 @@ void main() {
         errorDescription,
         FTDescription(
           descriptionType: 'STATUS',
-          shortDescription: 'empty_inputs',
+          directoryName: 'empty_inputs',
           description:
               '''If either of the inputs are empty, should not be able to tap the sign in button''',
         ),
@@ -377,10 +261,10 @@ void main() {
           actions: (actions) async {
             await actions.userAction.tap(
               find.descendant(
-                of: find.byType(SignInC_SignInButton),
+                of: find.byType(SignIn_SignInButton),
                 matching: find.byWidgetPredicate((widget) {
-                  if (widget is SharedD_Button) {
-                    return widget.status == SharedD_ButtonStatus.disabled;
+                  if (widget is Shared_Button) {
+                    return widget.status == Shared_ButtonStatus.disabled;
                   }
                   return false;
                 }),
@@ -408,7 +292,7 @@ void main() {
         errorDescription,
         FTDescription(
           descriptionType: 'STATUS',
-          shortDescription: 'invalid_email',
+          directoryName: 'invalid_email',
           description:
               '''If you attempt to sign in, but the email is invalid, should see invalid error''',
         ),
@@ -435,7 +319,7 @@ void main() {
           description: 'enter invalid emaill address',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_EmailInput),
+              find.byType(SignIn_EmailInput),
               'bad email',
             );
             await actions.testerAction.pumpAndSettle();
@@ -446,7 +330,7 @@ void main() {
           description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_PasswordInput),
+              find.byType(SignIn_PasswordInput),
               'password',
             );
             await actions.testerAction.pumpAndSettle();
@@ -458,10 +342,10 @@ void main() {
           actions: (actions) async {
             await actions.userAction.tap(
               find.descendant(
-                of: find.byType(SignInC_SignInButton),
+                of: find.byType(SignIn_SignInButton),
                 matching: find.byWidgetPredicate((widget) {
-                  if (widget is SharedD_Button) {
-                    return widget.status == SharedD_ButtonStatus.enabled;
+                  if (widget is Shared_Button) {
+                    return widget.status == Shared_ButtonStatus.enabled;
                   }
                   return false;
                 }),
@@ -493,7 +377,7 @@ void main() {
         errorDescription,
         FTDescription(
           descriptionType: 'STATUS',
-          shortDescription: 'http',
+          directoryName: 'http',
           description:
               '''As a user, even if I fill out the form correctly, I can still hit an http error. If this happens, I should be made aware that something went wrong.''',
         ),
@@ -520,7 +404,7 @@ void main() {
           description: 'enter email',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_EmailInput),
+              find.byType(SignIn_EmailInput),
               'foo@example.com',
             );
             await actions.testerAction.pumpAndSettle();
@@ -531,7 +415,7 @@ void main() {
           description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignInC_PasswordInput),
+              find.byType(SignIn_PasswordInput),
               'password',
             );
             await actions.testerAction.pumpAndSettle();
@@ -551,7 +435,7 @@ void main() {
             );
           },
           actions: (actions) async {
-            await actions.userAction.tap(find.byType(SignInC_SignInButton));
+            await actions.userAction.tap(find.byType(SignIn_SignInButton));
             await actions.testerAction.pumpAndSettle();
           },
           expectations: (expectations) {
@@ -575,6 +459,96 @@ void main() {
           },
           expectedEvents: [
             SignInEvent_SignIn,
+          ],
+        );
+      },
+    );
+
+    flowTest(
+      'shared preferences',
+      config: createFlowConfig(hasAccessToken: false),
+      descriptions: [
+        ...baseDescriptions,
+        errorDescription,
+        FTDescription(
+          descriptionType: 'STATUS',
+          directoryName: 'shared_preferences',
+          description:
+              '''As a user, even if I fill out the form correctly, I can still hit an error when saving to shared preferences. If this happens, I should still be signed in.''',
+        ),
+      ],
+      test: (tester) async {
+        await tester.setUp();
+        await tester.screenshot(
+          description: 'initial state',
+          expectations: (expectations) {
+            expectations.expect(
+              find.byType(SignIn_Page),
+              findsOneWidget,
+              reason: 'Should be on the SignIn page',
+            );
+          },
+          expectedEvents: [
+            'INFO: [router] deeplink: /',
+            'INFO: [authenticated_guard] not authenticated',
+            'Page: SignIn',
+          ],
+        );
+
+        await tester.screenshot(
+          description: 'enter email',
+          actions: (actions) async {
+            await actions.userAction.enterText(
+              find.byType(SignIn_EmailInput),
+              'foo@example.com',
+            );
+            await actions.testerAction.pumpAndSettle();
+          },
+        );
+
+        await tester.screenshot(
+          description: 'enter password',
+          actions: (actions) async {
+            await actions.userAction.enterText(
+              find.byType(SignIn_PasswordInput),
+              'password',
+            );
+            await actions.testerAction.pumpAndSettle();
+          },
+        );
+
+        await tester.screenshot(
+          description: 'tap submit button',
+          arrangeBeforeActions: (arrange) {
+            when(
+              () => arrange.mocks.authRepository.signIn(
+                email: any(named: 'email'),
+                password: any(named: 'password'),
+              ),
+            ).thenAnswer((invocation) async => 'FAKE_ACCESS_TOKEN');
+
+            when(
+              () => arrange.mocks.sharedPreferencesEffect
+                  .setString('accessToken', any()),
+            ).thenThrow(Exception('BOOM'));
+          },
+          actions: (actions) async {
+            await actions.userAction.tap(find.byType(SignIn_SignInButton));
+            await actions.testerAction.pumpAndSettle();
+          },
+          expectations: (expectations) {
+            expectations.expect(
+              find.byType(Home_Page),
+              findsOneWidget,
+              reason:
+                  '''Should be on the Home page because signing in should still proceed.''',
+            );
+          },
+          expectedEvents: [
+            SignInEvent_SignIn,
+            AuthEvent_AccessTokenAdded,
+            'WARNING: [auth_bloc] access token not saved to shared preferences',
+            'Page: Home',
           ],
         );
       },

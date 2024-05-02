@@ -1,64 +1,10 @@
 # Development
 
-## Supabase
-
-### Start Supabase
-
-```sh
-supabase start
-```
-
-Then open the supabase studio at `localhost:54323`
-
-### Stop Supabase
-
-```sh
-supabase stop
-```
-
-### Reset Supabase DB
-
-```sh
-supabase db reset
-```
-
-### Echo diff from local and remote DB
-
-```sh
-supabase db diff
-```
-
-### Create Supabase DB Migration
-
-```sh
-supabase migration new <migration_name>
-
-# Example
-# supabase migration new create_photos_table
-```
-
-### Apply Supabase DB Migration locally
-
-```sh
-supabase migration up
-```
-
-### Run Edge Functions
-
-```sh
-supabase functions serve --env-file supabase/functions/.env
-```
-
-Note: you will need to add a `supabase/functions/.env` file that includes the
-required environment variables.
-
-## App
-
-### Run App (Option 1)
+## Run App (Option 1)
 
 Open the `Run and Debug` tab in VSCode and run the `development` option.
 
-### Run App with redux devtools (Option 2)
+## Run App with redux devtools (Option 2)
 
 1. Start the redux remote devtools server
 
@@ -72,7 +18,7 @@ make redux_devtools_server
 3. Open the `Run and Debug` tab in VSCode and run the `development w/ devtools`
    option.
 
-### Update build_runner files
+## Update build_runner files
 
 ```sh
 make runner_build
@@ -84,7 +30,7 @@ or
 make runner_watch
 ```
 
-### Update localization files
+## Update localization files
 
 ```sh
 make slang_build
@@ -96,14 +42,14 @@ or
 make slang_watch
 ```
 
-### Update flutter dependences
+## Update flutter dependences
 
 ```sh
-make get
+make flutter_get
 ```
 
 ### Clean flutter build
 
 ```sh
-make clean
+make flutter_clean
 ```

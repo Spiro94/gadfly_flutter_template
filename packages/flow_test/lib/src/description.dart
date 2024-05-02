@@ -2,13 +2,13 @@
 
 class FTDescription {
   FTDescription({
-    required this.shortDescription,
+    required this.directoryName,
     this.atScreenshotsLevel = false,
     this.description,
     this.descriptionType,
   });
 
-  final String shortDescription;
+  final String directoryName;
   final bool atScreenshotsLevel;
   final String? description;
   final String? descriptionType;

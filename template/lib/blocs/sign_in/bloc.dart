@@ -10,6 +10,7 @@ import 'state.dart';
 
 class SignInBloc extends SignInBaseBloc {
   SignInBloc({
+    required this.onSaveAccessToken,
     required AuthRepository authRepository,
   })  : _authRepository = authRepository,
         super(
@@ -22,6 +23,7 @@ class SignInBloc extends SignInBaseBloc {
   }
 
   final AuthRepository _authRepository;
+  final void Function(String accessToken) onSaveAccessToken;
   final _log = Logger('sign_in_bloc');
 
   Future<void> _onSignIn(
@@ -36,10 +38,12 @@ class SignInBloc extends SignInBaseBloc {
       final email = event.email.trim();
       final password = event.password.trim();
 
-      await _authRepository.signIn(
+      final accessToken = await _authRepository.signIn(
         email: email,
         password: password,
       );
+
+      onSaveAccessToken(accessToken);
     } catch (e) {
       _log.fine(e);
       emit(

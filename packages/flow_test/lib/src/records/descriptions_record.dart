@@ -15,16 +15,16 @@ class FTDescriptionsRecord<M> extends FTRecord {
     required String resolvedCounter,
     required int tripCount,
   }) {
-    final _shortDescriptions = <String>[];
+    final _directoryNames = <String>[];
     final _screenshotStories = descriptions
         .skipWhile((_description) => !_description.atScreenshotsLevel)
         .toList();
 
     for (final story in _screenshotStories) {
-      _shortDescriptions.add(story.shortDescription);
+      _directoryNames.add(story.directoryName);
     }
 
-    final _subPath = _shortDescriptions.join('/');
+    final _subPath = _directoryNames.join('/');
 
     return '''$_subPath/$resolvedCounter.$tripCount''';
   }
@@ -32,7 +32,7 @@ class FTDescriptionsRecord<M> extends FTRecord {
   String get markdownFilePath {
     final _shortDescriptions = <String>[];
     for (final description in descriptions) {
-      _shortDescriptions.add(description.shortDescription);
+      _shortDescriptions.add(description.directoryName);
     }
 
     return _shortDescriptions.join('/');
@@ -52,9 +52,9 @@ class FTDescriptionsRecord<M> extends FTRecord {
     final _shortDescriptions = <String>[];
     for (final description in descriptions) {
       if (description.atScreenshotsLevel) {
-        _shortDescriptions.add('screenshots/${description.shortDescription}');
+        _shortDescriptions.add('screenshots/${description.directoryName}');
       } else {
-        _shortDescriptions.add(description.shortDescription);
+        _shortDescriptions.add(description.directoryName);
       }
     }
     final _prefix = _prefixToExit.join('/');
@@ -71,7 +71,7 @@ class FTDescriptionsRecord<M> extends FTRecord {
       if (description.descriptionType != null) {
         _buffer.writeln('>${description.descriptionType}');
       }
-      _buffer.writeln(description.shortDescription);
+      _buffer.writeln(description.directoryName);
       if (description.description != null) {
         _buffer.writeln(description.description);
       }
@@ -99,7 +99,7 @@ class FTDescriptionsRecord<M> extends FTRecord {
       _buffer.writeln(
         _writeShortDescription(
           buffer: _buffer,
-          shortDescription: description.shortDescription,
+          shortDescription: description.directoryName,
         ),
       );
       _buffer.write(

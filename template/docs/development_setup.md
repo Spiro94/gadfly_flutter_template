@@ -12,7 +12,7 @@ brew tap leoafarias/fvm
 
 brew install fvm
 
-fvm install 3.19.0
+fvm install 3.19.6
 ```
 
 ## Redux remote devtools
@@ -57,31 +57,6 @@ Install mkdocs theme.
 pip install mkdocs-material
 ```
 
-## Supabase
-
-Get Supabase:
-
-```sh
-brew install supabase/tap/supabase
-
-# supabase --version 
-# 1.145.4
-```
-
-## Deno
-
-Get Deno:
-
-```sh
-brew install deno
-
-# deno --version
-# 1.41.1
-```
-
-Note: be sure to add your deno path to your VSCode user settings json file. E.g.
-`"deno.path": "/opt/homebrew/bin/deno"`
-
 ## direnv
 
 ```sh
@@ -102,29 +77,4 @@ export MY_IP_ADDRESS="192.168.0.00"
 
 ```sh
 brew install lcov
-```
-
-## Optional
-
-### PostgresQL
-
-Get `psql`
-
-```sh
-brew install postgresql@15
-```
-
-Then add the following to your `~/.zshrc` file:
-
-```sh
-# postgres
-export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
-```
-
-### PgAdmin
-
-Get `PgAdmin`
-
-```sh
-brew install --cask pgadmin4
 ```
