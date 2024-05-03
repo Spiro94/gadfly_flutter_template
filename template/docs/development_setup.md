@@ -1,6 +1,6 @@
 # Development Setup
 
-Our tech stack is Flutter on the front-end and Supabase on the back-end. To
+Our tech stack is Flutter on the front-end. To
 setup your computer for development, follow these steps.
 
 ## Flutter version management

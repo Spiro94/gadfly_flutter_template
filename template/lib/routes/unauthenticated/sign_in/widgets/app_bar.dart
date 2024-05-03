@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../i18n/translations.g.dart';
 import '../../../../shared/widgets/app_bar.dart';
 
-class SignUp_AppBar extends StatelessWidget implements PreferredSizeWidget {
-  const SignUp_AppBar({super.key});
+class SignIn_AppBar extends StatelessWidget implements PreferredSizeWidget {
+  const SignIn_AppBar({super.key});
 
   @override
   Size get preferredSize => const Size(double.infinity, kToolbarHeight);

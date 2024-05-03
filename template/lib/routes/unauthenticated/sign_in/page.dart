@@ -43,7 +43,7 @@ class SignIn_Scaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return SignIn_SignInStatusChangeListener(
       child: Scaffold(
-        appBar: const SignUp_AppBar(),
+        appBar: const SignIn_AppBar(),
         body: Shared_BodyContainer(
           child: Padding(
             padding: EdgeInsets.all(context.tokens.spacing.large),
