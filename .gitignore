@@ -5,3 +5,6 @@ temp/
 projects/
 flutter_sdk
 .DS_Store
+
+# FVM Version Cache
+.fvm/

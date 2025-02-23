@@ -1,0 +1,22 @@
+include: package:very_good_analysis/analysis_options.7.0.0.yaml
+
+linter:
+  rules:
+    always_use_package_imports: false
+    avoid_catches_without_on_clauses: false
+    avoid_redundant_argument_values: false
+    cascade_invocations: false
+    camel_case_types: false
+    empty_catches: false
+    no_leading_underscores_for_local_identifiers: false
+    non_constant_identifier_names: false
+    one_member_abstracts: false
+    prefer_relative_imports: true
+    public_member_api_docs: false
+    sort_constructors_first: false
+
+analyzer:
+  errors:
+    flutter_style_todos: ignore
+  exclude:
+    - '**/*.g.dart'

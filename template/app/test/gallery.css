@@ -1,0 +1,64 @@
+.md-grid {
+    max-width: 90% !important;
+}
+
+h2 {
+    color: firebrick;
+}
+
+table {
+    background-color: #f9f9f9 !important;
+}
+
+img {
+    border: 2px solid dimgrey;
+}
+
+li.analytic {
+    color: magenta;
+}
+
+li.page {
+    color: purple;
+}
+
+li.info {
+    color: grey;
+}
+
+li.warning {
+    color: orange;
+}
+
+li.severe {
+    color: red;
+}
+
+li.shout {
+    color: red;
+    font-weight: bolder;
+}
+
+p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+div[data-description="container"] {
+    padding-top: 0.2rem;
+
+    div[data-description="title"] {
+        font-size: 0.8rem;
+        line-height: 0.8rem;
+    }
+
+    div[data-description="description"] {
+        font-size: 0.6rem;
+        color: gray;
+    }
+}
+
+div[data-description="container"][data-description-level="0"] {
+    padding-left: 0rem;
+    padding-top: 0.2rem;
+}
