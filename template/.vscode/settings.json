@@ -1,9 +1,32 @@
 {
-    "search.exclude": {
-        "**/.fvm": true
-    },
-    "files.watcherExclude": {
-        "**/.fvm": true
-    },
-    "dart.flutterSdkPath": ".fvm/flutter_sdk"
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  "files.watcherExclude": {
+    "**/.fvm": true
+  },
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+  "deno.importMap": "supabase/functions/import_map.json",
+  "deno.lint": true,
+  "deno.unstable": [
+    "bare-node-builtins",
+    "byonm",
+    "sloppy-imports",
+    "unsafe-proto",
+    "webgpu",
+    "broadcast-channel",
+    "worker-options",
+    "cron",
+    "kv",
+    "ffi",
+    "fs",
+    "http",
+    "net"
+  ],
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "dart.flutterSdkPath": ".fvm/versions/3.27.4"
 }

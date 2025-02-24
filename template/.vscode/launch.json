@@ -1,149 +1,71 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "[my ip address] development",
-            "request": "launch",
-            "type": "dart",
-            "cwd": "app",
-            "program": "lib/main/development.dart",
-            "args": [
-                "--target",
-                "lib/main/development.dart",
-                "--web-renderer",
-                "canvaskit",
-                "--web-port",
-                "3000",
-                "--web-hostname=${env:APP_LOCALHOST}",
-                "--dart-define",
-                "APP_LOCALHOST=${env:APP_LOCALHOST}"
-            ]
-        },
-        {
-            "name": "[my ip address] development w/ devtools",
-            "request": "launch",
-            "type": "dart",
-            "cwd": "app",
-            "program": "lib/main/development_with_redux_devtools.dart",
-            "args": [
-                "--target",
-                "lib/main/development_with_redux_devtools.dart",
-                "--web-renderer",
-                "canvaskit",
-                "--web-port",
-                "3000",
-                "--web-hostname=${env:APP_LOCALHOST}",
-                "--dart-define",
-                "APP_LOCALHOST=${env:APP_LOCALHOST}"
-            ]
-        },
-        {
-            "name": "[my ip address] development send events",
-            "request": "launch",
-            "type": "dart",
-            "cwd": "app",
-            "program": "lib/main/development_and_send_events.dart",
-            "args": [
-                "--target",
-                "lib/main/development_and_send_events.dart",
-                "--web-renderer",
-                "canvaskit",
-                "--web-port",
-                "3000",
-                "--web-hostname=${env:APP_LOCALHOST}",
-                "--dart-define",
-                "APP_LOCALHOST=${env:APP_LOCALHOST}"
-            ]
-        },
-        {
-            "name": "[127.0.0.1] development",
-            "request": "launch",
-            "type": "dart",
-            "cwd": "app",
-            "program": "lib/main/development.dart",
-            "args": [
-                "--target",
-                "lib/main/development.dart",
-                "--web-renderer",
-                "canvaskit",
-                "--web-port",
-                "3000",
-                "--web-hostname=127.0.0.1",
-                "--dart-define",
-                "APP_LOCALHOST=127.0.0.1"
-            ]
-        },
-        {
-            "name": "[127.0.0.1] development w/ devtools",
-            "request": "launch",
-            "type": "dart",
-            "cwd": "app",
-            "program": "lib/main/development_with_redux_devtools.dart",
-            "args": [
-                "--target",
-                "lib/main/development_with_redux_devtools.dart",
-                "--web-renderer",
-                "canvaskit",
-                "--web-port",
-                "3000",
-                "--web-hostname=127.0.0.1",
-                "--dart-define",
-                "APP_LOCALHOST=127.0.0.1"
-            ]
-        },
-        {
-            "name": "[127.0.0.1] development send events",
-            "request": "launch",
-            "type": "dart",
-            "cwd": "app",
-            "program": "lib/main/development_and_send_events.dart",
-            "args": [
-                "--target",
-                "lib/main/development_and_send_events.dart",
-                "--web-renderer",
-                "canvaskit",
-                "--web-port",
-                "3000",
-                "--web-hostname=127.0.0.1",
-                "--dart-define",
-                "APP_LOCALHOST=127.0.0.1"
-            ]
-        },
-        {
-            "name": "production",
-            "request": "launch",
-            "type": "dart",
-            "cwd": "app",
-            "program": "lib/main/production.dart",
-            "args": [
-                "--target",
-                "lib/main/production.dart",
-                "--web-renderer",
-                "canvaskit",
-                "--release"
-            ]
-        },
-        {
-            "name": "screenshots",
-            "request": "launch",
-            "type": "dart",
-            "codeLens": {
-                "for": [
-                    "run-test",
-                    "run-test-file"
-                ]
-            },
-            "args": [
-                "--update-goldens",
-                "--dart-define",
-                "createScreenshots=true"
-            ]
-        },
-        {
-            "name": "tests",
-            "type": "dart",
-            "request": "launch",
-            "program": "app/test/",
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "development (debug)",
+      "cwd": "app",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/configurations/development.dart",
+      "args": [
+        "--target",
+        "lib/configurations/development.dart",
+        "--web-renderer",
+        "canvaskit",
+        "--web-port",
+        "3000",
+        "--web-hostname=${env:SITE_HOST}",
+        "--dart-define",
+        "SITE_HOST=${env:SITE_HOST}"
+      ]
+    },
+    {
+      "name": "production (debug)",
+      "cwd": "app",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/configurations/production.dart",
+      "args": [
+        "--target",
+        "lib/configurations/production.dart",
+        "--web-renderer",
+        "canvaskit",
+        "--web-port",
+        "3000",
+        "--web-hostname=${env:SITE_HOST}",
+        "--dart-define",
+        "SITE_HOST=${env:SITE_HOST}"
+      ]
+    },
+    {
+      "name": "run flow tests",
+      "request": "launch",
+      "type": "dart",
+      "program": "app/test/",
+      "args": [
+        "--update-goldens",
+        "--dart-define",
+        "createScreenshots=true"
+      ]
+    },
+    {
+      "name": "FlowTest",
+      "request": "launch",
+      "type": "dart",
+      "codeLens": {
+        "for": [
+          "run-test",
+          "run-test-file"
+        ]
+      },
+      "args": [
+        "--update-goldens",
+        "--dart-define",
+        "createScreenshots=true"
+      ],
+    }
+  ]
 }

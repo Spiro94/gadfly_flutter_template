@@ -1,0 +1,308 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "redirectUrl",
+      "description": "Redirect URL:",
+      "type": "promptString"
+    },
+    {
+      "id": "migrationName",
+      "description": "Migration name:",
+      "type": "promptString"
+    },
+    {
+      "id": "functionName",
+      "description": "Function name:",
+      "type": "promptString"
+    },
+  ],
+  "tasks": [
+    {
+      "label": "[App] Local Development Tasks",
+      "group": "build",
+      "dependsOn": [
+        "[App] Build Runner (Watch)",
+        "[App] Slang (Watch)",
+        "[App] Test Gallery (Serve)",
+        "[Project] Documentation (Serve)",
+        "[Supabase] Functions (Serve)",
+      ],
+    },
+    {
+      "label": "[App] Analyze (Once)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/analyze.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Build Runner (Once)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/build_runner_once.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Build Runner (Watch)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/build_runner_watch.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Dart Fix (Dry Run)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/dart_fix_dry_run.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Dart Fix (Apply)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/dart_fix_apply.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Modify and Copy Redirect URL for Android Emulator",
+      "type": "shell",
+      "group": "build",
+      "command": "zsh",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/modify_and_copy_redirect_url_for_android_emulator.sh",
+        "'${input:redirectUrl}'",
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Prebuild (Once)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/prebuild_once.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Slang (Once)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/slang_once.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Slang (Watch)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/slang_watch.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Test Gallery (Clean)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/test_gallery_clean.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Test Gallery (Serve)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/test_gallery_serve.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[App] Test Coverage (Serve)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/app/test_coverage_serve.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/app"
+      }
+    },
+    {
+      "label": "[Packages] Prebuild (Once)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/packages/prebuild_once.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/packages"
+      }
+    },
+    {
+      "label": "[Project] Direnv Allow",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/project/direnv_allow.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "[Project] Documentation (Serve)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/project/documentation_serve.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "[Supabase] Start",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/start.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": [
+        "[Project] Direnv Allow"
+      ],
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "[Supabase] Stop",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/stop.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "[Supabase] DB Reset",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/db_reset.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "[Supabase] Functions New",
+      "type": "shell",
+      "group": "build",
+      "command": "zsh",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/functions_new.sh",
+        "'${input:functionName}'",
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "[Supabase] Functions (Serve)",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/functions_serve.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": [
+        "[Supabase] Start"
+      ],
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "[Supabase] Migration Up",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/migration_up.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "[Supabase] Migration New",
+      "type": "shell",
+      "group": "build",
+      "command": "zsh",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/migration_new.sh",
+        "'${input:migrationName}'",
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "app_name",
+      "description": "App name (e.g. my_app):",
+      "type": "promptString"
+    },
+    {
+      "id": "org_name",
+      "description": "Org name (e.g. mycompany)",
+      "type": "promptString"
+    },
+  ],
+  "tasks": [
+    {
+      "label": "[GFT] Create app from template",
+      "type": "shell",
+      "group": "build",
+      "command": "zsh",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/create_app.sh",
+        "${input:app_name}",
+        "${input:org_name}",
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+  ]
+}

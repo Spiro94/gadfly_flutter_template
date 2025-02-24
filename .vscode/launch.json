@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Screenshots",
+            "name": "FlowTest",
             "request": "launch",
             "type": "dart",
             "codeLens": {
@@ -15,7 +15,7 @@
                 "--update-goldens",
                 "--dart-define",
                 "createScreenshots=true"
-            ]
+            ],
         }
     ]
 }

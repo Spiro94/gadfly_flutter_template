@@ -1,0 +1,5 @@
+name: bloc_devtools_extension
+version: 1.0.0
+issueTracker: https://github.com/gadfly361/gadfly_flutter_template/
+materialIconCodePoint: "0xe9b0"
+requiresConnection: false

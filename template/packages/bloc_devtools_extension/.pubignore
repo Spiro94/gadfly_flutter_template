@@ -1,0 +1,7 @@
+test/**
+example/*
+!**/*.tpl.dart
+!**/*.tpl.freezed.dart
+!**/*.freezed.dart
+/build/
+!/extensions/devtools/build/

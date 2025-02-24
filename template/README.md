@@ -1,8 +1,19 @@
 # gadfly_flutter_template
 
-See the `docs/` directory for:
+To open the documentation, run the following VSCode Task (`CMD+SHIFT+B`):
 
-1. development setup
-2. checklist before first run
-3. development
-4. testing
+```sh
+[Project] Documentation (Serve)
+```
+
+This will open the documentation at [localhost:8000](http://localhost:8000).
+
+However, if this is your first time opening the documentation, you will need to run the following commands to install [mkdocs](https://www.mkdocs.org/) and the [material theme](https://github.com/squidfunk/mkdocs-material).
+
+```sh
+pip install mkdocs
+```
+
+```sh
+pip install mkdocs-material
+```

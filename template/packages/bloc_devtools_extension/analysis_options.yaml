@@ -1,0 +1,9 @@
+include: package:flutter_lints/flutter.yaml
+linter:
+  rules:
+    camel_case_types: false
+analyzer:
+  errors:
+    flutter_style_todos: ignore
+  exclude:
+    - '**/*.g.dart'
