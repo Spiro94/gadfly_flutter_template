@@ -19,6 +19,8 @@ Anything that is **external** must be passed in to the **internal** layer throug
 
 ## Summary
 
+![external vs internal](images/external_vs_internal.png?raw=true)
+
 |                                                         | Client Provider | Effect Provider | Repository | Cubit | Bloc | Effect |
 |---------------------------------------------------------|-----------------|-----------------|------------|-------|------|--------|
 | is a singleton                                          | x               | x               | x          |       |      |        |
