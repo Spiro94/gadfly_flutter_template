@@ -12,6 +12,7 @@ If you just created a project from the [gadfly_flutter_template](https://github.
 
 ## Coding Guidelines
 
+- [Naming Conventions](http://localhost:8000/coding_guidelines/naming_conventions.html)
 - [Separation of concerns](http://localhost:8000/coding_guidelines/separation_of_concerns.html)
 
 ## Development
