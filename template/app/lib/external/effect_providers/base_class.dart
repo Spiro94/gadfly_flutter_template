@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import '../../shared/mixins/logging.dart';
+import '../util/abstracts/base_provider.dart';
 
-abstract class Base_EffectProvider<T> with SharedMixin_Logging {
+abstract class Base_EffectProvider<T> extends UtilAbstract_BaseProvider {
   FutureOr<T> getEffect();
-
-  Future<void> init();
 }

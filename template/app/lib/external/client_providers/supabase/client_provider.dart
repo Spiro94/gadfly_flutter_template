@@ -1,9 +1,9 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../base_class.dart';
+import '../../util/abstracts/base_provider.dart';
 import 'configuration.dart';
 
-class SupabaseClientProvider extends Base_ClientProvider {
+class SupabaseClientProvider extends UtilAbstract_BaseProvider {
   SupabaseClientProvider({
     required this.configuration,
   });

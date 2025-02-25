@@ -1,8 +1,8 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../base_class.dart';
+import '../../util/abstracts/base_provider.dart';
 
-class AuthRepository extends Base_Repository {
+class AuthRepository extends UtilAbstract_BaseProvider {
   AuthRepository({
     required String deepLinkBaseUri,
     required SupabaseClient supabaseClient,
