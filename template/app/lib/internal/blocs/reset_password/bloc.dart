@@ -2,12 +2,12 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../external/repositories/auth/repository.dart';
-import '../base_class.dart';
+import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
 class ResetPasswordBloc
-    extends Base_Bloc<ResetPasswordEvent, ResetPasswordState> {
+    extends Blocs_Base<ResetPasswordEvent, ResetPasswordState> {
   ResetPasswordBloc({
     required AuthRepository authRepository,
   })  : _authRepository = authRepository,

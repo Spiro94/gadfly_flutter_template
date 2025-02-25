@@ -28,7 +28,7 @@ class SignUp_Input_Email extends StatelessWidget {
           return emptyError;
         }
 
-        if (!Util_Validators.isEmailValid(value)) {
+        if (!InternalUtil_Validators.isEmailValid(value)) {
           return invalidError;
         }
         return null;

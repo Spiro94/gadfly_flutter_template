@@ -4,7 +4,7 @@ import 'package:sentry_logging/sentry_logging.dart';
 import '../../util/abstracts/base_provider.dart';
 import 'configuration.dart';
 
-class SentryClientProvider extends UtilAbstract_BaseProvider {
+class SentryClientProvider extends ExternalUtilAbstract_BaseProvider {
   SentryClientProvider({
     required this.initialSessionId,
     required this.configuration,

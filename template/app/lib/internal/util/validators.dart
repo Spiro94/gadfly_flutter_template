@@ -1,6 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 
-class Util_Validators {
+class InternalUtil_Validators {
   static bool isEmailValid(String value) {
     return EmailValidator.validate(value);
   }

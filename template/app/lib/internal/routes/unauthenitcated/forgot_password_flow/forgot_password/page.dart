@@ -21,7 +21,7 @@ class ForgotPassword_Page extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Routes_Scaffold(
-      breakpointType: Util_BreakpointType.constrained,
+      breakpointType: IntenralUtil_BreakpointType.constrained,
       scaffold: FScaffold(
         header: const ForgotPassword_Header(),
         content: ForgotPassword_Listener_StatusChange(

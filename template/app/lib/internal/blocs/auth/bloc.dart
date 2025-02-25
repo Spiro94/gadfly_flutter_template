@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 import '../../../external/repositories/auth/repository.dart';
 import '../../../shared/mixins/logging.dart';
-import '../base_class.dart';
+import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
-class AuthBloc extends Base_Bloc<AuthEvent, AuthState>
+class AuthBloc extends Blocs_Base<AuthEvent, AuthState>
     with SharedMixin_Logging {
   AuthBloc({
     required AuthRepository authRepository,

@@ -9,7 +9,7 @@ import 'auth/repository.dart';
 /// - [createProviders]
 ///   - Make sure to add the concrete type to `RepositoryProvider<ConcreteType>`
 ///     otherwise it will register the base class.
-class AllRepositories extends UtilAbstract_BaseProviders {
+class AllRepositories extends ExternalUtilAbstract_BaseProviders {
   const AllRepositories({
     required this.authRepository,
   });
@@ -17,12 +17,13 @@ class AllRepositories extends UtilAbstract_BaseProviders {
   final AuthRepository authRepository;
 
   @override
-  List<UtilAbstract_BaseProvider> getList() => [
+  List<ExternalUtilAbstract_BaseProvider> getList() => [
         authRepository,
       ];
 
   @override
-  List<RepositoryProvider<UtilAbstract_BaseProvider>> createProviders() {
+  List<RepositoryProvider<ExternalUtilAbstract_BaseProvider>>
+      createProviders() {
     return [
       RepositoryProvider<AuthRepository>.value(value: authRepository),
     ];

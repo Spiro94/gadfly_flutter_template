@@ -26,7 +26,7 @@ class ResetPassword_Input_Password extends StatelessWidget {
           return emptyError;
         }
 
-        if (!Util_Validators.isPasswordValid(value)) {
+        if (!InternalUtil_Validators.isPasswordValid(value)) {
           return invalidError;
         }
         return null;

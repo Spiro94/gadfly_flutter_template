@@ -4,8 +4,8 @@ import 'package:logging/logging.dart';
 part 'bloc_devtools_extension_log_record.g.dart';
 
 @JsonSerializable(createFactory: false)
-class BlocDevtoolsExtension_LogRecord {
-  BlocDevtoolsExtension_LogRecord({
+class SharedModel_BlocDevtoolsExtension_LogRecord {
+  SharedModel_BlocDevtoolsExtension_LogRecord({
     required LogRecord logRecord,
   })  : level = logRecord.level.name,
         message = logRecord.message,
@@ -20,5 +20,5 @@ class BlocDevtoolsExtension_LogRecord {
   final String? error;
 
   Map<String, dynamic> toJson() =>
-      _$BlocDevtoolsExtension_LogRecordToJson(this);
+      _$SharedModel_BlocDevtoolsExtension_LogRecordToJson(this);
 }

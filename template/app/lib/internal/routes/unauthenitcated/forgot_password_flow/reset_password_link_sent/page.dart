@@ -28,7 +28,7 @@ class ResetPasswordLinkSent_Page extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Routes_Scaffold(
-      breakpointType: Util_BreakpointType.constrained,
+      breakpointType: IntenralUtil_BreakpointType.constrained,
       scaffold: FScaffold(
         header: const ResetPasswordLinkSent_Header(),
         content: ResetPasswordLinkSent_Listener_StatusChange(

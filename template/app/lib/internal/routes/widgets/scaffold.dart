@@ -10,12 +10,12 @@ class Routes_Scaffold extends StatelessWidget {
     super.key,
   });
 
-  final Util_BreakpointType breakpointType;
+  final IntenralUtil_BreakpointType breakpointType;
   final FScaffold scaffold;
 
   @override
   Widget build(BuildContext context) {
-    final horizontalInset = Util_Breakpoints.getHorizontalInset(
+    final horizontalInset = InternalUtil_Breakpoints.getHorizontalInset(
       breakpointType: breakpointType,
       context: context,
     );

@@ -13,6 +13,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import '../external/effect_providers/all.dart';
 import '../external/effect_providers/mixpanel/route_observer.dart';
 import '../external/repositories/all.dart';
+import '../external/theme/theme.dart';
 import '../internal/blocs/auth/bloc.dart';
 import '../internal/blocs/auth/state.dart';
 import '../internal/i18n/translations.g.dart';
@@ -25,8 +26,7 @@ final _log = Logger('app_builder');
 Future<Widget> appBuilder({
   required Key key,
   required AppLocale appLocale,
-  required ThemeData materialThemeData,
-  required FThemeData foruiThemeData,
+  required ExternalTheme theme,
   required String? accessToken,
   required String? deepLinkFragmentOverride,
   required AllEffectProviders effectProviders,
@@ -65,7 +65,7 @@ Future<Widget> appBuilder({
   final deepLinkHandler = DeepLinkHandler(
     appNavigatorKey: appNavigatorKey,
     authBloc: authBloc,
-    foruiThemeData: foruiThemeData,
+    foruiThemeData: theme.foruiThemeData,
   );
 
   return TranslationProvider(
@@ -73,8 +73,7 @@ Future<Widget> appBuilder({
       key: key,
       deepLinkFragmentOverride: deepLinkFragmentOverride,
       deepLinkHandler: deepLinkHandler,
-      materialThemeData: materialThemeData,
-      foruiThemeData: foruiThemeData,
+      theme: theme,
       authBloc: authBloc,
       appRouter: appRouter,
       effectProviders: effectProviders,
@@ -87,8 +86,7 @@ class App extends StatelessWidget {
   const App({
     required this.deepLinkFragmentOverride,
     required this.deepLinkHandler,
-    required this.materialThemeData,
-    required this.foruiThemeData,
+    required this.theme,
     required this.authBloc,
     required this.appRouter,
     required this.effectProviders,
@@ -98,8 +96,7 @@ class App extends StatelessWidget {
 
   final String? deepLinkFragmentOverride;
   final DeepLinkHandler deepLinkHandler;
-  final ThemeData materialThemeData;
-  final FThemeData foruiThemeData;
+  final ExternalTheme theme;
   final AuthBloc authBloc;
   final AllEffectProviders effectProviders;
   final AllRepositories repositories;
@@ -118,10 +115,10 @@ class App extends StatelessWidget {
           BlocProvider.value(value: authBloc),
         ],
         child: MaterialApp.router(
-          theme: materialThemeData,
+          theme: theme.materialThemeData,
           builder: (context, child) {
             return FTheme(
-              data: foruiThemeData,
+              data: theme.foruiThemeData,
               child: child ?? const FScaffold(content: SizedBox()),
             );
           },

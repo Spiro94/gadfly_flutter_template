@@ -2,11 +2,11 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../external/repositories/auth/repository.dart';
-import '../base_class.dart';
+import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
-class SignUpBloc extends Base_Bloc<SignUpEvent, SignUpState> {
+class SignUpBloc extends Blocs_Base<SignUpEvent, SignUpState> {
   SignUpBloc({
     required AuthRepository authRepository,
   })  : _authRepository = authRepository,

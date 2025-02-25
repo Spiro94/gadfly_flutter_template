@@ -1,5 +1,3 @@
-// coverage:ignore-file
-
 part of '../theme.dart';
 
 const _radiusTokens = ThemeRadiusTokens(

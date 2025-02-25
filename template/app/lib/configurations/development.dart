@@ -1,5 +1,3 @@
-// coverage:ignore-file
-
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart' as logging;
 
@@ -16,8 +14,7 @@ void main() {
   final configuration = AppConfiguration(
     appLocale: AppLocale.en,
     logLevel: logging.Level.ALL,
-    materialThemeData: materialThemeData_light,
-    foruiThemeData: foruiThemeData_light,
+    theme: ExternalThemes.lightTheme,
     deepLinkBaseUri: kIsWeb
         ? 'http://$siteHost:3000'
         : 'com.gadfly361.gadflyfluttertemplate.deep://deeplink-callback',

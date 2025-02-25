@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../util/abstracts/base_provider.dart';
 import 'configuration.dart';
 
-class SupabaseClientProvider extends UtilAbstract_BaseProvider {
+class SupabaseClientProvider extends ExternalUtilAbstract_BaseProvider {
   SupabaseClientProvider({
     required this.configuration,
   });

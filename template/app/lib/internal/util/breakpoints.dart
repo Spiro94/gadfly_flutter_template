@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
-enum Util_BreakpointType {
+enum IntenralUtil_BreakpointType {
   constrained,
   unconstrained,
 }
 
-class Util_Breakpoints {
+class InternalUtil_Breakpoints {
   static double getContentWidth({
-    required Util_BreakpointType breakpointType,
+    required IntenralUtil_BreakpointType breakpointType,
     required BuildContext context,
   }) {
     final breakpoints = context.theme.breakpoints;
     final width = MediaQuery.sizeOf(context).width;
 
     switch (breakpointType) {
-      case Util_BreakpointType.constrained:
+      case IntenralUtil_BreakpointType.constrained:
         return switch (width) {
           _ when width > breakpoints.xl2 => breakpoints.md,
           _ when width > breakpoints.xl => breakpoints.md,
@@ -25,7 +25,7 @@ class Util_Breakpoints {
           _ => width,
         };
 
-      case Util_BreakpointType.unconstrained:
+      case IntenralUtil_BreakpointType.unconstrained:
         return switch (width) {
           _ => width,
         };
@@ -33,7 +33,7 @@ class Util_Breakpoints {
   }
 
   static double getHorizontalInset({
-    required Util_BreakpointType breakpointType,
+    required IntenralUtil_BreakpointType breakpointType,
     required BuildContext context,
   }) {
     final width = MediaQuery.sizeOf(context).width;

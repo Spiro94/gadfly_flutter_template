@@ -8,12 +8,12 @@ import 'base_provider.dart';
 /// providers in a single class. The [getList] method is used to initialize the
 /// providers in [appRunner]. The [createProviders] method is used in
 /// [appBuilder].
-abstract class UtilAbstract_BaseProviders {
-  const UtilAbstract_BaseProviders();
+abstract class ExternalUtilAbstract_BaseProviders {
+  const ExternalUtilAbstract_BaseProviders();
 
-  List<UtilAbstract_BaseProvider> getList();
+  List<ExternalUtilAbstract_BaseProvider> getList();
 
-  List<RepositoryProvider<UtilAbstract_BaseProvider>> createProviders();
+  List<RepositoryProvider<ExternalUtilAbstract_BaseProvider>> createProviders();
 
   Future<void> initialize() async {
     await Future.forEach(getList(), (r) async {

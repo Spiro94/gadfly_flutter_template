@@ -4,7 +4,7 @@ import '../../client_providers/sentry/client_provider.dart';
 import '../../effect_providers/mixpanel/provider.dart';
 import '../../util/abstracts/base_provider.dart';
 
-class AuthRepository extends UtilAbstract_BaseProvider {
+class AuthRepository extends ExternalUtilAbstract_BaseProvider {
   AuthRepository({
     required String deepLinkBaseUri,
     required MixpanelEffectProvider mixpanelEffectProvider,

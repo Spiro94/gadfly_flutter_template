@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'dart:convert';
 import 'dart:developer' as developer;
 
@@ -7,18 +9,19 @@ import 'package:logging/logging.dart';
 import '../../shared/mixins/logging.dart';
 import '../../shared/models/bloc_devtools_extension_log_record.dart';
 
-class AppBlocObserver extends BlocObserver with SharedMixin_Logging {
-  AppBlocObserver() {
+class Blocs_Observer extends BlocObserver with SharedMixin_Logging {
+  Blocs_Observer() {
     _initializeLogger();
     developer.postEvent('ext.bde_bloc_devtools.reset', {});
   }
 
-  final _devtoolsLogRecords = <BlocDevtoolsExtension_LogRecord>[];
+  final _devtoolsLogRecords = <SharedModel_BlocDevtoolsExtension_LogRecord>[];
 
   void _initializeLogger() {
     Logger.root.level = Level.ALL;
     Logger.root.onRecord.listen((record) {
-      final yoLogRecord = BlocDevtoolsExtension_LogRecord(logRecord: record);
+      final yoLogRecord =
+          SharedModel_BlocDevtoolsExtension_LogRecord(logRecord: record);
       _devtoolsLogRecords.add(yoLogRecord);
     });
   }

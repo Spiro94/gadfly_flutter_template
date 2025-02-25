@@ -13,7 +13,7 @@ class ResetPasswordLinkSent_Guard extends AutoRouteGuard
     log.info('email: $email');
     if (email != null &&
         email.isNotEmpty &&
-        Util_Validators.isEmailValid(Uri.decodeComponent(email))) {
+        InternalUtil_Validators.isEmailValid(Uri.decodeComponent(email))) {
       resolver.next();
     } else {
       // coverage:ignore-start

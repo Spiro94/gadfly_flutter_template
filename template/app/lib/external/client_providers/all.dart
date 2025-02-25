@@ -8,7 +8,7 @@ import 'supabase/client_provider.dart';
 
 /// When adding a new client provider, be sure to add it to:
 /// - [getList]
-class AllClientProviders extends UtilAbstract_BaseProviders {
+class AllClientProviders extends ExternalUtilAbstract_BaseProviders {
   AllClientProviders({
     required this.sentryClientProvider,
     required this.supabaseClientProvider,
@@ -18,7 +18,7 @@ class AllClientProviders extends UtilAbstract_BaseProviders {
   final SupabaseClientProvider supabaseClientProvider;
 
   @override
-  List<UtilAbstract_BaseProvider> getList() => [
+  List<ExternalUtilAbstract_BaseProvider> getList() => [
         sentryClientProvider,
         supabaseClientProvider,
       ];
@@ -26,7 +26,8 @@ class AllClientProviders extends UtilAbstract_BaseProviders {
   /// Client Providers are not passed into [appBuilder], and therefore this
   /// list can be empty.
   @override
-  List<RepositoryProvider<UtilAbstract_BaseProvider>> createProviders() => [
-        // Do not add anything here. This is intentionally empty.
-      ];
+  List<RepositoryProvider<ExternalUtilAbstract_BaseProvider>>
+      createProviders() => [
+            // Do not add anything here. This is intentionally empty.
+          ];
 }

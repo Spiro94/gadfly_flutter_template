@@ -29,7 +29,7 @@ class EmailVerificationLinkSent_Page extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Routes_Scaffold(
-      breakpointType: Util_BreakpointType.constrained,
+      breakpointType: IntenralUtil_BreakpointType.constrained,
       scaffold: FScaffold(
         header: const EmailVerificationLinkSent_Header(),
         content: SingleChildScrollView(

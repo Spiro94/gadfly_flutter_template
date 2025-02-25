@@ -1,6 +1,5 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter/material.dart';
-import 'package:forui/forui.dart';
 import 'package:gadfly_flutter_template/external/effect_providers/all.dart';
 import 'package:gadfly_flutter_template/external/repositories/all.dart';
 import 'package:gadfly_flutter_template/external/theme/theme.dart';
@@ -24,8 +23,7 @@ List<MockedApp> createdMockedApps({
         mocks: MocksContainer(),
         accessToken: hasAccessToken ? 'fakeAccessToken' : null,
         deepLinkOverride: deepLinkOverride,
-        materialThemeData: materialThemeData_light,
-        foruiThemeData: foruiThemeData_light,
+        theme: ExternalThemes.lightTheme,
       ),
       MockedApp(
         key: const Key('zincDark'),
@@ -33,8 +31,7 @@ List<MockedApp> createdMockedApps({
         mocks: MocksContainer(),
         accessToken: hasAccessToken ? 'fakeAccessToken' : null,
         deepLinkOverride: deepLinkOverride,
-        materialThemeData: materialThemeData_dark,
-        foruiThemeData: foruiThemeData_dark,
+        theme: ExternalThemes.darkTheme,
       ),
     ];
 
@@ -45,16 +42,14 @@ class MockedApp extends FTMockedApp<MocksContainer> {
     required super.mocks,
     required String? accessToken,
     required String? deepLinkOverride,
-    required ThemeData materialThemeData,
-    required FThemeData foruiThemeData,
+    required ExternalTheme theme,
   }) : super(
           appBuilder: () async => await testAppBuilder(
             key: key,
             mocks: mocks,
             accessToken: accessToken,
             deepLinkOverride: deepLinkOverride,
-            materialThemeData: materialThemeData,
-            foruiThemeData: foruiThemeData,
+            theme: theme,
           ),
         );
 }

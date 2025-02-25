@@ -18,7 +18,7 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return const Routes_Scaffold(
-      breakpointType: Util_BreakpointType.constrained,
+      breakpointType: IntenralUtil_BreakpointType.constrained,
       scaffold: FScaffold(
         header: Home_Header(),
         content: SingleChildScrollView(

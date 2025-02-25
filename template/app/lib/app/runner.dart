@@ -77,7 +77,7 @@ Future<void> appRunner({
 
   // Setup Bloc Observer
   // Reminder that this should be after logging is set up
-  Bloc.observer = AppBlocObserver();
+  Bloc.observer = Blocs_Observer();
 
   // Get access token if there is one
   final accessToken = clientProviders
@@ -99,8 +99,7 @@ Future<void> appRunner({
         key: const Key('app'),
         deepLinkFragmentOverride: null,
         appLocale: configuration.appLocale,
-        materialThemeData: configuration.materialThemeData,
-        foruiThemeData: configuration.foruiThemeData,
+        theme: configuration.theme,
         accessToken: accessToken,
         effectProviders: effectProviders,
         repositories: repositories,

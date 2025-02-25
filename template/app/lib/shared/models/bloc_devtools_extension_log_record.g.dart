@@ -6,8 +6,8 @@ part of 'bloc_devtools_extension_log_record.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$BlocDevtoolsExtension_LogRecordToJson(
-        BlocDevtoolsExtension_LogRecord instance) =>
+Map<String, dynamic> _$SharedModel_BlocDevtoolsExtension_LogRecordToJson(
+        SharedModel_BlocDevtoolsExtension_LogRecord instance) =>
     <String, dynamic>{
       'level': instance.level,
       'loggerName': instance.loggerName,

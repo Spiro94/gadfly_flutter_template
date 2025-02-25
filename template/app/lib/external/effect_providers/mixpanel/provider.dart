@@ -1,5 +1,3 @@
-// coverage:ignore-file
-
 import 'dart:async';
 
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';

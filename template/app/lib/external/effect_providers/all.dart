@@ -10,7 +10,7 @@ import 'mixpanel/provider.dart';
 /// - [createProviders]
 ///   - Make sure to add the concrete type to `RepositoryProvider<ConcreteType>`
 ///     otherwise it will register the base class.
-class AllEffectProviders extends UtilAbstract_BaseProviders {
+class AllEffectProviders extends ExternalUtilAbstract_BaseProviders {
   const AllEffectProviders({
     required this.authChangeEffectProvider,
     required this.mixpanelEffectProvider,

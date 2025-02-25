@@ -8,17 +8,38 @@ part 'tokens/extensions.dart';
 part 'tokens/radius.dart';
 part 'tokens/spacing.dart';
 
-final materialThemeData_light = ThemeData(
+class ExternalTheme {
+  ExternalTheme({
+    required this.materialThemeData,
+    required this.foruiThemeData,
+  });
+
+  final ThemeData materialThemeData;
+  final FThemeData foruiThemeData;
+}
+
+class ExternalThemes {
+  static ExternalTheme get lightTheme => ExternalTheme(
+        materialThemeData: _materialThemeData_light,
+        foruiThemeData: _foruiThemeData_light,
+      );
+  static ExternalTheme get darkTheme => ExternalTheme(
+        materialThemeData: _materialThemeData_dark,
+        foruiThemeData: _foruiThemeData_dark,
+      );
+}
+
+final _materialThemeData_light = ThemeData(
   useMaterial3: true,
   extensions: const [_tokenExtensions],
-  scaffoldBackgroundColor: foruiThemeData_light.scaffoldStyle.backgroundColor,
+  scaffoldBackgroundColor: _foruiThemeData_light.scaffoldStyle.backgroundColor,
 );
 
-final materialThemeData_dark = materialThemeData_light.copyWith(
-  scaffoldBackgroundColor: foruiThemeData_dark.scaffoldStyle.backgroundColor,
+final _materialThemeData_dark = _materialThemeData_light.copyWith(
+  scaffoldBackgroundColor: _foruiThemeData_dark.scaffoldStyle.backgroundColor,
 );
 
-final foruiThemeData_light = FThemes.zinc.light.copyWith(
+final _foruiThemeData_light = FThemes.zinc.light.copyWith(
   textFieldStyle: FThemes.zinc.light.textFieldStyle.copyWith(
     errorStyle: FThemes.zinc.light.textFieldStyle.errorStyle.copyWith(
       labelTextStyle:
@@ -31,7 +52,7 @@ final foruiThemeData_light = FThemes.zinc.light.copyWith(
   ),
 );
 
-final foruiThemeData_dark = FThemes.zinc.dark.copyWith(
+final _foruiThemeData_dark = FThemes.zinc.dark.copyWith(
   textFieldStyle: FThemes.zinc.dark.textFieldStyle.copyWith(
     errorStyle: FThemes.zinc.dark.textFieldStyle.errorStyle.copyWith(
       labelTextStyle:

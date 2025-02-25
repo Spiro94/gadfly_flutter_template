@@ -31,7 +31,7 @@ class ResetPassword_Page extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Routes_Scaffold(
-      breakpointType: Util_BreakpointType.constrained,
+      breakpointType: IntenralUtil_BreakpointType.constrained,
       scaffold: FScaffold(
         header: const ResetPassword_Header(),
         content: ResetPassword_Listener_StatusChange(
