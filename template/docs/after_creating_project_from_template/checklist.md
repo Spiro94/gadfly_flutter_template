@@ -172,6 +172,9 @@ export SITE_HOST="192.168.0.00"
 # Used in `supabase/config.toml`
 export SITE_URL_HTTP="http://$SITE_HOST:3000"
 export SITE_URL_HTTPS="https://$SITE_HOST:3000"
+
+# Used in `supabase/functions/`
+export EDGE_FUNCTION_SECRET="my-edge-function-secret" # needs to match `supabase/seed.sql`
 ```
 
 **Note**: The reason we have both a `.env` file and `.envrc` file is because supabase's `config.toml` file expects environment variables in `.env`, while direnv expects environment variables in `.envrc`. So we have decided to define our environment variables in `.env` and source them from `.envrc`. As a consequence, we are only ignoring `.env` from version control.
