@@ -8,6 +8,8 @@ class MixpanelEffect_Fake with SharedMixin_Logging implements MixpanelEffect {
     required String? email,
   }) {
     log.info('set user');
+    log.fine('sub: $sub');
+    log.fine('email: $email');
   }
 
   @override

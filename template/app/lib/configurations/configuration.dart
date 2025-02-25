@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:logging/logging.dart' as logging;
 
+import '../external/client_providers/sentry/configuration.dart';
 import '../external/client_providers/supabase/configuration.dart';
 import '../external/effect_providers/mixpanel/configuration.dart';
 import '../internal/i18n/translations.g.dart';
@@ -31,9 +32,11 @@ class AppConfiguration {
 
 class ClientProvidersConfigurations {
   ClientProvidersConfigurations({
+    required this.sentry,
     required this.supabase,
   });
 
+  final SentryClientProviderConfiguration? sentry;
   final SupabaseClientProviderConfiguration supabase;
 }
 

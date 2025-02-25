@@ -60,6 +60,12 @@ class AuthBloc extends Base_Bloc<AuthEvent, AuthState>
         accessToken: event.accessToken,
       ),
     );
+
+    try {
+      await _authRepository.updatesUsersInClients();
+    } catch (e) {
+      log.warning(e);
+    }
   }
 
   Future<void> _onAccessTokenRemoved(
@@ -76,6 +82,12 @@ class AuthBloc extends Base_Bloc<AuthEvent, AuthState>
         accessToken: null,
       ),
     );
+
+    try {
+      await _authRepository.updatesUsersInClients();
+    } catch (e) {
+      log.warning(e);
+    }
   }
 
   Future<void> _getAccessTokenFromUri(

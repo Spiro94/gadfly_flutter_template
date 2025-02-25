@@ -83,6 +83,14 @@ We use mocktail for testing. This helps us mock a class an change the response o
 
 We use recase to change the naming convention of something. For example from FooBar (i.e. PascalCase) to foo_bar (i.e. snake_case).
 
+## [sentry_flutter](https://pub.dev/packages/sentry_flutter)
+
+We use sentry_flutter for error reporting.
+
+## [sentry_logging](https://pub.dev/packages/sentry_logging)
+
+We use sentry_logging to send and logs that are above warning to Sentry.
+
 ## [shadcn_flutter](https://pub.dev/packages/shadcn_flutter)
 
 We use this package as a component library. When working with designers, they can roughly use shadcn in Figma and that will be a close approximation of what this library offers. Flutter has several other shadcn ports, but this one feels the most complete, despite not having the most github stars.

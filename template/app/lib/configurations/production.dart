@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart' as logging;
 
 import '../app/runner.dart';
+import '../external/client_providers/sentry/configuration.dart';
 import '../external/client_providers/supabase/configuration.dart';
 import '../external/effect_providers/mixpanel/configuration.dart';
 import '../external/theme/theme.dart';
@@ -22,6 +23,11 @@ void main() {
         ? 'CHANGE_ME'
         : 'com.gadfly361.gadflyfluttertemplate.deep://deeplink-callback',
     clientProvidersConfigurations: ClientProvidersConfigurations(
+      sentry: const SentryClientProviderConfiguration(
+        dsn: 'CHANGE_ME',
+        environment: 'production',
+        tracesSampleRate: 0,
+      ),
       supabase: const SupabaseClientProviderConfiguration(
         url: 'CHANGE_ME',
         anonKey: '''CHANGE_ME''',

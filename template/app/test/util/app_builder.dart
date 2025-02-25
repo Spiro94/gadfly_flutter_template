@@ -23,7 +23,6 @@ FutureOr<Widget> testAppBuilder({
     materialThemeData: materialThemeData,
     foruiThemeData: foruiThemeData,
     accessToken: accessToken,
-    clientProviders: mocks.clientProviders,
     effectProviders: mocks.effectProviders,
     repositories: mocks.repositories,
   );

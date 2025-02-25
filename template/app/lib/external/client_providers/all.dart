@@ -1,32 +1,32 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../app/builder.dart';
 import '../util/abstracts/base_provider.dart';
 import '../util/abstracts/base_providers.dart';
+import 'sentry/client_provider.dart';
 import 'supabase/client_provider.dart';
 
 /// When adding a new client provider, be sure to add it to:
 /// - [getList]
-/// - [createProviders]
-///   - Make sure to add the concrete type to `RepositoryProvider<ConcreteType>`
-///     otherwise it will register the base class.
 class AllClientProviders extends UtilAbstract_BaseProviders {
   AllClientProviders({
+    required this.sentryClientProvider,
     required this.supabaseClientProvider,
   });
 
+  final SentryClientProvider sentryClientProvider;
   final SupabaseClientProvider supabaseClientProvider;
 
   @override
   List<UtilAbstract_BaseProvider> getList() => [
+        sentryClientProvider,
         supabaseClientProvider,
       ];
 
+  /// Client Providers are not passed into [appBuilder], and therefore this
+  /// list can be empty.
   @override
-  List<RepositoryProvider<UtilAbstract_BaseProvider>> createProviders() {
-    return [
-      RepositoryProvider<SupabaseClientProvider>.value(
-        value: supabaseClientProvider,
-      ),
-    ];
-  }
+  List<RepositoryProvider<UtilAbstract_BaseProvider>> createProviders() => [
+        // Do not add anything here. This is intentionally empty.
+      ];
 }

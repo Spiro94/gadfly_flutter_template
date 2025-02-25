@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 import '../configurations/configuration.dart';
 import '../external/client_providers/all.dart';
+import '../external/client_providers/sentry/client_provider.dart';
 import '../external/client_providers/supabase/client_provider.dart';
 import '../external/effect_providers/all.dart';
 import '../external/effect_providers/auth_change/provider.dart';
@@ -23,15 +25,27 @@ import 'builder.dart';
 Future<void> appRunner({
   required AppConfiguration configuration,
 }) async {
-  // Set up logging (1 of 2)
+  // Set up logging
   _setUpLogging(logLevel: configuration.logLevel);
+
+  final log = Logger('app_runner');
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  final sessionId = const Uuid().v4();
+  // If flutter error, log severe
+  FlutterError.onError = (details) {
+    log.severe(details.exceptionAsString(), details.exception, details.stack);
+  };
+
+  // Create initial sessionId
+  final initialSessionId = const Uuid().v4();
 
   // Create and initialize client providers
   final clientProviders = AllClientProviders(
+    sentryClientProvider: SentryClientProvider(
+      initialSessionId: initialSessionId,
+      configuration: configuration.clientProvidersConfigurations.sentry,
+    ),
     supabaseClientProvider: SupabaseClientProvider(
       configuration: configuration.clientProvidersConfigurations.supabase,
     ),
@@ -44,21 +58,18 @@ Future<void> appRunner({
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
     mixpanelEffectProvider: MixpanelEffectProvider(
-      sessionId: sessionId,
+      initialSessionId: initialSessionId,
       configuration: configuration.effectProvidersConfigurations.mixpanel,
     ),
   );
   await effectProviders.initialize();
 
-  // Set up logging again (2 of 2)
-  // Note: we are setting up logging a second time, because supabase is adding
-  // its own logging listener and we want to stop it and replace it with ours.
-  _setUpLogging(logLevel: configuration.logLevel);
-
   // Create and initialize repositories
   final repositories = AllRepositories(
     authRepository: AuthRepository(
       deepLinkBaseUri: configuration.deepLinkBaseUri,
+      mixpanelEffectProvider: effectProviders.mixpanelEffectProvider,
+      sentryClientProvider: clientProviders.sentryClientProvider,
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
   );
@@ -72,16 +83,29 @@ Future<void> appRunner({
   final accessToken = clientProviders
       .supabaseClientProvider.client.auth.currentSession?.accessToken;
 
-  final app = await appBuilder(
-    key: const Key('app'),
-    deepLinkFragmentOverride: null,
-    appLocale: configuration.appLocale,
-    materialThemeData: configuration.materialThemeData,
-    foruiThemeData: configuration.foruiThemeData,
-    accessToken: accessToken,
-    clientProviders: clientProviders,
-    effectProviders: effectProviders,
-    repositories: repositories,
+  // If an access token exists, then update the users in clients
+  if (accessToken != null && accessToken.isNotEmpty) {
+    try {
+      await repositories.authRepository.updatesUsersInClients();
+    } catch (e) {
+      log.warning(e);
+    }
+  }
+
+  final app = SentryWidget(
+    child: DefaultAssetBundle(
+      bundle: SentryAssetBundle(),
+      child: await appBuilder(
+        key: const Key('app'),
+        deepLinkFragmentOverride: null,
+        appLocale: configuration.appLocale,
+        materialThemeData: configuration.materialThemeData,
+        foruiThemeData: configuration.foruiThemeData,
+        accessToken: accessToken,
+        effectProviders: effectProviders,
+        repositories: repositories,
+      ),
+    ),
   );
   runApp(app);
 }

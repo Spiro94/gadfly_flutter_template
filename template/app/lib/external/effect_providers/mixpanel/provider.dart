@@ -13,11 +13,11 @@ import 'effect_fake.dart';
 class MixpanelEffectProvider extends Base_EffectProvider<MixpanelEffect>
     with SharedMixin_Logging {
   MixpanelEffectProvider({
-    required this.sessionId,
+    required this.initialSessionId,
     required this.configuration,
   });
 
-  final String sessionId;
+  final String initialSessionId;
   final MixpanelEffectProviderConfiguration configuration;
   late final Mixpanel? _mixpanel;
 
@@ -36,7 +36,7 @@ class MixpanelEffectProvider extends Base_EffectProvider<MixpanelEffect>
 
   @override
   Future<void> init() async {
-    log.info('sessionId: $sessionId');
+    log.info('sessionId: $initialSessionId');
 
     if (configuration.token != null && configuration.token!.isNotEmpty) {
       _mixpanel = await Mixpanel.init(
@@ -48,8 +48,14 @@ class MixpanelEffectProvider extends Base_EffectProvider<MixpanelEffect>
 
       await _mixpanel!.registerSuperProperties({
         'environment': configuration.environment,
-        'session_id': sessionId,
       });
+      await setSessionId(sessionId: initialSessionId);
     }
+  }
+
+  Future<void> setSessionId({required String sessionId}) async {
+    await _mixpanel!.registerSuperProperties({
+      'session_id': sessionId,
+    });
   }
 }

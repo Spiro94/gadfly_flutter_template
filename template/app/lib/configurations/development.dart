@@ -22,6 +22,7 @@ void main() {
         ? 'http://$siteHost:3000'
         : 'com.gadfly361.gadflyfluttertemplate.deep://deeplink-callback',
     clientProvidersConfigurations: ClientProvidersConfigurations(
+      sentry: null,
       supabase: const SupabaseClientProviderConfiguration(
         url: 'http://$siteHost:54321',
         anonKey:

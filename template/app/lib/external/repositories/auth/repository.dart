@@ -1,15 +1,23 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../client_providers/sentry/client_provider.dart';
+import '../../effect_providers/mixpanel/provider.dart';
 import '../../util/abstracts/base_provider.dart';
 
 class AuthRepository extends UtilAbstract_BaseProvider {
   AuthRepository({
     required String deepLinkBaseUri,
+    required MixpanelEffectProvider mixpanelEffectProvider,
+    required SentryClientProvider sentryClientProvider,
     required SupabaseClient supabaseClient,
   })  : _deepLinkBaseUri = deepLinkBaseUri,
+        _mixpanelEffectProvider = mixpanelEffectProvider,
+        _sentryClientProvider = sentryClientProvider,
         _supabaseClient = supabaseClient;
 
   final String _deepLinkBaseUri;
+  final MixpanelEffectProvider _mixpanelEffectProvider;
+  final SentryClientProvider _sentryClientProvider;
   final SupabaseClient _supabaseClient;
   String get _signUpRedirectUrl => '''$_deepLinkBaseUri/#/deep/verify-email/''';
   String get _resetPasswordRedirectUrl =>
@@ -17,6 +25,19 @@ class AuthRepository extends UtilAbstract_BaseProvider {
 
   @override
   Future<void> init() async {}
+
+  Future<void> updatesUsersInClients() async {
+    final user = getCurrentUser();
+    final email = user?.email;
+    final id = user?.id;
+
+    await _sentryClientProvider.setUserId(userId: id);
+    _mixpanelEffectProvider.getEffect().setUser(sub: id, email: email);
+  }
+
+  User? getCurrentUser() {
+    return _supabaseClient.auth.currentUser;
+  }
 
   Future<void> signIn({
     required String email,

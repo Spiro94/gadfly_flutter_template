@@ -119,6 +119,11 @@ void main() {
       await tester.screenshot(
         description: 'mock auth state change',
         arrangeBeforeActions: (arrange) {
+          when(
+            () => arrange.mocks.repositories.authRepository
+                .updatesUsersInClients(),
+          ).thenAnswer((_) async {});
+
           arrange.mocks.effects.authChangeEffect.streamController?.add(
             supabase.AuthState(
               supabase.AuthChangeEvent.signedIn,

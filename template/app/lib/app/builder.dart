@@ -8,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:forui/forui.dart';
 import 'package:logging/logging.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
-import '../external/client_providers/all.dart';
 import '../external/effect_providers/all.dart';
 import '../external/effect_providers/mixpanel/route_observer.dart';
 import '../external/repositories/all.dart';
@@ -29,7 +29,6 @@ Future<Widget> appBuilder({
   required FThemeData foruiThemeData,
   required String? accessToken,
   required String? deepLinkFragmentOverride,
-  required AllClientProviders clientProviders,
   required AllEffectProviders effectProviders,
   required AllRepositories repositories,
 }) async {
@@ -78,7 +77,6 @@ Future<Widget> appBuilder({
       foruiThemeData: foruiThemeData,
       authBloc: authBloc,
       appRouter: appRouter,
-      clientProviders: clientProviders,
       effectProviders: effectProviders,
       repositories: repositories,
     ),
@@ -93,7 +91,6 @@ class App extends StatelessWidget {
     required this.foruiThemeData,
     required this.authBloc,
     required this.appRouter,
-    required this.clientProviders,
     required this.effectProviders,
     required this.repositories,
     super.key,
@@ -104,7 +101,6 @@ class App extends StatelessWidget {
   final ThemeData materialThemeData;
   final FThemeData foruiThemeData;
   final AuthBloc authBloc;
-  final AllClientProviders clientProviders;
   final AllEffectProviders effectProviders;
   final AllRepositories repositories;
 
@@ -114,7 +110,6 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        ...clientProviders.createProviders(),
         ...effectProviders.createProviders(),
         ...repositories.createProviders(),
       ],
@@ -161,6 +156,7 @@ class App extends StatelessWidget {
                 mixpanelEffect:
                     effectProviders.mixpanelEffectProvider.getEffect(),
               ),
+              SentryNavigatorObserver(),
             ],
           ),
         ),

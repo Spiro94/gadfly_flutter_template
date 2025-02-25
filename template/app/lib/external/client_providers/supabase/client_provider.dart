@@ -14,11 +14,10 @@ class SupabaseClientProvider extends UtilAbstract_BaseProvider {
 
   @override
   Future<void> init() async {
-    log.info('init');
-
     await Supabase.initialize(
       url: configuration.url,
       anonKey: configuration.anonKey,
+      debug: false,
     );
   }
 }

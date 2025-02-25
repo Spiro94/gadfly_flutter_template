@@ -1,14 +1,12 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:gadfly_flutter_template/external/client_providers/all.dart';
 import 'package:gadfly_flutter_template/external/effect_providers/all.dart';
 import 'package:gadfly_flutter_template/external/repositories/all.dart';
 import 'package:gadfly_flutter_template/external/theme/theme.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../app_builder.dart';
-import 'client_providers.dart';
 import 'effect_providers.dart';
 import 'effects/all.dart';
 import 'effects/auth_change_effect.dart';
@@ -62,10 +60,6 @@ class MockedApp extends FTMockedApp<MocksContainer> {
 }
 
 class MocksContainer {
-  final clientProviders = AllClientProviders(
-    supabaseClientProvider: MockSupabaseClientProvider(),
-  );
-
   final repositories = AllRepositories(authRepository: MockAuthRepository());
 
   final effectProviders = AllEffectProviders(
