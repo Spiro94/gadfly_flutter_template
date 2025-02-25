@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../external/theme/theme.dart';
 import '../../../../../shared/mixins/logging.dart';
 import '../../../../blocs/reset_password/bloc.dart';
 import '../../../../blocs/reset_password/events.dart';
-import '../../../../theme/theme.dart';
 import 'button_submit.dart';
 import 'input_email.dart';
 

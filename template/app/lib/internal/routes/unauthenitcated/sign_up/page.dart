@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 
 import '../../../../external/repositories/auth/repository.dart';
+import '../../../../external/theme/theme.dart';
 import '../../../blocs/sign_up/bloc.dart';
-import '../../../theme/theme.dart';
 import '../../../util/breakpoints.dart';
 import '../../widgets/scaffold.dart';
 import 'widgets/form_sign_up.dart';

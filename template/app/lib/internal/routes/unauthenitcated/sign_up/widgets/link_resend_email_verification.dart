@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 
+import '../../../../../external/theme/theme.dart';
 import '../../../../blocs/sign_up/bloc.dart';
 import '../../../../blocs/sign_up/events.dart';
 import '../../../../i18n/translations.g.dart';
-import '../../../../theme/theme.dart';
 import 'input_email.dart';
 
 class SignUp_Link_ResendEmailVerification extends StatelessWidget {

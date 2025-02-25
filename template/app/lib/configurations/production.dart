@@ -2,11 +2,12 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart' as logging;
+
 import '../app/runner.dart';
 import '../external/client_providers/supabase/configuration.dart';
 import '../external/effect_providers/mixpanel/configuration.dart';
+import '../external/theme/theme.dart';
 import '../internal/i18n/translations.g.dart';
-import '../internal/theme/theme.dart';
 import 'configuration.dart';
 
 // TODO: update CHANGE_ME lines

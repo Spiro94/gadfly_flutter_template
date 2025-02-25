@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
+import '../../../../../external/theme/theme.dart';
 import '../../../../i18n/translations.g.dart';
-import '../../../../theme/theme.dart';
 import '../../../router.dart';
 
 class SignIn_Link_SignUp extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
-import '../../../../theme/theme.dart';
+import '../../../../../external/theme/theme.dart';
 import '../../../../util/breakpoints.dart';
 import '../../../widgets/scaffold.dart';
 import 'widgets/header.dart';

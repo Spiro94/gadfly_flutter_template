@@ -4,7 +4,7 @@ import 'package:forui/forui.dart';
 import 'package:gadfly_flutter_template/external/client_providers/all.dart';
 import 'package:gadfly_flutter_template/external/effect_providers/all.dart';
 import 'package:gadfly_flutter_template/external/repositories/all.dart';
-import 'package:gadfly_flutter_template/internal/theme/theme.dart';
+import 'package:gadfly_flutter_template/external/theme/theme.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../app_builder.dart';

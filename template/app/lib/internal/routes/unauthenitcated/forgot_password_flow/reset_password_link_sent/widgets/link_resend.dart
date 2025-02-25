@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 
+import '../../../../../../external/theme/theme.dart';
 import '../../../../../blocs/reset_password/bloc.dart';
 import '../../../../../blocs/reset_password/events.dart';
 import '../../../../../i18n/translations.g.dart';
-import '../../../../../theme/theme.dart';
 
 class ResetPasswordLinkSent_Link_Resend extends StatelessWidget {
   const ResetPasswordLinkSent_Link_Resend({
