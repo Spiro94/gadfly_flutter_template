@@ -12,9 +12,20 @@
       "type": "promptString"
     },
     {
+      "id": "migrationVersion",
+      "description": "Migration Version (e.g. 20250224210135):",
+      "type": "promptString"
+    },
+    {
       "id": "functionName",
       "description": "Function name:",
       "type": "promptString"
+    },
+    {
+      "id": "diffSchemas",
+      "description": "Schemas (e.g. auth,public,storage):",
+      "type": "promptString",
+      "default": "auth,public,storage"
     },
   ],
   "tasks": [
@@ -251,6 +262,32 @@
       }
     },
     {
+      "label": "[Supabase] db diff (local)",
+      "type": "shell",
+      "group": "build",
+      "command": "zsh",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/db_diff_local.sh",
+        "'${input:diffSchemas}'",
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "[Supabase] db diff (linked)",
+      "type": "shell",
+      "group": "build",
+      "command": "zsh",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/db_diff_linked.sh",
+        "'${input:diffSchemas}'",
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
       "label": "[Supabase] Functions New",
       "type": "shell",
       "group": "build",
@@ -280,6 +317,18 @@
       "dependsOrder": "sequence"
     },
     {
+      "label": "[Supabase] Migration List",
+      "type": "shell",
+      "group": "build",
+      "command": "bash",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/migration_list.sh"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
       "label": "[Supabase] Migration Up",
       "type": "shell",
       "group": "build",
@@ -299,6 +348,32 @@
       "args": [
         "${workspaceFolder}/.vscode/tasks/supabase/migration_new.sh",
         "'${input:migrationName}'",
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "[Supabase] Migration Repair (Applied)",
+      "type": "shell",
+      "group": "build",
+      "command": "zsh",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/migration_repair_applied.sh",
+        "'${input:migrationVersion}'",
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "[Supabase] Migration Repair (Reverted)",
+      "type": "shell",
+      "group": "build",
+      "command": "zsh",
+      "args": [
+        "${workspaceFolder}/.vscode/tasks/supabase/migration_repair_reverted.sh",
+        "'${input:migrationVersion}'",
       ],
       "options": {
         "cwd": "${workspaceFolder}"
