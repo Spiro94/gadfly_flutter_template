@@ -6,20 +6,20 @@ part of 'state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SignInState _$SignInStateFromJson(Map<String, dynamic> json) => SignInState(
-      status: $enumDecode(_$SignInStatusEnumMap, json['status']),
+SignIn_State _$SignIn_StateFromJson(Map<String, dynamic> json) => SignIn_State(
+      status: $enumDecode(_$SignIn_StatusEnumMap, json['status']),
       errorMessage: json['errorMessage'] as String?,
     );
 
-Map<String, dynamic> _$SignInStateToJson(SignInState instance) =>
+Map<String, dynamic> _$SignIn_StateToJson(SignIn_State instance) =>
     <String, dynamic>{
-      'status': _$SignInStatusEnumMap[instance.status]!,
+      'status': _$SignIn_StatusEnumMap[instance.status]!,
       'errorMessage': instance.errorMessage,
     };
 
-const _$SignInStatusEnumMap = {
-  SignInStatus.idle: 'idle',
-  SignInStatus.signInInProgress: 'signInInProgress',
-  SignInStatus.signInError: 'signInError',
-  SignInStatus.signInSuccess: 'signInSuccess',
+const _$SignIn_StatusEnumMap = {
+  SignIn_Status.idle: 'idle',
+  SignIn_Status.signInInProgress: 'signInInProgress',
+  SignIn_Status.signInError: 'signInError',
+  SignIn_Status.signInSuccess: 'signInSuccess',
 };

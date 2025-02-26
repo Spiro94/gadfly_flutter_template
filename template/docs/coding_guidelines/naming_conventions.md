@@ -1,5 +1,64 @@
 # Naming Conventions
 
+## Client Providers
+
+A Client Provider will have the name of:
+
+```dart
+ClientProviderName_ClientProvider
+```
+
+For example:
+
+```dart
+Sentry_ClientProvider
+Supabase_ClientProvider
+```
+
+## Effect Providers
+
+An Effect Provider will have the name of:
+
+```dart
+EffectProviderName_EffectProvider
+```
+
+For example:
+
+```dart
+Mixpanel_EffectProvider
+Now_EffectProvider
+```
+
+## Effects
+
+An Effect will have the name of:
+
+```dart
+EffectName_Effect
+```
+
+For example:
+
+```dart
+Mixpanel_Effect
+Now_Effect
+```
+
+## Repositories
+
+A Repository will have the name of:
+
+```dart
+RepositoryName_Repository
+```
+
+For example:
+
+```dart
+Auth_Repository
+```
+
 ## Blocs
 
 Blocs are made up of 3 files:
@@ -13,15 +72,15 @@ Blocs are made up of 3 files:
 The Bloc itself will have the name of:
 
 ```dart
-BlocNameBloc
+BlocName_Bloc
 ```
 
 For example:
 
 ```dart
-AuthBloc
-ResetPasswordBloc
-SignUpBloc
+Auth_Bloc
+ResetPassword_Bloc
+SignUp_Bloc
 ```
 
 ### Event Name
@@ -29,15 +88,15 @@ SignUpBloc
 An Event will have the name of:
 
 ```dart
-BlocNameEvent_ActionName
+BlocName_Event_ActionName
 ```
 
 For example:
 
 ```dart
-AuthEvent_GetAccessTokenFromUri
-SignInEvent_SignIn
-SignUpEvent_ResendEmailVerificationlink
+Auth_Event_GetAccessTokenFromUri
+SignIn_Event_SignIn
+SignUp_Event_ResendEmailVerificationlink
 ```
 
 ### State Name
@@ -45,29 +104,29 @@ SignUpEvent_ResendEmailVerificationlink
 The State will have the name of:
 
 ```dart
-BlocNameState
+BlocName_State
 ```
 
 For example:
 
 ```dart
-AuthState
-ResetPasswordState
-SignUpState
+Auth_State
+ResetPassword_State
+SignUp_State
 ```
 
 All States will have an accompanying Status that will have the name of:
 
 ```dart
-BlocNameStatus
+BlocName_Status
 ```
 
 For example:
 
 ```dart
-AuthStatus
-ResetPasswordStatus
-SignUpStatus
+Auth_Status
+ResetPassword_Status
+SignUp_Status
 ```
 
 ## Widgets

@@ -59,8 +59,8 @@ class _SignUp_Form_SignUpState extends State<SignUp_Form_SignUp> {
     }
     widget.log.info('form valid');
 
-    context.read<SignUpBloc>().add(
-          SignUpEvent_SignUp(
+    context.read<SignUp_Bloc>().add(
+          SignUp_Event_SignUp(
             email: emailController.text,
             password: passwordController.text,
           ),

@@ -18,15 +18,15 @@ class SignUp_Listener_StatusChange extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignUpBloc, SignUpState>(
+    return BlocListener<SignUp_Bloc, SignUp_State>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         final scaffoldBackgroundColor =
             context.theme.scaffoldStyle.backgroundColor;
 
         switch (state.status) {
-          case SignUpStatus.signUpError:
-          case SignUpStatus.resendEmailVerificationLinkError:
+          case SignUp_Status.signUpError:
+          case SignUp_Status.resendEmailVerificationLinkError:
             if (state.errorMessage != null) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -39,7 +39,7 @@ class SignUp_Listener_StatusChange extends StatelessWidget {
               );
             }
 
-          case SignUpStatus.resendEmailVerificationLinkSuccess:
+          case SignUp_Status.resendEmailVerificationLinkSuccess:
             {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -55,12 +55,12 @@ class SignUp_Listener_StatusChange extends StatelessWidget {
               );
               context.router.navigate(const EmailVerificationLinkSent_Route());
             }
-          case SignUpStatus.signUpSuccess:
+          case SignUp_Status.signUpSuccess:
             context.router.navigate(const EmailVerificationLinkSent_Route());
 
-          case SignUpStatus.signUpInProgress:
-          case SignUpStatus.resendEmailVerificationLinkInProgress:
-          case SignUpStatus.idle:
+          case SignUp_Status.signUpInProgress:
+          case SignUp_Status.resendEmailVerificationLinkInProgress:
+          case SignUp_Status.idle:
             break;
         }
       },

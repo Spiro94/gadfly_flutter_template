@@ -33,7 +33,7 @@ class _Routes_Listener_SupabaseAuthChangeState
     authChangeEffect.listen((authState) {
       widget.log.info(authState.event.name);
 
-      final authBloc = context.read<AuthBloc>();
+      final authBloc = context.read<Auth_Bloc>();
 
       switch (authState.event) {
         case AuthChangeEvent.initialSession:
@@ -45,7 +45,7 @@ class _Routes_Listener_SupabaseAuthChangeState
           break;
         case AuthChangeEvent.signedIn:
           authBloc.add(
-            AuthEvent_AccessTokenAdded(
+            Auth_Event_AccessTokenAdded(
               accessToken: authState.session!.accessToken,
             ),
           );
@@ -55,7 +55,7 @@ class _Routes_Listener_SupabaseAuthChangeState
         case AuthChangeEvent.userDeleted:
         case AuthChangeEvent.signedOut:
           authBloc.add(
-            AuthEvent_AccessTokenRemoved(),
+            Auth_Event_AccessTokenRemoved(),
           );
       }
     });

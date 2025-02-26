@@ -6,44 +6,44 @@ import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
-class SignInBloc extends Blocs_Base<SignInEvent, SignInState> {
-  SignInBloc({
+class SignIn_Bloc extends Bloc_Base<SignIn_Event, SignIn_State> {
+  SignIn_Bloc({
     required Auth_Repository authRepository,
   })  : _authRepository = authRepository,
         super(
-          const SignInState(
-            status: SignInStatus.idle,
+          const SignIn_State(
+            status: SignIn_Status.idle,
             errorMessage: null,
           ),
         ) {
-    on<SignInEvent_SignIn>(_onSignIn, transformer: sequential());
+    on<SignIn_Event_SignIn>(_onSignIn, transformer: sequential());
   }
 
   final Auth_Repository _authRepository;
 
   Future<void> _onSignIn(
-    SignInEvent_SignIn event,
-    Emitter<SignInState> emit,
+    SignIn_Event_SignIn event,
+    Emitter<SignIn_State> emit,
   ) async {
-    emit(state.copyWith(status: SignInStatus.signInInProgress));
+    emit(state.copyWith(status: SignIn_Status.signInInProgress));
     try {
       await _authRepository.signIn(
         email: event.email.trim(),
         password: event.password.trim(),
       );
-      emit(state.copyWith(status: SignInStatus.signInSuccess));
+      emit(state.copyWith(status: SignIn_Status.signInSuccess));
     } catch (e, stackTrace) {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          status: SignInStatus.signInError,
+          status: SignIn_Status.signInError,
           setErrorMessage: e.toString,
         ),
       );
     } finally {
       emit(
         state.copyWith(
-          status: SignInStatus.idle,
+          status: SignIn_Status.idle,
           setErrorMessage: () => null,
         ),
       );

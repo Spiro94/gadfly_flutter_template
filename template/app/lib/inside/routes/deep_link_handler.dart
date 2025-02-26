@@ -9,15 +9,15 @@ import '../../shared/mixins/logging.dart';
 import '../blocs/auth/bloc.dart';
 import '../blocs/auth/events.dart';
 
-class DeepLinkHandler with SharedMixin_Logging {
-  const DeepLinkHandler({
+class Routes_DeepLinkHandler with SharedMixin_Logging {
+  const Routes_DeepLinkHandler({
     required this.appNavigatorKey,
     required this.authBloc,
     required this.foruiThemeData,
   });
 
   final GlobalKey<NavigatorState> appNavigatorKey;
-  final AuthBloc authBloc;
+  final Auth_Bloc authBloc;
   final FThemeData foruiThemeData;
 
   Future<DeepLink> handleDeepLink({
@@ -161,7 +161,7 @@ class DeepLinkHandler with SharedMixin_Logging {
       final errorMessageCompleter = Completer<String?>();
 
       authBloc.add(
-        AuthEvent_GetAccessTokenFromUri(
+        Auth_Event_GetAccessTokenFromUri(
           errorMessageCompleter: errorMessageCompleter,
           uri: uri,
           code: code,

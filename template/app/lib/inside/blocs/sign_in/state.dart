@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'state.g.dart';
 
-enum SignInStatus {
+enum SignIn_Status {
   idle,
 
   // signIn
@@ -13,20 +13,20 @@ enum SignInStatus {
 }
 
 @JsonSerializable()
-class SignInState extends Equatable {
-  const SignInState({
+class SignIn_State extends Equatable {
+  const SignIn_State({
     required this.status,
     required this.errorMessage,
   });
 
-  final SignInStatus status;
+  final SignIn_Status status;
   final String? errorMessage;
 
-  SignInState copyWith({
-    SignInStatus? status,
+  SignIn_State copyWith({
+    SignIn_Status? status,
     String? Function()? setErrorMessage,
   }) {
-    return SignInState(
+    return SignIn_State(
       status: status ?? this.status,
       errorMessage: setErrorMessage != null ? setErrorMessage() : errorMessage,
     );
@@ -39,9 +39,9 @@ class SignInState extends Equatable {
       ];
 
   // coverage:ignore-start
-  factory SignInState.fromJson(Map<String, dynamic> json) =>
-      _$SignInStateFromJson(json);
+  factory SignIn_State.fromJson(Map<String, dynamic> json) =>
+      _$SignIn_StateFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SignInStateToJson(this);
+  Map<String, dynamic> toJson() => _$SignIn_StateToJson(this);
   // coverage:ignore-end
 }

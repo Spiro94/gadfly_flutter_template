@@ -108,7 +108,7 @@ void main() {
         expectedEvents: [
           '[sign_up_form_sign_up] INFO: submitting form',
           '[sign_up_form_sign_up] INFO: form valid',
-          SignUpEvent_SignUp,
+          SignUp_Event_SignUp,
           '[ANALYTIC] [page]: EmailVerificationLinkSent_Route',
         ],
       );
@@ -428,7 +428,7 @@ void main() {
           expectedEvents: [
             '[sign_up_form_sign_up] INFO: submitting form',
             '[sign_up_form_sign_up] INFO: form valid',
-            SignUpEvent_SignUp,
+            SignUp_Event_SignUp,
             '[sign_up_bloc] WARNING: SignUpEvent_SignUp: error',
           ],
         );

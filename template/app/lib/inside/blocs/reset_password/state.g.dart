@@ -6,34 +6,35 @@ part of 'state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ResetPasswordState _$ResetPasswordStateFromJson(Map<String, dynamic> json) =>
-    ResetPasswordState(
-      status: $enumDecode(_$ResetPasswordStatusEnumMap, json['status']),
+ResetPassword_State _$ResetPassword_StateFromJson(Map<String, dynamic> json) =>
+    ResetPassword_State(
+      status: $enumDecode(_$ResetPassword_StatusEnumMap, json['status']),
       errorMessage: json['errorMessage'] as String?,
       email: json['email'] as String?,
     );
 
-Map<String, dynamic> _$ResetPasswordStateToJson(ResetPasswordState instance) =>
+Map<String, dynamic> _$ResetPassword_StateToJson(
+        ResetPassword_State instance) =>
     <String, dynamic>{
-      'status': _$ResetPasswordStatusEnumMap[instance.status]!,
+      'status': _$ResetPassword_StatusEnumMap[instance.status]!,
       'errorMessage': instance.errorMessage,
       'email': instance.email,
     };
 
-const _$ResetPasswordStatusEnumMap = {
-  ResetPasswordStatus.idle: 'idle',
-  ResetPasswordStatus.sendResetPasswordLinkInProgress:
+const _$ResetPassword_StatusEnumMap = {
+  ResetPassword_Status.idle: 'idle',
+  ResetPassword_Status.sendResetPasswordLinkInProgress:
       'sendResetPasswordLinkInProgress',
-  ResetPasswordStatus.sendResetPasswordLinkError: 'sendResetPasswordLinkError',
-  ResetPasswordStatus.sendResetPasswordLinkSuccess:
+  ResetPassword_Status.sendResetPasswordLinkError: 'sendResetPasswordLinkError',
+  ResetPassword_Status.sendResetPasswordLinkSuccess:
       'sendResetPasswordLinkSuccess',
-  ResetPasswordStatus.resendResetPasswordLinkInProgress:
+  ResetPassword_Status.resendResetPasswordLinkInProgress:
       'resendResetPasswordLinkInProgress',
-  ResetPasswordStatus.resendResetPasswordLinkError:
+  ResetPassword_Status.resendResetPasswordLinkError:
       'resendResetPasswordLinkError',
-  ResetPasswordStatus.resendResetPasswordLinkSuccess:
+  ResetPassword_Status.resendResetPasswordLinkSuccess:
       'resendResetPasswordLinkSuccess',
-  ResetPasswordStatus.resetPasswordInProgress: 'resetPasswordInProgress',
-  ResetPasswordStatus.resetPasswordError: 'resetPasswordError',
-  ResetPasswordStatus.resetPasswordSuccess: 'resetPasswordSuccess',
+  ResetPassword_Status.resetPasswordInProgress: 'resetPasswordInProgress',
+  ResetPassword_Status.resetPasswordError: 'resetPasswordError',
+  ResetPassword_Status.resetPasswordSuccess: 'resetPasswordSuccess',
 };

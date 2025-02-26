@@ -13,7 +13,7 @@ class Home_Icon_SignOut extends StatelessWidget {
   Widget build(BuildContext context) {
     return FButton.icon(
       onPress: () {
-        context.read<AuthBloc>().add(AuthEvent_SignOut());
+        context.read<Auth_Bloc>().add(Auth_Event_SignOut());
       },
       child: FAssets.icons.logOut(),
     );

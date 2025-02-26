@@ -112,7 +112,7 @@ void main() {
         expectedEvents: [
           '[sign_in_form_sign_in] INFO: submitting form',
           '[sign_in_form_sign_in] INFO: form valid',
-          SignInEvent_SignIn,
+          SignIn_Event_SignIn,
         ],
       );
 
@@ -147,7 +147,7 @@ void main() {
         },
         expectedEvents: [
           '[routes_listener_supabase_auth_change] INFO: signedIn',
-          AuthEvent_AccessTokenAdded,
+          Auth_Event_AccessTokenAdded,
           '[ANALYTIC] [page]: Home_Route',
         ],
       );
@@ -381,7 +381,7 @@ void main() {
           expectedEvents: [
             '[sign_in_form_sign_in] INFO: submitting form',
             '[sign_in_form_sign_in] INFO: form valid',
-            SignInEvent_SignIn,
+            SignIn_Event_SignIn,
             '[sign_in_bloc] WARNING: SignInEvent_SignIn: error',
           ],
         );

@@ -60,8 +60,8 @@ class _SignIn_Form_SignInState extends State<SignIn_Form_SignIn> {
     }
     widget.log.info('form valid');
 
-    context.read<SignInBloc>().add(
-          SignInEvent_SignIn(
+    context.read<SignIn_Bloc>().add(
+          SignIn_Event_SignIn(
             email: emailController.text,
             password: passwordController.text,
           ),

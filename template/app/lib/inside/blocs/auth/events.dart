@@ -1,20 +1,20 @@
 import 'dart:async';
 
-sealed class AuthEvent {}
+sealed class Auth_Event {}
 
-class AuthEvent_SignOut extends AuthEvent {}
+class Auth_Event_SignOut extends Auth_Event {}
 
-class AuthEvent_AccessTokenAdded extends AuthEvent {
-  AuthEvent_AccessTokenAdded({
+class Auth_Event_AccessTokenAdded extends Auth_Event {
+  Auth_Event_AccessTokenAdded({
     required this.accessToken,
   });
   final String accessToken;
 }
 
-class AuthEvent_AccessTokenRemoved extends AuthEvent {}
+class Auth_Event_AccessTokenRemoved extends Auth_Event {}
 
-class AuthEvent_GetAccessTokenFromUri extends AuthEvent {
-  AuthEvent_GetAccessTokenFromUri({
+class Auth_Event_GetAccessTokenFromUri extends Auth_Event {
+  Auth_Event_GetAccessTokenFromUri({
     required this.errorMessageCompleter,
     required this.code,
     required this.refreshToken,

@@ -1,7 +1,7 @@
-abstract class SignUpEvent {}
+abstract class SignUp_Event {}
 
-class SignUpEvent_SignUp extends SignUpEvent {
-  SignUpEvent_SignUp({
+class SignUp_Event_SignUp extends SignUp_Event {
+  SignUp_Event_SignUp({
     required this.email,
     required this.password,
   });
@@ -10,8 +10,8 @@ class SignUpEvent_SignUp extends SignUpEvent {
   final String password;
 }
 
-class SignUpEvent_ResendEmailVerificationLink extends SignUpEvent {
-  SignUpEvent_ResendEmailVerificationLink({
+class SignUp_Event_ResendEmailVerificationLink extends SignUp_Event {
+  SignUp_Event_ResendEmailVerificationLink({
     required this.email,
   });
 

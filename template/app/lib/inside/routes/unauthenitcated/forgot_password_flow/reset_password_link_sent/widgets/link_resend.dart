@@ -31,8 +31,8 @@ class ResetPasswordLinkSent_Link_Resend extends StatelessWidget {
           children: [
             FTappable(
               onPress: () {
-                context.read<ResetPasswordBloc>().add(
-                      ResetPasswordEvent_ResendResetPasswordLink(
+                context.read<ResetPassword_Bloc>().add(
+                      ResetPassword_Event_ResendResetPasswordLink(
                         email: email,
                       ),
                     );

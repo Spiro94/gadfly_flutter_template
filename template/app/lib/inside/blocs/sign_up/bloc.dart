@@ -6,21 +6,21 @@ import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
-class SignUpBloc extends Blocs_Base<SignUpEvent, SignUpState> {
-  SignUpBloc({
+class SignUp_Bloc extends Bloc_Base<SignUp_Event, SignUp_State> {
+  SignUp_Bloc({
     required Auth_Repository authRepository,
   })  : _authRepository = authRepository,
         super(
-          const SignUpState(
-            status: SignUpStatus.idle,
+          const SignUp_State(
+            status: SignUp_Status.idle,
             errorMessage: null,
           ),
         ) {
-    on<SignUpEvent_SignUp>(
+    on<SignUp_Event_SignUp>(
       _onSignUp,
       transformer: sequential(),
     );
-    on<SignUpEvent_ResendEmailVerificationLink>(
+    on<SignUp_Event_ResendEmailVerificationLink>(
       _onResendEmailVerificationLink,
       transformer: sequential(),
     );
@@ -29,28 +29,28 @@ class SignUpBloc extends Blocs_Base<SignUpEvent, SignUpState> {
   final Auth_Repository _authRepository;
 
   Future<void> _onSignUp(
-    SignUpEvent_SignUp event,
-    Emitter<SignUpState> emit,
+    SignUp_Event_SignUp event,
+    Emitter<SignUp_State> emit,
   ) async {
-    emit(state.copyWith(status: SignUpStatus.signUpInProgress));
+    emit(state.copyWith(status: SignUp_Status.signUpInProgress));
     try {
       await _authRepository.signUp(
         email: event.email.trim(),
         password: event.password.trim(),
       );
-      emit(state.copyWith(status: SignUpStatus.signUpSuccess));
+      emit(state.copyWith(status: SignUp_Status.signUpSuccess));
     } catch (e, stackTrace) {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          status: SignUpStatus.signUpError,
+          status: SignUp_Status.signUpError,
           setErrorMessage: e.toString,
         ),
       );
     } finally {
       emit(
         state.copyWith(
-          status: SignUpStatus.idle,
+          status: SignUp_Status.idle,
           setErrorMessage: () => null,
         ),
       );
@@ -58,12 +58,12 @@ class SignUpBloc extends Blocs_Base<SignUpEvent, SignUpState> {
   }
 
   Future<void> _onResendEmailVerificationLink(
-    SignUpEvent_ResendEmailVerificationLink event,
-    Emitter<SignUpState> emit,
+    SignUp_Event_ResendEmailVerificationLink event,
+    Emitter<SignUp_State> emit,
   ) async {
     emit(
       state.copyWith(
-        status: SignUpStatus.resendEmailVerificationLinkInProgress,
+        status: SignUp_Status.resendEmailVerificationLinkInProgress,
       ),
     );
     try {
@@ -72,21 +72,21 @@ class SignUpBloc extends Blocs_Base<SignUpEvent, SignUpState> {
       );
       emit(
         state.copyWith(
-          status: SignUpStatus.resendEmailVerificationLinkSuccess,
+          status: SignUp_Status.resendEmailVerificationLinkSuccess,
         ),
       );
     } catch (e, stackTrace) {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          status: SignUpStatus.resendEmailVerificationLinkError,
+          status: SignUp_Status.resendEmailVerificationLinkError,
           setErrorMessage: e.toString,
         ),
       );
     } finally {
       emit(
         state.copyWith(
-          status: SignUpStatus.idle,
+          status: SignUp_Status.idle,
           setErrorMessage: () => null,
         ),
       );

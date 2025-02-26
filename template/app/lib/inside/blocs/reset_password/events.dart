@@ -1,23 +1,23 @@
-abstract class ResetPasswordEvent {}
+abstract class ResetPassword_Event {}
 
-class ResetPasswordEvent_SendResetPasswordLink extends ResetPasswordEvent {
-  ResetPasswordEvent_SendResetPasswordLink({
+class ResetPassword_Event_SendResetPasswordLink extends ResetPassword_Event {
+  ResetPassword_Event_SendResetPasswordLink({
     required this.email,
   });
 
   final String email;
 }
 
-class ResetPasswordEvent_ResendResetPasswordLink extends ResetPasswordEvent {
-  ResetPasswordEvent_ResendResetPasswordLink({
+class ResetPassword_Event_ResendResetPasswordLink extends ResetPassword_Event {
+  ResetPassword_Event_ResendResetPasswordLink({
     required this.email,
   });
 
   final String email;
 }
 
-class ResetPasswordEvent_ResetPassword extends ResetPasswordEvent {
-  ResetPasswordEvent_ResetPassword({
+class ResetPassword_Event_ResetPassword extends ResetPassword_Event {
+  ResetPassword_Event_ResetPassword({
     required this.password,
   });
 

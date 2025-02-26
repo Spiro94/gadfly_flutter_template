@@ -3,19 +3,19 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'state.g.dart';
 
-enum AuthStatus {
+enum Auth_Status {
   unauthentcated,
   authenticated,
 }
 
 @JsonSerializable()
-class AuthState extends Equatable {
-  const AuthState({
+class Auth_State extends Equatable {
+  const Auth_State({
     required this.status,
     required this.accessToken,
   });
 
-  final AuthStatus status;
+  final Auth_Status status;
   final String? accessToken;
 
   @override
@@ -25,9 +25,9 @@ class AuthState extends Equatable {
       ];
 
   // coverage:ignore-start
-  factory AuthState.fromJson(Map<String, dynamic> json) =>
-      _$AuthStateFromJson(json);
+  factory Auth_State.fromJson(Map<String, dynamic> json) =>
+      _$Auth_StateFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AuthStateToJson(this);
+  Map<String, dynamic> toJson() => _$Auth_StateToJson(this);
   // coverage:ignore-end
 }

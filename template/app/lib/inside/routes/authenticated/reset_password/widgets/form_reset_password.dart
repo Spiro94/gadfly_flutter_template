@@ -56,8 +56,8 @@ class _ResetPassword_Form_ResetPasswordState
     }
     widget.log.info('form valid');
 
-    context.read<ResetPasswordBloc>().add(
-          ResetPasswordEvent_ResetPassword(
+    context.read<ResetPassword_Bloc>().add(
+          ResetPassword_Event_ResetPassword(
             password: passwordController.text,
           ),
         );

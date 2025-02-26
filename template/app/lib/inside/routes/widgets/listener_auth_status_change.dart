@@ -16,13 +16,13 @@ class Routes_Listener_AuthStatusChange extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
+    return BlocListener<Auth_Bloc, Auth_State>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         switch (state.status) {
-          case AuthStatus.unauthentcated:
+          case Auth_Status.unauthentcated:
             context.router.root.replaceAll([const SignIn_Route()]);
-          case AuthStatus.authenticated:
+          case Auth_Status.authenticated:
             context.router.root.replaceAll([const Home_Route()]);
         }
       },

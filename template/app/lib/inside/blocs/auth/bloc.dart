@@ -9,26 +9,26 @@ import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
-class AuthBloc extends Blocs_Base<AuthEvent, AuthState>
+class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State>
     with SharedMixin_Logging {
-  AuthBloc({
+  Auth_Bloc({
     required Auth_Repository authRepository,
-    required AuthState initialState,
+    required Auth_State initialState,
   })  : _authRepository = authRepository,
         super(initialState) {
-    on<AuthEvent_SignOut>(
+    on<Auth_Event_SignOut>(
       _onSignOut,
       transformer: sequential(),
     );
-    on<AuthEvent_AccessTokenAdded>(
+    on<Auth_Event_AccessTokenAdded>(
       _onAccessTokenAdded,
       transformer: sequential(),
     );
-    on<AuthEvent_AccessTokenRemoved>(
+    on<Auth_Event_AccessTokenRemoved>(
       _onAccessTokenRemoved,
       transformer: sequential(),
     );
-    on<AuthEvent_GetAccessTokenFromUri>(
+    on<Auth_Event_GetAccessTokenFromUri>(
       _getAccessTokenFromUri,
       transformer: sequential(),
     );
@@ -37,8 +37,8 @@ class AuthBloc extends Blocs_Base<AuthEvent, AuthState>
   final Auth_Repository _authRepository;
 
   Future<void> _onSignOut(
-    AuthEvent_SignOut event,
-    Emitter<AuthState> emit,
+    Auth_Event_SignOut event,
+    Emitter<Auth_State> emit,
   ) async {
     try {
       await _authRepository.signOut();
@@ -50,13 +50,13 @@ class AuthBloc extends Blocs_Base<AuthEvent, AuthState>
   }
 
   Future<void> _onAccessTokenAdded(
-    AuthEvent_AccessTokenAdded event,
-    Emitter<AuthState> emit,
+    Auth_Event_AccessTokenAdded event,
+    Emitter<Auth_State> emit,
   ) async {
     // TODO: validate token
     emit(
-      AuthState(
-        status: AuthStatus.authenticated,
+      Auth_State(
+        status: Auth_Status.authenticated,
         accessToken: event.accessToken,
       ),
     );
@@ -69,16 +69,16 @@ class AuthBloc extends Blocs_Base<AuthEvent, AuthState>
   }
 
   Future<void> _onAccessTokenRemoved(
-    AuthEvent_AccessTokenRemoved event,
-    Emitter<AuthState> emit,
+    Auth_Event_AccessTokenRemoved event,
+    Emitter<Auth_State> emit,
   ) async {
     await _tokenRemoved(emit);
   }
 
-  Future<void> _tokenRemoved(Emitter<AuthState> emit) async {
+  Future<void> _tokenRemoved(Emitter<Auth_State> emit) async {
     emit(
-      const AuthState(
-        status: AuthStatus.unauthentcated,
+      const Auth_State(
+        status: Auth_Status.unauthentcated,
         accessToken: null,
       ),
     );
@@ -91,8 +91,8 @@ class AuthBloc extends Blocs_Base<AuthEvent, AuthState>
   }
 
   Future<void> _getAccessTokenFromUri(
-    AuthEvent_GetAccessTokenFromUri event,
-    Emitter<AuthState> emit,
+    Auth_Event_GetAccessTokenFromUri event,
+    Emitter<Auth_State> emit,
   ) async {
     try {
       final accessToken = await _authRepository.getAccessTokenFromUri(
@@ -102,8 +102,8 @@ class AuthBloc extends Blocs_Base<AuthEvent, AuthState>
       );
 
       emit(
-        AuthState(
-          status: AuthStatus.authenticated,
+        Auth_State(
+          status: Auth_Status.authenticated,
           accessToken: accessToken,
         ),
       );

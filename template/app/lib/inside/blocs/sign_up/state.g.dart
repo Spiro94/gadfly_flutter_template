@@ -6,26 +6,26 @@ part of 'state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SignUpState _$SignUpStateFromJson(Map<String, dynamic> json) => SignUpState(
-      status: $enumDecode(_$SignUpStatusEnumMap, json['status']),
+SignUp_State _$SignUp_StateFromJson(Map<String, dynamic> json) => SignUp_State(
+      status: $enumDecode(_$SignUp_StatusEnumMap, json['status']),
       errorMessage: json['errorMessage'] as String?,
     );
 
-Map<String, dynamic> _$SignUpStateToJson(SignUpState instance) =>
+Map<String, dynamic> _$SignUp_StateToJson(SignUp_State instance) =>
     <String, dynamic>{
-      'status': _$SignUpStatusEnumMap[instance.status]!,
+      'status': _$SignUp_StatusEnumMap[instance.status]!,
       'errorMessage': instance.errorMessage,
     };
 
-const _$SignUpStatusEnumMap = {
-  SignUpStatus.idle: 'idle',
-  SignUpStatus.signUpInProgress: 'signUpInProgress',
-  SignUpStatus.signUpError: 'signUpError',
-  SignUpStatus.signUpSuccess: 'signUpSuccess',
-  SignUpStatus.resendEmailVerificationLinkInProgress:
+const _$SignUp_StatusEnumMap = {
+  SignUp_Status.idle: 'idle',
+  SignUp_Status.signUpInProgress: 'signUpInProgress',
+  SignUp_Status.signUpError: 'signUpError',
+  SignUp_Status.signUpSuccess: 'signUpSuccess',
+  SignUp_Status.resendEmailVerificationLinkInProgress:
       'resendEmailVerificationLinkInProgress',
-  SignUpStatus.resendEmailVerificationLinkError:
+  SignUp_Status.resendEmailVerificationLinkError:
       'resendEmailVerificationLinkError',
-  SignUpStatus.resendEmailVerificationLinkSuccess:
+  SignUp_Status.resendEmailVerificationLinkSuccess:
       'resendEmailVerificationLinkSuccess',
 };

@@ -18,8 +18,8 @@ class ResetPassword_Button_Submit extends StatelessWidget {
   Widget build(BuildContext context) {
     final label = context.t.resetPassword.form.submit.label;
     final isLoading = context.select(
-      (ResetPasswordBloc bloc) =>
-          bloc.state.status == ResetPasswordStatus.resetPasswordInProgress,
+      (ResetPassword_Bloc bloc) =>
+          bloc.state.status == ResetPassword_Status.resetPasswordInProgress,
     );
 
     return FButton(

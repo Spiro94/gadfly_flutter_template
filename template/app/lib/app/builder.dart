@@ -41,30 +41,30 @@ Future<Widget> appBuilder({
   // Set access token if there is one
   _log.fine('access token:\n$accessToken');
   final authState = accessToken != null && accessToken.isNotEmpty
-      ? AuthState(
-          status: AuthStatus.authenticated,
+      ? Auth_State(
+          status: Auth_Status.authenticated,
           accessToken: accessToken,
         )
-      : const AuthState(
-          status: AuthStatus.unauthentcated,
+      : const Auth_State(
+          status: Auth_Status.unauthentcated,
           accessToken: null,
         );
 
   // Special case: create AuthBloc outside of widget tree, because it is
   // required by AppRouter, which needs to be created above the widget tree.
-  final authBloc = AuthBloc(
+  final authBloc = Auth_Bloc(
     authRepository: repositories.authRepository,
     initialState: authState,
   );
 
   final appNavigatorKey = GlobalKey<NavigatorState>();
 
-  final appRouter = AppRouter(
+  final router = Routes_router(
     authBloc: authBloc,
     navigatorKey: appNavigatorKey,
   );
 
-  final deepLinkHandler = DeepLinkHandler(
+  final deepLinkHandler = Routes_DeepLinkHandler(
     appNavigatorKey: appNavigatorKey,
     authBloc: authBloc,
     foruiThemeData: theme.foruiThemeData,
@@ -77,7 +77,7 @@ Future<Widget> appBuilder({
       deepLinkHandler: deepLinkHandler,
       theme: theme,
       authBloc: authBloc,
-      appRouter: appRouter,
+      router: router,
       effectProviders: effectProviders,
       repositories: repositories,
     ),
@@ -90,20 +90,20 @@ class App extends StatelessWidget {
     required this.deepLinkHandler,
     required this.theme,
     required this.authBloc,
-    required this.appRouter,
+    required this.router,
     required this.effectProviders,
     required this.repositories,
     super.key,
   });
 
   final String? deepLinkFragmentOverride;
-  final DeepLinkHandler deepLinkHandler;
+  final Routes_DeepLinkHandler deepLinkHandler;
   final OutsideTheme theme;
-  final AuthBloc authBloc;
+  final Auth_Bloc authBloc;
   final EffectProviders_All effectProviders;
   final Repositories_All repositories;
 
-  final AppRouter appRouter;
+  final Routes_router router;
 
   @override
   Widget build(BuildContext context) {
@@ -139,11 +139,11 @@ class App extends StatelessWidget {
           ],
           locale: TranslationProvider.of(context).flutterLocale,
           supportedLocales: AppLocaleUtils.supportedLocales,
-          routeInformationParser: appRouter.defaultRouteParser(
+          routeInformationParser: router.defaultRouteParser(
             includePrefixMatches: true,
           ),
           routerDelegate: AutoRouterDelegate(
-            appRouter,
+            router,
             rebuildStackOnDeepLink: true,
             deepLinkBuilder: (deepLink) => deepLinkHandler.handleDeepLink(
               deepLink: deepLink,

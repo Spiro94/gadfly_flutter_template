@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'state.g.dart';
 
-enum ResetPasswordStatus {
+enum ResetPassword_Status {
   idle,
 
   // sendResetPasswordLink
@@ -23,23 +23,23 @@ enum ResetPasswordStatus {
 }
 
 @JsonSerializable()
-class ResetPasswordState extends Equatable {
-  const ResetPasswordState({
+class ResetPassword_State extends Equatable {
+  const ResetPassword_State({
     required this.status,
     required this.errorMessage,
     required this.email,
   });
 
-  final ResetPasswordStatus status;
+  final ResetPassword_Status status;
   final String? errorMessage;
   final String? email;
 
-  ResetPasswordState copyWith({
-    ResetPasswordStatus? status,
+  ResetPassword_State copyWith({
+    ResetPassword_Status? status,
     String? Function()? setErrorMessage,
     String? Function()? setEmail,
   }) {
-    return ResetPasswordState(
+    return ResetPassword_State(
       status: status ?? this.status,
       errorMessage: setErrorMessage != null ? setErrorMessage() : errorMessage,
       email: setEmail != null ? setEmail() : email,
@@ -54,9 +54,9 @@ class ResetPasswordState extends Equatable {
       ];
 
   // coverage:ignore-start
-  factory ResetPasswordState.fromJson(Map<String, dynamic> json) =>
-      _$ResetPasswordStateFromJson(json);
+  factory ResetPassword_State.fromJson(Map<String, dynamic> json) =>
+      _$ResetPassword_StateFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ResetPasswordStateToJson(this);
+  Map<String, dynamic> toJson() => _$ResetPassword_StateToJson(this);
   // coverage:ignore-end
 }

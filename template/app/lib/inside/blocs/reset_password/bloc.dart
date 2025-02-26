@@ -6,27 +6,27 @@ import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
-class ResetPasswordBloc
-    extends Blocs_Base<ResetPasswordEvent, ResetPasswordState> {
-  ResetPasswordBloc({
+class ResetPassword_Bloc
+    extends Bloc_Base<ResetPassword_Event, ResetPassword_State> {
+  ResetPassword_Bloc({
     required Auth_Repository authRepository,
   })  : _authRepository = authRepository,
         super(
-          const ResetPasswordState(
-            status: ResetPasswordStatus.idle,
+          const ResetPassword_State(
+            status: ResetPassword_Status.idle,
             errorMessage: null,
             email: null,
           ),
         ) {
-    on<ResetPasswordEvent_SendResetPasswordLink>(
+    on<ResetPassword_Event_SendResetPasswordLink>(
       _onSendResetPasswordLink,
       transformer: sequential(),
     );
-    on<ResetPasswordEvent_ResendResetPasswordLink>(
+    on<ResetPassword_Event_ResendResetPasswordLink>(
       _onResendResetPasswordLink,
       transformer: sequential(),
     );
-    on<ResetPasswordEvent_ResetPassword>(
+    on<ResetPassword_Event_ResetPassword>(
       _onResetPassword,
       transformer: sequential(),
     );
@@ -35,12 +35,12 @@ class ResetPasswordBloc
   final Auth_Repository _authRepository;
 
   Future<void> _onSendResetPasswordLink(
-    ResetPasswordEvent_SendResetPasswordLink event,
-    Emitter<ResetPasswordState> emit,
+    ResetPassword_Event_SendResetPasswordLink event,
+    Emitter<ResetPassword_State> emit,
   ) async {
     emit(
       state.copyWith(
-        status: ResetPasswordStatus.sendResetPasswordLinkInProgress,
+        status: ResetPassword_Status.sendResetPasswordLinkInProgress,
       ),
     );
     try {
@@ -50,7 +50,7 @@ class ResetPasswordBloc
       );
       emit(
         state.copyWith(
-          status: ResetPasswordStatus.sendResetPasswordLinkSuccess,
+          status: ResetPassword_Status.sendResetPasswordLinkSuccess,
           setEmail: () => email,
         ),
       );
@@ -58,14 +58,14 @@ class ResetPasswordBloc
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          status: ResetPasswordStatus.sendResetPasswordLinkError,
+          status: ResetPassword_Status.sendResetPasswordLinkError,
           setErrorMessage: e.toString,
         ),
       );
     } finally {
       emit(
         state.copyWith(
-          status: ResetPasswordStatus.idle,
+          status: ResetPassword_Status.idle,
           setErrorMessage: () => null,
           setEmail: () => null,
         ),
@@ -74,12 +74,12 @@ class ResetPasswordBloc
   }
 
   Future<void> _onResendResetPasswordLink(
-    ResetPasswordEvent_ResendResetPasswordLink event,
-    Emitter<ResetPasswordState> emit,
+    ResetPassword_Event_ResendResetPasswordLink event,
+    Emitter<ResetPassword_State> emit,
   ) async {
     emit(
       state.copyWith(
-        status: ResetPasswordStatus.resendResetPasswordLinkInProgress,
+        status: ResetPassword_Status.resendResetPasswordLinkInProgress,
       ),
     );
     try {
@@ -89,7 +89,7 @@ class ResetPasswordBloc
       );
       emit(
         state.copyWith(
-          status: ResetPasswordStatus.resendResetPasswordLinkSuccess,
+          status: ResetPassword_Status.resendResetPasswordLinkSuccess,
           setEmail: () => email,
         ),
       );
@@ -97,14 +97,14 @@ class ResetPasswordBloc
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          status: ResetPasswordStatus.resendResetPasswordLinkError,
+          status: ResetPassword_Status.resendResetPasswordLinkError,
           setErrorMessage: e.toString,
         ),
       );
     } finally {
       emit(
         state.copyWith(
-          status: ResetPasswordStatus.idle,
+          status: ResetPassword_Status.idle,
           setErrorMessage: () => null,
           setEmail: () => null,
         ),
@@ -113,12 +113,12 @@ class ResetPasswordBloc
   }
 
   Future<void> _onResetPassword(
-    ResetPasswordEvent_ResetPassword event,
-    Emitter<ResetPasswordState> emit,
+    ResetPassword_Event_ResetPassword event,
+    Emitter<ResetPassword_State> emit,
   ) async {
     emit(
       state.copyWith(
-        status: ResetPasswordStatus.resetPasswordInProgress,
+        status: ResetPassword_Status.resetPasswordInProgress,
       ),
     );
     try {
@@ -128,21 +128,21 @@ class ResetPasswordBloc
       );
       emit(
         state.copyWith(
-          status: ResetPasswordStatus.resetPasswordSuccess,
+          status: ResetPassword_Status.resetPasswordSuccess,
         ),
       );
     } catch (e, stackTrace) {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
-          status: ResetPasswordStatus.resetPasswordError,
+          status: ResetPassword_Status.resetPasswordError,
           setErrorMessage: e.toString,
         ),
       );
     } finally {
       emit(
         state.copyWith(
-          status: ResetPasswordStatus.idle,
+          status: ResetPassword_Status.idle,
           setErrorMessage: () => null,
           setEmail: () => null,
         ),

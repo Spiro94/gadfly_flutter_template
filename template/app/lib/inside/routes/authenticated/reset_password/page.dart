@@ -20,7 +20,7 @@ class ResetPassword_Page extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return ResetPasswordBloc(
+        return ResetPassword_Bloc(
           authRepository: context.read<Auth_Repository>(),
         );
       },

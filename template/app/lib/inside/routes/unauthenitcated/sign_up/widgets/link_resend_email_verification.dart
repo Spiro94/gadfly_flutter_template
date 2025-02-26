@@ -27,7 +27,7 @@ class SignUp_Link_ResendEmailVerification extends StatelessWidget {
           children: [
             FTappable(
               onPress: () {
-                final signUpBloc = context.read<SignUpBloc>();
+                final signUpBloc = context.read<SignUp_Bloc>();
                 showAdaptiveDialog<void>(
                   context: context,
                   barrierDismissible: true,
@@ -103,8 +103,8 @@ class __DialogState extends State<_Dialog> {
           ),
           onPress: () {
             Navigator.of(context).pop();
-            context.read<SignUpBloc>().add(
-                  SignUpEvent_ResendEmailVerificationLink(
+            context.read<SignUp_Bloc>().add(
+                  SignUp_Event_ResendEmailVerificationLink(
                     email: controller.text,
                   ),
                 );

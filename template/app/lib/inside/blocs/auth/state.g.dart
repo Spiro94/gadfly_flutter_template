@@ -6,17 +6,18 @@ part of 'state.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AuthState _$AuthStateFromJson(Map<String, dynamic> json) => AuthState(
-      status: $enumDecode(_$AuthStatusEnumMap, json['status']),
+Auth_State _$Auth_StateFromJson(Map<String, dynamic> json) => Auth_State(
+      status: $enumDecode(_$Auth_StatusEnumMap, json['status']),
       accessToken: json['accessToken'] as String?,
     );
 
-Map<String, dynamic> _$AuthStateToJson(AuthState instance) => <String, dynamic>{
-      'status': _$AuthStatusEnumMap[instance.status]!,
+Map<String, dynamic> _$Auth_StateToJson(Auth_State instance) =>
+    <String, dynamic>{
+      'status': _$Auth_StatusEnumMap[instance.status]!,
       'accessToken': instance.accessToken,
     };
 
-const _$AuthStatusEnumMap = {
-  AuthStatus.unauthentcated: 'unauthentcated',
-  AuthStatus.authenticated: 'authenticated',
+const _$Auth_StatusEnumMap = {
+  Auth_Status.unauthentcated: 'unauthentcated',
+  Auth_Status.authenticated: 'authenticated',
 };

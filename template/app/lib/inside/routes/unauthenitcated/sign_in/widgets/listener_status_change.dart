@@ -15,11 +15,11 @@ class SignIn_Listener_StatusChange extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignInBloc, SignInState>(
+    return BlocListener<SignIn_Bloc, SignIn_State>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         switch (state.status) {
-          case SignInStatus.signInError:
+          case SignIn_Status.signInError:
             final scaffoldBackgroundColor =
                 context.theme.scaffoldStyle.backgroundColor;
             if (state.errorMessage != null) {
@@ -33,9 +33,9 @@ class SignIn_Listener_StatusChange extends StatelessWidget {
                 ),
               );
             }
-          case SignInStatus.signInInProgress:
-          case SignInStatus.signInSuccess:
-          case SignInStatus.idle:
+          case SignIn_Status.signInInProgress:
+          case SignIn_Status.signInSuccess:
+          case SignIn_Status.idle:
         }
       },
       child: child,

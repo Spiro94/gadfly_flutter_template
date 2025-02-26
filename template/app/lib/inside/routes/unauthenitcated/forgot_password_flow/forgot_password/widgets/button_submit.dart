@@ -18,9 +18,9 @@ class ForgotPassword_Button_Submit extends StatelessWidget {
   Widget build(BuildContext context) {
     final label = context.t.forgotPassword.form.submit.label;
     final isLoading = context.select(
-      (ResetPasswordBloc bloc) =>
+      (ResetPassword_Bloc bloc) =>
           bloc.state.status ==
-          ResetPasswordStatus.sendResetPasswordLinkInProgress,
+          ResetPassword_Status.sendResetPasswordLinkInProgress,
     );
 
     return FButton(

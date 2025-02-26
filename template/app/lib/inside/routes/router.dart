@@ -20,13 +20,13 @@ import 'unauthenitcated/sign_up/page.dart';
 part 'router.gr.dart';
 
 @AutoRouterConfig()
-class AppRouter extends RootStackRouter with SharedMixin_Logging {
-  AppRouter({
+class Routes_router extends RootStackRouter with SharedMixin_Logging {
+  Routes_router({
     required this.authBloc,
     required super.navigatorKey,
   });
 
-  final AuthBloc authBloc;
+  final Auth_Bloc authBloc;
 
   @override
   RouteType get defaultRouteType => const RouteType.material();
@@ -36,7 +36,7 @@ class AppRouter extends RootStackRouter with SharedMixin_Logging {
         AutoRoute(
           path: '/anon',
           page: Unauthenticated_Routes.page,
-          guards: [UnauthenticatedGuard(authBloc: authBloc)],
+          guards: [Unauthenticated_Guard(authBloc: authBloc)],
           children: [
             AutoRoute(
               path: 'sign-in',
@@ -74,7 +74,7 @@ class AppRouter extends RootStackRouter with SharedMixin_Logging {
         AutoRoute(
           path: '/',
           page: Authenticated_Routes.page,
-          guards: [AuthenticatedGuard(authBloc: authBloc)],
+          guards: [Authenticated_Guard(authBloc: authBloc)],
           children: [
             AutoRoute(
               initial: true,

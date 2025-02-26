@@ -20,7 +20,7 @@ class EmailVerificationLinkSent_Page extends StatelessWidget
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return SignUpBloc(authRepository: context.read<Auth_Repository>());
+        return SignUp_Bloc(authRepository: context.read<Auth_Repository>());
       },
       child: this,
     );

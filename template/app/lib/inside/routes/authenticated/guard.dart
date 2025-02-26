@@ -1,22 +1,21 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:logging/logging.dart';
 
+import '../../../shared/mixins/logging.dart';
 import '../../blocs/auth/bloc.dart';
 import '../../blocs/auth/state.dart';
 import '../router.dart';
 
-class AuthenticatedGuard extends AutoRouteGuard {
-  AuthenticatedGuard({required this.authBloc});
+class Authenticated_Guard extends AutoRouteGuard with SharedMixin_Logging {
+  Authenticated_Guard({required this.authBloc});
 
-  final AuthBloc authBloc;
-  final _log = Logger('authenticated_guard');
+  final Auth_Bloc authBloc;
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (authBloc.state.status == AuthStatus.authenticated) {
+    if (authBloc.state.status == Auth_Status.authenticated) {
       resolver.next();
     } else {
-      _log.info('not authenticated');
+      log.info('not authenticated');
       router.root.replaceAll(const [SignIn_Route()]);
     }
   }

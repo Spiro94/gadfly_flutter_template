@@ -18,7 +18,7 @@ class SignUp_Button_Submit extends StatelessWidget {
   Widget build(BuildContext context) {
     final label = context.t.signUp.form.submit.label;
     final isLoading = context.select(
-      (SignUpBloc bloc) => bloc.state.status == SignUpStatus.signUpInProgress,
+      (SignUp_Bloc bloc) => bloc.state.status == SignUp_Status.signUpInProgress,
     );
 
     return FButton(

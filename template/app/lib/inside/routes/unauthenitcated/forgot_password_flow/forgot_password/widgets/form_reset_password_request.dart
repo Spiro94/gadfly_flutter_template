@@ -56,8 +56,8 @@ class _ForgotPassword_Form_ResetPasswordRequestState
     }
     widget.log.info('form valid');
 
-    context.read<ResetPasswordBloc>().add(
-          ResetPasswordEvent_SendResetPasswordLink(
+    context.read<ResetPassword_Bloc>().add(
+          ResetPassword_Event_SendResetPasswordLink(
             email: emailController.text,
           ),
         );

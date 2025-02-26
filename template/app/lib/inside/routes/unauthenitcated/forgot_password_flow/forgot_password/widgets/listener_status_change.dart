@@ -17,12 +17,12 @@ class ForgotPassword_Listener_StatusChange extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ResetPasswordBloc, ResetPasswordState>(
+    return BlocListener<ResetPassword_Bloc, ResetPassword_State>(
       child: child,
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         switch (state.status) {
-          case ResetPasswordStatus.sendResetPasswordLinkError:
+          case ResetPassword_Status.sendResetPasswordLinkError:
             {
               final scaffoldBackgroundColor =
                   context.theme.scaffoldStyle.backgroundColor;
@@ -38,7 +38,7 @@ class ForgotPassword_Listener_StatusChange extends StatelessWidget {
                 );
               }
             }
-          case ResetPasswordStatus.sendResetPasswordLinkSuccess:
+          case ResetPassword_Status.sendResetPasswordLinkSuccess:
             {
               context.router.navigate(
                 ResetPasswordLinkSent_Route(
@@ -46,14 +46,14 @@ class ForgotPassword_Listener_StatusChange extends StatelessWidget {
                 ),
               );
             }
-          case ResetPasswordStatus.sendResetPasswordLinkInProgress:
-          case ResetPasswordStatus.resendResetPasswordLinkInProgress:
-          case ResetPasswordStatus.resendResetPasswordLinkError:
-          case ResetPasswordStatus.resendResetPasswordLinkSuccess:
-          case ResetPasswordStatus.resetPasswordInProgress:
-          case ResetPasswordStatus.resetPasswordError:
-          case ResetPasswordStatus.resetPasswordSuccess:
-          case ResetPasswordStatus.idle:
+          case ResetPassword_Status.sendResetPasswordLinkInProgress:
+          case ResetPassword_Status.resendResetPasswordLinkInProgress:
+          case ResetPassword_Status.resendResetPasswordLinkError:
+          case ResetPassword_Status.resendResetPasswordLinkSuccess:
+          case ResetPassword_Status.resetPasswordInProgress:
+          case ResetPassword_Status.resetPasswordError:
+          case ResetPassword_Status.resetPasswordSuccess:
+          case ResetPassword_Status.idle:
             break;
         }
       },
