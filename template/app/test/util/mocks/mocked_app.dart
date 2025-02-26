@@ -55,9 +55,9 @@ class MockedApp extends FTMockedApp<MocksContainer> {
 }
 
 class MocksContainer {
-  final repositories = AllRepositories(authRepository: MockAuthRepository());
+  final repositories = Repositories_All(authRepository: MockAuthRepository());
 
-  final effectProviders = AllEffectProviders(
+  final effectProviders = EffectProviders_All(
     authChangeEffectProvider: MockAuthChangeEffectProvider(),
     mixpanelEffectProvider: MockMixpanelEffectProvider(),
   );
@@ -66,7 +66,7 @@ class MocksContainer {
     authChangeEffect: MockAuthChangeEffect(),
     // Note: this is a special case where we are returning a Fake instead of a
     // Mock. Normally, we want to exclusively return Mocks.
-    mixpanelEffect: MixpanelEffect_Fake(),
+    mixpanelEffect: Effect_Mixpanel_Fake(),
   );
 
   // As a convenience, we can mock all of the effect providers' getEffect method

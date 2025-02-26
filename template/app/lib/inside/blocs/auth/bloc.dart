@@ -12,7 +12,7 @@ import 'state.dart';
 class AuthBloc extends Blocs_Base<AuthEvent, AuthState>
     with SharedMixin_Logging {
   AuthBloc({
-    required AuthRepository authRepository,
+    required Auth_Repository authRepository,
     required AuthState initialState,
   })  : _authRepository = authRepository,
         super(initialState) {
@@ -34,7 +34,7 @@ class AuthBloc extends Blocs_Base<AuthEvent, AuthState>
     );
   }
 
-  final AuthRepository _authRepository;
+  final Auth_Repository _authRepository;
 
   Future<void> _onSignOut(
     AuthEvent_SignOut event,

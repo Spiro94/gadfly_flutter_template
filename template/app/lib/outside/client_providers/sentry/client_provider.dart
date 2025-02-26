@@ -1,17 +1,17 @@
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 
-import '../../util/abstracts/base_provider.dart';
-import 'configuration.dart';
+import '../base.dart';
+import 'client_provider_configuration.dart';
 
-class SentryClientProvider extends OutsideUtilAbstract_BaseProvider {
-  SentryClientProvider({
+class Sentry_ClientProvider extends ClientProvider_Base {
+  Sentry_ClientProvider({
     required this.initialSessionId,
     required this.configuration,
   });
 
   final String initialSessionId;
-  final SentryClientProviderConfiguration? configuration;
+  final Sentry_ClientProvider_Configuration? configuration;
 
   @override
   Future<void> init() async {

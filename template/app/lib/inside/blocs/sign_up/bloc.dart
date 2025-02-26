@@ -8,7 +8,7 @@ import 'state.dart';
 
 class SignUpBloc extends Blocs_Base<SignUpEvent, SignUpState> {
   SignUpBloc({
-    required AuthRepository authRepository,
+    required Auth_Repository authRepository,
   })  : _authRepository = authRepository,
         super(
           const SignUpState(
@@ -26,7 +26,7 @@ class SignUpBloc extends Blocs_Base<SignUpEvent, SignUpState> {
     );
   }
 
-  final AuthRepository _authRepository;
+  final Auth_Repository _authRepository;
 
   Future<void> _onSignUp(
     SignUpEvent_SignUp event,

@@ -1,14 +1,14 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../util/abstracts/base_provider.dart';
-import 'configuration.dart';
+import '../base.dart';
+import 'client_provider_configuration.dart';
 
-class SupabaseClientProvider extends OutsideUtilAbstract_BaseProvider {
-  SupabaseClientProvider({
+class Supabase_ClientProvider extends ClientProvider_Base {
+  Supabase_ClientProvider({
     required this.configuration,
   });
 
-  final SupabaseClientProviderConfiguration configuration;
+  final Supabase_ClientProvider_Configuration configuration;
 
   SupabaseClient get client => Supabase.instance.client;
 

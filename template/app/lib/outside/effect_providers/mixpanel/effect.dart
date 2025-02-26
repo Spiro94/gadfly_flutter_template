@@ -4,8 +4,8 @@ import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
 import '../../../shared/mixins/logging.dart';
 
-class MixpanelEffect with SharedMixin_Logging {
-  MixpanelEffect({
+class Mixpanel_Effect with SharedMixin_Logging {
+  Mixpanel_Effect({
     required Mixpanel mixpanel,
   }) : _mixpanel = mixpanel;
 

@@ -27,7 +27,7 @@ class TestBlocObserver extends FTBlocObserver<MocksContainer> {
     Logger.root.onRecord.listen(
       (record) {
         if (record.loggerName ==
-            MixpanelEffect_Fake().runtimeType.toString().snakeCase) {
+            Effect_Mixpanel_Fake().runtimeType.toString().snakeCase) {
           mockedApp.events.add(
             '''[ANALYTIC] ${record.message}''',
           );

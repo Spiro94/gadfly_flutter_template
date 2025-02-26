@@ -1,14 +1,14 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../client_providers/sentry/client_provider.dart';
-import '../../effect_providers/mixpanel/provider.dart';
-import '../../util/abstracts/base_provider.dart';
+import '../../effect_providers/mixpanel/effect_provider.dart';
+import '../base.dart';
 
-class AuthRepository extends OutsideUtilAbstract_BaseProvider {
-  AuthRepository({
+class Auth_Repository extends Repository_Base {
+  Auth_Repository({
     required String deepLinkBaseUri,
-    required MixpanelEffectProvider mixpanelEffectProvider,
-    required SentryClientProvider sentryClientProvider,
+    required Mixpanel_EffectProvider mixpanelEffectProvider,
+    required Sentry_ClientProvider sentryClientProvider,
     required SupabaseClient supabaseClient,
   })  : _deepLinkBaseUri = deepLinkBaseUri,
         _mixpanelEffectProvider = mixpanelEffectProvider,
@@ -16,8 +16,8 @@ class AuthRepository extends OutsideUtilAbstract_BaseProvider {
         _supabaseClient = supabaseClient;
 
   final String _deepLinkBaseUri;
-  final MixpanelEffectProvider _mixpanelEffectProvider;
-  final SentryClientProvider _sentryClientProvider;
+  final Mixpanel_EffectProvider _mixpanelEffectProvider;
+  final Sentry_ClientProvider _sentryClientProvider;
   final SupabaseClient _supabaseClient;
   String get _signUpRedirectUrl => '''$_deepLinkBaseUri/#/deep/verify-email/''';
   String get _resetPasswordRedirectUrl =>

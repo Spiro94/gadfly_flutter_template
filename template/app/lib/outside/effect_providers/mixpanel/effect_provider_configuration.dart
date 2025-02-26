@@ -1,5 +1,5 @@
-class MixpanelEffectProviderConfiguration {
-  const MixpanelEffectProviderConfiguration({
+class Mixpanel_EffectProvider_Configuration {
+  const Mixpanel_EffectProvider_Configuration({
     required this.sendEvents,
     required this.token,
     required this.environment,

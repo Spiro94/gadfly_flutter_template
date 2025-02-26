@@ -1,9 +1,9 @@
-import 'package:gadfly_flutter_template/outside/effect_providers/auth_change/provider.dart';
-import 'package:gadfly_flutter_template/outside/effect_providers/mixpanel/provider.dart';
+import 'package:gadfly_flutter_template/outside/effect_providers/auth_change/effect_provider.dart';
+import 'package:gadfly_flutter_template/outside/effect_providers/mixpanel/effect_provider.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockAuthChangeEffectProvider extends Mock
-    implements AuthChangeEffectProvider {}
+    implements AuthChange_EffectProvider {}
 
 class MockMixpanelEffectProvider extends Mock
-    implements MixpanelEffectProvider {}
+    implements Mixpanel_EffectProvider {}

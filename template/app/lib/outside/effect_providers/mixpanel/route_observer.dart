@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 import 'effect.dart';
 
-class MixpanelRouteObserver extends AutoRouteObserver {
-  MixpanelRouteObserver({
+class Mixpanel_Effect_RouteObserver extends AutoRouteObserver {
+  Mixpanel_Effect_RouteObserver({
     required this.mixpanelEffect,
   });
 
-  final MixpanelEffect mixpanelEffect;
+  final Mixpanel_Effect mixpanelEffect;
 
   void _trackPage({
     required Route<dynamic> route,

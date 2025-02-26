@@ -9,7 +9,7 @@ import 'state.dart';
 class ResetPasswordBloc
     extends Blocs_Base<ResetPasswordEvent, ResetPasswordState> {
   ResetPasswordBloc({
-    required AuthRepository authRepository,
+    required Auth_Repository authRepository,
   })  : _authRepository = authRepository,
         super(
           const ResetPasswordState(
@@ -32,7 +32,7 @@ class ResetPasswordBloc
     );
   }
 
-  final AuthRepository _authRepository;
+  final Auth_Repository _authRepository;
 
   Future<void> _onSendResetPasswordLink(
     ResetPasswordEvent_SendResetPasswordLink event,

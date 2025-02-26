@@ -1,7 +1,7 @@
 import '../../../shared/mixins/logging.dart';
 import 'effect.dart';
 
-class MixpanelEffect_Fake with SharedMixin_Logging implements MixpanelEffect {
+class Effect_Mixpanel_Fake with SharedMixin_Logging implements Mixpanel_Effect {
   @override
   void setUser({
     required String? sub,

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../outside/effect_providers/auth_change/effect.dart';
-import '../../../outside/effect_providers/auth_change/provider.dart';
+import '../../../outside/effect_providers/auth_change/effect_provider.dart';
 import '../../../shared/mixins/logging.dart';
 import '../../blocs/auth/bloc.dart';
 import '../../blocs/auth/events.dart';
@@ -24,11 +24,11 @@ class Routes_Listener_SupabaseAuthChange extends StatefulWidget
 
 class _Routes_Listener_SupabaseAuthChangeState
     extends State<Routes_Listener_SupabaseAuthChange> {
-  late final AuthChangeEffect authChangeEffect;
+  late final AuthChange_Effect authChangeEffect;
 
   @override
   void initState() {
-    authChangeEffect = context.read<AuthChangeEffectProvider>().getEffect();
+    authChangeEffect = context.read<AuthChange_EffectProvider>().getEffect();
 
     authChangeEffect.listen((authState) {
       widget.log.info(authState.event.name);

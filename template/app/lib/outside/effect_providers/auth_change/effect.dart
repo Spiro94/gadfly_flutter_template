@@ -3,8 +3,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../shared/mixins/logging.dart';
 
-class AuthChangeEffect with SharedMixin_Logging {
-  AuthChangeEffect({
+class AuthChange_Effect with SharedMixin_Logging {
+  AuthChange_Effect({
     required this.supabaseClient,
   });
 

@@ -9,5 +9,5 @@ class AllMockedEffects {
   });
 
   final MockAuthChangeEffect authChangeEffect;
-  final MixpanelEffect mixpanelEffect;
+  final Mixpanel_Effect mixpanelEffect;
 }

@@ -3,33 +3,33 @@ import 'dart:async';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
 import '../../../shared/mixins/logging.dart';
-import '../base_class.dart';
-import 'configuration.dart';
+import '../base.dart';
 import 'effect.dart';
 import 'effect_fake.dart';
+import 'effect_provider_configuration.dart';
 
-class MixpanelEffectProvider extends Base_EffectProvider<MixpanelEffect>
+class Mixpanel_EffectProvider extends EffectProvider_Base<Mixpanel_Effect>
     with SharedMixin_Logging {
-  MixpanelEffectProvider({
+  Mixpanel_EffectProvider({
     required this.initialSessionId,
     required this.configuration,
   });
 
   final String initialSessionId;
-  final MixpanelEffectProviderConfiguration configuration;
+  final Mixpanel_EffectProvider_Configuration configuration;
   late final Mixpanel? _mixpanel;
 
   @override
-  MixpanelEffect getEffect() {
+  Mixpanel_Effect getEffect() {
     if (configuration.sendEvents &&
         configuration.token != null &&
         configuration.token!.isNotEmpty) {
-      return MixpanelEffect(
+      return Mixpanel_Effect(
         mixpanel: _mixpanel!,
       );
     }
 
-    return MixpanelEffect_Fake();
+    return Effect_Mixpanel_Fake();
   }
 
   @override

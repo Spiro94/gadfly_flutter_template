@@ -31,8 +31,8 @@ Future<Widget> appBuilder({
   required OutsideTheme theme,
   required String? accessToken,
   required String? deepLinkFragmentOverride,
-  required AllEffectProviders effectProviders,
-  required AllRepositories repositories,
+  required EffectProviders_All effectProviders,
+  required Repositories_All repositories,
 }) async {
   // Set locale
   await LocaleSettings.setLocale(appLocale);
@@ -100,8 +100,8 @@ class App extends StatelessWidget {
   final DeepLinkHandler deepLinkHandler;
   final OutsideTheme theme;
   final AuthBloc authBloc;
-  final AllEffectProviders effectProviders;
-  final AllRepositories repositories;
+  final EffectProviders_All effectProviders;
+  final Repositories_All repositories;
 
   final AppRouter appRouter;
 
@@ -151,7 +151,7 @@ class App extends StatelessWidget {
             ),
             navigatorObservers: () => [
               AutoRouteObserver(),
-              MixpanelRouteObserver(
+              Mixpanel_Effect_RouteObserver(
                 mixpanelEffect:
                     effectProviders.mixpanelEffectProvider.getEffect(),
               ),

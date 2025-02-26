@@ -14,7 +14,7 @@ class ForgotPasswordFlow_Router extends StatelessWidget {
     return BlocProvider(
       create: (context) {
         return ResetPasswordBloc(
-          authRepository: context.read<AuthRepository>(),
+          authRepository: context.read<Auth_Repository>(),
         );
       },
       child: const AutoRouter(),

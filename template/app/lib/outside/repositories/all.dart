@@ -1,30 +1,34 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../util/abstracts/base_provider.dart';
-import '../util/abstracts/base_providers.dart';
 import 'auth/repository.dart';
+import 'base.dart';
 
 /// When adding a new repository, be sure to add it to:
 /// - [getList]
 /// - [createProviders]
 ///   - Make sure to add the concrete type to `RepositoryProvider<ConcreteType>`
 ///     otherwise it will register the base class.
-class AllRepositories extends OutsideUtilAbstract_BaseProviders {
-  const AllRepositories({
+class Repositories_All {
+  const Repositories_All({
     required this.authRepository,
   });
 
-  final AuthRepository authRepository;
+  final Auth_Repository authRepository;
 
-  @override
-  List<OutsideUtilAbstract_BaseProvider> getList() => [
+  List<Repository_Base> getList() => [
         authRepository,
       ];
 
-  @override
-  List<RepositoryProvider<OutsideUtilAbstract_BaseProvider>> createProviders() {
+  List<RepositoryProvider<Repository_Base>> createProviders() {
     return [
-      RepositoryProvider<AuthRepository>.value(value: authRepository),
+      RepositoryProvider<Auth_Repository>.value(value: authRepository),
     ];
+  }
+
+  Future<void> initialize() async {
+    await Future.forEach(getList(), (r) async {
+      r.log.fine('init');
+      await r.init();
+    });
   }
 }

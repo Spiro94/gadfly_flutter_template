@@ -4,7 +4,7 @@ import 'package:gadfly_flutter_template/outside/effect_providers/auth_change/eff
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class MockAuthChangeEffect extends Mock implements AuthChangeEffect {
+class MockAuthChangeEffect extends Mock implements AuthChange_Effect {
   @override
   SupabaseClient get supabaseClient => throw UnimplementedError();
 

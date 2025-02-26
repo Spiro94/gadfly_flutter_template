@@ -21,7 +21,7 @@ class SignUp_Page extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return SignUpBloc(authRepository: context.read<AuthRepository>());
+        return SignUpBloc(authRepository: context.read<Auth_Repository>());
       },
       child: this,
     );

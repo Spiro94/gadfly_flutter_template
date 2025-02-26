@@ -11,8 +11,8 @@ import '../outside/client_providers/all.dart';
 import '../outside/client_providers/sentry/client_provider.dart';
 import '../outside/client_providers/supabase/client_provider.dart';
 import '../outside/effect_providers/all.dart';
-import '../outside/effect_providers/auth_change/provider.dart';
-import '../outside/effect_providers/mixpanel/provider.dart';
+import '../outside/effect_providers/auth_change/effect_provider.dart';
+import '../outside/effect_providers/mixpanel/effect_provider.dart';
 import '../outside/repositories/all.dart';
 import '../outside/repositories/auth/repository.dart';
 import 'builder.dart';
@@ -41,23 +41,23 @@ Future<void> appRunner({
   final initialSessionId = const Uuid().v4();
 
   // Create and initialize client providers
-  final clientProviders = AllClientProviders(
-    sentryClientProvider: SentryClientProvider(
+  final clientProviders = ClientProviders_All(
+    sentryClientProvider: Sentry_ClientProvider(
       initialSessionId: initialSessionId,
       configuration: configuration.clientProvidersConfigurations.sentry,
     ),
-    supabaseClientProvider: SupabaseClientProvider(
+    supabaseClientProvider: Supabase_ClientProvider(
       configuration: configuration.clientProvidersConfigurations.supabase,
     ),
   );
   await clientProviders.initialize();
 
   // Create and initialize effect providers
-  final effectProviders = AllEffectProviders(
-    authChangeEffectProvider: AuthChangeEffectProvider(
+  final effectProviders = EffectProviders_All(
+    authChangeEffectProvider: AuthChange_EffectProvider(
       supabaseClient: clientProviders.supabaseClientProvider.client,
     ),
-    mixpanelEffectProvider: MixpanelEffectProvider(
+    mixpanelEffectProvider: Mixpanel_EffectProvider(
       initialSessionId: initialSessionId,
       configuration: configuration.effectProvidersConfigurations.mixpanel,
     ),
@@ -65,8 +65,8 @@ Future<void> appRunner({
   await effectProviders.initialize();
 
   // Create and initialize repositories
-  final repositories = AllRepositories(
-    authRepository: AuthRepository(
+  final repositories = Repositories_All(
+    authRepository: Auth_Repository(
       deepLinkBaseUri: configuration.deepLinkBaseUri,
       mixpanelEffectProvider: effectProviders.mixpanelEffectProvider,
       sentryClientProvider: clientProviders.sentryClientProvider,
