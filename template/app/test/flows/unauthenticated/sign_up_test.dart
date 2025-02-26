@@ -1,10 +1,10 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:forui/forui.dart';
-import 'package:gadfly_flutter_template/internal/blocs/sign_up/events.dart';
-import 'package:gadfly_flutter_template/internal/routes/unauthenitcated/sign_up/widgets/button_submit.dart';
-import 'package:gadfly_flutter_template/internal/routes/unauthenitcated/sign_up/widgets/input_email.dart';
-import 'package:gadfly_flutter_template/internal/routes/unauthenitcated/sign_up/widgets/input_password.dart';
+import 'package:gadfly_flutter_template/inside/blocs/sign_up/events.dart';
+import 'package:gadfly_flutter_template/inside/routes/unauthenitcated/sign_up/widgets/button_submit.dart';
+import 'package:gadfly_flutter_template/inside/routes/unauthenitcated/sign_up/widgets/input_email.dart';
+import 'package:gadfly_flutter_template/inside/routes/unauthenitcated/sign_up/widgets/input_password.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../util/flow_config.dart';

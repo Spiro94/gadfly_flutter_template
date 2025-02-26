@@ -72,11 +72,11 @@ SignUpStatus
 
 ## Widgets
 
-To talk about widgets, we need to talk about the `internal/routes` directory. Widgets can belong to one of three locations:
+To talk about widgets, we need to talk about the `inside/routes` directory. Widgets can belong to one of three locations:
 
-- `internal/routes/flow_name/route_name/widgets`: These are route-level widgets that can be used by that specific route.
-- `internal/routes/flow_name/widgets`: These are flow-level widgets that can be used by any route within that flow of routes.
-- `internal/routes/widgets/`: These are top-level widgets that can be used by any route.
+- `inside/routes/flow_name/route_name/widgets`: These are route-level widgets that can be used by that specific route.
+- `inside/routes/flow_name/widgets`: These are flow-level widgets that can be used by any route within that flow of routes.
+- `inside/routes/widgets/`: These are top-level widgets that can be used by any route.
 
 The naming convention of a widget has up to three segments:
 

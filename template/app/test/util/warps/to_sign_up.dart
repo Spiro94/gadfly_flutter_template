@@ -1,6 +1,6 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:gadfly_flutter_template/internal/routes/unauthenitcated/sign_in/widgets/link_sign_up.dart';
+import 'package:gadfly_flutter_template/inside/routes/unauthenitcated/sign_in/widgets/link_sign_up.dart';
 
 import '../mocks/mocked_app.dart';
 

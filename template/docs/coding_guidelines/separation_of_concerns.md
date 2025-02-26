@@ -4,28 +4,28 @@ We use [flutter_bloc](https://pub.dev/packages/flutter_bloc) for state managemen
 
 At a high-level, we split our code into two layers:
 
-- external
-- internal (i.e. application layer)
+- outside (i.e. outside of the widget tree)
+- inside (i.e. inside of the widget tree)
 
-The primary driver for this separation is to unlock testing. If we have a need to mock something in our Flow Tests, then it is considered external.
+The primary driver for this separation is to unlock testing. If we have a need to mock something in our Flow Tests, then should be created "outside" of the widget tree in [appRunner] and passed into [appBuilder] as an argument.
 
-## Boundary between Internal and External Layers
+## Boundary between Inside and Outside Layers
 
-We have a strict boundary between the **internal** and **external** layers.
+We have a strict boundary between the **inside** and **outside** layers.
 
-Everything that is external is instantiated in the `appRunner` function. For example, client providers, effect providers, and repositories are all instantiated as singletons.
+Everything that is outside of the widget tree is instantiated in the `appRunner` function. For example, client providers, effect providers, and repositories are all instantiated as singletons.
 
-Anything that is **external** must be passed in to the **internal** layer through the "front door" of our application: the `appBuilder` function. Every single Flow Test starts with the `appBuilder` function. This means that we can mock the external singletons and control their output in our tests.
+Anything that is **outside** must be passed in to the **inside** layer through the **"front door"** of our application: the `appBuilder` function. Every single Flow Test starts with the `appBuilder` function. This means that we can mock the outside singletons and control their output in our tests.
 
 ## Summary
 
-![external vs internal](images/external_vs_internal.png?raw=true)
+![outside vs inside](images/outside_vs_inside.png?raw=true)
 
 |                                                         | Client Provider | Effect Provider | Repository | Cubit | Bloc | Effect |
 |---------------------------------------------------------|-----------------|-----------------|------------|-------|------|--------|
 | is a singleton                                          | x               | x               | x          |       |      |        |
-| instantiated in appRunner                               | x               | x               | x          |       |      |        |
-| instantiated in widget tree                             |                 |                 |            | x     | x    | x      |
+| instantiated "outside" in appRunner                     | x               | x               | x          |       |      |        |
+| instantiated "inside" widget tree                       |                 |                 |            | x     | x    | x      |
 | can be an argument to an Effect Provider                | x               |                 |            |       |      |        |
 | can be an argument to a Repository                      | x               | x               |            |       |      |        |
 | can be an argument to a Cubit                           |                 | x               | x          |       |      |        |
@@ -52,8 +52,8 @@ For the most part, we do not need to create Client Providers. The only reason we
 |                                                         | Client Provider |
 |---------------------------------------------------------|-----------------|
 | is a singleton                                          | x               |
-| instantiated in appRunner                               | x               |
-| instantiated in widget tree                             |                 |
+| instantiated "outside" in appRunner                     | x               |
+| instantiated "inside" widget tree                       |                 |
 | can be an argument to an Effect Provider                |                 |
 | can be an argument to a Repository                      | x               |
 | can be an argument to a Cubit                           |                 |
@@ -84,8 +84,8 @@ An Effect Provider should be mocked in Flow Tests.
 |                                                         | Effect Provider | Effect |
 |---------------------------------------------------------|-----------------|--------|
 | is a singleton                                          | x               |        |
-| instantiated in appRunner                               | x               |        |
-| instantiated in widget tree                             |                 | x      |
+| instantiated "outside" in appRunner                     | x               |        |
+| instantiated "inside" widget tree                       |                 | x      |
 | can be an argument to an Effect Provider                |                 |        |
 | can be an argument to a Repository                      | x               |        |
 | can be an argument to a Cubit                           | x               |        |
@@ -122,8 +122,8 @@ A Repository should be mocked in Flow Tests.
 |                                                         | Repositories    |
 |---------------------------------------------------------|-----------------|
 | is a singleton                                          | x               |
-| instantiated in appRunner                               | x               |
-| instantiated in widget tree                             |                 |
+| instantiated "outside" in appRunner                     | x               |
+| instantiated "inside" widget tree                       |                 |
 | can be an argument to an Effect Provider                |                 |
 | can be an argument to a Repository                      |                 |
 | can be an argument to a Cubit                           | x               |
@@ -164,8 +164,8 @@ Cubits and Repositories should **not** be mocked in Flow Tests.
 |                                                         | Cubits          | Blocs |
 |---------------------------------------------------------|-----------------|-------|
 | is a singleton                                          |                 |       |
-| instantiated in appRunner                               |                 |       |
-| instantiated in widget tree                             | x               | x     |
+| instantiated "outside" in appRunner                     |                 |       |
+| instantiated "inside" widget tree                       | x               | x     |
 | can be an argument to an Effect Provider                |                 |       |
 | can be an argument to a Repository                      |                 |       |
 | can be an argument to a Cubit                           |                 |       |

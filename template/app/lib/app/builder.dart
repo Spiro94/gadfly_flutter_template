@@ -10,23 +10,25 @@ import 'package:forui/forui.dart';
 import 'package:logging/logging.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-import '../external/effect_providers/all.dart';
-import '../external/effect_providers/mixpanel/route_observer.dart';
-import '../external/repositories/all.dart';
-import '../external/theme/theme.dart';
-import '../internal/blocs/auth/bloc.dart';
-import '../internal/blocs/auth/state.dart';
-import '../internal/i18n/translations.g.dart';
-import '../internal/routes/deep_link_handler.dart';
-import '../internal/routes/router.dart';
+import '../inside/blocs/auth/bloc.dart';
+import '../inside/blocs/auth/state.dart';
+import '../inside/i18n/translations.g.dart';
+import '../inside/routes/deep_link_handler.dart';
+import '../inside/routes/router.dart';
+import '../outside/effect_providers/all.dart';
+import '../outside/effect_providers/mixpanel/route_observer.dart';
+import '../outside/repositories/all.dart';
+import '../outside/theme/theme.dart';
 
 final _log = Logger('app_builder');
 
-/// This function builds the root widget for our application.
+/// This function builds the root widget of our application. We consider this
+/// function to be the "front-door" to the inside of our application's widget
+/// tree. This function is also used as the starting point for our Flow Tests.
 Future<Widget> appBuilder({
   required Key key,
   required AppLocale appLocale,
-  required ExternalTheme theme,
+  required OutsideTheme theme,
   required String? accessToken,
   required String? deepLinkFragmentOverride,
   required AllEffectProviders effectProviders,
@@ -96,7 +98,7 @@ class App extends StatelessWidget {
 
   final String? deepLinkFragmentOverride;
   final DeepLinkHandler deepLinkHandler;
-  final ExternalTheme theme;
+  final OutsideTheme theme;
   final AuthBloc authBloc;
   final AllEffectProviders effectProviders;
   final AllRepositories repositories;

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:gadfly_flutter_template/external/effect_providers/auth_change/effect.dart';
+import 'package:gadfly_flutter_template/outside/effect_providers/auth_change/effect.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

@@ -1,11 +1,11 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
-import 'package:gadfly_flutter_template/internal/blocs/auth/events.dart';
-import 'package:gadfly_flutter_template/internal/blocs/sign_in/events.dart';
-import 'package:gadfly_flutter_template/internal/routes/authenticated/home/page.dart';
-import 'package:gadfly_flutter_template/internal/routes/unauthenitcated/sign_in/widgets/button_submit.dart';
-import 'package:gadfly_flutter_template/internal/routes/unauthenitcated/sign_in/widgets/input_email.dart';
-import 'package:gadfly_flutter_template/internal/routes/unauthenitcated/sign_in/widgets/input_password.dart';
+import 'package:gadfly_flutter_template/inside/blocs/auth/events.dart';
+import 'package:gadfly_flutter_template/inside/blocs/sign_in/events.dart';
+import 'package:gadfly_flutter_template/inside/routes/authenticated/home/page.dart';
+import 'package:gadfly_flutter_template/inside/routes/unauthenitcated/sign_in/widgets/button_submit.dart';
+import 'package:gadfly_flutter_template/inside/routes/unauthenitcated/sign_in/widgets/input_email.dart';
+import 'package:gadfly_flutter_template/inside/routes/unauthenitcated/sign_in/widgets/input_password.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 

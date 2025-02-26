@@ -1,4 +1,4 @@
-import 'package:gadfly_flutter_template/external/effect_providers/mixpanel/effect.dart';
+import 'package:gadfly_flutter_template/outside/effect_providers/mixpanel/effect.dart';
 
 import 'auth_change_effect.dart';
 

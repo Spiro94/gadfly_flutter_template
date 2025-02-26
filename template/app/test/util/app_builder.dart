@@ -1,8 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gadfly_flutter_template/app/builder.dart';
-import 'package:gadfly_flutter_template/external/theme/theme.dart';
-import 'package:gadfly_flutter_template/internal/i18n/translations.g.dart';
+import 'package:gadfly_flutter_template/inside/i18n/translations.g.dart';
+import 'package:gadfly_flutter_template/outside/theme/theme.dart';
 
 import 'mocks/mocked_app.dart';
 
@@ -11,7 +12,7 @@ FutureOr<Widget> testAppBuilder({
   required String? accessToken,
   required String? deepLinkOverride,
   required MocksContainer mocks,
-  required ExternalTheme theme,
+  required OutsideTheme theme,
 }) async {
   mocks.mockEffectProviderGetEffectMethods();
 

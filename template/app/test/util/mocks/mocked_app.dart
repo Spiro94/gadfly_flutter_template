@@ -1,8 +1,8 @@
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter/material.dart';
-import 'package:gadfly_flutter_template/external/effect_providers/all.dart';
-import 'package:gadfly_flutter_template/external/repositories/all.dart';
-import 'package:gadfly_flutter_template/external/theme/theme.dart';
+import 'package:gadfly_flutter_template/outside/effect_providers/all.dart';
+import 'package:gadfly_flutter_template/outside/repositories/all.dart';
+import 'package:gadfly_flutter_template/outside/theme/theme.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../app_builder.dart';
@@ -23,7 +23,7 @@ List<MockedApp> createdMockedApps({
         mocks: MocksContainer(),
         accessToken: hasAccessToken ? 'fakeAccessToken' : null,
         deepLinkOverride: deepLinkOverride,
-        theme: ExternalThemes.lightTheme,
+        theme: OutsideThemes.lightTheme,
       ),
       MockedApp(
         key: const Key('zincDark'),
@@ -31,7 +31,7 @@ List<MockedApp> createdMockedApps({
         mocks: MocksContainer(),
         accessToken: hasAccessToken ? 'fakeAccessToken' : null,
         deepLinkOverride: deepLinkOverride,
-        theme: ExternalThemes.darkTheme,
+        theme: OutsideThemes.darkTheme,
       ),
     ];
 
@@ -42,7 +42,7 @@ class MockedApp extends FTMockedApp<MocksContainer> {
     required super.mocks,
     required String? accessToken,
     required String? deepLinkOverride,
-    required ExternalTheme theme,
+    required OutsideTheme theme,
   }) : super(
           appBuilder: () async => await testAppBuilder(
             key: key,

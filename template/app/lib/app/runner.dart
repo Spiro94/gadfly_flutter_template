@@ -6,22 +6,22 @@ import 'package:logging/logging.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:uuid/uuid.dart';
 
-import '../configurations/configuration.dart';
-import '../external/client_providers/all.dart';
-import '../external/client_providers/sentry/client_provider.dart';
-import '../external/client_providers/supabase/client_provider.dart';
-import '../external/effect_providers/all.dart';
-import '../external/effect_providers/auth_change/provider.dart';
-import '../external/effect_providers/mixpanel/provider.dart';
-import '../external/repositories/all.dart';
-import '../external/repositories/auth/repository.dart';
-import '../internal/blocs/observer.dart';
+import '../inside/blocs/observer.dart';
+import '../outside/client_providers/all.dart';
+import '../outside/client_providers/sentry/client_provider.dart';
+import '../outside/client_providers/supabase/client_provider.dart';
+import '../outside/effect_providers/all.dart';
+import '../outside/effect_providers/auth_change/provider.dart';
+import '../outside/effect_providers/mixpanel/provider.dart';
+import '../outside/repositories/all.dart';
+import '../outside/repositories/auth/repository.dart';
 import 'builder.dart';
+import 'configurations/configuration.dart';
 
 /// This function runs our application. This is where we do any kind of setup
-/// that needs to happen before [appBuilder] is called. For example, this is
-/// were we initialize our external dependencies, such as repositories and
-/// effect providers.
+/// that needs to happen before [appBuilder] is called and our widget tree is
+/// created. This is where certain dependencies, such as repositories and effect
+/// providers, can be initialized outside of the widget tree.
 Future<void> appRunner({
   required AppConfiguration configuration,
 }) async {
