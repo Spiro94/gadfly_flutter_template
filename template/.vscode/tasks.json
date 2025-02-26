@@ -262,7 +262,7 @@
       }
     },
     {
-      "label": "[Supabase] db diff (local)",
+      "label": "[Supabase] DB Diff (Local)",
       "type": "shell",
       "group": "build",
       "command": "zsh",
@@ -275,7 +275,7 @@
       }
     },
     {
-      "label": "[Supabase] db diff (linked)",
+      "label": "[Supabase] DB Diff (Linked)",
       "type": "shell",
       "group": "build",
       "command": "zsh",
