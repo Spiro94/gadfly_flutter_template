@@ -114,7 +114,7 @@ Update `app/ios/Runner/Info.plist` to include the following:
       <key>CFBundleURLSchemes</key>
       <array>
       <!-- CHANGE_ME before going to production -->
-        <string>com.gadfly361.myapp.deep</string>
+        <string>com.gadfly361.gadflyfluttertemplate.deep</string>
       </array>
     </dict>
   </array>
@@ -146,10 +146,6 @@ Require email confirmation after signup under the `[auth.email] section:
 ```toml
 enable_confirmations = true
 ```
-
-### functions/.env file
-
-Update the `functions/.env` file and make sure the `EDGE_SECRET` is the same as in the `seed.sql`.
 
 ## Step 6: misc cleanup
 
