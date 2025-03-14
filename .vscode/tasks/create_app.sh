@@ -31,11 +31,11 @@ rm -rf temp/template/app/android
 rm -rf temp/template/app/ios
 mv temp/template/app/web temp/
 rm -f temp/template/.env
-rm -rf temp/template/supabase
 
 # Copy the files from the temporary template over to the application's project directory
 cp -R temp/template/. projects/$1/
 rm -rf projects/$1/packages/
+rm -rf projects/$1/supabase/
 
 # Copy over the directories we want from the flutter create command over to the project directory
 [ -d "temp/$1/android" ] && cp -R temp/$1/android projects/$1/app
