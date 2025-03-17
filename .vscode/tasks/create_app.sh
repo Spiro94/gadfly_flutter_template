@@ -10,7 +10,6 @@ cd temp
 # Create a new flutter project
 fvm flutter create $1 --org $2
 
-
 # Ensure there is a directory with the app's name under projects/
 cd ..
 mkdir -p projects/$1/
@@ -51,7 +50,6 @@ find projects/$1 -name '*.yaml' -exec sed -i '' -e "s/gadfly_flutter_template/$1
 find projects/$1 -name '*.md' -exec sed -i '' -e "s/gadfly_flutter_template/$1/g" {} \;
 find projects/$1 -name '*.html' -exec sed -i '' -e "s/gadfly_flutter_template/$1/g" {} \;
 
-
 # Now that we have changed the app names, we can safely copy in the packages directory
 cp -R temp/template/packages projects/$1/
 
@@ -65,11 +63,13 @@ fvm flutter clean
 fvm flutter pub get
 fvm dart fix --apply
 
-
 cd ..
 
 supabase init --with-vscode-settings
 
 cd ../..
+
+rm projects/$1/.vscode/extensions.json
+cp temp/template/.vscode/extensions.json projects/$1/.vscode/extensions.json
 
 rm -rf temp
