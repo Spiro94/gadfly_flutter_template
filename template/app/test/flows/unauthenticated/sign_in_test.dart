@@ -48,7 +48,7 @@ void main() {
         },
         expectedEvents: [
           '[app_builder] INFO: locale: en',
-          '[deep_link_handler] INFO: incoming deep link uri: /',
+          '[routes_deep_link_handler] INFO: incoming deep link uri: /',
           '[authenticated_guard] INFO: not authenticated',
           '[ANALYTIC] [page]: SignIn_Route',
         ],
@@ -185,7 +185,7 @@ void main() {
           },
           expectedEvents: [
             '[app_builder] INFO: locale: en',
-            '[deep_link_handler] INFO: incoming deep link uri: /',
+            '[routes_deep_link_handler] INFO: incoming deep link uri: /',
             '[authenticated_guard] INFO: not authenticated',
             '[ANALYTIC] [page]: SignIn_Route',
           ],
@@ -241,7 +241,7 @@ void main() {
           },
           expectedEvents: [
             '[app_builder] INFO: locale: en',
-            '[deep_link_handler] INFO: incoming deep link uri: /',
+            '[routes_deep_link_handler] INFO: incoming deep link uri: /',
             '[authenticated_guard] INFO: not authenticated',
             '[ANALYTIC] [page]: SignIn_Route',
           ],
@@ -311,7 +311,7 @@ void main() {
           },
           expectedEvents: [
             '[app_builder] INFO: locale: en',
-            '[deep_link_handler] INFO: incoming deep link uri: /',
+            '[routes_deep_link_handler] INFO: incoming deep link uri: /',
             '[authenticated_guard] INFO: not authenticated',
             '[ANALYTIC] [page]: SignIn_Route',
           ],
@@ -382,7 +382,7 @@ void main() {
             '[sign_in_form_sign_in] INFO: submitting form',
             '[sign_in_form_sign_in] INFO: form valid',
             SignIn_Event_SignIn,
-            '[sign_in_bloc] WARNING: SignInEvent_SignIn: error',
+            '[sign_in_bloc] WARNING: SignIn_Event_SignIn: error',
           ],
         );
       },

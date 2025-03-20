@@ -429,7 +429,7 @@ void main() {
             '[sign_up_form_sign_up] INFO: submitting form',
             '[sign_up_form_sign_up] INFO: form valid',
             SignUp_Event_SignUp,
-            '[sign_up_bloc] WARNING: SignUpEvent_SignUp: error',
+            '[sign_up_bloc] WARNING: SignUp_Event_SignUp: error',
           ],
         );
       },
