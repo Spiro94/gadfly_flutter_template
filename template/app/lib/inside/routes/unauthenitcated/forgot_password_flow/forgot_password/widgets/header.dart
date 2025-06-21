@@ -14,7 +14,7 @@ class ForgotPassword_Header extends StatelessWidget {
 
     return FHeader.nested(
       title: Text(title),
-      prefixActions: [
+      prefixes: [
         FHeaderAction.back(
           onPress: () {
             context.router.navigate(const SignIn_Route());

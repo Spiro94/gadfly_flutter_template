@@ -33,7 +33,7 @@ class SignUp_Page extends StatelessWidget implements AutoRouteWrapper {
       breakpointType: InsideUtil_BreakpointType.constrained,
       scaffold: FScaffold(
         header: const SignUp_Header(),
-        content: SignUp_Listener_StatusChange(
+        child: SignUp_Listener_StatusChange(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

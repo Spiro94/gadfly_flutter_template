@@ -32,7 +32,7 @@ class EmailVerificationLinkSent_Page extends StatelessWidget
       breakpointType: InsideUtil_BreakpointType.constrained,
       scaffold: FScaffold(
         header: const EmailVerificationLinkSent_Header(),
-        content: SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

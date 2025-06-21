@@ -7,10 +7,7 @@ import '../../../../blocs/sign_in/state.dart';
 import '../../../../i18n/translations.g.dart';
 
 class SignIn_Button_Submit extends StatelessWidget {
-  const SignIn_Button_Submit({
-    required this.onSubmit,
-    super.key,
-  });
+  const SignIn_Button_Submit({required this.onSubmit, super.key});
 
   final VoidCallback onSubmit;
 
@@ -20,9 +17,6 @@ class SignIn_Button_Submit extends StatelessWidget {
     final isLoading = context.select(
       (SignIn_Bloc bloc) => bloc.state.status == SignIn_Status.signInInProgress,
     );
-    return FButton(
-      label: Text(label),
-      onPress: isLoading ? null : onSubmit,
-    );
+    return FButton(onPress: isLoading ? null : onSubmit, child: Text(label));
   }
 }

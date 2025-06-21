@@ -10,7 +10,7 @@
       "id": "org_name",
       "description": "Org name (e.g. mycompany)",
       "type": "promptString"
-    },
+    }
   ],
   "tasks": [
     {
@@ -21,11 +21,22 @@
       "args": [
         "${workspaceFolder}/.vscode/tasks/create_app.sh",
         "${input:app_name}",
-        "${input:org_name}",
+        "${input:org_name}"
       ],
       "options": {
         "cwd": "${workspaceFolder}"
+      },
+      "windows": {
+        "command": "powershell",
+        "args": [
+          "-NoProfile",
+          "-ExecutionPolicy", "Bypass",
+          "-File",
+          "${workspaceFolder}\\.vscode\\tasks\\create_app.ps1",
+          "${input:app_name}",
+          "${input:org_name}"
+        ]
       }
-    },
+    }
   ]
 }

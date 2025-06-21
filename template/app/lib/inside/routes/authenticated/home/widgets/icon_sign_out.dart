@@ -5,9 +5,7 @@ import '../../../../blocs/auth/bloc.dart';
 import '../../../../blocs/auth/events.dart';
 
 class Home_Icon_SignOut extends StatelessWidget {
-  const Home_Icon_SignOut({
-    super.key,
-  });
+  const Home_Icon_SignOut({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +13,7 @@ class Home_Icon_SignOut extends StatelessWidget {
       onPress: () {
         context.read<Auth_Bloc>().add(Auth_Event_SignOut());
       },
-      child: FAssets.icons.logOut(),
+      child: const Icon(FIcons.logOut),
     );
   }
 }

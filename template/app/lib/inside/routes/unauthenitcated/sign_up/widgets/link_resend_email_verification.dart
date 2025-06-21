@@ -31,17 +31,16 @@ class SignUp_Link_ResendEmailVerification extends StatelessWidget {
                 showAdaptiveDialog<void>(
                   context: context,
                   barrierDismissible: true,
-                  builder: (context) => BlocProvider.value(
-                    value: signUpBloc,
-                    child: const _Dialog(),
-                  ),
+                  builder:
+                      (context) => BlocProvider.value(
+                        value: signUpBloc,
+                        child: const _Dialog(),
+                      ),
                 );
               },
               child: Text(
                 action,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
           ],
@@ -83,31 +82,25 @@ class __DialogState extends State<_Dialog> {
   Widget build(BuildContext context) {
     return FDialog(
       direction: Axis.horizontal,
-      title: Text(
-        context.t.signUp.resendEmailVerification.dialog.title,
-      ),
+      title: Text(context.t.signUp.resendEmailVerification.dialog.title),
       body: SignUp_Input_Email(controller: controller),
       actions: [
         FButton(
           key: const Key('cancel'),
           style: FButtonStyle.outline,
-          label: Text(
-            context.t.signUp.resendEmailVerification.dialog.cancel,
-          ),
+          child: Text(context.t.signUp.resendEmailVerification.dialog.cancel),
           onPress: () => Navigator.of(context).pop(),
         ),
         FButton(
           key: const Key('resend'),
-          label: Text(
+          child: Text(
             context.t.signUp.resendEmailVerification.dialog.submit.label,
           ),
           onPress: () {
             Navigator.of(context).pop();
             context.read<SignUp_Bloc>().add(
-                  SignUp_Event_ResendEmailVerificationLink(
-                    email: controller.text,
-                  ),
-                );
+              SignUp_Event_ResendEmailVerificationLink(email: controller.text),
+            );
           },
         ),
       ],

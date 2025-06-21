@@ -21,11 +21,7 @@ class Home_Page extends StatelessWidget implements AutoRouteWrapper {
       breakpointType: InsideUtil_BreakpointType.constrained,
       scaffold: FScaffold(
         header: Home_Header(),
-        content: SingleChildScrollView(
-          child: Column(
-            children: [],
-          ),
-        ),
+        child: SingleChildScrollView(child: Column(children: [])),
       ),
     );
   }

@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
+
 import '../../../outside/repositories/auth/repository.dart';
-import '../../../shared/mixins/logging.dart';
 import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
-class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State>
-    with SharedMixin_Logging {
+class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
   Auth_Bloc({
     required Auth_Repository authRepository,
     required Auth_State initialState,

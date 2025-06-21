@@ -4,10 +4,7 @@ import 'package:forui/forui.dart';
 import '../../../../i18n/translations.g.dart';
 
 class SignIn_Input_Password extends StatelessWidget {
-  const SignIn_Input_Password({
-    required this.controller,
-    super.key,
-  });
+  const SignIn_Input_Password({required this.controller, super.key});
 
   final TextEditingController controller;
 
@@ -16,7 +13,7 @@ class SignIn_Input_Password extends StatelessWidget {
     final label = context.t.signIn.form.password.label;
     final emptyError = context.t.signIn.form.password.error.empty;
 
-    return FTextField.password(
+    return FTextFormField.password(
       controller: controller,
       label: Text(label),
       validator: (value) {

@@ -40,15 +40,16 @@ Future<Widget> appBuilder({
 
   // Set access token if there is one
   _log.fine('access token:\n$accessToken');
-  final authState = accessToken != null && accessToken.isNotEmpty
-      ? Auth_State(
-          status: Auth_Status.authenticated,
-          accessToken: accessToken,
-        )
-      : const Auth_State(
-          status: Auth_Status.unauthentcated,
-          accessToken: null,
-        );
+  final authState =
+      accessToken != null && accessToken.isNotEmpty
+          ? Auth_State(
+            status: Auth_Status.authenticated,
+            accessToken: accessToken,
+          )
+          : const Auth_State(
+            status: Auth_Status.unauthentcated,
+            accessToken: null,
+          );
 
   // Special case: create AuthBloc outside of widget tree, because it is
   // required by AppRouter, which needs to be created above the widget tree.
@@ -113,23 +114,18 @@ class App extends StatelessWidget {
         ...repositories.createProviders(),
       ],
       child: MultiBlocProvider(
-        providers: [
-          BlocProvider.value(value: authBloc),
-        ],
+        providers: [BlocProvider.value(value: authBloc)],
         child: MaterialApp.router(
           theme: theme.materialThemeData,
           builder: (context, child) {
             return FTheme(
               data: theme.foruiThemeData,
-              child: child ?? const FScaffold(content: SizedBox()),
+              child: child ?? const FScaffold(child: SizedBox()),
             );
           },
           debugShowCheckedModeBanner: false,
           scrollBehavior: const MaterialScrollBehavior().copyWith(
-            dragDevices: {
-              PointerDeviceKind.touch,
-              PointerDeviceKind.mouse,
-            },
+            dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
           ),
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
@@ -145,18 +141,20 @@ class App extends StatelessWidget {
           routerDelegate: AutoRouterDelegate(
             router,
             rebuildStackOnDeepLink: true,
-            deepLinkBuilder: (deepLink) => deepLinkHandler.handleDeepLink(
-              deepLink: deepLink,
-              deepLinkFragmentOverride: deepLinkFragmentOverride,
-            ),
-            navigatorObservers: () => [
-              AutoRouteObserver(),
-              Mixpanel_Effect_RouteObserver(
-                mixpanelEffect:
-                    effectProviders.mixpanelEffectProvider.getEffect(),
-              ),
-              SentryNavigatorObserver(),
-            ],
+            deepLinkBuilder:
+                (deepLink) => deepLinkHandler.handleDeepLink(
+                  deepLink: deepLink,
+                  deepLinkFragmentOverride: deepLinkFragmentOverride,
+                ),
+            navigatorObservers:
+                () => [
+                  AutoRouteObserver(),
+                  Mixpanel_Effect_RouteObserver(
+                    mixpanelEffect:
+                        effectProviders.mixpanelEffectProvider.getEffect(),
+                  ),
+                  SentryNavigatorObserver(),
+                ],
           ),
         ),
       ),

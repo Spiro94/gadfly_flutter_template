@@ -9,10 +9,7 @@ part 'tokens/radius.dart';
 part 'tokens/spacing.dart';
 
 class OutsideTheme {
-  OutsideTheme({
-    required this.materialThemeData,
-    required this.foruiThemeData,
-  });
+  OutsideTheme({required this.materialThemeData, required this.foruiThemeData});
 
   final ThemeData materialThemeData;
   final FThemeData foruiThemeData;
@@ -20,13 +17,13 @@ class OutsideTheme {
 
 class OutsideThemes {
   static OutsideTheme get lightTheme => OutsideTheme(
-        materialThemeData: _materialThemeData_light,
-        foruiThemeData: _foruiThemeData_light,
-      );
+    materialThemeData: _materialThemeData_light,
+    foruiThemeData: _foruiThemeData_light,
+  );
   static OutsideTheme get darkTheme => OutsideTheme(
-        materialThemeData: _materialThemeData_dark,
-        foruiThemeData: _foruiThemeData_dark,
-      );
+    materialThemeData: _materialThemeData_dark,
+    foruiThemeData: _foruiThemeData_dark,
+  );
 }
 
 final _materialThemeData_light = ThemeData(
@@ -40,27 +37,9 @@ final _materialThemeData_dark = _materialThemeData_light.copyWith(
 );
 
 final _foruiThemeData_light = FThemes.zinc.light.copyWith(
-  textFieldStyle: FThemes.zinc.light.textFieldStyle.copyWith(
-    errorStyle: FThemes.zinc.light.textFieldStyle.errorStyle.copyWith(
-      labelTextStyle:
-          FThemes.zinc.light.textFieldStyle.enabledStyle.labelTextStyle,
-      errorTextStyle:
-          FThemes.zinc.light.textFieldStyle.errorStyle.errorTextStyle.copyWith(
-        fontWeight: FontWeight.normal,
-      ),
-    ),
-  ),
+  textFieldStyle: FThemes.zinc.light.textFieldStyle.copyWith(),
 );
 
 final _foruiThemeData_dark = FThemes.zinc.dark.copyWith(
-  textFieldStyle: FThemes.zinc.dark.textFieldStyle.copyWith(
-    errorStyle: FThemes.zinc.dark.textFieldStyle.errorStyle.copyWith(
-      labelTextStyle:
-          FThemes.zinc.dark.textFieldStyle.enabledStyle.labelTextStyle,
-      errorTextStyle:
-          FThemes.zinc.dark.textFieldStyle.errorStyle.errorTextStyle.copyWith(
-        fontWeight: FontWeight.normal,
-      ),
-    ),
-  ),
+  textFieldStyle: FThemes.zinc.dark.textFieldStyle.copyWith(),
 );

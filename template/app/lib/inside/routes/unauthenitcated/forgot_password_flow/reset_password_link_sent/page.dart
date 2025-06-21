@@ -13,10 +13,7 @@ import 'widgets/text_subtitle.dart';
 @RoutePage()
 class ResetPasswordLinkSent_Page extends StatelessWidget
     implements AutoRouteWrapper {
-  const ResetPasswordLinkSent_Page({
-    @QueryParam() this.email,
-    super.key,
-  });
+  const ResetPasswordLinkSent_Page({@QueryParam() this.email, super.key});
 
   final String? email;
 
@@ -31,7 +28,7 @@ class ResetPasswordLinkSent_Page extends StatelessWidget
       breakpointType: InsideUtil_BreakpointType.constrained,
       scaffold: FScaffold(
         header: const ResetPasswordLinkSent_Header(),
-        content: ResetPasswordLinkSent_Listener_StatusChange(
+        child: ResetPasswordLinkSent_Listener_StatusChange(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

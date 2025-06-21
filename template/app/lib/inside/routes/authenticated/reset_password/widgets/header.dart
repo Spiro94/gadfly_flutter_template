@@ -5,9 +5,7 @@ import '../../../../i18n/translations.g.dart';
 import '../../../router.dart';
 
 class ResetPassword_Header extends StatelessWidget {
-  const ResetPassword_Header({
-    super.key,
-  });
+  const ResetPassword_Header({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +13,7 @@ class ResetPassword_Header extends StatelessWidget {
 
     return FHeader.nested(
       title: Text(title),
-      prefixActions: [
+      prefixes: [
         FHeaderAction.back(
           onPress: () {
             context.router.navigate(const Home_Route());

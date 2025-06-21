@@ -5,10 +5,7 @@ import '../../../../i18n/translations.g.dart';
 import '../../../../util/validators.dart';
 
 class SignUp_Input_Email extends StatelessWidget {
-  const SignUp_Input_Email({
-    required this.controller,
-    super.key,
-  });
+  const SignUp_Input_Email({required this.controller, super.key});
 
   final TextEditingController controller;
 
@@ -19,7 +16,7 @@ class SignUp_Input_Email extends StatelessWidget {
     final emptyError = context.t.signUp.form.email.error.empty;
     final invalidError = context.t.signUp.form.email.error.invalid;
 
-    return FTextField.email(
+    return FTextFormField.email(
       controller: controller,
       label: Text(label),
       hint: hint,

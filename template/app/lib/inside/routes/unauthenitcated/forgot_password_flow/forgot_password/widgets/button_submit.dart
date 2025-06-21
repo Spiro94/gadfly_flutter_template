@@ -7,10 +7,7 @@ import '../../../../../blocs/reset_password/state.dart';
 import '../../../../../i18n/translations.g.dart';
 
 class ForgotPassword_Button_Submit extends StatelessWidget {
-  const ForgotPassword_Button_Submit({
-    required this.onSubmit,
-    super.key,
-  });
+  const ForgotPassword_Button_Submit({required this.onSubmit, super.key});
 
   final VoidCallback onSubmit;
 
@@ -23,9 +20,6 @@ class ForgotPassword_Button_Submit extends StatelessWidget {
           ResetPassword_Status.sendResetPasswordLinkInProgress,
     );
 
-    return FButton(
-      label: Text(label),
-      onPress: isLoading ? null : onSubmit,
-    );
+    return FButton(onPress: isLoading ? null : onSubmit, child: Text(label));
   }
 }
