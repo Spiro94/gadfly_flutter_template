@@ -16,7 +16,7 @@ class Supabase_ClientProvider extends ClientProvider_Base {
   Future<void> init() async {
     await Supabase.initialize(
       url: configuration.url,
-      anonKey: configuration.anonKey,
+      publishableKey: configuration.anonKey,
       debug: false,
     );
   }
