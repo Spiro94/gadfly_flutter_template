@@ -26,20 +26,14 @@ class OutsideThemes {
   );
 }
 
-final _materialThemeData_light = ThemeData(
-  useMaterial3: true,
-  extensions: const [_tokenExtensions],
-  scaffoldBackgroundColor: _foruiThemeData_light.scaffoldStyle.backgroundColor,
-);
+final _foruiThemeData_light = FThemes.zinc.light.desktop;
 
-final _materialThemeData_dark = _materialThemeData_light.copyWith(
-  scaffoldBackgroundColor: _foruiThemeData_dark.scaffoldStyle.backgroundColor,
-);
+final _foruiThemeData_dark = FThemes.zinc.dark.desktop;
 
-final _foruiThemeData_light = FThemes.zinc.light.copyWith(
-  textFieldStyle: FThemes.zinc.light.textFieldStyle.copyWith(),
-);
+final _materialThemeData_light = _foruiThemeData_light
+    .toApproximateMaterialTheme()
+    .copyWith(extensions: const [_tokenExtensions]);
 
-final _foruiThemeData_dark = FThemes.zinc.dark.copyWith(
-  textFieldStyle: FThemes.zinc.dark.textFieldStyle.copyWith(),
-);
+final _materialThemeData_dark = _foruiThemeData_dark
+    .toApproximateMaterialTheme()
+    .copyWith(extensions: const [_tokenExtensions]);
