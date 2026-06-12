@@ -34,7 +34,7 @@ class ResetPassword_Listener_StatusChange extends StatelessWidget {
                     backgroundColor: scaffoldBackgroundColor,
                     content: FAlert(
                       title: Text(state.errorMessage!),
-                      style: FAlertStyle.destructive,
+                      variant: FAlertVariant.destructive,
                     ),
                   ),
                 );
@@ -50,7 +50,7 @@ class ResetPassword_Listener_StatusChange extends StatelessWidget {
                   backgroundColor: scaffoldBackgroundColor,
                   content: FAlert(
                     title: Text(context.t.resetPassword.form.submit.success),
-                    style: FAlertStyle.primary,
+                    variant: FAlertVariant.primary,
                   ),
                 ),
               );

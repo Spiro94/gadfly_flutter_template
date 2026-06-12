@@ -33,7 +33,7 @@ class SignUp_Listener_StatusChange extends StatelessWidget {
                   backgroundColor: scaffoldBackgroundColor,
                   content: FAlert(
                     title: Text(state.errorMessage!),
-                    style: FAlertStyle.destructive,
+                    variant: FAlertVariant.destructive,
                   ),
                 ),
               );
@@ -49,7 +49,7 @@ class SignUp_Listener_StatusChange extends StatelessWidget {
                       context.t.signUp.resendEmailVerification.dialog.submit
                           .success,
                     ),
-                    style: FAlertStyle.primary,
+                    variant: FAlertVariant.primary,
                   ),
                 ),
               );

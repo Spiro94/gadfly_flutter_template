@@ -13,7 +13,7 @@ class Home_Icon_SignOut extends StatelessWidget {
       onPress: () {
         context.read<Auth_Bloc>().add(Auth_Event_SignOut());
       },
-      child: const Icon(FIcons.logOut),
+      child: const Icon(FLucideIcons.logOut),
     );
   }
 }

@@ -190,7 +190,7 @@ class Routes_DeepLinkHandler with SharedMixin_Logging {
             backgroundColor: scaffoldBackgroundColor,
             content: FAlert(
               title: Text(errorMessage),
-              style: FAlertStyle.destructive,
+              variant: FAlertVariant.destructive,
             ),
           ),
         );

@@ -28,7 +28,7 @@ class SignIn_Listener_StatusChange extends StatelessWidget {
                   backgroundColor: scaffoldBackgroundColor,
                   content: FAlert(
                     title: Text(state.errorMessage!),
-                    style: FAlertStyle.destructive,
+                    variant: FAlertVariant.destructive,
                   ),
                 ),
               );

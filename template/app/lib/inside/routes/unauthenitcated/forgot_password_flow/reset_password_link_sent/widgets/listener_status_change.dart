@@ -31,7 +31,7 @@ class ResetPasswordLinkSent_Listener_StatusChange extends StatelessWidget {
                     backgroundColor: scaffoldBackgroundColor,
                     content: FAlert(
                       title: Text(state.errorMessage!),
-                      style: FAlertStyle.destructive,
+                      variant: FAlertVariant.destructive,
                     ),
                   ),
                 );
@@ -46,7 +46,7 @@ class ResetPasswordLinkSent_Listener_StatusChange extends StatelessWidget {
                   backgroundColor: scaffoldBackgroundColor,
                   content: FAlert(
                     title: Text(context.t.resetPasswordLinkSent.resend.success),
-                    style: FAlertStyle.primary,
+                    variant: FAlertVariant.primary,
                   ),
                 ),
               );
