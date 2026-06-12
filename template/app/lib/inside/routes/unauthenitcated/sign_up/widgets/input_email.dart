@@ -17,7 +17,7 @@ class SignUp_Input_Email extends StatelessWidget {
     final invalidError = context.t.signUp.form.email.error.invalid;
 
     return FTextFormField.email(
-      controller: controller,
+      control: FTextFieldControl.managed(controller: controller),
       label: Text(label),
       hint: hint,
       validator: (value) {

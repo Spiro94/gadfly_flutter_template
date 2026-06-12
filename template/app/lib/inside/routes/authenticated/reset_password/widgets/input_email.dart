@@ -16,7 +16,7 @@ class ResetPassword_Input_Password extends StatelessWidget {
     final invalidError = context.t.resetPassword.form.password.error.invalid;
 
     return FTextFormField.password(
-      controller: controller,
+      control: FTextFieldControl.managed(controller: controller),
       label: Text(label),
       validator: (value) {
         if (value == null || value.isEmpty) {

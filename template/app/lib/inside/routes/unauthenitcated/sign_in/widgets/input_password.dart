@@ -14,7 +14,7 @@ class SignIn_Input_Password extends StatelessWidget {
     final emptyError = context.t.signIn.form.password.error.empty;
 
     return FTextFormField.password(
-      controller: controller,
+      control: FTextFieldControl.managed(controller: controller),
       label: Text(label),
       validator: (value) {
         if (value == null || value.isEmpty) {

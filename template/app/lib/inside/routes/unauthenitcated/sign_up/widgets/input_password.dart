@@ -16,7 +16,7 @@ class SignUp_Input_Password extends StatelessWidget {
     final invalidError = context.t.signUp.form.password.error.invalid;
 
     return FTextFormField.password(
-      controller: controller,
+      control: FTextFieldControl.managed(controller: controller),
       label: Text(label),
       validator: (value) {
         if (value == null || value.isEmpty) {

@@ -17,7 +17,7 @@ class ForgotPassword_Input_Email extends StatelessWidget {
     final invalidError = context.t.forgotPassword.form.email.error.invalid;
 
     return FTextFormField.email(
-      controller: controller,
+      control: FTextFieldControl.managed(controller: controller),
       label: Text(label),
       hint: hint,
       validator: (value) {
