@@ -87,7 +87,7 @@ class __DialogState extends State<_Dialog> {
       actions: [
         FButton(
           key: const Key('cancel'),
-          style: FButtonStyle.outline,
+          variant: FButtonVariant.outline,
           child: Text(context.t.signUp.resendEmailVerification.dialog.cancel),
           onPress: () => Navigator.of(context).pop(),
         ),
