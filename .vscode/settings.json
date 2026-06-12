@@ -5,7 +5,7 @@
   "files.watcherExclude": {
     "**/.fvm": true
   },
-  "dart.flutterSdkPath": ".fvm/versions/3.32.7",
+  "dart.flutterSdkPath": ".fvm/versions/3.44.2",
   "deno.enablePaths": [
     "template/supabase/functions"
   ],
