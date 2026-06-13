@@ -135,6 +135,16 @@ class ResetPasswordLinkSent_RouteArgs {
   String toString() {
     return 'ResetPasswordLinkSent_RouteArgs{email: $email, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ResetPasswordLinkSent_RouteArgs) return false;
+    return email == other.email && key == other.key;
+  }
+
+  @override
+  int get hashCode => email.hashCode ^ key.hashCode;
 }
 
 /// generated route for

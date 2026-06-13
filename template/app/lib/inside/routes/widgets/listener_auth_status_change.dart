@@ -7,10 +7,7 @@ import '../../blocs/auth/state.dart';
 import '../router.dart';
 
 class Routes_Listener_AuthStatusChange extends StatelessWidget {
-  const Routes_Listener_AuthStatusChange({
-    required this.child,
-    super.key,
-  });
+  const Routes_Listener_AuthStatusChange({required this.child, super.key});
 
   final Widget child;
 
@@ -20,7 +17,7 @@ class Routes_Listener_AuthStatusChange extends StatelessWidget {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         switch (state.status) {
-          case Auth_Status.unauthentcated:
+          case Auth_Status.unauthenticated:
             context.router.root.replaceAll([const SignIn_Route()]);
           case Auth_Status.authenticated:
             context.router.root.replaceAll([const Home_Route()]);

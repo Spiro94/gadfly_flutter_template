@@ -6,15 +6,13 @@ import '../../blocs/auth/state.dart';
 import '../router.dart';
 
 class Unauthenticated_Guard extends AutoRouteGuard with SharedMixin_Logging {
-  Unauthenticated_Guard({
-    required this.authBloc,
-  });
+  Unauthenticated_Guard({required this.authBloc});
 
   final Auth_Bloc authBloc;
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (authBloc.state.status == Auth_Status.unauthentcated) {
+    if (authBloc.state.status == Auth_Status.unauthenticated) {
       resolver.next();
     } else {
       log.info('already authenticated');

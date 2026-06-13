@@ -39,7 +39,9 @@ Future<Widget> appBuilder({
   _log.info('locale: ${appLocale.languageCode}');
 
   // Set access token if there is one
-  _log.fine('access token:\n$accessToken');
+  _log.fine(
+    'access token present: ${accessToken != null && accessToken.isNotEmpty}',
+  );
   final authState =
       accessToken != null && accessToken.isNotEmpty
           ? Auth_State(
@@ -47,7 +49,7 @@ Future<Widget> appBuilder({
             accessToken: accessToken,
           )
           : const Auth_State(
-            status: Auth_Status.unauthentcated,
+            status: Auth_Status.unauthenticated,
             accessToken: null,
           );
 
