@@ -93,6 +93,31 @@ Update `app/android/app/src/main/AndroidManifest.xml` to include the following:
 </manifest>
 ```
 
+### Release signing on android
+
+Release builds fall back to the **debug** keys until you create a keystore, so
+do this before publishing:
+
+1. Create an upload keystore (see the
+   [Flutter docs](https://docs.flutter.dev/deployment/android#sign-the-app)):
+
+   ```sh
+   keytool -genkey -v -keystore ~/upload-keystore.jks \
+     -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+   ```
+
+2. Create `app/android/key.properties` (it is gitignored — never commit it):
+
+   ```properties
+   storePassword=<password>
+   keyPassword=<password>
+   keyAlias=upload
+   storeFile=<path-to>/upload-keystore.jks
+   ```
+
+`app/android/app/build.gradle` will pick it up automatically and sign release
+builds with it.
+
 ## Step 4: iOS directory
 
 ### Deep links in iOS
@@ -146,6 +171,20 @@ Require email confirmation after signup under the `[auth.email] section:
 ```toml
 enable_confirmations = true
 ```
+
+### Enable Row Level Security (RLS) on every table
+
+Every table in the `public` schema is reachable with the anon key that ships
+inside your app. Enable RLS on **every** table you create and add explicit
+policies — see `supabase/migrations/20260611000000_rls_policies_example.sql`
+for an owner-only example you can copy:
+
+```sql
+ALTER TABLE public.your_table ENABLE ROW LEVEL SECURITY;
+```
+
+Also double-check in the Supabase dashboard (Database → Tables) that no table
+shows the "RLS disabled" warning before going to production.
 
 ## Step 6: misc cleanup
 
