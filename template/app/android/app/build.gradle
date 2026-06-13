@@ -5,6 +5,17 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+// Release signing is read from android/key.properties, which is gitignored.
+// See https://docs.flutter.dev/deployment/android#sign-the-app for how to
+// create the keystore and the expected properties.
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withReader("UTF-8") { reader ->
+        keystoreProperties.load(reader)
+    }
+}
+
 android {
     namespace = "com.gadfly361.gadfly_flutter_template"
     compileSdk = flutter.compileSdkVersion
@@ -30,11 +41,26 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (keystorePropertiesFile.exists()) {
+            release {
+                keyAlias = keystoreProperties["keyAlias"]
+                keyPassword = keystoreProperties["keyPassword"]
+                storeFile = file(keystoreProperties["storeFile"])
+                storePassword = keystoreProperties["storePassword"]
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            // Falls back to the debug keys when android/key.properties is
+            // absent, so `flutter run --release` works out of the box.
+            // CHANGE_ME: create a keystore and key.properties before
+            // publishing a release build.
+            signingConfig = keystorePropertiesFile.exists()
+                ? signingConfigs.release
+                : signingConfigs.debug
         }
     }
 }
