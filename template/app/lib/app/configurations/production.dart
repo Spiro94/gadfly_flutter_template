@@ -16,9 +16,10 @@ void main() {
     appLocale: AppLocale.en,
     logLevel: logging.Level.INFO,
     theme: OutsideThemes.lightTheme,
-    deepLinkBaseUri: kIsWeb
-        ? 'CHANGE_ME'
-        : 'com.gadfly361.gadflyfluttertemplate.deep://deeplink-callback',
+    deepLinkBaseUri:
+        kIsWeb
+            ? 'CHANGE_ME'
+            : 'com.gadfly361.gadflyfluttertemplate.deep://deeplink-callback',
     clientProvidersConfigurations: ClientProvidersConfigurations(
       sentry: const Sentry_ClientProvider_Configuration(
         dsn: 'CHANGE_ME',

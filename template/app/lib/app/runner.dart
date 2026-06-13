@@ -22,9 +22,10 @@ import 'configurations/configuration.dart';
 /// that needs to happen before [appBuilder] is called and our widget tree is
 /// created. This is where certain dependencies, such as repositories and effect
 /// providers, can be initialized outside of the widget tree.
-Future<void> appRunner({
-  required AppConfiguration configuration,
-}) async {
+Future<void> appRunner({required AppConfiguration configuration}) async {
+  // Fail fast if the configuration still contains CHANGE_ME placeholders
+  configuration.validate();
+
   // Set up logging
   _setUpLogging(logLevel: configuration.logLevel);
 
@@ -80,8 +81,13 @@ Future<void> appRunner({
   Bloc.observer = Blocs_Observer();
 
   // Get access token if there is one
-  final accessToken = clientProviders
-      .supabaseClientProvider.client.auth.currentSession?.accessToken;
+  final accessToken =
+      clientProviders
+          .supabaseClientProvider
+          .client
+          .auth
+          .currentSession
+          ?.accessToken;
 
   // If an access token exists, then update the users in clients
   if (accessToken != null && accessToken.isNotEmpty) {

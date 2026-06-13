@@ -15,9 +15,10 @@ void main() {
     appLocale: AppLocale.en,
     logLevel: logging.Level.ALL,
     theme: OutsideThemes.lightTheme,
-    deepLinkBaseUri: kIsWeb
-        ? 'http://$siteHost:3000'
-        : 'com.gadfly361.gadflyfluttertemplate.deep://deeplink-callback',
+    deepLinkBaseUri:
+        kIsWeb
+            ? 'http://$siteHost:3000'
+            : 'com.gadfly361.gadflyfluttertemplate.deep://deeplink-callback',
     clientProvidersConfigurations: ClientProvidersConfigurations(
       sentry: null,
       supabase: const Supabase_ClientProvider_Configuration(
