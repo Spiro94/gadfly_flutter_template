@@ -1,3 +1,12 @@
+authError:
+  invalidCredentials: 'Incorrect email or password.'
+  emailNotConfirmed: 'Please verify your email address before signing in.'
+  userAlreadyExists: 'An account with this email already exists.'
+  weakPassword: 'Minimum 8 characters, upper and lower case, with at least one special character.'
+  rateLimited: 'Too many attempts. Please wait a moment and try again.'
+  network: 'A network error occurred. Please check your connection and try again.'
+  unknown: 'Something went wrong. Please try again.'
+
 emailVerificationLinkSent:
   title: 'Email Verification Link Sent'
   subtitle: 'Check your email for you email verification link.'
