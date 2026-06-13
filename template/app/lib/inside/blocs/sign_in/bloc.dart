@@ -2,20 +2,17 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../outside/repositories/auth/repository.dart';
+import '../../util/auth_error_message.dart';
 import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
 class SignIn_Bloc extends Bloc_Base<SignIn_Event, SignIn_State> {
-  SignIn_Bloc({
-    required Auth_Repository authRepository,
-  })  : _authRepository = authRepository,
-        super(
-          const SignIn_State(
-            status: SignIn_Status.idle,
-            errorMessage: null,
-          ),
-        ) {
+  SignIn_Bloc({required Auth_Repository authRepository})
+    : _authRepository = authRepository,
+      super(
+        const SignIn_State(status: SignIn_Status.idle, errorMessage: null),
+      ) {
     on<SignIn_Event_SignIn>(_onSignIn, transformer: sequential());
   }
 
@@ -37,15 +34,12 @@ class SignIn_Bloc extends Bloc_Base<SignIn_Event, SignIn_State> {
       emit(
         state.copyWith(
           status: SignIn_Status.signInError,
-          setErrorMessage: e.toString,
+          setErrorMessage: () => authErrorMessageFrom(e),
         ),
       );
     } finally {
       emit(
-        state.copyWith(
-          status: SignIn_Status.idle,
-          setErrorMessage: () => null,
-        ),
+        state.copyWith(status: SignIn_Status.idle, setErrorMessage: () => null),
       );
     }
   }

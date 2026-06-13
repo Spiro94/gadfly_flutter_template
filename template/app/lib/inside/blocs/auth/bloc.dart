@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 
+import '../../../outside/repositories/auth/errors.dart';
 import '../../../outside/repositories/auth/repository.dart';
+import '../../util/auth_error_message.dart';
 import '../base.dart';
 import 'events.dart';
 import 'state.dart';
@@ -13,12 +14,9 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
   Auth_Bloc({
     required Auth_Repository authRepository,
     required Auth_State initialState,
-  })  : _authRepository = authRepository,
-        super(initialState) {
-    on<Auth_Event_SignOut>(
-      _onSignOut,
-      transformer: sequential(),
-    );
+  }) : _authRepository = authRepository,
+       super(initialState) {
+    on<Auth_Event_SignOut>(_onSignOut, transformer: sequential());
     on<Auth_Event_AccessTokenAdded>(
       _onAccessTokenAdded,
       transformer: sequential(),
@@ -76,10 +74,7 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
 
   Future<void> _tokenRemoved(Emitter<Auth_State> emit) async {
     emit(
-      const Auth_State(
-        status: Auth_Status.unauthentcated,
-        accessToken: null,
-      ),
+      const Auth_State(status: Auth_Status.unauthenticated, accessToken: null),
     );
 
     try {
@@ -101,10 +96,7 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
       );
 
       emit(
-        Auth_State(
-          status: Auth_Status.authenticated,
-          accessToken: accessToken,
-        ),
+        Auth_State(status: Auth_Status.authenticated, accessToken: accessToken),
       );
       log.info('authenticated from URI');
       event.errorMessageCompleter.complete();
@@ -113,12 +105,12 @@ class Auth_Bloc extends Bloc_Base<Auth_Event, Auth_State> {
 
       // The redirect link after sign up seems to always be in this state, but
       // it doesn' affect the user, so we are ignoring this error.
-      if (e is supabase.AuthException && e.code == 'flow_state_not_found') {
+      if (e is Auth_Error && e.code == Auth_ErrorCode.flowStateNotFound) {
         event.errorMessageCompleter.complete();
         return;
       }
 
-      event.errorMessageCompleter.complete(e.toString());
+      event.errorMessageCompleter.complete(authErrorMessageFrom(e));
     }
   }
 }

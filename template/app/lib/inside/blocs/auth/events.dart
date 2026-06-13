@@ -5,9 +5,7 @@ sealed class Auth_Event {}
 class Auth_Event_SignOut extends Auth_Event {}
 
 class Auth_Event_AccessTokenAdded extends Auth_Event {
-  Auth_Event_AccessTokenAdded({
-    required this.accessToken,
-  });
+  Auth_Event_AccessTokenAdded({required this.accessToken});
   final String accessToken;
 }
 

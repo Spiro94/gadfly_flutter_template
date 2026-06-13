@@ -9,20 +9,14 @@ import 'base.dart';
 ///   - Make sure to add the concrete type to `RepositoryProvider<ConcreteType>`
 ///     otherwise it will register the base class.
 class Repositories_All {
-  const Repositories_All({
-    required this.authRepository,
-  });
+  const Repositories_All({required this.authRepository});
 
   final Auth_Repository authRepository;
 
-  List<Repository_Base> getList() => [
-        authRepository,
-      ];
+  List<Repository_Base> getList() => [authRepository];
 
   List<RepositoryProvider<Repository_Base>> createProviders() {
-    return [
-      RepositoryProvider<Auth_Repository>.value(value: authRepository),
-    ];
+    return [RepositoryProvider<Auth_Repository>.value(value: authRepository)];
   }
 
   Future<void> initialize() async {

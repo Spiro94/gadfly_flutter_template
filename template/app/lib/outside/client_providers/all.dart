@@ -14,9 +14,9 @@ class ClientProviders_All {
   final Supabase_ClientProvider supabaseClientProvider;
 
   List<ClientProvider_Base> getList() => [
-        sentryClientProvider,
-        supabaseClientProvider,
-      ];
+    sentryClientProvider,
+    supabaseClientProvider,
+  ];
 
   Future<void> initialize() async {
     await Future.forEach(getList(), (r) async {

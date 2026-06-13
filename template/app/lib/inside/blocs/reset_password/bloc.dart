@@ -2,22 +2,22 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../outside/repositories/auth/repository.dart';
+import '../../util/auth_error_message.dart';
 import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
 class ResetPassword_Bloc
     extends Bloc_Base<ResetPassword_Event, ResetPassword_State> {
-  ResetPassword_Bloc({
-    required Auth_Repository authRepository,
-  })  : _authRepository = authRepository,
-        super(
-          const ResetPassword_State(
-            status: ResetPassword_Status.idle,
-            errorMessage: null,
-            email: null,
-          ),
-        ) {
+  ResetPassword_Bloc({required Auth_Repository authRepository})
+    : _authRepository = authRepository,
+      super(
+        const ResetPassword_State(
+          status: ResetPassword_Status.idle,
+          errorMessage: null,
+          email: null,
+        ),
+      ) {
     on<ResetPassword_Event_SendResetPasswordLink>(
       _onSendResetPasswordLink,
       transformer: sequential(),
@@ -45,9 +45,7 @@ class ResetPassword_Bloc
     );
     try {
       final email = event.email.trim();
-      await _authRepository.sendResetPasswordLink(
-        email: email,
-      );
+      await _authRepository.sendResetPasswordLink(email: email);
       emit(
         state.copyWith(
           status: ResetPassword_Status.sendResetPasswordLinkSuccess,
@@ -59,7 +57,7 @@ class ResetPassword_Bloc
       emit(
         state.copyWith(
           status: ResetPassword_Status.sendResetPasswordLinkError,
-          setErrorMessage: e.toString,
+          setErrorMessage: () => authErrorMessageFrom(e),
         ),
       );
     } finally {
@@ -84,9 +82,7 @@ class ResetPassword_Bloc
     );
     try {
       final email = event.email.trim();
-      await _authRepository.sendResetPasswordLink(
-        email: email,
-      );
+      await _authRepository.sendResetPasswordLink(email: email);
       emit(
         state.copyWith(
           status: ResetPassword_Status.resendResetPasswordLinkSuccess,
@@ -98,7 +94,7 @@ class ResetPassword_Bloc
       emit(
         state.copyWith(
           status: ResetPassword_Status.resendResetPasswordLinkError,
-          setErrorMessage: e.toString,
+          setErrorMessage: () => authErrorMessageFrom(e),
         ),
       );
     } finally {
@@ -116,27 +112,17 @@ class ResetPassword_Bloc
     ResetPassword_Event_ResetPassword event,
     Emitter<ResetPassword_State> emit,
   ) async {
-    emit(
-      state.copyWith(
-        status: ResetPassword_Status.resetPasswordInProgress,
-      ),
-    );
+    emit(state.copyWith(status: ResetPassword_Status.resetPasswordInProgress));
     try {
       final password = event.password;
-      await _authRepository.resetPassword(
-        password: password,
-      );
-      emit(
-        state.copyWith(
-          status: ResetPassword_Status.resetPasswordSuccess,
-        ),
-      );
+      await _authRepository.resetPassword(password: password);
+      emit(state.copyWith(status: ResetPassword_Status.resetPasswordSuccess));
     } catch (e, stackTrace) {
       log.warning('${event.runtimeType}: error', e, stackTrace);
       emit(
         state.copyWith(
           status: ResetPassword_Status.resetPasswordError,
-          setErrorMessage: e.toString,
+          setErrorMessage: () => authErrorMessageFrom(e),
         ),
       );
     } finally {

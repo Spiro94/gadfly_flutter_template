@@ -47,11 +47,7 @@ class ResetPassword_State extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        status,
-        errorMessage,
-        email,
-      ];
+  List<Object?> get props => [status, errorMessage, email];
 
   // coverage:ignore-start
   factory ResetPassword_State.fromJson(Map<String, dynamic> json) =>

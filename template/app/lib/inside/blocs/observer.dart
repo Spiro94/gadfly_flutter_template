@@ -20,23 +20,16 @@ class Blocs_Observer extends BlocObserver with SharedMixin_Logging {
   void _initializeLogger() {
     Logger.root.level = Level.ALL;
     Logger.root.onRecord.listen((record) {
-      final yoLogRecord =
-          SharedModel_BlocDevtoolsExtension_LogRecord(logRecord: record);
+      final yoLogRecord = SharedModel_BlocDevtoolsExtension_LogRecord(
+        logRecord: record,
+      );
       _devtoolsLogRecords.add(yoLogRecord);
     });
   }
 
   @override
-  void onError(
-    BlocBase<dynamic> bloc,
-    Object error,
-    StackTrace stackTrace,
-  ) {
-    log.severe(
-      '(${bloc.runtimeType}) error',
-      error,
-      stackTrace,
-    );
+  void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
+    log.severe('(${bloc.runtimeType}) error', error, stackTrace);
     super.onError(bloc, error, stackTrace);
   }
 
@@ -76,10 +69,7 @@ class Blocs_Observer extends BlocObserver with SharedMixin_Logging {
   }
 
   @override
-  void onChange(
-    BlocBase<dynamic> bloc,
-    Change<dynamic> change,
-  ) {
+  void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     if (bloc is Cubit) {
       try {
         final blocName = bloc.runtimeType.toString();

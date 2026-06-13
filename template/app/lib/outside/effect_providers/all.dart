@@ -19,9 +19,9 @@ class EffectProviders_All {
   final Mixpanel_EffectProvider mixpanelEffectProvider;
 
   List<EffectProvider_Base<dynamic>> getList() => [
-        authChangeEffectProvider,
-        mixpanelEffectProvider,
-      ];
+    authChangeEffectProvider,
+    mixpanelEffectProvider,
+  ];
 
   List<RepositoryProvider<EffectProvider_Base<dynamic>>> createProviders() {
     return [

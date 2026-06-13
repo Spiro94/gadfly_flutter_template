@@ -5,13 +5,12 @@ part 'bloc_devtools_extension_log_record.g.dart';
 
 @JsonSerializable(createFactory: false)
 class SharedModel_BlocDevtoolsExtension_LogRecord {
-  SharedModel_BlocDevtoolsExtension_LogRecord({
-    required LogRecord logRecord,
-  })  : level = logRecord.level.name,
-        message = logRecord.message,
-        loggerName = logRecord.loggerName,
-        time = logRecord.time,
-        error = logRecord.error?.toString();
+  SharedModel_BlocDevtoolsExtension_LogRecord({required LogRecord logRecord})
+    : level = logRecord.level.name,
+      message = logRecord.message,
+      loggerName = logRecord.loggerName,
+      time = logRecord.time,
+      error = logRecord.error?.toString();
 
   final String level;
   final String loggerName;

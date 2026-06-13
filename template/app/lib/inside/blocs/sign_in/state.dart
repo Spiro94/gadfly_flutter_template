@@ -14,10 +14,7 @@ enum SignIn_Status {
 
 @JsonSerializable()
 class SignIn_State extends Equatable {
-  const SignIn_State({
-    required this.status,
-    required this.errorMessage,
-  });
+  const SignIn_State({required this.status, required this.errorMessage});
 
   final SignIn_Status status;
   final String? errorMessage;
@@ -33,10 +30,7 @@ class SignIn_State extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        status,
-        errorMessage,
-      ];
+  List<Object?> get props => [status, errorMessage];
 
   // coverage:ignore-start
   factory SignIn_State.fromJson(Map<String, dynamic> json) =>

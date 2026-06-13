@@ -14,12 +14,12 @@ ResetPassword_State _$ResetPassword_StateFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ResetPassword_StateToJson(
-        ResetPassword_State instance) =>
-    <String, dynamic>{
-      'status': _$ResetPassword_StatusEnumMap[instance.status]!,
-      'errorMessage': instance.errorMessage,
-      'email': instance.email,
-    };
+  ResetPassword_State instance,
+) => <String, dynamic>{
+  'status': _$ResetPassword_StatusEnumMap[instance.status]!,
+  'errorMessage': instance.errorMessage,
+  'email': instance.email,
+};
 
 const _$ResetPassword_StatusEnumMap = {
   ResetPassword_Status.idle: 'idle',

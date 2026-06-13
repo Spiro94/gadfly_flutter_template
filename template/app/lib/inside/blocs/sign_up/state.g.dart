@@ -7,9 +7,9 @@ part of 'state.dart';
 // **************************************************************************
 
 SignUp_State _$SignUp_StateFromJson(Map<String, dynamic> json) => SignUp_State(
-      status: $enumDecode(_$SignUp_StatusEnumMap, json['status']),
-      errorMessage: json['errorMessage'] as String?,
-    );
+  status: $enumDecode(_$SignUp_StatusEnumMap, json['status']),
+  errorMessage: json['errorMessage'] as String?,
+);
 
 Map<String, dynamic> _$SignUp_StateToJson(SignUp_State instance) =>
     <String, dynamic>{

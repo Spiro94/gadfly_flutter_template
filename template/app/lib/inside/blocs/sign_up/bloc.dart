@@ -2,24 +2,18 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../outside/repositories/auth/repository.dart';
+import '../../util/auth_error_message.dart';
 import '../base.dart';
 import 'events.dart';
 import 'state.dart';
 
 class SignUp_Bloc extends Bloc_Base<SignUp_Event, SignUp_State> {
-  SignUp_Bloc({
-    required Auth_Repository authRepository,
-  })  : _authRepository = authRepository,
-        super(
-          const SignUp_State(
-            status: SignUp_Status.idle,
-            errorMessage: null,
-          ),
-        ) {
-    on<SignUp_Event_SignUp>(
-      _onSignUp,
-      transformer: sequential(),
-    );
+  SignUp_Bloc({required Auth_Repository authRepository})
+    : _authRepository = authRepository,
+      super(
+        const SignUp_State(status: SignUp_Status.idle, errorMessage: null),
+      ) {
+    on<SignUp_Event_SignUp>(_onSignUp, transformer: sequential());
     on<SignUp_Event_ResendEmailVerificationLink>(
       _onResendEmailVerificationLink,
       transformer: sequential(),
@@ -44,15 +38,12 @@ class SignUp_Bloc extends Bloc_Base<SignUp_Event, SignUp_State> {
       emit(
         state.copyWith(
           status: SignUp_Status.signUpError,
-          setErrorMessage: e.toString,
+          setErrorMessage: () => authErrorMessageFrom(e),
         ),
       );
     } finally {
       emit(
-        state.copyWith(
-          status: SignUp_Status.idle,
-          setErrorMessage: () => null,
-        ),
+        state.copyWith(status: SignUp_Status.idle, setErrorMessage: () => null),
       );
     }
   }
@@ -80,15 +71,12 @@ class SignUp_Bloc extends Bloc_Base<SignUp_Event, SignUp_State> {
       emit(
         state.copyWith(
           status: SignUp_Status.resendEmailVerificationLinkError,
-          setErrorMessage: e.toString,
+          setErrorMessage: () => authErrorMessageFrom(e),
         ),
       );
     } finally {
       emit(
-        state.copyWith(
-          status: SignUp_Status.idle,
-          setErrorMessage: () => null,
-        ),
+        state.copyWith(status: SignUp_Status.idle, setErrorMessage: () => null),
       );
     }
   }

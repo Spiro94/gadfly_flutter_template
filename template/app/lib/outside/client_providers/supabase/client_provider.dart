@@ -4,9 +4,7 @@ import '../base.dart';
 import 'client_provider_configuration.dart';
 
 class Supabase_ClientProvider extends ClientProvider_Base {
-  Supabase_ClientProvider({
-    required this.configuration,
-  });
+  Supabase_ClientProvider({required this.configuration});
 
   final Supabase_ClientProvider_Configuration configuration;
 

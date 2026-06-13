@@ -7,9 +7,9 @@ part of 'state.dart';
 // **************************************************************************
 
 SignIn_State _$SignIn_StateFromJson(Map<String, dynamic> json) => SignIn_State(
-      status: $enumDecode(_$SignIn_StatusEnumMap, json['status']),
-      errorMessage: json['errorMessage'] as String?,
-    );
+  status: $enumDecode(_$SignIn_StatusEnumMap, json['status']),
+  errorMessage: json['errorMessage'] as String?,
+);
 
 Map<String, dynamic> _$SignIn_StateToJson(SignIn_State instance) =>
     <String, dynamic>{
