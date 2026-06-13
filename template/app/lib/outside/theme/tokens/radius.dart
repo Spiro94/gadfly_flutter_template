@@ -56,10 +56,5 @@ class ThemeRadiusTokens extends ThemeExtension<ThemeRadiusTokens>
   }
 
   @override
-  List<Object?> get props => [
-        zero,
-        small,
-        medium,
-        rounded,
-      ];
+  List<Object?> get props => [zero, small, medium, rounded];
 }

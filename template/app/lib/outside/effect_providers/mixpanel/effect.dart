@@ -5,16 +5,11 @@ import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import '../../../shared/mixins/logging.dart';
 
 class Mixpanel_Effect with SharedMixin_Logging {
-  Mixpanel_Effect({
-    required Mixpanel mixpanel,
-  }) : _mixpanel = mixpanel;
+  Mixpanel_Effect({required Mixpanel mixpanel}) : _mixpanel = mixpanel;
 
   final Mixpanel _mixpanel;
 
-  void setUser({
-    required String? sub,
-    required String? email,
-  }) {
+  void setUser({required String? sub, required String? email}) {
     log.info('set user');
     log.fine('sub: $sub');
     log.fine('email: $email');

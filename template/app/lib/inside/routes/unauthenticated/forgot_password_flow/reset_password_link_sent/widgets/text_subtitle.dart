@@ -10,9 +10,6 @@ class ResetPasswordLinkSent_Text_Subtitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final subtitle = context.t.resetPasswordLinkSent.subtitle;
 
-    return Text(
-      subtitle,
-      style: context.theme.typography.lg,
-    );
+    return Text(subtitle, style: context.theme.typography.lg);
   }
 }

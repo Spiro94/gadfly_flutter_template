@@ -64,11 +64,5 @@ class ThemeIconSizeTokens extends ThemeExtension<ThemeIconSizeTokens>
   }
 
   @override
-  List<Object?> get props => [
-        xSmall,
-        small,
-        medium,
-        large,
-        xLarge,
-      ];
+  List<Object?> get props => [xSmall, small, medium, large, xLarge];
 }

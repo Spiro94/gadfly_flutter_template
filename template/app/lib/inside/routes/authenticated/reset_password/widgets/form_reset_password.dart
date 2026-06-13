@@ -57,19 +57,18 @@ class _ResetPassword_Form_ResetPasswordState
     widget.log.info('form valid');
 
     context.read<ResetPassword_Bloc>().add(
-          ResetPassword_Event_ResetPassword(
-            password: passwordController.text,
-          ),
-        );
+      ResetPassword_Event_ResetPassword(password: passwordController.text),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidateMode: _hasSubmittedBefore
-          ? AutovalidateMode.onUserInteraction
-          : AutovalidateMode.disabled,
+      autovalidateMode:
+          _hasSubmittedBefore
+              ? AutovalidateMode.onUserInteraction
+              : AutovalidateMode.disabled,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,

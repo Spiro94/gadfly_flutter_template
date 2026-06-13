@@ -4,16 +4,11 @@ import 'package:flutter/material.dart';
 import 'effect.dart';
 
 class Mixpanel_Effect_RouteObserver extends AutoRouteObserver {
-  Mixpanel_Effect_RouteObserver({
-    required this.mixpanelEffect,
-  });
+  Mixpanel_Effect_RouteObserver({required this.mixpanelEffect});
 
   final Mixpanel_Effect mixpanelEffect;
 
-  void _trackPage({
-    required Route<dynamic> route,
-    required bool isPopped,
-  }) {
+  void _trackPage({required Route<dynamic> route, required bool isPopped}) {
     // We use widgets ending in `_Routes` to coordinate pages. Because of this,
     // we do not report `_Routes` screens and only report `_Page` screens.
     if (route.settings.name != null &&
@@ -29,20 +24,14 @@ class Mixpanel_Effect_RouteObserver extends AutoRouteObserver {
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPop(route, previousRoute);
     if (previousRoute != null) {
-      _trackPage(
-        route: route,
-        isPopped: true,
-      );
+      _trackPage(route: route, isPopped: true);
     }
   }
 
   @override
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPush(route, previousRoute);
-    _trackPage(
-      route: route,
-      isPopped: false,
-    );
+    _trackPage(route: route, isPopped: false);
   }
 
   @override

@@ -11,9 +11,7 @@ class Authenticated_Router extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Routes_Listener_SupabaseAuthChange(
-      child: Routes_Listener_AuthStatusChange(
-        child: AutoRouter(),
-      ),
+      child: Routes_Listener_AuthStatusChange(child: AutoRouter()),
     );
   }
 }

@@ -10,9 +10,6 @@ class EmailVerificationLinkSent_Text_Subtitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final subtitle = context.t.emailVerificationLinkSent.subtitle;
 
-    return Text(
-      subtitle,
-      style: context.theme.typography.lg,
-    );
+    return Text(subtitle, style: context.theme.typography.lg);
   }
 }

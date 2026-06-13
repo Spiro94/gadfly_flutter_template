@@ -3,10 +3,7 @@ import 'effect.dart';
 
 class Effect_Mixpanel_Fake with SharedMixin_Logging implements Mixpanel_Effect {
   @override
-  void setUser({
-    required String? sub,
-    required String? email,
-  }) {
+  void setUser({required String? sub, required String? email}) {
     log.info('set user');
     log.fine('sub: $sub');
     log.fine('email: $email');

@@ -10,8 +10,6 @@ class SignIn_Header extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = context.t.signIn.title;
 
-    return FHeader(
-      title: Text(title),
-    );
+    return FHeader(title: Text(title));
   }
 }

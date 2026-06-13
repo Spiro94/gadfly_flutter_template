@@ -6,10 +6,7 @@ import '../../../../blocs/sign_in/bloc.dart';
 import '../../../../blocs/sign_in/state.dart';
 
 class SignIn_Listener_StatusChange extends StatelessWidget {
-  const SignIn_Listener_StatusChange({
-    required this.child,
-    super.key,
-  });
+  const SignIn_Listener_StatusChange({required this.child, super.key});
 
   final Widget child;
 

@@ -29,9 +29,7 @@ class SignIn_Link_SignUp extends StatelessWidget {
               },
               child: Text(
                 action,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
           ],

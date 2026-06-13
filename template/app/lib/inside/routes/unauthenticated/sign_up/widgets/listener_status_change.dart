@@ -9,10 +9,7 @@ import '../../../../i18n/translations.g.dart';
 import '../../../router.dart';
 
 class SignUp_Listener_StatusChange extends StatelessWidget {
-  const SignUp_Listener_StatusChange({
-    required this.child,
-    super.key,
-  });
+  const SignUp_Listener_StatusChange({required this.child, super.key});
 
   final Widget child;
 
@@ -46,7 +43,12 @@ class SignUp_Listener_StatusChange extends StatelessWidget {
                   backgroundColor: scaffoldBackgroundColor,
                   content: FAlert(
                     title: Text(
-                      context.t.signUp.resendEmailVerification.dialog.submit
+                      context
+                          .t
+                          .signUp
+                          .resendEmailVerification
+                          .dialog
+                          .submit
                           .success,
                     ),
                     variant: FAlertVariant.primary,

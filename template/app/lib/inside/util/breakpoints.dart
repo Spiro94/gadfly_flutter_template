@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
-enum InsideUtil_BreakpointType {
-  constrained,
-  unconstrained,
-}
+enum InsideUtil_BreakpointType { constrained, unconstrained }
 
 class InsideUtil_Breakpoints {
   static double getContentWidth({

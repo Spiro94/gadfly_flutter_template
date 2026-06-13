@@ -4,9 +4,9 @@ class Mixpanel_EffectProvider_Configuration {
     required this.token,
     required this.environment,
   }) : assert(
-          !sendEvents || (sendEvents && token != null && environment != null),
-          '''If sendEvents is true, token and environment must be provided''',
-        );
+         !sendEvents || (sendEvents && token != null && environment != null),
+         '''If sendEvents is true, token and environment must be provided''',
+       );
 
   /// Whether or not this effect actually send events via Mixpanel API
   final bool sendEvents;

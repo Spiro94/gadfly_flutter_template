@@ -28,10 +28,7 @@ class Routes_Scaffold extends StatelessWidget {
         Positioned.fill(
           left: horizontalInset,
           right: horizontalInset,
-          child: Scaffold(
-            backgroundColor: bacgkroundColor,
-            body: scaffold,
-          ),
+          child: Scaffold(backgroundColor: bacgkroundColor, body: scaffold),
         ),
       ],
     );

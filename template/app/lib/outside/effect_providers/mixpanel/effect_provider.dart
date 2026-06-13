@@ -24,9 +24,7 @@ class Mixpanel_EffectProvider extends EffectProvider_Base<Mixpanel_Effect>
     if (configuration.sendEvents &&
         configuration.token != null &&
         configuration.token!.isNotEmpty) {
-      return Mixpanel_Effect(
-        mixpanel: _mixpanel!,
-      );
+      return Mixpanel_Effect(mixpanel: _mixpanel!);
     }
 
     return Effect_Mixpanel_Fake();
@@ -52,8 +50,6 @@ class Mixpanel_EffectProvider extends EffectProvider_Base<Mixpanel_Effect>
   }
 
   Future<void> setSessionId({required String sessionId}) async {
-    await _mixpanel!.registerSuperProperties({
-      'session_id': sessionId,
-    });
+    await _mixpanel!.registerSuperProperties({'session_id': sessionId});
   }
 }

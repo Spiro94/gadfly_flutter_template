@@ -121,17 +121,17 @@ class ThemeSpacingTokens extends ThemeExtension<ThemeSpacingTokens>
 
   @override
   List<Object?> get props => [
-        zero,
-        xxxxSmall,
-        xxxSmall,
-        xxSmall,
-        xSmall,
-        small,
-        medium,
-        large,
-        xLarge,
-        xxLarge,
-        xxxLarge,
-        xxxxLarge,
-      ];
+    zero,
+    xxxxSmall,
+    xxxSmall,
+    xxSmall,
+    xSmall,
+    small,
+    medium,
+    large,
+    xLarge,
+    xxLarge,
+    xxxLarge,
+    xxxxLarge,
+  ];
 }

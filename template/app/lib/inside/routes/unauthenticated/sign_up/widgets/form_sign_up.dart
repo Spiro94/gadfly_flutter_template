@@ -60,20 +60,21 @@ class _SignUp_Form_SignUpState extends State<SignUp_Form_SignUp> {
     widget.log.info('form valid');
 
     context.read<SignUp_Bloc>().add(
-          SignUp_Event_SignUp(
-            email: emailController.text,
-            password: passwordController.text,
-          ),
-        );
+      SignUp_Event_SignUp(
+        email: emailController.text,
+        password: passwordController.text,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidateMode: _hasSubmittedBefore
-          ? AutovalidateMode.onUserInteraction
-          : AutovalidateMode.disabled,
+      autovalidateMode:
+          _hasSubmittedBefore
+              ? AutovalidateMode.onUserInteraction
+              : AutovalidateMode.disabled,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,

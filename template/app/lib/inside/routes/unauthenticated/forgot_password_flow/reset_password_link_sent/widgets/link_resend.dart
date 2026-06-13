@@ -9,9 +9,7 @@ import '../../../../../blocs/reset_password/events.dart';
 import '../../../../../i18n/translations.g.dart';
 
 class ResetPasswordLinkSent_Link_Resend extends StatelessWidget {
-  const ResetPasswordLinkSent_Link_Resend({
-    super.key,
-  });
+  const ResetPasswordLinkSent_Link_Resend({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +30,12 @@ class ResetPasswordLinkSent_Link_Resend extends StatelessWidget {
             FTappable(
               onPress: () {
                 context.read<ResetPassword_Bloc>().add(
-                      ResetPassword_Event_ResendResetPasswordLink(
-                        email: email,
-                      ),
-                    );
+                  ResetPassword_Event_ResendResetPasswordLink(email: email),
+                );
               },
               child: Text(
                 action,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
           ],

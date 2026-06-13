@@ -21,9 +21,7 @@ class SignIn_Link_ForgotPassword extends StatelessWidget {
           },
           child: Text(
             question,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ],
