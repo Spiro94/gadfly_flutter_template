@@ -6,6 +6,7 @@ linter:
     avoid_catches_without_on_clauses: false
     avoid_redundant_argument_values: false
     cascade_invocations: false
+    camel_case_extensions: false
     camel_case_types: false
     empty_catches: false
     no_leading_underscores_for_local_identifiers: false
