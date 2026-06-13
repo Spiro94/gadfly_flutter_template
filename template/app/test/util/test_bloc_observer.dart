@@ -6,15 +6,11 @@ import 'mocks/effects/mixpanel_effect.dart';
 import 'mocks/mocked_app.dart';
 
 TestBlocObserver createTestBlocObserver(FTMockedApp<MocksContainer> mockedApp) {
-  return TestBlocObserver(
-    mockedApp: mockedApp,
-  );
+  return TestBlocObserver(mockedApp: mockedApp);
 }
 
 class TestBlocObserver extends FTBlocObserver<MocksContainer> {
-  TestBlocObserver({
-    required super.mockedApp,
-  });
+  TestBlocObserver({required super.mockedApp});
 
   @override
   Future<void> init() async {
@@ -24,20 +20,16 @@ class TestBlocObserver extends FTBlocObserver<MocksContainer> {
 
   void _mockLogger() {
     Logger.root.level = Level.INFO;
-    Logger.root.onRecord.listen(
-      (record) {
-        if (record.loggerName ==
-            Effect_Mixpanel_Fake().runtimeType.toString().snakeCase) {
-          mockedApp.events.add(
-            '''[ANALYTIC] ${record.message}''',
-          );
-          return;
-        }
+    Logger.root.onRecord.listen((record) {
+      if (record.loggerName ==
+          Effect_Mixpanel_Fake().runtimeType.toString().snakeCase) {
+        mockedApp.events.add('''[ANALYTIC] ${record.message}''');
+        return;
+      }
 
-        mockedApp.events.add(
-          '''[${record.loggerName}] ${record.level}: ${record.message}''',
-        );
-      },
-    );
+      mockedApp.events.add(
+        '''[${record.loggerName}] ${record.level}: ${record.message}''',
+      );
+    });
   }
 }

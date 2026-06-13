@@ -2,9 +2,9 @@ import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
 import 'package:forui/forui.dart';
 import 'package:gadfly_flutter_template/inside/blocs/sign_up/events.dart';
-import 'package:gadfly_flutter_template/inside/routes/unauthenitcated/sign_up/widgets/button_submit.dart';
-import 'package:gadfly_flutter_template/inside/routes/unauthenitcated/sign_up/widgets/input_email.dart';
-import 'package:gadfly_flutter_template/inside/routes/unauthenitcated/sign_up/widgets/input_password.dart';
+import 'package:gadfly_flutter_template/inside/routes/unauthenticated/sign_up/widgets/button_submit.dart';
+import 'package:gadfly_flutter_template/inside/routes/unauthenticated/sign_up/widgets/input_email.dart';
+import 'package:gadfly_flutter_template/inside/routes/unauthenticated/sign_up/widgets/input_password.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../util/flow_config.dart';
@@ -25,9 +25,7 @@ void main() {
 
   flowTest(
     'success',
-    config: createFlowConfig(
-      hasAccessToken: false,
-    ),
+    config: createFlowConfig(hasAccessToken: false),
     descriptions: [
       ...baseDescriptions,
       FTDescription(
@@ -94,9 +92,7 @@ void main() {
           when(
             () => arrange.mocks.repositories.authRepository.signUp(
               email: any(named: 'email'),
-              password: any(
-                named: 'password',
-              ),
+              password: any(named: 'password'),
             ),
           ).thenAnswer((_) async {});
         },
@@ -136,9 +132,7 @@ void main() {
 
     flowTest(
       'email_empty',
-      config: createFlowConfig(
-        hasAccessToken: false,
-      ),
+      config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
         failureDescription,
@@ -168,9 +162,7 @@ void main() {
             when(
               () => arrange.mocks.repositories.authRepository.signUp(
                 email: any(named: 'email'),
-                password: any(
-                  named: 'password',
-                ),
+                password: any(named: 'password'),
               ),
             ).thenAnswer((_) async {});
           },
@@ -200,9 +192,7 @@ void main() {
 
     flowTest(
       'email_invalid',
-      config: createFlowConfig(
-        hasAccessToken: false,
-      ),
+      config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
         failureDescription,
@@ -268,9 +258,7 @@ void main() {
 
     flowTest(
       'password_invalid',
-      config: createFlowConfig(
-        hasAccessToken: false,
-      ),
+      config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
         failureDescription,
@@ -338,9 +326,7 @@ void main() {
 
     flowTest(
       'http_error',
-      config: createFlowConfig(
-        hasAccessToken: false,
-      ),
+      config: createFlowConfig(hasAccessToken: false),
       descriptions: [
         ...baseDescriptions,
         failureDescription,
@@ -408,9 +394,7 @@ void main() {
             when(
               () => arrange.mocks.repositories.authRepository.signUp(
                 email: any(named: 'email'),
-                password: any(
-                  named: 'password',
-                ),
+                password: any(named: 'password'),
               ),
             ).thenThrow(Exception('BOOM'));
           },
@@ -420,9 +404,9 @@ void main() {
           },
           expectations: (expectations) {
             expectations.expect(
-              find.text('Exception: BOOM'),
+              find.text('Something went wrong. Please try again.'),
               findsOneWidget,
-              reason: 'Should see snack bar showing exception',
+              reason: 'Should see snack bar showing localized error message',
             );
           },
           expectedEvents: [

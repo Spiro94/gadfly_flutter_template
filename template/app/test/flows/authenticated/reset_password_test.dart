@@ -1,12 +1,12 @@
+//
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flow_test/flow_test.dart';
 import 'package:flutter_test/flutter_test.dart' hide expect;
-import 'package:gadfly_flutter_template/inside/blocs/auth/events.dart';
-import 'package:gadfly_flutter_template/inside/blocs/sign_in/events.dart';
+import 'package:gadfly_flutter_template/inside/blocs/reset_password/events.dart';
 import 'package:gadfly_flutter_template/inside/routes/authenticated/home/page.dart';
-import 'package:gadfly_flutter_template/inside/routes/unauthenticated/sign_in/widgets/button_submit.dart';
-import 'package:gadfly_flutter_template/inside/routes/unauthenticated/sign_in/widgets/input_email.dart';
-import 'package:gadfly_flutter_template/inside/routes/unauthenticated/sign_in/widgets/input_password.dart';
-import 'package:gadfly_flutter_template/outside/effect_providers/auth_change/effect.dart';
+import 'package:gadfly_flutter_template/inside/routes/authenticated/reset_password/widgets/button_submit.dart';
+import 'package:gadfly_flutter_template/inside/routes/authenticated/reset_password/widgets/input_email.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../util/flow_config.dart';
@@ -14,25 +14,28 @@ import 'epic_description.dart';
 
 void main() {
   final baseDescriptions = [
-    epicDescription_unauthenticated,
+    epicDescription_authenticated,
     FTDescription(
       descriptionType: 'STORY',
-      directoryName: 'sign_in',
+      directoryName: 'reset_password',
       description:
-          '''As a user, I should be able to sign into the application.''',
+          '''As a user, I should be able to reset my password.''',
       atScreenshotsLevel: true,
     ),
   ];
 
   flowTest(
     'success',
-    config: createFlowConfig(hasAccessToken: false),
+    config: createFlowConfig(
+      hasAccessToken: true,
+      deepLinkOverride: '/home/reset-password',
+    ),
     descriptions: [
       ...baseDescriptions,
       FTDescription(
         descriptionType: 'AC',
         directoryName: 'success',
-        description: '''Signing in is successful''',
+        description: '''Resetting the password is successful''',
       ),
     ],
     test: (tester) async {
@@ -46,35 +49,16 @@ void main() {
         expectedEvents: [
           '[app_builder] INFO: locale: en',
           '[routes_deep_link_handler] INFO: incoming deep link uri: /',
-          '[authenticated_guard] INFO: not authenticated',
-          '[ANALYTIC] [page]: SignIn_Route',
+          '[ANALYTIC] [page]: Home_Route',
+          '[ANALYTIC] [page]: ResetPassword_Route',
         ],
-      );
-
-      await tester.screenshot(
-        description: 'enter email',
-        actions: (actions) async {
-          await actions.userAction.enterText(
-            find.byType(SignIn_Input_Email),
-            'foo@example.com',
-          );
-          await actions.testerAction.pumpAndSettle();
-        },
-        expectations: (expectations) {
-          expectations.expect(
-            find.text('foo@example.com', findRichText: true),
-            findsOneWidget,
-            reason: 'email should be entered',
-          );
-        },
-        expectedEvents: [],
       );
 
       await tester.screenshot(
         description: 'enter password',
         actions: (actions) async {
           await actions.userAction.enterText(
-            find.byType(SignIn_Input_Password),
+            find.byType(ResetPassword_Input_Password),
             'Password123!',
           );
           await actions.testerAction.pumpAndSettle();
@@ -93,42 +77,15 @@ void main() {
         description: 'tap submit',
         arrangeBeforeActions: (arrange) {
           when(
-            () => arrange.mocks.repositories.authRepository.signIn(
-              email: any(named: 'email'),
+            () => arrange.mocks.repositories.authRepository.resetPassword(
               password: any(named: 'password'),
             ),
           ).thenAnswer((_) async {});
         },
         actions: (actions) async {
-          await actions.userAction.tap(find.byType(SignIn_Button_Submit));
-          await actions.testerAction.pump();
-        },
-        expectations: (expectations) {},
-        expectedEvents: [
-          '[sign_in_form_sign_in] INFO: submitting form',
-          '[sign_in_form_sign_in] INFO: form valid',
-          SignIn_Event_SignIn,
-        ],
-      );
-
-      await tester.screenshot(
-        description: 'mock auth state change',
-        arrangeBeforeActions: (arrange) {
-          when(
-            () =>
-                arrange.mocks.repositories.authRepository
-                    .updatesUsersInClients(),
-          ).thenAnswer((_) async {});
-
-          arrange.mocks.effects.authChangeEffect.streamController?.add(
-            const AuthChange_Event(
-              status: AuthChange_Status.signedIn,
-              accessToken: 'fakeAccessToken',
-              name: 'signedIn',
-            ),
+          await actions.userAction.tap(
+            find.byType(ResetPassword_Button_Submit),
           );
-        },
-        actions: (actions) async {
           await actions.testerAction.pumpAndSettle();
         },
         expectations: (expectations) {
@@ -137,11 +94,17 @@ void main() {
             findsOneWidget,
             reason: 'Should be on the home page',
           );
+          expectations.expect(
+            find.text('Your password was reset.'),
+            findsOneWidget,
+            reason: 'Should see success snack bar',
+          );
         },
         expectedEvents: [
-          '[routes_listener_supabase_auth_change] INFO: signedIn',
-          Auth_Event_AccessTokenAdded,
-          '[ANALYTIC] [page]: Home_Route',
+          '[reset_password_form_reset_password] INFO: submitting form',
+          '[reset_password_form_reset_password] INFO: form valid',
+          ResetPassword_Event_ResetPassword,
+          '[ANALYTIC] page_popped: ResetPassword_Route',
         ],
       );
     },
@@ -151,19 +114,22 @@ void main() {
     final failureDescription = FTDescription(
       descriptionType: 'AC',
       directoryName: 'failure',
-      description: '''Signing in failed''',
+      description: '''Resetting the password failed''',
     );
 
     flowTest(
-      'email_empty',
-      config: createFlowConfig(hasAccessToken: false),
+      'password_empty',
+      config: createFlowConfig(
+        hasAccessToken: true,
+        deepLinkOverride: '/home/reset-password',
+      ),
       descriptions: [
         ...baseDescriptions,
         failureDescription,
         FTDescription(
           descriptionType: 'scenario',
-          directoryName: 'email_empty',
-          description: '''The email is invalid''',
+          directoryName: 'password_empty',
+          description: '''The password is empty''',
         ),
       ],
       test: (tester) async {
@@ -177,23 +143,20 @@ void main() {
           expectedEvents: [
             '[app_builder] INFO: locale: en',
             '[routes_deep_link_handler] INFO: incoming deep link uri: /',
-            '[authenticated_guard] INFO: not authenticated',
-            '[ANALYTIC] [page]: SignIn_Route',
+            '[ANALYTIC] [page]: Home_Route',
+            '[ANALYTIC] [page]: ResetPassword_Route',
           ],
         );
 
         await tester.screenshot(
           description: 'tap submit',
           actions: (actions) async {
-            await actions.userAction.tap(find.byType(SignIn_Button_Submit));
+            await actions.userAction.tap(
+              find.byType(ResetPassword_Button_Submit),
+            );
             await actions.testerAction.pumpAndSettle();
           },
           expectations: (expectations) {
-            expectations.expect(
-              find.text('Please enter your email address.'),
-              findsOneWidget,
-              reason: 'Should see email empty error',
-            );
             expectations.expect(
               find.text('Please enter a password.'),
               findsOneWidget,
@@ -201,23 +164,26 @@ void main() {
             );
           },
           expectedEvents: [
-            '[sign_in_form_sign_in] INFO: submitting form',
-            '[sign_in_form_sign_in] WARNING: form not valid',
+            '[reset_password_form_reset_password] INFO: submitting form',
+            '[reset_password_form_reset_password] WARNING: form not valid',
           ],
         );
       },
     );
 
     flowTest(
-      'email_invalid',
-      config: createFlowConfig(hasAccessToken: false),
+      'password_invalid',
+      config: createFlowConfig(
+        hasAccessToken: true,
+        deepLinkOverride: '/home/reset-password',
+      ),
       descriptions: [
         ...baseDescriptions,
         failureDescription,
         FTDescription(
           descriptionType: 'scenario',
-          directoryName: 'email_invalid',
-          description: '''The email is invalid''',
+          directoryName: 'password_invalid',
+          description: '''The password is too weak''',
         ),
       ],
       test: (tester) async {
@@ -231,25 +197,25 @@ void main() {
           expectedEvents: [
             '[app_builder] INFO: locale: en',
             '[routes_deep_link_handler] INFO: incoming deep link uri: /',
-            '[authenticated_guard] INFO: not authenticated',
-            '[ANALYTIC] [page]: SignIn_Route',
+            '[ANALYTIC] [page]: Home_Route',
+            '[ANALYTIC] [page]: ResetPassword_Route',
           ],
         );
 
         await tester.screenshot(
-          description: 'enter email',
+          description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignIn_Input_Email),
-              'bad email',
+              find.byType(ResetPassword_Input_Password),
+              'bad password',
             );
             await actions.testerAction.pumpAndSettle();
           },
           expectations: (expectations) {
             expectations.expect(
-              find.text('bad email', findRichText: true),
+              find.text('bad password', findRichText: true),
               findsOneWidget,
-              reason: 'email should be entered',
+              reason: 'password should be entered',
             );
           },
           expectedEvents: [],
@@ -258,19 +224,23 @@ void main() {
         await tester.screenshot(
           description: 'tap submit',
           actions: (actions) async {
-            await actions.userAction.tap(find.byType(SignIn_Button_Submit));
+            await actions.userAction.tap(
+              find.byType(ResetPassword_Button_Submit),
+            );
             await actions.testerAction.pumpAndSettle();
           },
           expectations: (expectations) {
             expectations.expect(
-              find.text('Please enter a valid email address.'),
+              find.text(
+                'Minimum 8 characters, upper and lower case, with at least one special character.',
+              ),
               findsOneWidget,
-              reason: 'Should see invalid email error',
+              reason: 'Should see password invalid error',
             );
           },
           expectedEvents: [
-            '[sign_in_form_sign_in] INFO: submitting form',
-            '[sign_in_form_sign_in] WARNING: form not valid',
+            '[reset_password_form_reset_password] INFO: submitting form',
+            '[reset_password_form_reset_password] WARNING: form not valid',
           ],
         );
       },
@@ -278,7 +248,10 @@ void main() {
 
     flowTest(
       'http_error',
-      config: createFlowConfig(hasAccessToken: false),
+      config: createFlowConfig(
+        hasAccessToken: true,
+        deepLinkOverride: '/home/reset-password',
+      ),
       descriptions: [
         ...baseDescriptions,
         failureDescription,
@@ -299,35 +272,16 @@ void main() {
           expectedEvents: [
             '[app_builder] INFO: locale: en',
             '[routes_deep_link_handler] INFO: incoming deep link uri: /',
-            '[authenticated_guard] INFO: not authenticated',
-            '[ANALYTIC] [page]: SignIn_Route',
+            '[ANALYTIC] [page]: Home_Route',
+            '[ANALYTIC] [page]: ResetPassword_Route',
           ],
-        );
-
-        await tester.screenshot(
-          description: 'enter email',
-          actions: (actions) async {
-            await actions.userAction.enterText(
-              find.byType(SignIn_Input_Email),
-              'foo@example.com',
-            );
-            await actions.testerAction.pumpAndSettle();
-          },
-          expectations: (expectations) {
-            expectations.expect(
-              find.text('foo@example.com', findRichText: true),
-              findsOneWidget,
-              reason: 'email should be entered',
-            );
-          },
-          expectedEvents: [],
         );
 
         await tester.screenshot(
           description: 'enter password',
           actions: (actions) async {
             await actions.userAction.enterText(
-              find.byType(SignIn_Input_Password),
+              find.byType(ResetPassword_Input_Password),
               'Password123!',
             );
             await actions.testerAction.pumpAndSettle();
@@ -346,14 +300,15 @@ void main() {
           description: 'tap submit',
           arrangeBeforeActions: (arrange) {
             when(
-              () => arrange.mocks.repositories.authRepository.signIn(
-                email: any(named: 'email'),
+              () => arrange.mocks.repositories.authRepository.resetPassword(
                 password: any(named: 'password'),
               ),
             ).thenThrow(Exception('BOOM'));
           },
           actions: (actions) async {
-            await actions.userAction.tap(find.byType(SignIn_Button_Submit));
+            await actions.userAction.tap(
+              find.byType(ResetPassword_Button_Submit),
+            );
             await actions.testerAction.pumpAndSettle();
           },
           expectations: (expectations) {
@@ -364,10 +319,10 @@ void main() {
             );
           },
           expectedEvents: [
-            '[sign_in_form_sign_in] INFO: submitting form',
-            '[sign_in_form_sign_in] INFO: form valid',
-            SignIn_Event_SignIn,
-            '[sign_in_bloc] WARNING: SignIn_Event_SignIn: error',
+            '[reset_password_form_reset_password] INFO: submitting form',
+            '[reset_password_form_reset_password] INFO: form valid',
+            ResetPassword_Event_ResetPassword,
+            '[reset_password_bloc] WARNING: ResetPassword_Event_ResetPassword: error',
           ],
         );
       },

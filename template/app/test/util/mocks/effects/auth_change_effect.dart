@@ -8,12 +8,12 @@ class MockAuthChangeEffect extends Mock implements AuthChange_Effect {
   @override
   SupabaseClient get supabaseClient => throw UnimplementedError();
 
-  StreamController<AuthState>? streamController;
-  StreamSubscription<AuthState>? _subscription;
+  StreamController<AuthChange_Event>? streamController;
+  StreamSubscription<AuthChange_Event>? _subscription;
 
   @override
-  void listen(void Function(AuthState authState) onChange) {
-    streamController = StreamController<AuthState>();
+  void listen(void Function(AuthChange_Event change) onChange) {
+    streamController = StreamController<AuthChange_Event>();
     final stream = streamController?.stream;
     _subscription = stream?.listen(onChange);
   }
