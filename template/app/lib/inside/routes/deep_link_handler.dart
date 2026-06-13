@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
 import '../../shared/mixins/logging.dart';
+import '../../shared/util/redact.dart';
 import '../blocs/auth/bloc.dart';
 import '../blocs/auth/events.dart';
 
@@ -25,18 +26,24 @@ class Routes_DeepLinkHandler with SharedMixin_Logging {
     required String? deepLinkFragmentOverride,
   }) async {
     final uri = deepLink.uri;
-    log.info('incoming deep link uri: $uri');
+    log.info('incoming deep link uri: ${SharedUtil_Redact.sanitizeUri(uri)}');
 
     final fragment = _getFragmentFromUri(
       uri: uri,
       deepLinkFragmentOverride: deepLinkFragmentOverride,
     );
-    log.fine('deep link fragment: $fragment');
-
-    await _authenticateUserIfPossible(
-      uri: uri,
-      deepLinkFragmentOverride: deepLinkFragmentOverride,
+    log.fine(
+      'deep link fragment: ${SharedUtil_Redact.sanitizeFragment(fragment)}',
     );
+
+    // Only auth callback deep links are allowed to carry credentials; don't
+    // attempt a token exchange for arbitrary incoming links.
+    if (_isAuthCallbackFragment(fragment)) {
+      await _authenticateUserIfPossible(
+        uri: uri,
+        deepLinkFragmentOverride: deepLinkFragmentOverride,
+      );
+    }
 
     switch (fragment) {
       case '/deep/reset-password/':
@@ -45,13 +52,23 @@ class Routes_DeepLinkHandler with SharedMixin_Logging {
           includePrefixMatches: true,
         );
       case '/deep/verify-email/':
-        return const DeepLink.path(
-          '/home/',
-          includePrefixMatches: true,
-        );
+        return const DeepLink.path('/home/', includePrefixMatches: true);
       default:
+        if (deepLinkFragmentOverride != null &&
+            deepLinkFragmentOverride.isNotEmpty) {
+          return DeepLink.path(fragment, includePrefixMatches: true);
+        }
         return deepLink;
     }
+  }
+
+  /// The only deep links that are expected to carry auth credentials are the
+  /// supabase auth callbacks configured in `additional_redirect_urls`.
+  bool _isAuthCallbackFragment(String fragment) {
+    // On web the fragment may have token query params appended, so we match
+    // on the prefix instead of the exact path.
+    return fragment.startsWith('/deep/reset-password/') ||
+        fragment.startsWith('/deep/verify-email/');
   }
 
   String _getFragmentFromUri({
@@ -59,16 +76,17 @@ class Routes_DeepLinkHandler with SharedMixin_Logging {
     required String? deepLinkFragmentOverride,
   }) {
     if (deepLinkFragmentOverride != null) {
-      log.fine('deep link fragment override: $deepLinkFragmentOverride');
+      log.fine(
+        'deep link fragment override: '
+        '${SharedUtil_Redact.sanitizeFragment(deepLinkFragmentOverride)}',
+      );
     }
 
-    late final String fragmentRaw;
+    final String fragmentRaw;
     if (deepLinkFragmentOverride != null &&
         deepLinkFragmentOverride.isNotEmpty) {
       fragmentRaw = deepLinkFragmentOverride;
-    }
-
-    if (kIsWeb) {
+    } else if (kIsWeb) {
       if (uri.hasFragment) {
         fragmentRaw = uri.fragment;
       } else if (uri.path.startsWith('/')) {
@@ -77,7 +95,7 @@ class Routes_DeepLinkHandler with SharedMixin_Logging {
         fragmentRaw = '/';
       }
     } else {
-      fragmentRaw = deepLinkFragmentOverride ?? uri.fragment;
+      fragmentRaw = uri.fragment;
     }
 
     final fragment = _sanitizeFragment(fragmentRaw: fragmentRaw);
